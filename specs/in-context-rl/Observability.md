@@ -49,3 +49,8 @@ The smoke check must verify:
 
 - log enough to debug state updates and shift recovery
 - avoid excessive trace size for the default run
+
+## Current limitation
+
+- uncertainty is currently an observational hook only
+- the slice does **not** implement abstention, safe action override, or uncertainty-gated fallback behavior

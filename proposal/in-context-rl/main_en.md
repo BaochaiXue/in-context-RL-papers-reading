@@ -8,6 +8,8 @@ Local evidence in this repository shows that in-context reinforcement learning (
 
 This proposal advances one coherent program rather than a benchmark collage. The central thesis is that ICRL should be treated as a problem of **testable algorithmic state**. Aim 1 identifies candidate state variables for adaptation. Aim 2 builds an **experience compilation** and adaptive-memory architecture around those variables. Aim 3 validates **belief-calibrated adaptation** under shift, with bounded multimodal and embodied extension only after earlier stages succeed. The expected outcome is not a claim of general adaptive intelligence, but a grounded path from black-box adaptive behavior to interpretable, falsifiable, and more robust ICRL.
 
+**Current build alignment note.** The repository implementation does **not** realize the full three-aim program. The current executable slice is a controlled hidden-task bandit proxy that covers Aim 1 and a narrow calibration-oriented subset of Aim 3. It does **not** yet implement the `experience compilation` or revisable-memory components described in Aim 2, and its comparator is a sanity baseline rather than a matched-capacity opaque-history model.
+
 # Introduction
 
 The central promise of ICRL is appealing: an agent with fixed weights should improve during deployment by conditioning on interaction history rather than by performing expensive online gradient updates. Local notes already show that this promise is real across several families of methods. Algorithm Distillation (AD) demonstrated that a causal Transformer can distill a source RL algorithm and adapt within new tasks [@laskin2022ad]. Supervised pretraining then showed that in-context adaptation can also emerge from action-prediction objectives under suitable task families [@lee2023dpt; @lin2023decisionmakers]. At larger scale, AdA pushed black-box meta-RL to open-ended task spaces with human-timescale adaptation [@adaptive2023ada]. LLM-oriented work further showed that reward-conditioned or prompt-conditioned adaptation can appear even in language-model settings [@monea2024llms; @krishnamurthy2024explore].
@@ -142,6 +144,10 @@ If successful, this research program will deliver:
 4. a more defensible link between mechanistic claims, architectural choices, and closed-loop validation.
 
 The expected contribution is not a claim that the field has solved general adaptive intelligence. The expected contribution is a sharper and more falsifiable account of how to study adaptive behavior in fixed-weight models.
+
+## Current implementation boundary
+
+The current repository build should be read as a controlled proxy for the proposal, not as a realization of the full program. The shipped slice instantiates explicit candidate state in a hidden-task bandit and records calibration-oriented signals, so it is best understood as covering Aim 1 and a thin Aim 3 proxy. It does **not** yet implement the proposal's `experience compilation` layer from Aim 2, and it does not yet contain a true abstention or safe-action policy.
 
 # Timeline
 

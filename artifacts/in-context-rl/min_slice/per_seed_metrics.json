@@ -1,0 +1,322 @@
+[
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8645833333333334,
+    "belief_brier_score": 0.025317215314083215,
+    "cumulative_regret": 12.75,
+    "mean_selected_arm_uncertainty": 0.19754131895021862,
+    "optimal_action_rate": 0.9645833333333333,
+    "seed": 0,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8541666666666666,
+    "belief_brier_score": null,
+    "cumulative_regret": 18.75,
+    "mean_selected_arm_uncertainty": 0.12302560490197723,
+    "optimal_action_rate": 0.9479166666666666,
+    "seed": 0,
+    "shift_recovery_steps": 23
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8604166666666667,
+    "belief_brier_score": 0.028277874701429822,
+    "cumulative_regret": 19.5,
+    "mean_selected_arm_uncertainty": 0.19454916366743408,
+    "optimal_action_rate": 0.9458333333333333,
+    "seed": 1,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8583333333333333,
+    "belief_brier_score": null,
+    "cumulative_regret": 20.25,
+    "mean_selected_arm_uncertainty": 0.12300089774350124,
+    "optimal_action_rate": 0.94375,
+    "seed": 1,
+    "shift_recovery_steps": 25
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.85625,
+    "belief_brier_score": 0.02470347413522058,
+    "cumulative_regret": 14.25,
+    "mean_selected_arm_uncertainty": 0.1978981754779007,
+    "optimal_action_rate": 0.9604166666666667,
+    "seed": 2,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8541666666666666,
+    "belief_brier_score": null,
+    "cumulative_regret": 16.5,
+    "mean_selected_arm_uncertainty": 0.1264116070352952,
+    "optimal_action_rate": 0.9541666666666667,
+    "seed": 2,
+    "shift_recovery_steps": 17
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8979166666666667,
+    "belief_brier_score": 0.015822984337186798,
+    "cumulative_regret": 7.5,
+    "mean_selected_arm_uncertainty": 0.18242536098703105,
+    "optimal_action_rate": 0.9791666666666666,
+    "seed": 3,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.875,
+    "belief_brier_score": null,
+    "cumulative_regret": 21.75,
+    "mean_selected_arm_uncertainty": 0.1229739174353739,
+    "optimal_action_rate": 0.9395833333333333,
+    "seed": 3,
+    "shift_recovery_steps": 27
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8666666666666667,
+    "belief_brier_score": 0.020812077576456707,
+    "cumulative_regret": 8.25,
+    "mean_selected_arm_uncertainty": 0.1980064385257697,
+    "optimal_action_rate": 0.9770833333333333,
+    "seed": 4,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8458333333333333,
+    "belief_brier_score": null,
+    "cumulative_regret": 16.5,
+    "mean_selected_arm_uncertainty": 0.12307746902264038,
+    "optimal_action_rate": 0.9541666666666667,
+    "seed": 4,
+    "shift_recovery_steps": 19
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8520833333333333,
+    "belief_brier_score": 0.028746182729571107,
+    "cumulative_regret": 18.0,
+    "mean_selected_arm_uncertainty": 0.19869778271848443,
+    "optimal_action_rate": 0.95,
+    "seed": 5,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8541666666666666,
+    "belief_brier_score": null,
+    "cumulative_regret": 21.0,
+    "mean_selected_arm_uncertainty": 0.12439173252047464,
+    "optimal_action_rate": 0.9416666666666667,
+    "seed": 5,
+    "shift_recovery_steps": 23
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8604166666666667,
+    "belief_brier_score": 0.025222054286363,
+    "cumulative_regret": 14.25,
+    "mean_selected_arm_uncertainty": 0.1965992044874112,
+    "optimal_action_rate": 0.9604166666666667,
+    "seed": 6,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.85625,
+    "belief_brier_score": null,
+    "cumulative_regret": 20.25,
+    "mean_selected_arm_uncertainty": 0.12541967733195297,
+    "optimal_action_rate": 0.94375,
+    "seed": 6,
+    "shift_recovery_steps": 23
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8833333333333333,
+    "belief_brier_score": 0.01890989025294407,
+    "cumulative_regret": 9.0,
+    "mean_selected_arm_uncertainty": 0.18842387915004122,
+    "optimal_action_rate": 0.975,
+    "seed": 7,
+    "shift_recovery_steps": 6
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.875,
+    "belief_brier_score": null,
+    "cumulative_regret": 15.75,
+    "mean_selected_arm_uncertainty": 0.12306822522196761,
+    "optimal_action_rate": 0.95625,
+    "seed": 7,
+    "shift_recovery_steps": 19
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.84375,
+    "belief_brier_score": 0.03355856935258444,
+    "cumulative_regret": 23.25,
+    "mean_selected_arm_uncertainty": 0.20114143861915537,
+    "optimal_action_rate": 0.9354166666666667,
+    "seed": 8,
+    "shift_recovery_steps": 3
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8520833333333333,
+    "belief_brier_score": null,
+    "cumulative_regret": 15.0,
+    "mean_selected_arm_uncertainty": 0.12550091841309977,
+    "optimal_action_rate": 0.9583333333333334,
+    "seed": 8,
+    "shift_recovery_steps": 17
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8333333333333334,
+    "belief_brier_score": 0.041372303633893555,
+    "cumulative_regret": 30.75,
+    "mean_selected_arm_uncertainty": 0.2004473441179093,
+    "optimal_action_rate": 0.9145833333333333,
+    "seed": 9,
+    "shift_recovery_steps": 3
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8645833333333334,
+    "belief_brier_score": null,
+    "cumulative_regret": 18.0,
+    "mean_selected_arm_uncertainty": 0.12545440541587047,
+    "optimal_action_rate": 0.95,
+    "seed": 9,
+    "shift_recovery_steps": 22
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8708333333333333,
+    "belief_brier_score": 0.029069666349104073,
+    "cumulative_regret": 18.75,
+    "mean_selected_arm_uncertainty": 0.19221626526784472,
+    "optimal_action_rate": 0.9479166666666666,
+    "seed": 10,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8708333333333333,
+    "belief_brier_score": null,
+    "cumulative_regret": 14.25,
+    "mean_selected_arm_uncertainty": 0.12308614957819594,
+    "optimal_action_rate": 0.9604166666666667,
+    "seed": 10,
+    "shift_recovery_steps": 17
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.85,
+    "belief_brier_score": 0.028100890692393278,
+    "cumulative_regret": 16.5,
+    "mean_selected_arm_uncertainty": 0.20214083961004722,
+    "optimal_action_rate": 0.9541666666666667,
+    "seed": 11,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8458333333333333,
+    "belief_brier_score": null,
+    "cumulative_regret": 21.75,
+    "mean_selected_arm_uncertainty": 0.1229739174353739,
+    "optimal_action_rate": 0.9395833333333333,
+    "seed": 11,
+    "shift_recovery_steps": 27
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8479166666666667,
+    "belief_brier_score": 0.029312682493857708,
+    "cumulative_regret": 19.5,
+    "mean_selected_arm_uncertainty": 0.1987290912318685,
+    "optimal_action_rate": 0.9458333333333333,
+    "seed": 12,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.85,
+    "belief_brier_score": null,
+    "cumulative_regret": 17.25,
+    "mean_selected_arm_uncertainty": 0.12304804542758625,
+    "optimal_action_rate": 0.9520833333333333,
+    "seed": 12,
+    "shift_recovery_steps": 21
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.9125,
+    "belief_brier_score": 0.014249824688769118,
+    "cumulative_regret": 4.5,
+    "mean_selected_arm_uncertainty": 0.17992256395437242,
+    "optimal_action_rate": 0.9875,
+    "seed": 13,
+    "shift_recovery_steps": 4
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8854166666666666,
+    "belief_brier_score": null,
+    "cumulative_regret": 18.0,
+    "mean_selected_arm_uncertainty": 0.12303710811070077,
+    "optimal_action_rate": 0.95,
+    "seed": 13,
+    "shift_recovery_steps": 22
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8458333333333333,
+    "belief_brier_score": 0.026075462081610535,
+    "cumulative_regret": 14.25,
+    "mean_selected_arm_uncertainty": 0.20282846702191792,
+    "optimal_action_rate": 0.9604166666666667,
+    "seed": 14,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8354166666666667,
+    "belief_brier_score": null,
+    "cumulative_regret": 15.75,
+    "mean_selected_arm_uncertainty": 0.1244114095866163,
+    "optimal_action_rate": 0.95625,
+    "seed": 14,
+    "shift_recovery_steps": 18
+  },
+  {
+    "agent": "explicit_state",
+    "average_reward": 0.8604166666666667,
+    "belief_brier_score": 0.02376049815266907,
+    "cumulative_regret": 12.75,
+    "mean_selected_arm_uncertainty": 0.19788376108469385,
+    "optimal_action_rate": 0.9645833333333333,
+    "seed": 15,
+    "shift_recovery_steps": 2
+  },
+  {
+    "agent": "opaque_history",
+    "average_reward": 0.8458333333333333,
+    "belief_brier_score": null,
+    "cumulative_regret": 18.0,
+    "mean_selected_arm_uncertainty": 0.12442039981677902,
+    "optimal_action_rate": 0.95,
+    "seed": 15,
+    "shift_recovery_steps": 20
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "aggregate": {
+    "explicit_state": {
+      "average_reward": 0.862890625,
+      "belief_brier_score": 0.025831978173633568,
+      "cumulative_regret": 15.234375,
+      "mean_selected_arm_uncertainty": 0.19559069342950627,
+      "optimal_action_rate": 0.9576822916666666,
+      "shift_recovery_steps": 2.5
+    },
+    "opaque_history": {
+      "average_reward": 0.8576822916666667,
+      "belief_brier_score": null,
+      "cumulative_regret": 18.046875,
+      "mean_selected_arm_uncertainty": 0.12395634281233785,
+      "optimal_action_rate": 0.9498697916666666,
+      "shift_recovery_steps": 21.25
+    }
+  },
+  "comparison": {
+    "explicit_state_better_on_regret": true,
+    "explicit_state_better_on_reward": true
+  },
+  "config": {
+    "arms": 3,
+    "episodes": 24,
+    "horizon": 20,
+    "seeds": 16,
+    "shift_episode": 12,
+    "tasks": 3
+  },
+  "scope": {
+    "baseline_is_simple_history_heuristic": true,
+    "covers": [
+      "aim1_explicit_state",
+      "aim3_partial_calibration_proxy"
+    ],
+    "default_config_is_narrowed": true,
+    "does_not_cover": [
+      "aim2_experience_compilation",
+      "safe_action_policy",
+      "embodied_validation"
+    ],
+    "explicit_state_knows_task_family": true
+  }
+}

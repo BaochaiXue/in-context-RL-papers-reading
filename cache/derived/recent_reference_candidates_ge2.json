@@ -1,0 +1,409 @@
+[
+  {
+    "norm_title": "in context language learning architectures and algorithms",
+    "title": "In- Context Language Learning : Architectures and Algorithms",
+    "year": 2024,
+    "venue_hint": "ArXiv preprint , 2024",
+    "local_mentions": 4,
+    "mentioned_by": [
+      "A Survey of In-Context Reinforcement Learning",
+      "Can Large Language Models Explore In-Context",
+      "OmniRL In-Context Reinforcement Learning by Large-Scale Meta-Training in Randomized Worlds",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "jack of all trades master of some a multi purpose transformer agent",
+    "title": "Jack of all trades, master of some, a multi-purpose transformer agent",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2402.09844, 2024",
+    "local_mentions": 4,
+    "mentioned_by": [
+      "AMAGO-2 Breaking the Multi-Task Barrier in Meta-Reinforcement Learning with Transformers",
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations",
+      "Vintix Action Model via In-Context Reinforcement Learning",
+      "XLand-100B A Large-Scale Multi-Task Dataset for In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "many shot in context learning",
+    "title": "Many-shot in-context learning",
+    "year": 2024,
+    "venue_hint": "In ICML 2024 Workshop on In-Context Learning, 2024",
+    "local_mentions": 4,
+    "mentioned_by": [
+      "LLMs Are In-Context Reinforcement Learners",
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations",
+      "Retrieval-Augmented Decision Transformer External Memory for In-context RL",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "hierarchical transformers are efficient meta reinforcement learners",
+    "title": "Hierarchical transformers are efficient meta-reinforcement learners",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2402.06402, 2024",
+    "local_mentions": 3,
+    "mentioned_by": [
+      "AMAGO-2 Breaking the Multi-Task Barrier in Meta-Reinforcement Learning with Transformers",
+      "Retrieval-Augmented Decision Transformer External Memory for In-context RL",
+      "XLand-100B A Large-Scale Multi-Task Dataset for In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "in context exploration exploitation for reinforcement learning",
+    "title": "In-context Exploration-Exploitation for Reinforcement Learning",
+    "year": 2024,
+    "venue_hint": "ArXiv preprint , 2024",
+    "local_mentions": 3,
+    "mentioned_by": [
+      "A Survey of In-Context Reinforcement Learning",
+      "Transformers Learn Temporal Difference Methods for In-Context Reinforcement Learning",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "in context imitation learning via next token prediction",
+    "title": "In-Context Imitation Learning via Next-Token Prediction",
+    "year": 2024,
+    "venue_hint": "arXiv:2408.15980",
+    "local_mentions": 3,
+    "mentioned_by": [
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations",
+      "OmniRL In-Context Reinforcement Learning by Large-Scale Meta-Training in Randomized Worlds",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "tinyllama an open source small language model",
+    "title": "Tinyllama: An open-source small language model",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2401.02385",
+    "local_mentions": 3,
+    "mentioned_by": [
+      "Filtering Learning Histories Enhances In-Context Reinforcement Learning",
+      "In-Context Reinforcement Learning for Variable Action Spaces",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "xland minigrid scalable meta reinforcement learning environments in jax",
+    "title": "Xland-minigrid: Scalable meta-reinforcement learning environments in jax",
+    "year": 2044,
+    "venue_hint": "arXiv preprint arXiv:2312.12044, 2023",
+    "local_mentions": 3,
+    "mentioned_by": [
+      "AMAGO-2 Breaking the Multi-Task Barrier in Meta-Reinforcement Learning with Transformers",
+      "OmniRL In-Context Reinforcement Learning by Large-Scale Meta-Training in Randomized Worlds",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "a large recurrent action model xlstm enables fast inference for robotics tasks",
+    "title": "A Large Recurrent Action Model : xLSTM enables Fast Inference for Robotics Tasks",
+    "year": 2024,
+    "venue_hint": "ArXiv preprint , 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "A Survey of In-Context Reinforcement Learning",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "a survey on in context learning",
+    "title": "A Survey on In-context Learning",
+    "year": 2024,
+    "venue_hint": "In Al-Onaizan, Y.; Bansal, M.; and Chen, Y.-N., eds., Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing, 1107--1128. Miami, Florida, USA: Association for Computational Linguistics",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "In-Context Reinforcement Learning via Communicative World Models",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "an information theoretic analysis of in context learning",
+    "title": "An information-theoretic analysis of in-context learning",
+    "year": 2024,
+    "venue_hint": "arXiv:2401.15530, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Can Large Language Models Explore In-Context",
+      "Emergence of In-Context Reinforcement Learning from Noise Distillation"
+    ]
+  },
+  {
+    "norm_title": "corl research oriented deep offline reinforcement learning library",
+    "title": "CORL: Research-oriented deep offline reinforcement learning library",
+    "year": 2024,
+    "venue_hint": "Advances in Neural Information Processing Systems",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Vintix Action Model via In-Context Reinforcement Learning",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "do llm agents have regret a case study in online learning and games",
+    "title": "Do LLM Agents Have Regret ? A Case Study in Online Learning and Games",
+    "year": 2024,
+    "venue_hint": "ArXiv preprint , 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "A Survey of In-Context Reinforcement Learning",
+      "Transformers Learn Temporal Difference Methods for In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "evolve evaluating and optimizing llms for exploration 2024",
+    "title": "Evolve: Evaluating and optimizing llms for exploration, 2024",
+    "year": 2024,
+    "venue_hint": "URL",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "LLMs Are In-Context Reinforcement Learners",
+      "Training a Generally Curious Agent"
+    ]
+  },
+  {
+    "norm_title": "flash a ttention 2 faster attention with better parallelism and work partitioning",
+    "title": "Flash A ttention-2: Faster attention with better parallelism and work partitioning",
+    "year": 2024,
+    "venue_hint": "In International Conference on Learning Representations (ICLR), 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Training a Generally Curious Agent",
+      "XLand-100B A Large-Scale Multi-Task Dataset for In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "gemini 1 5 unlocking multimodal understanding across millions of tokens of context",
+    "title": "Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2403.05530, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "EVOLvE Evaluating and Optimizing LLMs For Exploration",
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations"
+    ]
+  },
+  {
+    "norm_title": "genie generative interactive environments",
+    "title": "Genie: Generative Interactive Environments",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2402.15391",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Retrieval-Augmented Decision Transformer External Memory for In-context RL",
+      "Training a Generally Curious Agent"
+    ]
+  },
+  {
+    "norm_title": "gpt 4o system card",
+    "title": "GPT-4o System Card",
+    "year": 2024,
+    "venue_hint": "arXiv:2410.21276",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations",
+      "Training a Generally Curious Agent"
+    ]
+  },
+  {
+    "norm_title": "in context language learning arhitectures and algorithms",
+    "title": "In-context language learning: Arhitectures and algorithms",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2401.12973",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Sparse Autoencoders Reveal Temporal Difference Learning in Large Language Models",
+      "XLand-100B A Large-Scale Multi-Task Dataset for In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "in context learning agents are asymmetric belief updaters",
+    "title": "In-context learning agents are asymmetric belief updaters",
+    "year": 2024,
+    "venue_hint": "arXiv:2402.03969, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Can Large Language Models Explore In-Context",
+      "Sparse Autoencoders Reveal Temporal Difference Learning in Large Language Models"
+    ]
+  },
+  {
+    "norm_title": "katakomba tools and benchmarks for data driven nethack",
+    "title": "Katakomba: Tools and benchmarks for data-driven nethack",
+    "year": 2024,
+    "venue_hint": "Advances in Neural Information Processing Systems",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "XLand-100B A Large-Scale Multi-Task Dataset for In-Context Reinforcement Learning",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "n gram induction heads for in context rl improving stability and reducing data needs",
+    "title": "N- Gram Induction Heads for In-Context RL : Improving Stability and Reducing Data Needs",
+    "year": 2024,
+    "venue_hint": "ArXiv preprint , 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "A Survey of In-Context Reinforcement Learning",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "reflexion language agents with verbal reinforcement learning",
+    "title": "Reflexion: Language agents with verbal reinforcement learning",
+    "year": 2024,
+    "venue_hint": "Advances in Neural Information Processing Systems, 36, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "EVOLvE Evaluating and Optimizing LLMs For Exploration",
+      "Sparse Autoencoders Reveal Temporal Difference Learning in Large Language Models"
+    ]
+  },
+  {
+    "norm_title": "regent a retrieval augmented generalist agent that can act in context in new environments",
+    "title": "REGENT : A Retrieval-Augmented Generalist Agent That Can Act In-Context in New Environments",
+    "year": 2024,
+    "venue_hint": "NeurIPS 2024 Workshop on Open-World Agents",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations",
+      "Vintix Action Model via In-Context Reinforcement Learning"
+    ]
+  },
+  {
+    "norm_title": "reinformer max return sequence modeling for offline rl",
+    "title": "Reinformer: Max-return sequence modeling for offline rl",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2405.08740, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Vintix Action Model via In-Context Reinforcement Learning",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "scaling instructable agents across many simulated worlds",
+    "title": "Scaling Instructable Agents Across Many Simulated Worlds",
+    "year": 2024,
+    "venue_hint": "arXiv:2404.10179",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "LMAct A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations",
+      "Retrieval-Augmented Decision Transformer External Memory for In-context RL"
+    ]
+  },
+  {
+    "norm_title": "smartplay a benchmark for llm s as intelligent agents",
+    "title": "Smartplay: A benchmark for LLM s as intelligent agents",
+    "year": 2024,
+    "venue_hint": "In International Conference on Learning Representations, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Can Large Language Models Explore In-Context",
+      "LLMs Are In-Context Reinforcement Learners"
+    ]
+  },
+  {
+    "norm_title": "stop regressing training value functions via classification for scalable deep rl",
+    "title": "Stop regressing: Training value functions via classification for scalable deep rl",
+    "year": 2024,
+    "venue_hint": "arXiv preprint arXiv:2403.03950, 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "AMAGO-2 Breaking the Multi-Task Barrier in Meta-Reinforcement Learning with Transformers",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "the learnability of in context learning",
+    "title": "The learnability of in-context learning",
+    "year": 2024,
+    "venue_hint": "Advances in Neural Information Processing Systems",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Filtering Learning Histories Enhances In-Context Reinforcement Learning",
+      "Random Policy Enables In-Context Reinforcement Learning within Trust Horizons"
+    ]
+  },
+  {
+    "norm_title": "the llama 3 herd of models 2024",
+    "title": "The llama 3 herd of models, 2024",
+    "year": 2024,
+    "venue_hint": "URL",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "LLMs Are In-Context Reinforcement Learners",
+      "Training a Generally Curious Agent"
+    ]
+  },
+  {
+    "norm_title": "when do transformers shine in rl decoupling memory from credit assignment",
+    "title": "When do transformers shine in rl? decoupling memory from credit assignment",
+    "year": 2024,
+    "venue_hint": "Advances in Neural Information Processing Systems",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Decision Mamba Reinforcement Learning via Hybrid Selective Sequence Modeling",
+      "Retrieval-Augmented Decision Transformer External Memory for In-context RL"
+    ]
+  },
+  {
+    "norm_title": "xlstm extended long short term memory",
+    "title": "xLSTM : Extended Long Short-Term Memory",
+    "year": 2024,
+    "venue_hint": "ArXiv preprint , 2024",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "A Survey of In-Context Reinforcement Learning",
+      "Retrieval-Augmented Decision Transformer External Memory for In-context RL"
+    ]
+  },
+  {
+    "norm_title": "deepseek r1 incentivizing reasoning capability in llms via reinforcement learning",
+    "title": "Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning",
+    "year": 2025,
+    "venue_hint": "arXiv preprint arXiv:2501.12948, 2025",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "EVOLvE Evaluating and Optimizing LLMs For Exploration",
+      "OmniRL In-Context Reinforcement Learning by Large-Scale Meta-Training in Randomized Worlds"
+    ]
+  },
+  {
+    "norm_title": "leveraging procedural generation to benchmark reinforcement learning",
+    "title": "Leveraging procedural generation to benchmark reinforcement learning",
+    "year": 2048,
+    "venue_hint": "In International conference on machine learning, pages 2048--2056. PMLR, 2020",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "AMAGO-2 Breaking the Multi-Task Barrier in Meta-Reinforcement Learning with Transformers",
+      "OmniRL In-Context Reinforcement Learning by Large-Scale Meta-Training in Randomized Worlds"
+    ]
+  },
+  {
+    "norm_title": "off policy deep reinforcement learning without exploration",
+    "title": "Off-policy deep reinforcement learning without exploration",
+    "year": 2052,
+    "venue_hint": "In International conference on machine learning, pp.\\ 2052--2062. PMLR, 2019",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Pretraining Decision Transformers with Reward Prediction for In-Context Multi-task Structured Bandit Learning",
+      "Yes, Q-learning Helps Offline In-Context RL"
+    ]
+  },
+  {
+    "norm_title": "an explanation of in context learning as implicit bayesian inference",
+    "title": "An explanation of in-context learning as implicit bayesian inference",
+    "year": 2080,
+    "venue_hint": "arXiv:2111.02080, 2021",
+    "local_mentions": 2,
+    "mentioned_by": [
+      "Can Large Language Models Explore In-Context",
+      "Pretraining Decision Transformers with Reward Prediction for In-Context Multi-task Structured Bandit Learning"
+    ]
+  }
+]

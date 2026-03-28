@@ -1,0 +1,4 @@
+agents_present=True
+metrics_finite=True
+explicit_has_belief_metric=True
+explicit_better_regret=True

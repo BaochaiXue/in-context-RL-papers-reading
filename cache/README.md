@@ -18,3 +18,10 @@ Behavior:
 - writes plain text outputs to `./cache/papers/`
 
 It intentionally avoids recursive extraction of every figure PDF.
+
+## Derived artifacts
+
+- `derived/`
+  Generated JSON summaries, reference-mining outputs, and other helper artifacts retained for reuse.
+
+These files are cache-like intermediates, not canonical evidence outputs.

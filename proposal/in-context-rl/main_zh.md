@@ -8,6 +8,8 @@
 
 因此，这份 proposal 推进的是一个 coherent research program，而不是 benchmark collage。核心 thesis 是：ICRL 应该被视为一个 **testable algorithmic state** 问题。Aim 1 识别 adaptation 所依赖的 candidate state variables。Aim 2 围绕这些变量构建 **experience compilation** 与 adaptive-memory architecture。Aim 3 在 distribution shift 下验证 **belief-calibrated adaptation**，并且只在前两阶段成功后才进入 bounded multimodal 和 embodied extension。预期贡献并不是声称已经达到 general adaptive intelligence，而是为从 black-box adaptive behavior 走向 interpretable、falsifiable、且更 robust 的 ICRL 建立一条 grounded path。
 
+**当前 build 对齐说明。** 这个仓库中的实现**并没有**实现完整的三大 aims。当前可执行 slice 是一个受控的 hidden-task bandit proxy，它覆盖的是 Aim 1，以及 Aim 3 中一个很窄的 calibration-oriented 子集。它**尚未**实现 Aim 2 中描述的 `experience compilation` 或 revisable-memory 组件，而且当前 comparator 只是一个 sanity baseline，而不是 matched-capacity 的 opaque-history model。
+
 # Introduction / 引言
 
 ICRL 的核心承诺很直接：一个固定参数的 agent 应该能够在部署过程中通过 conditioning on interaction history 来改进，而不需要进行昂贵的 online gradient updates。本地 notes 已经表明，这个承诺在多个方法族里都是真实存在的。Algorithm Distillation（AD）证明了 causal Transformer 可以蒸馏 source RL algorithm，并在新任务中进行 in-context adaptation [@laskin2022ad]。随后，supervised pretraining 也表明，在合适的 task families 下，action-prediction objectives 同样能够诱导出 in-context adaptation [@lee2023dpt; @lin2023decisionmakers]。在更大尺度上，AdA 把 black-box meta-RL 推到了 open-ended task spaces，并展示了 human-timescale adaptation [@adaptive2023ada]。LLM-oriented 工作则进一步表明，reward-conditioned 或 prompt-conditioned adaptation 甚至可以出现在 language-model settings 中 [@monea2024llms; @krishnamurthy2024explore]。
@@ -142,6 +144,10 @@ evaluation stack 将分阶段进行，以避免 overclaiming。
 4. 一个在 mechanistic claims、architectural choices 与 closed-loop validation 之间更可辩护的连接。
 
 预期贡献并不是宣称领域已经解决了 general adaptive intelligence。更合理的预期贡献是：为固定参数模型中的 adaptive behavior 提供一个更 sharp、也更 falsifiable 的研究路径。
+
+## Current implementation boundary / 当前实现边界
+
+当前仓库中的 build 应该被理解为 proposal 的一个 controlled proxy，而不是整个 program 的实现。现在落地的 slice 在 hidden-task bandit 中实例化了 explicit candidate state，并记录了 calibration-oriented signals，因此最多覆盖 Aim 1 以及一层很薄的 Aim 3 proxy。它**还没有**实现 Aim 2 中的 `experience compilation` layer，也**还没有**真正的 abstention 或 safe-action policy。
 
 # Timeline / 时间线
 

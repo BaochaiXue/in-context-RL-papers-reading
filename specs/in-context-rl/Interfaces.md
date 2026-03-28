@@ -13,7 +13,7 @@ PYTHONPATH=src python3 -m icrl_slice.run --output-dir artifacts/in-context-rl/mi
 - `--seeds`: number of random seeds, default `16`
 - `--episodes`: number of episodes per seed, default `24`
 - `--horizon`: steps per episode, default `20`
-- `--arms`: number of arms, default `5`
+- `--arms`: number of arms, default `3`
 - `--shift-episode`: episode index at which the hidden task changes, default `12`
 - `--output-dir`: artifact directory
 

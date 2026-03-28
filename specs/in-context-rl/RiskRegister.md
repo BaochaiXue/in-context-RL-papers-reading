@@ -29,3 +29,15 @@
 - Impact: high
 - Likelihood: medium
 - Mitigation: do not claim more than the validation artifacts justify; write residual uncertainty into `ResearchLog.md`
+
+## R6. Uncertainty hooks may be mistaken for a safe action policy
+
+- Impact: high
+- Likelihood: medium
+- Mitigation: state explicitly that the current slice logs calibration and uncertainty but does not yet implement abstention or action gating
+
+## R6. Uncertainty is measured but not policy-constraining
+
+- Impact: medium
+- Likelihood: high
+- Mitigation: state clearly that calibration is observational in this slice; defer abstention or safe action gating to a later stage

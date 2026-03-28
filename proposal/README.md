@@ -1,20 +1,18 @@
-# Proposal Build
+# Proposal
 
-## Files
+This directory stores proposal artifacts.
 
-- `main.tex`
-- `references.bib`
-- `proposal.pdf`
+## Current canonical topic
 
-## Exact build command
+- `in-context-rl/`
 
-```bash
-cd proposal && pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
-```
+## Structure
 
-## Build assumptions
+- `in-context-rl/`
+  Current bilingual proposal drafts and topic-local bibliography.
+- `legacy-root-proposal/`
+  Archived earlier top-level proposal artifacts and their review files.
 
-- `pdflatex` is available on `PATH`
-- `bibtex` is available on `PATH`
-- the bibliography uses only entries defined in `references.bib`
-- the proposal is grounded in local notes under `../notes/papers` and local synthesis under `../synthesis`
+## Rule
+
+Use `proposal/in-context-rl/` for current work. The archived root proposal subtree is retained only for reference.

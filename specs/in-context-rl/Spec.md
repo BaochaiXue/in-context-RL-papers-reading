@@ -32,6 +32,8 @@ The slice consists of:
 4. an experiment runner that evaluates both agents over repeated seeds and writes validation artifacts
 5. tests, smoke checks, logs, and calibration outputs
 
+The default run configuration should remain intentionally small enough that the explicit-state advantage is observable in the controlled task family, rather than being obscured by a broader task interface than this minimum slice is meant to cover.
+
 ## Non-goals
 
 - no neural training stack
@@ -55,3 +57,7 @@ The slice consists of:
 
 - this slice is only a controlled proxy for Aim 1 / Aim 3 style questions
 - any success claim must be limited to this environment family
+- the current implementation does **not** realize the proposal's Aim 2 `experience compilation` architecture
+- uncertainty outputs in the current slice are observational diagnostics, not a full safe-action or abstention policy
+- the current implementation does **not** implement Aim 2 style `experience compilation` or revisable memory
+- the current `OpaqueHistoryAgent` is a sanity baseline, not a strong matched-capacity comparator
