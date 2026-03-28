@@ -1,0 +1,33 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "main.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "biblio.bib"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "img/Neurips/new_arms/linear/new/archive/lin3_shufFalse_lr0.00015_do0_embd32_layer4_head4_envs100130_hists1_samples1_var0.3_cov0.0_H51_d10_lind2_seed1_testcov0.0_hor51.pkl.png"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "img/Neurips/new_arms/linear/new/archive/lin4_shufFalse_lr0.00015_do0_embd32_layer4_head4_envs100130_hists1_samples1_var0.3_cov0.0_H51_d10_lind2_seed1_testcov0.0_hor51.pkl.png"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "main.bib"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "rlj.bst"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

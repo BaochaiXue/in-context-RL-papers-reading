@@ -1,0 +1,238 @@
+\RequirePackage{xparse}
+
+\NewDocumentCommand
+\argmax{}{%
+    \arg\max
+}
+
+\NewDocumentCommand
+\argmin{}{%
+    \arg\min
+}
+
+\NewDocumentCommand
+\Act{}{%
+    \RLObject{a}
+}
+
+\NewDocumentCommand
+\Actions{}{%
+    \mathcal{A}
+}
+
+\NewDocumentCommand
+\Brax{o}{%
+    \IfValueT{#1}{\left[#1\right]}
+}
+
+\NewDocumentCommand
+\Dataset{}{%
+    \mathcal{D}
+}
+
+\NewDocumentCommand
+\Estimate{}{%
+    \tilde
+}
+
+\NewDocumentCommand
+\Ex{e{_^}oo}{%
+    \Op{E}_{#1}^{#2}
+    \IfValueT{#3}{
+        \Brax[#3
+            \IfValueT{#4}{\middle|#4}
+        ]}
+}
+
+\NewDocumentCommand
+\Func{me{_^}}{%
+    #1\Indexed[#2][#3]\Parens
+}
+
+\NewDocumentCommand
+\Highlight{m}{%
+    \textcolor{red}{#1}
+}
+
+\NewDocumentCommand
+\History{}{%
+    \RLObject{h}
+}
+
+\NewDocumentCommand
+\Indexed{oo}{%
+    \IfValueT{#1}{_{#1}}\IfValueT{#2}{^{#2}}
+}
+
+\NewDocumentCommand
+\Loss{}{%
+    \Func{\mathcal{L}}
+}
+
+\NewDocumentCommand
+\Obs{}{%
+    \RLObject{o}
+}
+
+\NewDocumentCommand
+\Op{me{_^}}{%
+    #1\Indexed[#2][#3]\Brax
+}
+
+\NewDocumentCommand
+\Parens{d()}{%
+    \IfValueT{#1}{\left(#1\right)}
+}
+
+\NewDocumentCommand
+\ParensSuper{e^}{%
+    \IfValueT{#1}{^{\Parens(#1)}}
+}
+
+\NewDocumentCommand
+\Policy{}{%
+    \Prob[\pi]
+}
+
+\NewDocumentCommand
+\Prob{O{P}e{_^}oo}{%
+\Func{#1}_{#2}^{#3}
+\IfValueT{#4}{
+    \Parens(#4
+    \IfValueT{#5}{\middle|#5}
+    )}
+}
+
+\NewDocumentCommand
+\TwoArgFunc{me{_^}oo}{%
+    \Func{
+        #1
+    }_{#2}^{#3}
+    \IfValueT{#4}{
+        \Parens(#4, \IfValueTF{#5}{#5}{\cdot})
+    }
+}
+
+\NewDocumentCommand
+\Rew{}{%
+    \RLObject{r}
+}
+\NewDocumentCommand
+\RewFunc{}{%
+    \Func{R}
+}
+
+\NewDocumentCommand
+\RLObject{ms}{%
+    \IfBooleanT{#2}{\Estimate}#1\ParensSuper
+}
+
+\NewDocumentCommand
+\Task{}{%
+    \Indexed{\mathcal{T}}
+}
+
+\NewDocumentCommand
+\Ter{}{%
+    \RLObject{b}
+}
+
+\NewDocumentCommand
+\Th{}{%
+    \text{th}
+}
+
+\NewDocumentCommand
+\VFunc{se{_^}}{%
+    \IfBooleanTF{#1}{
+        \Estimate{\Func{V}}
+    }{
+        \Func{V}
+    }
+    \IfValueT{#2}{_{#2}}
+    \IfValueT{#3}{^{#3}}
+}
+
+
+\NewDocumentCommand
+\V{se{_^}o}{%
+    \IfBooleanTF{#1}{\VFunc*}{\VFunc}
+    \IfValueT{#2}{_{#2}}
+    \IfValueT{#3}{^{#3}}
+    \IfValueT{#4}{
+        \Parens( #4 )
+    }
+}
+
+% https://tex.stackexchange.com/a/507441
+\newcommand{\VARIADIC}[5]{%
+    \expandafter\newcommand\csname GobbleNext#1Arg\endcsname[2]{%
+        \csname CheckNext#1Arg\endcsname{##1#4##2}%
+        % Material moved to new argument ^^^^^^^^
+    }%
+    \expandafter\newcommand\csname CheckNext#1Arg\endcsname[1]{%
+        \csname @ifnextchar\endcsname\bgroup{\csname GobbleNext#1Arg\endcsname{##1}}{#2{##1#5}}%
+        % Wrapper macro #2 with new explicit braces ---------------------------------^-^-----^
+    }%
+    \expandafter\newcommand\csname #1\endcsname[2]{%
+        \csname CheckNext#1Arg\endcsname{#3##1#4##2}%
+        % Material moved to new argument ^^^^^^^^^^
+    }%
+}
+\VARIADIC {List} {} {[} {;} {]}
+\VARIADIC {Sum} {\textbf} {(} {+} {)}
+\VARIADIC {Tuple} {\ensuremath} {\left(} {,} {\right)}
+\VARIADIC {Set} {\ensuremath} {\left\{} {,} {\right\}}
+
+
+\NewDocumentCommand
+\NextAct{}{%
+    \RLObject{{\hat{a}}}
+}
+
+\NewDocumentCommand
+\NextObs{}{%
+    \RLObject{{\hat{o}}}
+}
+
+\NewDocumentCommand
+\Q{se{_^}ooo}{%
+    \IfBooleanTF{#1}{\QFunc*}{\QFunc}
+    _{#2}
+    ^{#3}
+    \IfValueT{#4}{
+        \Parens( #4,
+        \IfValueTF{#5}{#5}{\cdot}
+        \IfValueT{#6}{, #6}
+        )
+    }
+}
+
+\NewDocumentCommand
+\QFunc{se{_^}}{%
+    \IfBooleanTF{#1}{
+        \textcolor{BurntOrange}{\Estimate{\Func{Q}}
+            \IfValueT{#2}{_{#2}}
+        }
+    }{
+        \Func{Q}_{#2}
+        \IfValueT{#3}{^{(#3)}}
+    }
+}
+
+\NewDocumentCommand
+\Qi{e{_}E{_^}{{}{n}}}{%
+\QFunc_{#1}^{#3}
+(\Obs^{#3}_{#2}, \Act^{#3}_{#2})
+}
+
+\NewDocumentCommand
+\QDiagram{e{_}e{_}}{%
+\QFunc_{#1}
+\left(\Obs_{#2}, \Act_{#2}\right)
+}
+
+%% policy-iteration
+\NewDocumentCommand{\Buffer}{}{\mathcal{D}}
+\NewDocumentCommand{\BestTrajectories}{}{\Buffer_{\Act}}
+\newcommand{\RecencyCutoff}{c}

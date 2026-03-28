@@ -1,0 +1,1362 @@
+%
+%
+
+
+% \begin{theorem}[Multi-Armed Bandit]\label{theorem_random_bandit}
+%     Let Assumption~\ref{assumption_bound_reward} hold.
+%     Denote by $s_q$ and $a^*$ the singleton state and optimal arm in the multi-armed bandit problem. Consider a random policy $\pi$. Suppose that each arm has been selected $N$ times ($N \in \mbN_+$, trust horizon) under $\pi$. With probability at least $1-\delta$, it holds that
+%     \begin{align}\label{eqn_assump_bandit}
+%         \frac{1}{N}  \sum_{i=1}^{N} r(s_q, a^* \mid \pi) \geq \max_{a \in A \setminus \{a^*\}} \frac{1}{N} \sum_{i=1}^{N}  r(s_q, a \mid \pi),
+%     \end{align}
+%     %
+%     when the trust horizon $N$ satisfies
+% %
+%     \begin{align}
+%         N \geq \frac{8B^2}{\left(\mbE[r(a^*)] - \max\limits_{a \in A \setminus \{a^*\}} \mbE[r(a)] \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+%     \end{align}
+% \end{theorem}
+%
+
+
+% \begin{assumption}
+%     Given a uniform random policy $\pi$, assume that
+%     \begin{align}
+%         \argmax_{ a \in A} Q^\pi(s_q, a) = \argmax_{a \in A} Q^*(s_q, a), \, \forall s_q \in S.
+%     \end{align}
+% \end{assumption}
+
+% \red{
+% Needs to justify the assumption in some scenario, e.g., GridWorld.
+% }
+
+
+% \begin{theorem}[MDP]
+% Let Assumptions~\ref{assumption_bound_reward} and \ref{assumption_mdp_equal} hold.
+% Suppose that there exists a constant $N \in \mbN_+$ (trust horizon) and a constant $N_\text{ep} \in \mbN_+$ (number of episodes). Denote by $a^*$ the optimal action given $s_q$. Consider a random policy $\pi$ and its Q-function $Q^\pi$. Define $\kappa = Q^\pi(s_q, a^*) - Q^\pi(s_q, a)$ and $\hat{Q}_N^\pi(s_q, a) = \frac{1}{N_\text{ep}} \sum_{i=1}^{N_\text{ep}} \sum_{t=0}^{N} \left( \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a, \pi \right)$. With probability at least $1-\delta$, it holds that
+%     \begin{align}
+%         \hat{Q}_N^\pi(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_N^\pi(s_q, a), \, \forall s_q \in S.
+%     \end{align}
+%     when the number of episodes $N_\text{ep}$ satisfies
+% %
+% \begin{align}
+%     N_\text{ep} &\geq \frac{8B^2 \left( 1-\gamma^{N+1}\right)^2}{\left( \kappa \left( 1-\gamma \right) +2B \gamma^{N+1} \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+% \end{align}
+% \end{theorem}
+% %
+% \begin{myproof}
+%     See next page.
+% \end{myproof}
+
+\appendix
+
+% \input{related_work.tex}
+
+% \clearpage
+
+
+\section{Omitted Proofs}
+\label{appendix_omit_proof}
+
+
+
+\subsection{Proof of Theorem~\ref{theorem_mab}}
+\label{appendix_omit_proof_theorem_mab}
+%
+\textbf{Theorem~\ref{theorem_mab}} (MAB). \textit{
+    Let Assumption~\ref{assumption_bound_reward} hold. The random policy is at least $(1-\delta)$-trustworthy as in Definition~\ref{definition_mab}, when the trust horizon $N$ satisfies
+    %
+    \begin{align}
+        N \geq \frac{8B^2}{\left(\mbE[r(s_q, a^*)] - \max\limits_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+    \end{align}
+}
+%
+\begin{myproof}
+For any action $a \in A \setminus \{a^*\} $, consider two positive constants
+\begin{align}
+    &\epsilon_1 = \alpha \left( \mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right), \\
+    &\epsilon_2 = (1 - \alpha) \left( \mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right),
+\end{align}
+where $\alpha \in [0, 1]$.
+
+Consider the following two inequalities
+\begin{align}
+    &\frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \mbE[ r(s_q, a^*)] - \epsilon_1,  \\
+    &\frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \leq \mbE[ r(s_q, a)] + \epsilon_2. 
+\end{align}
+
+
+We note that the two inequalities above are the sufficient but not necessary conditions for $\frac{1}{N_{a^*}} \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}} r(s_q, a)$ to hold.
+
+Therefore, we simply obtain that
+\begin{align}
+    &P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq P\left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \mbE[ r(s_q, a^*)] - \epsilon_1, \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \leq \mbE[ r(s_q, a)] + \epsilon_2 \right) \\
+    &=P\left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \mbE[ r(s_q, a^*)] - \epsilon_1 \right) \cdot P\left(\frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \leq \mbE[ r(s_q, a)] + \epsilon_2 \right), 
+\end{align}
+%
+where the last equation follows from the fact that each arm is independent to other arms.
+%
+%
+We then lower bound the two probabilities in the previous expression using Hoeffding’s inequality~\citep{hoeffding1994probability}.
+
+Since Assumption~\ref{assumption_bound_reward} implies that $r(\cdot, \cdot) \in [-B, B]$, Hoeffding’s inequality yields
+%
+\begin{align}
+    P \left( \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) - \mbE[ r(s_q, a)] \leq \epsilon_2 \right) \geq 1 - \exp \left( - \frac{2 N_{a} \epsilon_2^2}{(B- (-B))^2} \right),
+\end{align}
+i.e.,
+\begin{align}
+    P \left( \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) - \mbE[ r(s_q, a)] \leq \epsilon_2 \right) \geq 1 - \exp \left( - \frac{N_{a} \epsilon_2^2}{2B^2} \right).
+\end{align}
+
+
+Likewise, we have
+\begin{align}
+    P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) - \mbE[ r(s_q, a^*)] \geq -\epsilon_1 \right) \geq 1 - \exp \left( - \frac{2N_{a^*} \epsilon_1^2}{(B- (-B))^2} \right),
+\end{align}
+i.e.,
+\begin{align}
+    P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) - \mbE[ r(s_q, a^*)] \geq -\epsilon_1 \right) \geq 1 - \exp \left( - \frac{N_{a^*} \epsilon_1^2}{2B^2} \right).
+\end{align}
+
+
+
+
+Since $N\triangleq \min_{a \in A}  N_a$, it then follows from the monotonicity of the exponential function that
+\begin{align}
+    &P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N_{a^*} \epsilon_1^2}{2B^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N_{a} \epsilon_2^2}{2B^2} \right) \right) \\
+    &\geq \left( 1 - \exp \left( - \frac{N \epsilon_1^2}{2B^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N \epsilon_2^2}{2B^2} \right) \right).
+\end{align}
+
+
+Therefore, it holds for any $\alpha \in [0, 1]$ that 
+\begin{align}
+    &P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N \alpha^2 \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right)^2}{2B^2} \right) \right) \!\! \cdot \!\! \left( 1 - \exp \left( - \frac{N (1-\alpha)^2 \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right)^2}{2B^2} \right) \right). 
+\end{align}
+%
+Notice that the maximal value of the previous equation with respect to $\alpha$ reaches at $\alpha = 0.5$. Then it holds that
+\begin{align}
+    & P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right)  \geq  \left( 1 - \exp \! \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right)^2}{8 B^2} \right) \right)^2, \forall a \in A \setminus \{a^*\}.
+\end{align}
+%
+Since the previous inequality holds for any $a \in A \setminus \{a^*\}$, let us define 
+\begin{align}
+    \bar{a} = \argmax_{a \in A \setminus \{a^*\}} \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a).
+\end{align}
+%
+Then it also holds that
+\begin{align}
+    & P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\ 
+    &\geq \left( 1 - \exp \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, \bar{a})] \right)^2}{8 B^2} \right) \right)^2 \\
+    &\geq \left( 1 - \exp \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \max_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2}{8 B^2} \right) \right)^2.
+\end{align}
+where the last inequality follows from the monotonicity.
+
+To make the previous probability greater than $1-\delta$, we require
+\begin{align}
+    \left( 1 - \exp \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \max_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2}{8 B^2} \right) \right)^2 \geq 1-\delta.
+\end{align}
+%
+Hence, we require the trust horizon $N\triangleq \min_{a \in A}  N_a$ to satisfy
+\begin{align}
+    N \geq \frac{8B^2}{\left(\mbE[r(s_q, a^*)] - \max_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+%
+This completes the proof.
+
+\end{myproof}
+
+
+
+
+
+
+
+
+
+
+% \section*{Proof of Theorem (MDP)}
+
+
+% Consider the state $s_q$ and any action $a \in A \setminus \{a^*\} $.
+% Consider two positive constants
+% \begin{align}
+%     &\epsilon_1 = \alpha \left( Q^\pi(s_q, a^*) - Q^\pi(s_q, a) \right), \\
+%     &\epsilon_2 = (1 - \alpha) \left( Q^\pi(s_q, a^*) - Q^\pi(s_q, a) \right),
+% \end{align}
+% where $\alpha \in [0, 1]$.
+
+% Consider the following two inequalities
+% \begin{align}
+%     &\hat{Q}^\pi(s_q, a^*) \geq Q^\pi(s_q, a^*) - \epsilon_1 \label{eqn_ineq1} \\
+%     &\hat{Q}^\pi(s_q, a) \leq Q^\pi(s_q, a) + \epsilon_2 \label{eqn_ineq2}
+% \end{align}
+
+% We note that the above two inequalities are the sufficient but not necessary conditions for $\hat{Q}^\pi(s_q, a^*) \geq \hat{Q}^\pi(s_q, a)$.
+
+% Therefore, we simply obtain that
+% \begin{align}
+%     &P \left( \hat{Q}^\pi(s_q, a^*) \geq \hat{Q}^\pi(s_q, a) \right)  \\
+%     &\geq P\left( \hat{Q}^\pi(s_q, a^*) \geq Q^\pi(s_q, a^*) - \epsilon_1, \hat{Q}^\pi(s_q, a) \leq Q^\pi(s_q, a) + \epsilon_2 \right) \\
+%     &=P\left( \hat{Q}^\pi(s_q, a^*) \geq Q^\pi(s_q, a^*) - \epsilon_1 \right) \cdot P \left( \hat{Q}^\pi(s_q, a) \leq Q^\pi(s_q, a) + \epsilon_2 \right) 
+% \end{align}
+% where the last equation follows from the fact that each arm is independent to other arms. We then lower bound the two probabilities in the previous expression using Hoeffding’s inequality.
+
+% Assume bounded reward such that $|r(\cdot)| < B$ for a positive constant B. So $G^\pi (\cdot) \in [-BN, BN]$ where $G^\pi(\cdot)$ denotes the episodic return under the policy $\pi$ and $N$ is the trust horizon. Therefore,
+% \begin{align}
+%     &P\left( \hat{Q}^\pi(s_q, a^*) - Q^\pi(s_q, a^*) \geq - \epsilon_1 \right) \geq  1 - \exp \left( - \frac{N_\text{ep} \epsilon_1^2}{2B^2N^2} \right) \\ 
+%     &P \left( \hat{Q}^\pi(s_q, a) - Q^\pi(s_q, a) \leq \epsilon_2 \right) \geq  1 - \exp \left( - \frac{N_\text{ep} \epsilon_2^2}{2B^2N^2} \right)
+% \end{align}
+
+% Therefore, $\forall \alpha \in [0, 1]$ it holds that 
+% \begin{align}
+%     &P \left( \hat{Q}^\pi(s_q, a^*) \geq \hat{Q}^\pi(s_q, a) \right)  \\
+%     &\geq \left( 1 - \exp \left( - \frac{N_\text{ep} \epsilon_1^2}{2B^2N^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N_\text{ep} \epsilon_2^2}{2B^2N^2} \right) \right) \\
+%     &\geq \left( 1 - \exp \left( - \frac{N_\text{ep} \alpha^2 \left( Q^\pi(s_q, a^*) - Q^\pi(s_q, a) \right) ^2}{2B^2N^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N_\text{ep}  (1-\alpha)^2 \left( Q^\pi(s_q, a^*) - Q^\pi(s_q, a) \right) ^2 }{2B^2N^2} \right) \right)
+% \end{align}
+% %
+% Notice that the maximal value of the previous equation reaches at $\alpha = 0.5$. Then it holds that
+% \begin{align}
+%     &P \left( \hat{Q}^\pi(s_q, a^*) \geq \hat{Q}^\pi(s_q, a) \right) \geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q^\pi(s_q, a^*) - Q^\pi(s_q, a) \right) ^2}{8B^2N^2} \right) \right)^2, \forall a \in A \setminus \{a^*\}.
+% \end{align}
+% %
+% Since the previous inequality holds for any $a \in A \setminus \{a^*\}$, let us define $\bar{a} = \max_{a \in A \setminus \{a^*\}} \hat{Q}^\pi(s_q, a) $. Then it also holds that
+% \begin{align}
+%     P \left( \hat{Q}^\pi(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}^\pi(s_q, a) \right) &\geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q^\pi(s_q, a^*) - Q^\pi(s_q, \bar{a}) \right) ^2}{8B^2N^2} \right) \right)^2 \\
+%     &\geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} Q^\pi(s_q, a) \right) ^2}{8B^2N^2} \right) \right)^2,
+% \end{align}
+% where the last inequality follows from the monotonicity.
+
+% To make the previous probability more than $1-\delta$, we have
+% \begin{align}
+%     \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} Q^\pi(s_q, a) \right) ^2}{8B^2N^2} \right) \right)^2 \geq 1-\delta.
+% \end{align}
+
+% Hence, we need to trust horizon to be
+% \begin{align}
+%     N \leq \frac{\sqrt{2 N_\text{ep}} \left(Q^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} Q^\pi(s_q, a) \right)}{4 B \sqrt{\log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right)}}.
+% \end{align}
+
+% This completes the proof.
+
+
+%\clearpage
+
+\subsection{Validity of Assumption~\ref{assumption_mdp_equal} in the grid world MDP with a single sparse reward}
+\label{appendix_validate_assump2}
+
+For the sake of simplicity and without loss of generality, we consider a single-dimensional grid world MDP with the understanding that Assumption~\ref{assumption_mdp_equal} holds for the two-dimensional grid world MDP as well, which is considered in our numerical experiments. The environmental details of the single-dimensional grid world MDP can be found in Figure~\ref{fig_single_dim_MDP_visualize}, where the reward is received only upon reaching the unique goal.
+%
+To proceed, we rely on the lemma below, and Assumption~\ref{assumption_mdp_equal} is then validated by Proposition~\ref{proposition_single_MDP} that follows.
+%
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.4\linewidth]{figures/single_dim_MDP_visualize.pdf}
+%     \caption{A single-dimensional grid world MDP comprising five states $\{s_0, s_1, s_2, s_3, s_4\}$, where $s_0$ represents the goal state (golden star). The environment offers two possible actions: $a_0$ that corresponds to moving left, and $a_1$ that corresponds to moving right. Crossing the boundaries is strictly prohibited. Any transitions that would result in boundary crossing will be confined to the current position. The reward structure is sparse, with a value of 1 received solely upon reaching the goal state $s_0$ and a value of 0 otherwise (see Figure~\ref{fig_q_tables} (left)). We consider an infinite time horizon with a discounter factor $\gamma$.}
+%     % \label{fig_single_dim_MDP_visualize}
+% \end{figure}
+
+
+\begin{lemma}\label{lemma_v_monotonic}
+    Consider the MDP of a single-dimensional grid world with $S=\{s_0, s_1, s_2, s_3, s_4\}$ and $A=\{a_0, a_1\}$, as depicted in Figure~\ref{fig_single_dim_MDP_visualize}. Consider the random policy $\pi$ in Assumption~\ref{assumption_mdp_equal}. It holds that
+    \begin{align}
+        V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1) \geq V_\text{MDP}^{\pi}(s_2) \geq V_\text{MDP}^{\pi}(s_3) \geq V_\text{MDP}^{\pi}(s_4).
+    \end{align}
+\end{lemma}
+%
+\begin{myproof}
+    For simplicity, we consider $\pi$ to be a uniform random policy, i.e., $P(a_0 \mid s) = P(a_1 \mid s) = 0.5, \, \forall s \in S.$
+    %
+    Recall the Bellman expectation equation
+    \begin{align}
+        V_\text{MDP}^{\pi}(s) = \sum_{a \in A} \pi(a \mid s) \left( r(s, a) + \gamma \mbE_{s'} V_\text{MDP}^{\pi}(s') \right).
+    \end{align}
+    By combining the previous Bellman expectation equation with Figure~\ref{fig_single_dim_MDP_visualize} yields
+    \begin{align}
+    \begin{cases}
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_0) = \frac{1}{2} \left(r(s_0, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) + r(s_0, a_1) + \gamma V_\text{MDP}^{\pi}(s_1) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_1) = \frac{1}{2} \left(r(s_1, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) + r(s_1, a_1) + \gamma V_\text{MDP}^{\pi}(s_2) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_2) = \frac{1}{2} \left(r(s_2, a_0) + \gamma V_\text{MDP}^{\pi}(s_1) + r(s_2, a_1) + \gamma V_\text{MDP}^{\pi}(s_3) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_3) = \frac{1}{2} \left(r(s_3, a_0) + \gamma V_\text{MDP}^{\pi}(s_2) + r(s_3, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_4) = \frac{1}{2} \left(r(s_4, a_0) + \gamma V_\text{MDP}^{\pi}(s_3) + r(s_4, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) \right).
+    \end{cases}
+    \end{align}
+    %
+    Substituting all rewards from Figure~\ref{fig_q_tables} (left) into the previous equations yields
+    \begin{align}\label{eqn_lemma1}
+    \begin{cases}
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_0) = \frac{1}{2} \left(1 + \gamma V_\text{MDP}^{\pi}(s_0) + \gamma V_\text{MDP}^{\pi}(s_1) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_1) = \frac{1}{2} \left(1 + \gamma V_\text{MDP}^{\pi}(s_0) +  \gamma V_\text{MDP}^{\pi}(s_2) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_2) = \frac{1}{2} \left(\gamma V_\text{MDP}^{\pi}(s_1) + \gamma V_\text{MDP}^{\pi}(s_3) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_3) = \frac{1}{2} \left( \gamma V_\text{MDP}^{\pi}(s_2) + \gamma V_\text{MDP}^{\pi}(s_4) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_4) = \frac{1}{2} \left( \gamma V_\text{MDP}^{\pi}(s_3) +  \gamma V_\text{MDP}^{\pi}(s_4) \right).
+    \end{cases}
+    \end{align}
+    %
+Given $\gamma \in (0, 1)$, the last equation of \eqref{eqn_lemma1} implies that
+\begin{align}
+    V_\text{MDP}^{\pi}(s_3) = \frac{2-\gamma}{\gamma} V_\text{MDP}^{\pi}(s_4) \geq V_\text{MDP}^{\pi}(s_4).
+\end{align}
+Then, the fourth equation of \eqref{eqn_lemma1} yields
+\begin{align}
+    V_\text{MDP}^{\pi}(s_2) &= \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_3) - V_\text{MDP}^{\pi}(s_4) \\ 
+    &\geq \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_3) - V_\text{MDP}^{\pi}(s_3) \\
+    &\geq V_\text{MDP}^{\pi}(s_3).
+\end{align}
+%
+Likewise, the third equation of \eqref{eqn_lemma1} can be rewritten as
+\begin{align}
+    V_\text{MDP}^{\pi}(s_1) &= \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_2) - V_\text{MDP}^{\pi}(s_3) \\ 
+    &\geq \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_2) - V_\text{MDP}^{\pi}(s_2) \\
+    &\geq V_\text{MDP}^{\pi}(s_2).
+\end{align}
+%
+Combining the previous inequality with the first two equations of \eqref{eqn_lemma1} directly yields
+\begin{align}
+    V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1).
+\end{align}
+This completes the proof.
+    
+\end{myproof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{proposition}\label{proposition_single_MDP}
+    Consider the MDP of a single-dimensional grid world with $S=\{s_0, s_1, s_2, s_3, s_4\}$ and $A=\{a_0, a_1\}$, as depicted in Figure~\ref{fig_single_dim_MDP_visualize}. Consider a uniform random policy $\pi$. It holds that
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^\pi(s, a) = \argmax_{a \in A} \, Q_\text{MDP}^*(s, a), \, \forall s \in S.
+    \end{align}
+\end{proposition}
+%
+\begin{myproof}
+By the definition of $Q_\text{MDP}^*$ and $\pi^*$ we obtain
+    \begin{align}
+        Q_\text{MDP}^*(s, a) = Q_\text{MDP}^{\pi^*}(s, a), \, \forall (s, a) \in S \times A.
+    \end{align}
+    Since the objective of the agent in Figure~\ref{fig_single_dim_MDP_visualize} is to reach the goal state as quickly as possible, and stay still, $\pi^*(s)$ is given by
+    \begin{align}
+        \pi^*(s) = a_0, \, \forall s \in S.
+    \end{align}
+    Moreover, we have
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^*(s, a) = \argmax_{ a \in A} \, Q_\text{MDP}^{\pi^*}(s, a) = \pi^*(s) = a_0, \, \forall s \in S.
+    \end{align}
+We then turn to consider the learning of Q-function under the random policy $\pi$. For simplicity, we consider $\pi$ to be a uniform random policy, i.e., $P(a_0 \mid s) = P(a_1 \mid s) = 0.5, \, \forall s \in S.$
+% %    
+% %
+% %
+% By the Bellman expectation equation and Figure~\ref{fig_single_dim_MDP_visualize} we obtain
+%     \begin{align}
+%         &Q_\text{MDP}^{\pi}(s_0, a_0) = r(s_0, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) = 1+ \gamma V_\text{MDP}^{\pi}(s_0), \\
+%         &Q_\text{MDP}^{\pi}(s_1, a_0) = r(s_1, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) = 1+ \gamma V_\text{MDP}^{\pi}(s_0),
+%     \end{align}
+%     where the reward $r(s_0, a_0)$ and $r(s_1, a_0)$ are presented in Figure~\ref{fig_q_tables} (left). Thus, we obtain
+%     \begin{align}
+%         Q_\text{MDP}^{\pi}(s_0, a_0) = Q_\text{MDP}^{\pi}(s_1, a_0).
+%     \end{align}
+
+%     Likewise, applying the Bellman expectation equation to the state-action pairs of $\{(s_0, a_1), (s_2, a_0)\}, \{(s_1, a_1), (s_3, a_0)\}, \{(s_2, a_1), (s_4, a_0)\}, \{(s_3, a_1), (s_4, a_1)\}$ yields
+%     \begin{align}
+%         &Q_\text{MDP}^{\pi}(s_0, a_1) = Q_\text{MDP}^{\pi}(s_2, a_0), \, Q_\text{MDP}^{\pi}(s_1, a_1) = Q_\text{MDP}^{\pi}(s_3, a_0), \\
+%         &Q_\text{MDP}^{\pi}(s_2, a_1) = Q_\text{MDP}^{\pi}(s_4, a_0), \, Q_\text{MDP}^{\pi}(s_3, a_1) = Q_\text{MDP}^{\pi}(s_4, a_1).
+%     \end{align}
+%
+We next prove that $Q_\text{MDP}^{\pi}(s, a_0) \geq Q_\text{MDP}^{\pi}(s, a_1), \, \forall s \in S$. We start with the state $s_0$. Notice that
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_0, a_0) = r(s_0, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) = 1+ \gamma V_\text{MDP}^{\pi}(s_0), \\
+    &Q_\text{MDP}^{\pi}(s_0, a_1) = r(s_0, a_1) + \gamma V_\text{MDP}^{\pi}(s_1) = \gamma V_\text{MDP}^{\pi}(s_1).
+\end{align}
+%
+Lemma~\ref{lemma_v_monotonic} implies that $V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1)$. The previous equations then directly indicate
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_0, a_0) \geq Q_\text{MDP}^{\pi}(s_0, a_1).
+\end{align}
+%
+
+For the state $s_1$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_1, a_0) = r(s_1, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) = 1+ \gamma V_\text{MDP}^{\pi}(s_0), \\
+    &Q_\text{MDP}^{\pi}(s_1, a_1) = r(s_1, a_1) + \gamma V_\text{MDP}^{\pi}(s_2) = \gamma V_\text{MDP}^{\pi}(s_2).
+\end{align}
+Lemma~\ref{lemma_v_monotonic} implies that $V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1) \geq V_\text{MDP}^{\pi}(s_2)$. Then it holds that
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_1, a_0) \geq Q_\text{MDP}^{\pi}(s_1, a_1).
+\end{align}
+%
+
+For the state $s_2$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_2, a_0) = r(s_2, a_0) + \gamma V_\text{MDP}^{\pi}(s_1) = \gamma V_\text{MDP}^{\pi}(s_1), \\
+    &Q_\text{MDP}^{\pi}(s_2, a_1) = r(s_2, a_1) + \gamma V_\text{MDP}^{\pi}(s_3) = \gamma V_\text{MDP}^{\pi}(s_3).
+\end{align}
+%
+Employing Lemma~\ref{lemma_v_monotonic} directly yields
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_2, a_0) \geq Q_\text{MDP}^{\pi}(s_2, a_1).
+\end{align}
+%
+
+For the state $s_3$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_3, a_0) = r(s_3, a_0) + \gamma V_\text{MDP}^{\pi}(s_2) = \gamma V_\text{MDP}^{\pi}(s_2), \\
+    &Q_\text{MDP}^{\pi}(s_3, a_1) = r(s_3, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) = \gamma V_\text{MDP}^{\pi}(s_4).
+\end{align}
+%
+Employing Lemma~\ref{lemma_v_monotonic} directly yields
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_3, a_0) \geq Q_\text{MDP}^{\pi}(s_3, a_1).
+\end{align}
+%
+
+Last but not least, for the state $s_4$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_4, a_0) = r(s_4, a_0) + \gamma V_\text{MDP}^{\pi}(s_3) = \gamma V_\text{MDP}^{\pi}(s_3), \\
+    &Q_\text{MDP}^{\pi}(s_4, a_1) = r(s_4, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) = \gamma V_\text{MDP}^{\pi}(s_4).
+\end{align}
+%
+Employing Lemma~\ref{lemma_v_monotonic} directly yields
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_4, a_0) \geq Q_\text{MDP}^{\pi}(s_4, a_1).
+\end{align}
+%
+
+Hence we obtain
+\begin{align}
+   \argmax_{ a \in A} \, Q_\text{MDP}^{\pi}(s, a)  = a_0, \, \forall s \in S.
+\end{align}
+and then
+\begin{align}
+    \argmax_{ a \in A} \, Q_\text{MDP}^{\pi}(s, a) = a_0 =  \argmax_{ a \in A} \, Q_\text{MDP}^*(s, a), \, \forall s \in S.
+\end{align}
+This completes the proof.
+
+
+
+
+% Bellman expectation equation yields
+% \begin{align}
+%     V_\text{MDP}^{\pi}(s_0) &= \sum_{a\in A} \pi(a \mid s_0) \left(r(s_0, a) + \gamma V_\text{MDP}^{\pi}(s') \right) \\
+%     &=\frac{1}{2} \left( r(s_0, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) \right) + \frac{1}{2}  \left(r(s_0, a_1) + \gamma V_\text{MDP}^{\pi}(s_1) \right), \\
+%     &=\frac{1}{2} \left( 1 + \gamma V_\text{MDP}^{\pi}(s_0) \right) + \frac{1}{2}  \gamma V_\text{MDP}^{\pi}(s_1).
+% \end{align}
+% Therefore, we have
+% \begin{align}
+%     V_\text{MDP}^{\pi}(s_0) = \frac{1+\gamma V_\text{MDP}^{\pi}(s_1)}{2-\gamma}.
+% \end{align}
+% Then, 
+%     \begin{align}
+%         Q_\text{MDP}^{\pi}(s_0, a_0) - Q_\text{MDP}^{\pi}(s_0, a_1) &= 1+ \gamma V_\text{MDP}^{\pi}(s_0) - \gamma V_\text{MDP}^{\pi}(s_1) \\
+%         &=1+ \gamma V_\text{MDP}^{\pi}(s_0) - \left( (2-\gamma) V_\text{MDP}^{\pi}(s_0) -1 \right) \\
+%         &=V_\text{MDP}^{\pi}(s_0) (2\gamma-2) + 2.
+%     \end{align}
+%     Since the reward $r(s, a) \in \{0, 1\}, \forall (s, a) \in S \times A$, we have
+%     \begin{align}
+%         V_\text{MDP}^{\pi}(s) = \mbE_\pi [\sum_{t=0}^\infty \gamma^t r_t \mid s_{t=0} = s] \leq \sum_{t=0}^\infty \gamma^t \cdot 1 = \frac{1}{1-\gamma}, \forall s \in S.
+%     \end{align}
+%     Applying the fact $\gamma \in [0, 1)$ yields
+%     \begin{align}
+%         Q_\text{MDP}^{\pi}(s_0, a_0) - Q_\text{MDP}^{\pi}(s_0, a_1) 
+%         &=V_\text{MDP}^{\pi}(s_0) (2\gamma-2) + 2 \\
+%         &\geq \frac{1}{1-\gamma} (2\gamma-2) + 2 \\
+%         &=0.
+%     \end{align}
+%     Likewise, applying the Bellman expectation equation on the state $s_1$ yields
+%     \begin{align}
+%         V_\text{MDP}^{\pi}(s_1) &= \sum_{a\in A} \pi(a \mid s_1) \left(r(s_1, a) + \gamma V_\text{MDP}^{\pi}(s') \right) \\
+%         &=\frac{1}{2} \left( r(s_1, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) \right) + \frac{1}{2}  \left(r(s_1, a_1) + \gamma V_\text{MDP}^{\pi}(s_2) \right), \\
+%         &=\frac{1}{2} \left( 1 + \gamma V_\text{MDP}^{\pi}(s_0) \right) + \frac{1}{2}  \gamma V_\text{MDP}^{\pi}(s_2).
+%     \end{align}
+%     thus,
+%     \begin{align}
+%         \gamma V_\text{MDP}^{\pi}(s_2) = 2V_\text{MDP}^{\pi}(s_1)-\gamma V_\text{MDP}^{\pi}(s_0)-1
+%     \end{align}
+%     Then,
+%     \begin{align}
+%         Q_\text{MDP}^{\pi}(s_1, a_0) - Q_\text{MDP}^{\pi}(s_1, a_1) 
+%         &=1+\gamma V_\text{MDP}^{\pi}(s_0) - \gamma V_\text{MDP}^{\pi}(s_2) \\
+%         &=2+2\gamma V_\text{MDP}^{\pi}(s_0) - 2 V_\text{MDP}^{\pi}(s_1) \\
+%         &\geq 0. 
+%     \end{align}
+%     By recursively employing the Bellman expectation equation, we can eventually obtain
+%     \begin{align}
+%         &Q_\text{MDP}^{\pi}(s_0, a_0) \geq Q_\text{MDP}^{\pi}(s_0, a_1), \\
+%         &Q_\text{MDP}^{\pi}(s_1, a_0) \geq Q_\text{MDP}^{\pi}(s_1, a_1), \\
+%         &Q_\text{MDP}^{\pi}(s_2, a_0) \geq Q_\text{MDP}^{\pi}(s_2, a_1), \\
+%         &Q_\text{MDP}^{\pi}(s_3, a_0) \geq Q_\text{MDP}^{\pi}(s_3, a_1), \\
+%         &Q_\text{MDP}^{\pi}(s_4, a_0) \geq Q_\text{MDP}^{\pi}(s_4, a_1)
+%     \end{align}
+
+    
+\end{myproof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\paragraph{Empirical validation of Assumption~\ref{assumption_mdp_equal} in the grid world MDP.}
+
+In addition to the theoretical proof above, we also provide an empirical validation of Assumption~\ref{assumption_mdp_equal} in the grid world MDP in Figure~\ref{fig_single_dim_MDP_visualize}.
+ 
+ 
+We start by considering the Bellman expectation equation
+    \begin{align}
+        Q_\text{MDP}^{\pi}(s, a) = r(s, a) + \gamma \mbE_{a'} \left[ Q_\text{MDP}^{\pi}(s', a') \right], \, \forall (s, a) \in S \times A.
+    \end{align}
+Let us define the temporal-difference (TD) error as follows
+\begin{align}
+    \ccalE (s, a) = \left| r(s, a) + \gamma \mbE_{a'} \left[ Q_\text{MDP}^{\pi}(s', a') \right] - Q_\text{MDP}^{\pi}(s, a) \right|, \, \forall (s, a) \in S \times A.
+\end{align}
+%
+With the understanding that the TD error $\ccalE (s, a)$ of $Q_\text{MDP}^{\pi}(s, a)$ is zero, we iteratively learn and update $Q_\text{MDP}^{\pi}(s, a)$ by minimizing the TD error. To that end, we consider $\gamma=0.99$ and a convergence threshold $\epsilon_Q = 10^{-6}$ (can be arbitrarily small). We initialize $Q_\text{MDP}^{\pi}(s, a)$ to be full of zeros as in Figure~\ref{fig_q_tables} (middle-left). Subsequently, we consistently update $Q_\text{MDP}^{\pi}(s, a)$ under the uniform policy $\pi$, until convergence as follows
+    \begin{align}
+        \ccalE (s, a) \leq \epsilon_Q, \, \forall (s, a) \in S \times A.
+    \end{align}
+
+    
+Empirically, we observe that the Q-table $Q_\text{MDP}^{\pi}(s, a)$ converges after the $1216^{th}$ iteration; demonstrated in Figure~\ref{fig_q_table_td_error}.
+%
+    As depicted in Figure~\ref{fig_q_tables} (middle-right), the convergent $Q_\text{MDP}^{\pi}(s, a)$ implies that the optimal action for any state under the uniform policy $\pi$ is $a_0$ (see the golden stars), i.e.,
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^\pi(s, a) = a_0, \, \forall s \in S.
+    \end{align}
+    %
+    Likewise, we follow the same process above using the  Bellman optimality equation
+    \begin{align}
+        Q_\text{MDP}^*(s, a) = r(s, a) + \gamma \max_{a' \in A} \, Q_\text{MDP}^*(s', a'), \, \forall (s, a) \in S \times A.
+    \end{align}
+    %
+    The convergent $Q_\text{MDP}^*(s, a)$ in Figure~\ref{fig_q_tables} (right) demonstrates that the optimal action for any state under the optimal policy is $a_0$ as well, i.e.,
+%
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^*(s, a) = a_0, \, \forall s \in S.
+    \end{align}
+    This validates Assumption~\ref{assumption_mdp_equal} empirically.
+\begin{figure}[ht]
+\centering 
+\includegraphics[width=0.2\columnwidth]{figures/reward_table_plot.png}  
+\includegraphics[width=0.2\columnwidth]{figures/q_table_plot_initial.png} 
+\includegraphics[width=0.2\columnwidth]{figures/q_table_plot.png} 
+\includegraphics[width=0.2\columnwidth]{figures/q_table_plot_star.png} 
+\caption{Left: reward table. Middle-Left: initial Q-table. Middle-Right: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables}
+\end{figure}
+
+\begin{figure}[ht]
+\centering 
+\includegraphics[width=0.32\columnwidth]{figures/plot_q_table_bellman_error.pdf}  
+\caption{The learning curve of the maximal TD error of $Q_\text{MDP}^{\pi}(s, a)$ over the entire state-action spaces: $\max_{(s, a) \in S \times A} \left| r(s, a) + \gamma \mbE_{a'} \left[ Q_\text{MDP}^{\pi}(s', a') \right] - Q_\text{MDP}^{\pi}(s, a) \right|$.}
+\label{fig_q_table_td_error}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\subsection{Discussion of Assumption~\ref{assumption_mdp_equal} in the grid world MDP with two sparse rewards} 
+\label{appendix_validate_assump2_two_rewards}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/single_dim_MDP_visualize_two_rewards.pdf}
+    \caption{A single-dimensional grid world MDP comprising five states $\{s_0, s_1, s_2, s_3, s_4\}$. The environment offers two possible actions: $a_0$ that corresponds to moving left, and $a_1$ that corresponds to moving right. Crossing the boundaries is strictly prohibited. Any transitions that would result in boundary crossing will be confined to the current position. The reward structure is sparse, with a value of $R_l$ received upon reaching $s_0$, a value of $R_s$ received upon reaching $s_4$ and a value of 0 otherwise. We consider an infinite time horizon with a discounter factor $\gamma$.}
+    \label{fig_single_dim_MDP_visualize_two_rewards}
+\end{figure}
+
+
+
+
+As depicted in Figure~\ref{fig_single_dim_MDP_visualize_two_rewards}, we consider the same problem setting as in Appendix~\ref{appendix_validate_assump2} except that we assign the rewards $R_l$ and $R_s$ to the states $s_0$ and $s_4$, respectively. In the following three cases, we demonstrate that Assumption~\ref{assumption_mdp_equal} holds for some (but not all) navigation problems that have two sparse rewards. The validity of Assumption~\ref{assumption_mdp_equal} depends on the problem-specific factors such as the rewards and the discount factor $\gamma$.
+
+
+
+\begin{itemize}
+    \item[(a)] Consider $R_l = 1, R_s = 0.1, \gamma = 0.99$. The action that maximizes the Q table for both random and optimal policies is the same, i.e., $a_0=\arg\max_a \,  Q_{MDP}^\pi(s,a) =\arg\max_a \, Q_{MDP}^*(s,a)$ for all states as shown in Figure~\ref{fig_q_tables_case1}.
+\begin{figure}[ht]
+\centering 
+\includegraphics[width=0.2\columnwidth]{figures/case1_q_table_plot_pi.png} 
+\includegraphics[width=0.2\columnwidth]{figures/case1_q_table_plot_star.png} 
+\caption{ When $R_l = 1, R_s = 0.1, \gamma = 0.99$. Left: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables_case1}
+\end{figure}
+
+    \item[(b)] Consider $R_l = 1, R_s = 0.9, \gamma = 0.8$. In this case, the random policy selects $a_0$ at the states $s_0, s_1, s_2$ and $a_1$ at the states $s_3, s_4$ (see $Q_{MDP}^\pi$ in Figure~\ref{fig_q_tables_case2}). However, notice that the optimal policy selects exactly the same optimal actions as that of the random policy, i.e., $a_0$ for states $s_0, s_1, s_2$ and $a_1$ for states $s_3, s_4$ (see $Q_{MDP}^*$ in Figure~\ref{fig_q_tables_case2}), thus Assumption 2 still holding.
+\begin{figure}[ht]
+\centering 
+\includegraphics[width=0.2\columnwidth]{figures/case2_q_table_plot_pi.png} 
+\includegraphics[width=0.2\columnwidth]{figures/case2_q_table_plot_star.png} 
+\caption{When $R_l = 1, R_s = 0.9, \gamma = 0.8$. Left: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables_case2}
+\end{figure}
+
+    \item[(c)] Consider $R_l = 1, R_s = 0.9, \gamma = 0.97$. The convergent Q-tables in Figure~\ref{fig_q_tables_case3} indicate that under the random policy, the optimal action for states $s_3$ and $s_4$ is $a_1$, whereas under the optimal policy, it is $a_0$. This discrepancy indicates that Assumption 2 does not hold.
+
+\begin{figure}[ht]
+\centering 
+\includegraphics[width=0.2\columnwidth]{figures/case3_q_table_plot_pi.png} 
+\includegraphics[width=0.2\columnwidth]{figures/case3_q_table_plot_star.png} 
+\caption{When $R_l = 1, R_s = 0.9, \gamma = 0.97$. Left: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables_case3}
+\end{figure}
+
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+\subsection{Proof of Theorem~\ref{theorem_mdp}}
+\label{appendix_omit_proof_theorem_mdp}
+
+
+\textbf{Theorem~\ref{theorem_mdp}} (MDP). 
+\textit{
+Let Assumptions~\ref{assumption_bound_reward} and \ref{assumption_mdp_equal} hold.
+ Define $\kappa = \min\limits_{s_q \in S} \big( Q_\text{MDP}^\pi(s_q, a^*) - \max\limits_{a \in A \setminus \{a^*\}} Q_\text{MDP}^\pi(s_q, a) \big)$. Consider the trust horizon $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$. The random policy is at least $(1-\delta)$-trustworthy as in Definition~\ref{definition_mdp}, when the number of episodes $N_\text{ep}$ satisfies
+%
+\begin{align}
+    N_\text{ep}  \geq \underbrace{ \frac{ 2 \left( 1-\gamma^{N+1}\right)^2}{ \left( \kappa \left( 1-\gamma \right) / (2B) - \gamma^{N+1}\right)^2} }_{G_1}   \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+%
+}
+%
+%
+%
+%
+%
+\begin{myproof}
+%   
+For any action $a \in A \setminus \{a^*\} $, let us define
+\begin{align}
+    &Q_\text{MDP}^\pi(s_q, a) = \underbrace{\mbE \left[ \sum_{t=0}^{N} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a \right] }_{Q_\text{MDP}^{\pi, N}(s_q, a)} + \underbrace{ \mbE \left[ \sum_{t=N+1}^{\infty} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a \right] }_{\xi_a},  \\
+    &Q_\text{MDP}^\pi(s_q, a^*) = \underbrace{\mbE \left[ \sum_{t=0}^{N} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] }_{Q_\text{MDP}^{\pi, N}(s_q, a^*)} + \underbrace{ \mbE \left[ \sum_{t=N+1}^{\infty} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] }_{\xi_{a^*}}.
+\end{align}
+%
+%
+Then $\forall s_q \in S$,
+\begin{align}
+    &Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - \xi_{a^*} - \left(Q_\text{MDP}^\pi(s_q, a) - \xi_{a} \right) \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, a) + \xi_{a} - \xi_{a^*} \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, a) + \sum_{t=N+1}^{\infty} \gamma^t \left(\mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=a \right] - \mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] \right) \\
+    &\stackrel{(a)}{\geq} Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, a)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\geq Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\geq \min\limits_{s_q \in S} \left( Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a) \right)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(b)}{=}  \kappa - \gamma^{N+1} \frac{2B}{1-\gamma}, \\
+    &\stackrel{(c)}{>} 0.
+\end{align}
+%
+where $(a)$ follows from Assumption~\ref{assumption_bound_reward} and the properties of geometry series, $(b)$ follows from the definition of $\kappa$, $(c)$ is due to $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$.
+%
+%
+Therefore, let us consider two positive constants as follows
+\begin{align}
+    &\epsilon_1 = \alpha \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right), \\
+    &\epsilon_2 = (1 - \alpha) \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right),
+\end{align}
+%
+%
+where $\alpha \in [0, 1]$. Consider the following two inequalities
+\begin{align}
+    &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq Q_\text{MDP}^{\pi, N}(s_q, a^*) - \epsilon_1 \label{eqn_ineq1_MDP}, \\
+    &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \leq Q_\text{MDP}^{\pi, N}(s_q, a) + \epsilon_2 \label{eqn_ineq2_MDP}.
+\end{align}
+%
+% where $\hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*)$ and $\hat{Q}_\text{MDP}^{\pi, N}(s_q, a)$ are defined by
+% \begin{align}
+%     &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) =  \sum_{t=0}^{N} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a^*,  \\
+%     &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a) =  \sum_{t=0}^{N} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a.
+% \end{align}
+%
+We acknowledge that \eqref{eqn_ineq1_MDP} and \eqref{eqn_ineq2_MDP} are the sufficient but not necessary conditions for $\hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a)$ to hold.
+Thus,
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right)  \\
+    &\geq P\left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq Q_\text{MDP}^{\pi, N}(s_q, a^*) - \epsilon_1, \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \leq Q_\text{MDP}^{\pi, N}(s_q, a) + \epsilon_2 \right) \\
+    &=P\left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq Q_\text{MDP}^{\pi, N}(s_q, a^*) - \epsilon_1 \right) \cdot P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \leq Q_\text{MDP}^{\pi, N}(s_q, a) + \epsilon_2 \right) 
+\end{align}
+%
+where the last equation follows from the fact that each action is independent to other actions. 
+
+
+
+
+
+Assumption~\ref{assumption_bound_reward} implies that $ \sum_{t=0}^{N} \left( \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a, \pi \right) \in [-B \frac{1-\gamma^{N+1}}{1-\gamma}, B \frac{1-\gamma^{N+1}}{1-\gamma}], \forall a \in A$. We therefore lower bound the two probabilities in the previous expression using Hoeffding’s inequality~\citep{hoeffding1994probability}
+\begin{align}
+    &P\left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a^*) \geq - \epsilon_1 \right) \geq  1 - \exp \left( - \frac{N_\text{ep} \epsilon_1^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right), \\ 
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) - Q_\text{MDP}^{\pi, N}(s_q, a) \leq \epsilon_2 \right) \geq  1 - \exp \left( - \frac{N_\text{ep} \epsilon_2^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right).
+\end{align}
+%
+Then, it holds for any $\alpha \in [0, 1]$ that 
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right)  \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep} \epsilon_1^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N_\text{ep} \epsilon_2^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right) \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep} \alpha^2 \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right) \\ 
+    &\,\,\,\, \cdot \left( 1 - \exp \left( - \frac{N_\text{ep}  (1-\alpha)^2 \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2 }{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)
+\end{align}
+%
+Notice that the maximal value of the previous expression with respect to $\alpha$ reaches at $\alpha = 0.5$. Then it holds that
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right) \geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2, \forall a \in A \setminus \{a^*\}.
+\end{align}
+%
+Since the previous inequality holds for any $a \in A \setminus \{a^*\}$, let us define
+\begin{align}
+    \hat{a} = \argmax_{a \in A \setminus \{a^*\}} \, \hat{Q}_\text{MDP}^{\pi, N}(s_q, a).
+\end{align}
+%
+Then it also holds that
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, \hat{a}) \right) ^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2 \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - \max_{a \in A \setminus \{a^*\}}  Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2, \label{eqn_temp_prob1}
+\end{align}
+where the last inequality follows from the monotonicity and the fact that $Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \geq 0, \forall a \in A \setminus \{a^*\}$.
+
+
+
+
+
+% Note that Assumption~\ref{assumption_mdp_equal} implies that $a^*$ is also the maximizer of $Q_\text{MDP}^\pi(s_q, \cdot)$, thus
+% \begin{align}
+%     \kappa = Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} Q_\text{MDP}^\pi(s_q, a) \geq 0,\, \forall s_q \in S.
+% \end{align}
+% %
+Let us define
+\begin{align}
+    \bar{a} = \argmax_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^{\pi, N}(s_q, a).
+\end{align}
+%
+Then $\forall s_q \in S$ we obtain
+\begin{align}
+    &Q_\text{MDP}^{\pi, N}(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^{\pi, N}(s_q, a) \\
+    &\stackrel{(a)}{=} Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, \bar{a}) \\
+    &\stackrel{(b)}{=} Q_\text{MDP}^\pi(s_q, a^*) - \xi_{a^*} - \left(Q_\text{MDP}^\pi(s_q, \bar{a}) - \xi_{\bar{a}} \right) \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, \bar{a}) + \xi_{\bar{a}} - \xi_{a^*} \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, \bar{a}) + \sum_{t=N+1}^{\infty} \gamma^t \left(\mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=\bar{a} \right] - \mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] \right) \\
+    &\stackrel{(c)}{\geq} Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, \bar{a})  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(d)}{\geq} Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\geq \min\limits_{s_q \in S} \left( Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a) \right)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(e)}{=}  \kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(f)}{>} 0,
+\end{align}
+%
+where $(a)$ follows from the definition of $\bar{a}$, $(b)$ follows from the definition of $Q_\text{MDP}^\pi$, $(c)$ follows from Assumption~\ref{assumption_bound_reward} and the properties of geometry series, $(d)$ follows from the fact that $\bar{a}$ may not be the maximizer of $Q_\text{MDP}^\pi(s_q, \cdot)$, $(e)$ follows from the definition of $\kappa$, $(f)$ is due to $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$.
+
+
+Consequently, \eqref{eqn_temp_prob1} is monotonically increasing with $Q_\text{MDP}^{\pi, N}(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^{\pi, N}(s_q, a)$.
+Substituting the previous inequality into \eqref{eqn_temp_prob1} and by the monotonicity yields
+\begin{align}
+    P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right) 
+    \geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left(\kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \right)^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2,
+\end{align}
+%
+%
+% \red{
+% \textbf{Remark}: The previous expressioin indicates that $N \uparrow \text{leads to}\; P \left( \hat{Q}_N^\pi(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_N^\pi(s_q, a) \right)  \downarrow$
+% }
+%
+%
+To make the previous probability greater than $1-\delta$, we require
+\begin{align}
+    \left( 1 - \exp \left( - \frac{N_\text{ep}  \left(\kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \right)^2 }{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2 \geq 1-\delta.
+\end{align}
+
+
+Thus,
+\begin{align}
+    N_\text{ep} &\geq \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right) \frac{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2}{\left(\kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \right)^2} \\
+    &= \frac{ 2 \left( 1-\gamma^{N+1}\right)^2}{ \left( \kappa \left( 1-\gamma \right) / (2B) - \gamma^{N+1}\right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+
+
+% \red{
+% Note that $N_\text{ep}$ will stabilize as $N$ increases. We expect the accuracy will decreasingly stabilize as $N$ increases. (Probably converges to $20\%$) 
+% }
+
+
+
+This completes the proof.
+
+\end{myproof}
+
+
+
+
+% \renewcommand{\arraystretch}{1.2}
+% \begin{table}
+% \red{
+% 	\centering
+% 	% \fontsize{8}{8}\selectfont
+% 		\caption{Action Selection Accuracy. $N=1$ doesn't have $100\%$ accuracy because that there might be multiple optimal actions, and we only compare to one of them. Consider the query state and goal both in the upper-right corner. The optimal policy we are considering is: stay (as we already in the goal). However, we note that going up, going right, stay are all optimal actions.}
+% 		\label{tab_action_select_acc}
+% 		\begin{tabular}{c|cccccccccc}
+%         \hline
+%         \hline
+
+%         $N$ & 1 & 3 & 7
+%         & 11 & 15 & 49 & 100 & 200 & 300 & 400 \cr
+%     \hline
+%         Accuracy & $87.2\%$ & $76.2\%$ & $60.3\%$ & $52.8\%$ & $47.9\%$ & $36.2\%$ & $33.3\%$ & $32.7\%$ & $32.7\%$ & $32.7\%$ \cr
+
+%     % \hline 
+%     %     Accuracy std &  &  &  &  &  \cr
+   
+%         \hline
+%         \hline
+% 		\end{tabular}
+%         }
+% \end{table}
+%
+%
+%
+% \renewcommand{\arraystretch}{1.2}
+% \begin{table}
+% \red{
+% 	\centering
+% 	% \fontsize{8}{8}\selectfont
+% 		\caption{Action Selection Accuracy for MAB.}
+% 		\label{tab_action_select_acc2}
+% 		\begin{tabular}{c|cccccccccc}
+%         \hline
+%         \hline
+
+%         $N$ & 1 & 3 & 7
+%         & 11 & 15 & 49 & 100 & 200 & 300 & 400 \cr
+%     \hline
+%         Accuracy & $\%$ & $\%$ & $\%$ & $\%$ & $\%$ & $\%$ & $\%$ & $\%$ & $\%$ & $\%$ \cr
+
+%         \hline
+%         \hline
+% 		\end{tabular}
+%         }
+% \end{table}
+
+
+% \renewcommand{\arraystretch}{1.2}
+% \begin{table}
+% \red{
+% 	\centering
+% 	% \fontsize{8}{8}\selectfont
+% 		\caption{Action Selection Accuracy for MDP.}
+% 		\label{tab_action_select_acc}
+% 		\begin{tabular}{c|cccccccccc}
+%         \hline
+%         \hline
+
+%         $N$ & 1 & 3 & 7
+%         & 11 & 15 & 49 & 100 & 200 & 300 & 400 \cr
+%     \hline
+%         Accuracy & $100.0\%$ & $82.1\%$ & $62.4\%$ & $53.9\%$ & $48.4\%$ & $35.9\%$ & $32.9\%$ & $32.2\%$ & $32.2\%$ & $32.2\%$ \cr
+
+%     % \hline 
+%     %     Accuracy std &  &  &  &  &  \cr
+   
+%         \hline
+%         \hline
+% 		\end{tabular}
+%         }
+% \end{table}
+
+
+
+\subsection{Technical Lemma}
+\label{appendix_tech_lemma}
+
+
+\begin{lemma}\label{lemma_mono_decrease}
+    Given $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$, $G_1$ in \eqref{eqn_theorem_MDP} is monotonically decreasing with respect to the trust horizon $N$.
+\end{lemma}
+%
+%
+\begin{myproof}
+    We proceed by defining $Y = \kappa (1-\gamma)/(2B)$.
+    Since $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$, we can obtain
+    \begin{align}
+        Y = \frac{\kappa \left( 1-\gamma \right)}{2B} \in (\gamma^{N+1}, 1].
+    \end{align}
+    Let $Z = N+1$, and then we can rewrite $G_1$ as
+    \begin{align}
+        G_1 = \frac{ 2 \left( 1-\gamma^{Z}\right)^2}{ \left(Y - \gamma^{Z}\right)^2}, \, \text{where} \,\, Y \in (\gamma^{Z}, 1].
+    \end{align}
+    The chain rule implies that
+    \begin{align}
+        \frac{\partial G_1}{\partial N} &= \frac{\partial G_1}{\partial Z} \cdot \frac{\partial Z}{\partial N} \\
+        &=\frac{\partial G_1}{\partial Z} \\
+        &=4 \left( \frac{1-\gamma^{Z}}{Y - \gamma^{Z}} \right) \frac{-\gamma^{Z} \log \gamma (Y - \gamma^{Z}) + (1-\gamma^{Z}) \gamma^{Z} \log \gamma }{(Y - \gamma^{Z})^2} \\
+        &=4 \left( \frac{1-\gamma^{Z}}{Y - \gamma^{Z}} \right) \frac{\gamma^{Z} \log \gamma (1-Y)}{(Y - \gamma^{Z})^2} \\
+        &\leq 0,
+    \end{align}
+    where the last inequality follows from $\gamma \in (0, 1]$ and $Y \in (\gamma^{Z}, 1]$.
+
+    This completes the proof.
+    
+\end{myproof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Proof of Corollary~\ref{corollary_ps_sampling}}
+\label{appendix_omit_proof_corollary_ps_sampling}
+
+\textbf{Corollary~\ref{corollary_ps_sampling}}.
+\textit{
+Let hypotheses of Theorems~\ref{theorem_mab}  and \ref{theorem_mdp} hold. Denote by $l$ the length of the trajectory.}
+For any environment $\tau$ and history data $H$, SAD and the well-specified posterior sampling follow the same trajectory distribution with probability $(1-\delta)^l$
+\begin{align}\label{eqn_ps_equal}
+    P_{\ccalF_{\theta}} (\text{trajectory} \ | \ \tau, H) = P_{ps}(\text{trajectory}  \ | \  \tau, H), \forall \text{trajectory}.
+\end{align}
+%
+%
+\begin{myproof}
+%
+To proceed, we rely on the following assumption.
+%
+\begin{assumption}
+\label{assumption_equality}
+Denote by $\ccalF_{\theta}$ the pretrained FM. $\forall (\ccalC, s_q)$,
+assume $P_{\text{train}}(a \mid \ccalC, s_q) = \ccalF_{\theta}( a \mid \ccalC, s_q)$ for all $a \in A$.
+\end{assumption}
+%
+Note that Assumption~\ref{assumption_equality} is a common assumption in the in-context learning literature~\citep{xie2021explanation, lee2024supervised}, assuming that the pretrained FM fits the pretraining distribution exactly provided with sufficient coverage and data, where the SAD fits with a sufficiently large trust horizon $N$. 
+%\blue{Even for sparse-reward MDP, if $N$ is large enough, we can train on all states.}
+
+With Assumption~\ref{assumption_equality} established, Theorem 1 of \citep{lee2024supervised} implies that \eqref{eqn_ps_equal} holds when the optimal action is selected at each step.
+%
+In addition, Theorems~\ref{theorem_mab} and \ref{theorem_mdp} indicate that the FM trained by SAD selects the optimal action label with probability $1-\delta$ at each step. Consequently, \eqref{eqn_ps_equal} holds for SAD with probability $(1-\delta)^l$. 
+
+This completes the proof.
+\end{myproof}
+
+
+
+
+
+
+\subsection{Finite MDP setting from \cite{osband2013more}}
+\label{appendix_finite_mdp_setting}
+
+
+Let us consider the finite MDP setting as in \citep{osband2013more}, where $\mbE[r(s_t, a_t)] \in [0, 1]$. Denote by $S, A, T$ the state space, action space, and time horizon. Consider the uniform random policy $\pi$ for sampling the context $\ccalC$ and query state $s_q$.
+%
+Denote by ${\ccalT_{\text{test}}(\tau)} $ and ${\ccalT_{\text{train}}(\tau)}$ the test and pretraining distribution over the environment $\tau$, respectively.
+%
+Consider the online cumulative regret of SAD over $K$ episodes in the environment $\tau$ as
+\begin{align}
+    \text{Regret}_\tau(\ccalF_{\theta}) \overset{\Delta}{=} \sum_{k=0}^K V_\tau (\pi_\tau^*) - V_\tau(\pi_k),
+\end{align}
+where $\pi_k (\cdot \mid s_t) = \ccalF_{\theta}(\cdot \mid \ccalC_{k-1}, s_t)$.
+
+
+
+
+\subsection{Proof of Corollary~\ref{corollary_regret_bound}}
+\label{appendix_omit_proof_corollary_regret_bound}
+
+\textbf{Corollary~\ref{corollary_regret_bound}}.
+\textit{
+Let hypotheses of Theorems~\ref{theorem_mab}  and \ref{theorem_mdp} hold.
+%
+Given the environment $\tau$ and a constant $B' > 0$, suppose that $\sup_{\tau} {\ccalT_{\text{test}}(\tau)}/{\ccalT_{\text{train}}(\tau)} \leq B'$. In the finite MDP setting above, it holds with probability $(1-\delta)^{KT}$ that
+\begin{align}\label{eqn_regret_dpt}
+       \mbE_{\ccalT_{\text{test}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right]  \leq \widetilde{\ccalO} (B' |S| T^{3/2} \sqrt{K |A|}).
+\end{align}
+%
+}
+%
+\begin{myproof}
+%
+    Theorems~\ref{theorem_mab} and \ref{theorem_mdp} imply that the FM trained by SAD selects the optimal action label with probability $1-\delta$ at each step, while the finite MDP setting above comprises $K \cdot T$ steps. Therefore, it holds with probability $(1-\delta)^{KT}$ that the trained FM $\ccalF_\theta$ is equivalent to the posterior sampling established in Corollary~\ref{corollary_ps_sampling}. Then, it follows directly from Corollary 6.2 of \citep{lee2024supervised} that with probability $(1-\delta)^{KT}$ it holds that
+    \begin{align}
+       \mbE_{\ccalT_{\text{train}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right]  \leq \widetilde{\ccalO} ( |S| T^{3/2} \sqrt{K |A|}),
+\end{align}
+    where the notation $\widetilde{\ccalO}$ omits the polylogarithmic dependence. Subsequently, by using the bounded likelihood ratio between the test and pretraining distributions yields
+    \begin{align}
+        \mbE_{\ccalT_{\text{test}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right] &= \int \ccalT_{\text{test}}(\tau) \text{Regret}_\tau(\ccalF_{\theta}) d(\tau) \\
+        &\leq B' \int \ccalT_{\text{train}}(\tau) \text{Regret}_\tau(\ccalF_{\theta}) d(\tau) \\
+        &=B' \mbE_{\ccalT_{\text{train}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right] \\
+        &\leq \widetilde{\ccalO} (B' |S| T^{3/2} \sqrt{K |A|}).
+    \end{align}
+    This completes the proof.
+    %
+\end{myproof}
+%
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+\section{Implementation Details}
+\label{appendix_implement}
+
+% \subsection{Pseudo-codes}
+
+We provide below the pseudo-codes that are omitted in the main body of the paper.
+
+
+
+
+
+\begin{algorithm}[H]
+\caption{Collecting Query States and Action Labels under Random Policy (Sparse-Reward MDP)}         \label{alg_collect_queries_sparse}
+\begin{algorithmic}[1]
+		\STATE \textbf{Require:} Random policy $\pi$, state space $S$, action space $A$, environment $\tau$, trust horizon $N$
+
+            \STATE \textbf{Set} $\texttt{min\_step} = N+1$
+            \WHILE{ $\texttt{min\_step} > N$ }
+                \STATE Sample a query state $s_q \sim S$
+                \STATE Empty a step list $L_s$
+                \FOR{$a$ in $[A]$}
+                    \STATE Initialize the state and action as $s_0 = s_q, \, a_0 = a$
+                    
+                    \STATE Run an episode of $N$ steps in $\tau$ under the random policy $\pi$, and terminate the episode early upon receiving a reward
+
+                    \STATE Add consumed steps to $L_s$ (add ``$N+1$'' if no reward is received)
+
+                \ENDFOR
+            \STATE $\texttt{min\_step} = \min (L_s)$
+
+            \ENDWHILE
+            \STATE Obtain $a_l = A(\argmin (L_s))$
+
+        \STATE \textbf{Return} $(s_q, a_l)$
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{algorithm}
+\caption{Pretraining and Deployment of SAD (Inspired by~\citep{lee2024supervised})}         \label{alg_pretrain_deploy}
+\begin{algorithmic}[1]
+
+        \STATE \textbf{Require:} Pretraining dataset $\ccalD$, initial model parameters $\theta$, test environment distribution $\ccalT_{\text{test}}$, number of episodes $N_E$
+        \STATE \green{\textbf{// Model pretraining}}
+        \WHILE{not converged}
+            \STATE Sample $(\ccalC, s_q, a_l)$ from the pretraining dataset $\ccalD$ and predict actions by the model $\ccalF_\theta(\cdot  | \ccalC_i, s_q)$ for all $i \in [|\ccalC|]$
+            \STATE Compute the loss in \eqref{eqn_loss} with respect to the action label $a_l$ and backpropagate to update $\theta$.
+        \ENDWHILE
+        
+        \STATE \green{\textbf{// Offline deployment}}
+        \STATE Sample unseen environments $\tau \sim \ccalT_{\text{test}}$ 
+        \STATE Sample a context $\ccalC \sim \ccalT_{\text{test}}(\cdot \mid \tau)$
+        \STATE Deploy $\ccalF_\theta$ in $\tau$ by selecting $a_t \in \argmax_{a \in A} \ccalF_{\theta}(a \mid \ccalC, s_t)$ at time step $t$
+        
+        \STATE \green{\textbf{// Online deployment}}
+        \STATE Sample unseen environments $\tau \sim \ccalT_{\text{test}}$ and initialize empty context $\ccalC = \{\}$
+
+        \FOR{$i$ in $[N_E]$}
+                \STATE Deploy $\ccalF_\theta$ by sampling $a_t \sim \ccalF_{\theta}(\cdot  \mid \ccalC, s_t)$ at time step $t$
+                \STATE Add $(s_0, a_0, r_0, \ldots)$ to $\ccalC$
+        \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \clearpage
+
+\section{Experimental Details}
+\label{appendix_experiment_detail}
+
+
+
+\subsection{Hyperparameters}
+\label{appendix_experiment_detail_hyperparameters}
+
+The main hyperparameters employed in this work are summarized in Tables~\ref{tab_hyperparameters}-\ref{tab_hyperparameters_env}.
+
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{The main hyperparameters of each algorithm}
+		\label{tab_hyperparameters}
+		\begin{tabular}{c|cccc}
+        \hline
+        \hline
+
+   			Hyperparameters & AD & DPT
+			& DIT & SAD (ours) \cr
+        \hline
+             Causal transformer & GPT2 & GPT2 & GPT2 & GPT2 \cr
+
+            Number of attention heads & 3 & 3 & 3 & 3 \cr 
+
+            Number of attention layers & 3 & 3 & 3 & 3 \cr 
+            
+            Embedding size & 32 & 32 & 32 & 32 \cr 
+
+            % Random seeds & [0, 5, 10, 15] & [0, 5, 10, 15] & [0, 5, 10, 15] & [0, 5, 10, 15] \cr 
+
+            DIT Weight $\lambda$ & N/A & N/A & 500 & N/A \cr 
+
+            Learning rate & 0.001 & 0.001 & 0.001 & 0.001 \cr 
+
+            Dropout & 0.1 & 0.1 & 0.1 & 0.1 \cr 
+
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+
+
+
+
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{The main hyperparameters of each environment}
+		\label{tab_hyperparameters_env}
+		\begin{tabular}{c|ccccc}
+        \hline
+        \hline
+
+   			Hyperparameters & \textit{Gaussian Bandits} & \textit{Bernoulli Bandits}
+			& \textit{Darkroom} & \textit{Darkroom-Large} & \textit{Miniworld} \cr
+        \hline
+             Action dimension & 5 & 5 & 5 & 5 & 4 \cr
+
+             Pixel-based & \no & \no & \no & \no & \yes \cr
+              
+             Trust Horizon & 320 & 320 & 7 & 10 & 3 \cr
+
+             \# of epochs & 100 & 100 & 100 & 100 & 200 \cr
+
+             Context horizon & 500 & 500 & 49 & 100 & 50 \cr
+
+             Training/Test ratio & 0.8/0.2 & 0.8/0.2 & 0.8/0.2 & 0.8/0.2 & 0.8/0.2 \cr
+
+             \# of environments & 100000 & 100000 & 24010 & 100000 & 40000 \cr
+
+
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+
+
+
+
+
+\subsection{Additional Results}
+\label{appendix_experiment_detail_addition_result}
+
+We provide in this subsection additional experimental results that are omitted in the main body of paper.
+
+Figure~\ref{fig_consumed_time} presents the dataset generation time of our SAD approach, compared with other SOTA baselines (AD, DPT, DIT), where the MAB and MDP problems consider the environments of \textit{Gaussian Bandits} and \textit{Darkroom} respectively. SAD (avg) represents the average of consumed time over different trust horizons (consistent with those in Figure~\ref{fig_action_select_acc}).
+%
+% We observe that the consumed time of SAD for dataset generation in both MAB and MDP problems monotonically increases with the trust horizon $N$.
+On average, SAD requires the most significant amount of time in the MDP problem. While in the MAB problem, SAD ranks as the second most time-consuming method, with its duration surpassing all except DIT.
+%
+Notice that the additional computational time of SAD aligns with the prevailing trend of leveraging increased computation to fully harness the advanced reasoning capabilities of FMs~\citep{brown2020language}.
+
+
+
+Figure~\ref{fig_fixed_time_budget} compares our SAD approach with the SOTA baselines (AD, DPT, DIT) under the same time budget (38 seconds, which is consumed by DIT). 
+%
+Despite with degraded performance and increased vairance compared to before, our SAD method still outperforms all baselines, especially in the offline deployment. This implies that our method has a more robust performance than the baselines when tackling the random contexts as the offline deployment uses pre-collected random contexts. 
+
+
+Table~\ref{tab_data_amount_time} demonstrates that our method with $N=7$ uses 21,445,147 transition data only and consumes 82 seconds only in the dataset generation. In contrast, obtaining well-trained policies for all pretraining environments in the baseline methods (AD) uses 2,401,000,000 transition data and consumes 3452 seconds in the dataset generation. Furthermore, the baseline methods need to learn and maintain policy and value networks for all pretraining environments (additional costs), which is not the case in our method since the only thing we do is collecting at random. It is true that the baseline methods take about 20-40 seconds (see Figure~\ref{fig_consumed_time}) if they just employ the random policy (no well-trained policies), however, accompanied by a catastrophic performance as depicted in Figure~\ref{fig_darkroom}.
+
+
+
+
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+	% \fontsize{8.5}{9}\selectfont
+		\caption{Performance improvements of SAD compared to baseline algorithms in the offline evaluation.}
+		\label{tab_compare_offline}
+		\begin{tabular}{c|ccc|c}
+        \hline
+        \hline
+
+   			Environment & SAD vs AD & SAD vs DPT
+			& SAD vs DIT & SAD vs DPT$^*$ \cr
+        \hline
+             \emph{Gaussian Bandits} & $647.0\%$ & $508.9\%$ & $354.0\%$ & $-5.2\%$ \cr
+
+             \emph{Bernoulli Bandits} & $553.4\%$ & $426.8\%$ & $289.5\%$  & $-18.7\%$ \cr 
+
+            \emph{Darkroom} & $2162.2\%$ & $2069.6\%$ & $149.3\%$  & $-1.3\%$ \cr
+            
+           \emph{Darkroom-Large} & $6325.5\%$ & $6389.9\%$ & $266.8\%$  & $-14.9\%$ \cr
+
+            \emph{Miniworld} & $687.7\%$ & $684.2\%$ & $122.1\%$  & $-52.9\%$ \cr
+
+        \hline 
+        
+        Average & $2075.2\%$ & $2015.9\%$ & $236.3\%$  & $-18.6\%$ \cr
+   
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+
+
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+	% \fontsize{8.5}{9}\selectfont
+		\caption{Performance improvements of SAD compared to baseline algorithms in the online evaluation.}
+		\label{tab_compare_online}
+		\begin{tabular}{c|ccc|c}
+        \hline
+        \hline
+
+   			Environment & SAD vs AD & SAD vs DPT
+			& SAD vs DIT & SAD vs DPT$^*$ \cr
+        \hline
+            \emph{Gaussian Bandits} & $933.6\%$ & $942.5\%$ & $273.9\%$ & $-0.4\%$  \cr
+
+            \emph{Bernoulli Bandits} & $846.8\%$ & $830.9\%$ & $313.9\%$ & $-0.2\%$  \cr
+
+            \emph{Darkroom} & $3053.9\%$ & $2893.8\%$ & $41.7\%$ & $-3.4\%$  \cr
+
+            \emph{Darkroom-Large} & $10626.9\%$ & $10221.8\%$ & $24.7\%$ & $-0.1\%$  \cr
+
+            \emph{Miniworld} & $582.9\%$ & $580.1\%$ & $21.7\%$ & $-57.3\%$  \cr
+
+        \hline 
+        
+        Average & $3208.8\%$ & $3093.8\%$ & $135.2\%$ & $-12.3\%$  \cr
+   
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+
+
+
+
+\begin{figure}[ht]
+\centering 
+% \includegraphics[width=0.3\columnwidth]{figures/plot_consumed_time_MAB_SAD.pdf}
+\includegraphics[width=0.32\columnwidth]{figures/plot_consumed_time_MAB_baseline.pdf}\quad\quad
+% \hspace{-0.005\columnwidth}
+% \raisebox{2.05cm}{%
+% \begin{minipage}{0.01\columnwidth}
+%     % Vertical dashed line
+%     \centering
+%     \rule{0.4mm}{0.45cm} \\[0.26cm]
+%     \rule{0.4mm}{0.45cm} \\[0.26cm]
+%     \rule{0.4mm}{0.45cm} \\[0.26cm]
+%     \rule{0.4mm}{0.45cm} \\[0.26cm]
+%     \rule{0.4mm}{0.45cm} \\[0.26cm]
+%     \rule{0.4mm}{0.45cm}
+% \end{minipage}
+% }
+% \hspace{-0.01\columnwidth}
+% \includegraphics[width=0.3\columnwidth]{figures/plot_consumed_time_MDP_SAD.pdf}
+\includegraphics[width=0.32\columnwidth]{figures/plot_consumed_time_MDP_baseline.pdf}
+\caption{The dataset generation time consumed by SAD averaged over varying trust horizons (as in Figure~\ref{fig_action_select_acc}), compared with AD, DPT, and DIT.}
+\label{fig_consumed_time}
+\end{figure}
+
+
+
+\begin{figure}[ht]
+\centering 
+\includegraphics[width=0.32\columnwidth]{figures/plot_offline_darkroom7_7_fixed_budget.pdf}\quad\quad
+\includegraphics[width=0.32\columnwidth]{figures/plot_online_darkroom7_7_fixed_budget.pdf}
+\caption{Offline and online evaluations of ICRL algorithms under the same time budget (38 seconds).}
+\label{fig_fixed_time_budget}
+\end{figure}
+
+
+
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+	% \fontsize{8.5}{9}\selectfont
+		\caption{The amount of transition data and computation time of SAD ($N=7$) compared to AD with well-trained policies.}
+		\label{tab_data_amount_time}
+        %
+		\begin{tabular}{c|cc}
+        \hline
+        \hline
+
+   			Algorithms & Amount of Transition Data & Computation Time ($s$) \cr
+        \hline
+            AD & $2,401,000,000$ & $3452$  \cr
+
+            SAD (ours) & $21,445,147$ & $82$ \cr
+   
+        \hline
+        \hline
+		\end{tabular}
+\end{table}

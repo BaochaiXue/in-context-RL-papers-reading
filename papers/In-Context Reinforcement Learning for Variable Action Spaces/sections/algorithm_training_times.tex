@@ -1,0 +1,14 @@
+\section{Algorithms' Training Times}
+
+\begin{table}[h]
+    \caption{\textbf{Algorithm Training Times:} Here we list the training times (in hours) of Headless-AD and AD on each environment. All experiments were performed on A100 GPUs. Note that times here include both training and evaluation steps. Though Headless-AD requires more time for completion, we point out that it is evaluated on more environment sets compared to AD.}
+    \label{tab:algo_training_times}
+    \centering
+    \begin{tabular}{c|c|c}
+         & Headless-AD & AD \\
+        \hline 
+        Bernoulli Bandit & $5.5$ & $1.5$ \\
+        Contextual Bandit & $10$ & $7$ \\
+        Darkroom & $27$ & $19$ \\
+    \end{tabular}
+\end{table}

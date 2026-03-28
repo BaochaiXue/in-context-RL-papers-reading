@@ -1,0 +1,256 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage[margin=0.72in]{geometry}
+
+\title{\textbf{Toward Algorithmically Grounded In-Context Reinforcement Learning:\\
+Interpretable Inner Loops, Memory-Compiled Adaptation, and\\
+Open-World Embodied Validation}}
+
+\author{Research Proposal}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In-context reinforcement learning (ICRL) has emerged as a plausible route toward agents that adapt online from experience without gradient updates. Yet the current literature remains split across three incomplete camps: offline sequence-model distillation, memory-based meta-RL, and language-model prompting. Full-text reading of the recent corpus reveals a common bottleneck. Existing systems can sometimes improve in context, but they rarely expose the latent algorithm they run, they depend on brittle history formatting, and they fail to retain robust adaptation when pushed to long-horizon, multimodal, or open-world settings. This proposal pursues one overarching goal: to build an algorithmically grounded ICRL agent whose inner-loop learning state is interpretable, whose context is compiled into task-sufficient memory, and whose adaptation remains reliable under extreme embodied deployment. The program is organized into three tightly coupled pillars. Pillar I studies the latent computational substrate of ICRL, targeting explicit representations of value, uncertainty, and credit assignment. Pillar II develops a new architecture that unifies algorithm-state modeling, context compilation, writable memory, and uncertainty-aware policy optimization. Pillar III validates the resulting system under long-horizon multimodal embodied tasks, out-of-distribution task shifts, and safety-critical interaction regimes. The expected outcome is a principled path from empirical ICRL phenomena to trustworthy adaptive foundation agents.
+\end{abstract}
+
+\section{Introduction}
+The central question of this proposal is simple: can an agent \emph{learn a new sequential decision problem during inference} while keeping its parameters fixed, and do so in a way that is mechanistically interpretable, computationally efficient, and deployment-ready?
+
+Current work suggests that the answer is partially yes, but only under restrictive assumptions. Algorithm Distillation (AD) formulates learning histories as sequences and shows that a causal Transformer can outperform the source RL algorithm it distilled, but its conclusion explicitly identifies long episodes and multi-episodic context modeling as the main unresolved bottleneck~\cite{laskin2022ad}. Decision-Pretrained Transformers (DPT) demonstrate that supervised pretraining can induce exploration and offline conservatism in bandits and MDPs, yet the discussion section states that the method still relies on optimal actions during pretraining~\cite{lee2024dpt}. The theory of supervised-pretrained Transformers further shows that performance depends on realizability and the distribution ratio between expert and offline algorithms~\cite{lin2023provableicrl}. Memory-based meta-RL scales adaptation further: AMAGO-2 removes return-scale sensitivity by converting actor and critic training into classification-style objectives without task labels~\cite{grigsby2024amago2}, while AdA demonstrates human-timescale adaptation in a vast open-ended task space using attention, automated curriculum, and distillation~\cite{adaptive2023ada}. But even these systems do not tell us \emph{what algorithm is being run in context}, what information must be stored, or why adaptation fails in many realistic settings.
+
+The literature also exposes a more structural failure. Retrieval-Augmented Decision Transformer (RA-DT) concludes that although retrieval helps with long histories, existing methods still struggle to exhibit true in-context learning in complex environments, and the paper explicitly argues that memory and meta-learning remain entangled~\cite{schmied2024radt}. LMAct shows that even with hundreds of demonstrations, up to one million context tokens, and multimodal inputs, frontier models often remain far from expert performance~\cite{ruoss2024lmact}. In contextual bandits, \emph{Can Large Language Models Explore In-Context?} finds that almost every prompt configuration fails, with only one setup---chain-of-thought plus externally summarized sufficient statistics---showing reliable exploration~\cite{krishnamurthy2024explore}. EVOLvE confirms the same pattern: raw history is inadequate, while algorithm-guided support and distilled demonstrations substantially improve exploration, sometimes allowing smaller models to outperform larger ones~\cite{nie2024evolve}. The problem is therefore not merely scale; it is the absence of an explicit theory and architecture for \emph{algorithmic state}, \emph{context sufficiency}, and \emph{safe adaptation}.
+
+This proposal advances a unified answer. We will formalize the latent algorithmic state of ICRL, design a new agent architecture that compiles interaction history into writable and retrievable algorithmic memory, and validate the resulting system in long-horizon multimodal embodied environments under severe distribution shift. The significance is twofold: scientifically, it moves ICRL from phenomenology toward mechanism; practically, it provides a route to adaptive agents that can learn online without the prohibitive cost of test-time gradient updates.
+
+\section{Literature Review \& Research Gaps}
+\subsection{What the literature has established}
+The field has already produced three important empirical and theoretical findings.
+
+\paragraph{First, in-context RL is real, but today it is mostly induced indirectly.}
+AD treats an RL algorithm as a long-history-conditioned policy and shows in its main experiments that Transformers can display exploration, memory, and credit assignment across adversarial bandits, dark-room tasks, and Watermaze~\cite{laskin2022ad}. DPT reaches a similar conclusion from a different angle: Section ``Learning in Bandits'' and Section ``Learning in Markov Decision Processes'' show that a supervised model can behave like posterior sampling, while the discussion emphasizes its surprising ability to explore online and act conservatively offline~\cite{lee2024dpt}. DIT pushes this line further by dropping the need for optimal labels. In Section ``Decision Importance Transformer,'' the method assigns weighted pseudo-labels using discounted future rewards of observed actions and empirically matches DPT-like performance on suboptimal datasets~\cite{dong2024dit}. LHF then shows that even when the backbone is fixed, the \emph{quality and structure} of learning histories matter: Section ``Learning History Filtering'' defines improvement and stability metrics, and the numerical results report average gains of roughly \(8.8\%\), \(9.1\%\), and \(11.9\%\) over AD, DICP, and DPT on dark-room variants~\cite{chen2025lhf}.
+
+\paragraph{Second, current success is tied to implicit algorithms, not explicit ones.}
+The strongest theoretical support comes from two papers. \emph{Transformers as Decision Makers} proves that supervised-pretrained Transformers can approximate near-optimal contextual algorithms such as LinUCB, Thompson sampling, and UCB-VI, but the same paper's ``Limitation and discussion'' section makes clear that this depends on realizability and favorable offline-to-expert distribution ratios~\cite{lin2023provableicrl}. \emph{Transformers Learn Temporal Difference Methods for ICRL} goes deeper mechanistically: the conclusion states that Transformers can implement TD-style policy evaluation in their forward pass, yet also admits four key limitations, including focus on policy evaluation only, linear-attention simplifications, synthetic task generation, and lack of large-scale validation~\cite{wang2024td}. Sparse autoencoders then reveal TD-error-like features in Llama's residual stream, but again only on simple in-context RL tasks~\cite{demircan2024sae}. Across all three papers, the core algorithm exists \emph{inside} the model but remains neither explicitly represented nor controllable.
+
+\paragraph{Third, scale helps, but scale without structure does not solve the problem.}
+AdA demonstrates in Section ``Experiments and Results'' and the scaling subsections that attention-based memory, auto-curriculum, and distillation yield systematic gains with model size, memory length, and task-pool richness~\cite{adaptive2023ada}. AMAGO-2 identifies a precise multi-task optimization pathology: in Section ``Multi-Task Adaptation Without Task Labels,'' both actor and critic losses are reformulated as classification objectives to avoid domination by return scale; the experiments on ML45 and other suites show large gains in skill coverage and adaptation without explicit task labels~\cite{grigsby2024amago2}. ReLIC introduces partial updates and Sink-KV to reach 64k-step context windows in embodied navigation, but its ``Conclusion and Limitations'' section notes that in-context learning only emerges when the training distribution is sufficiently diverse and hard to memorize, and the method still requires very large RL budgets~\cite{elawady2024relic}. XLand-100B addresses data scarcity by releasing nearly \(30{,}000\) tasks and \(100\)B transitions; however, its experiments explicitly show that AD performance degrades as rulesets become deeper~\cite{nikulin2024xland100b}. OmniRL extends scale through AnyMDP and decoupled policy distillation, but the abstract and experimental section report a key tradeoff: more task diversity improves asymptotic generalization while lengthening adaptation periods~\cite{wang2025omnirl}.
+
+\subsection{Where the literature still fails}
+The strongest full-text reading across these papers reveals three gaps that are not incremental.
+
+\paragraph{Gap 1: No explicit notion of \emph{algorithmic state}.}
+The literature repeatedly infers that models run inner-loop learning algorithms, but does not expose the state variables of those algorithms. AD, DPT, DIT, and LHF all train via action prediction or weighted variants of it~\cite{laskin2022ad,lee2024dpt,dong2024dit,chen2025lhf}. Theoretical work and mechanistic probes reveal TD-like behavior~\cite{lin2023provableicrl,wang2024td,demircan2024sae}, but they stop short of learning explicit, editable variables for belief, value, uncertainty, or credit assignment. This prevents causal diagnosis and calibrated intervention.
+
+\paragraph{Gap 2: No principled \emph{context compiler}.}
+The field still treats context length as a substitute for context quality. RA-DT shows that external retrieval can outperform vanilla context windows while using far shorter context, but its conclusion explicitly warns that retrieval does not resolve the memory-versus-meta-learning ambiguity~\cite{schmied2024radt}. LMAct demonstrates that more demonstrations and longer contexts often do little~\cite{ruoss2024lmact}. \emph{Can Large Language Models Explore In-Context?} is even sharper: the only successful setting uses externally summarized sufficient statistics, implying that the unsolved problem is \emph{how to construct the right context}, not simply how to enlarge it~\cite{krishnamurthy2024explore}.
+
+\paragraph{Gap 3: No closed-loop bridge from algorithmic competence to open-world deployment.}
+LLM-style ICRL has now been shown in bandits and multi-round prompting. \emph{Reward Is Enough} finds that scalar reward alone can induce inference-time self-improvement across Game of 24, creative writing, ScienceWorld, and competition math~\cite{song2025reward}. EVOLvE shows that algorithm-guided support narrows the regret gap, and its regret-fitting analysis finds that only well-supported models approach sublinear behavior~\cite{nie2024evolve}. PAPRIKA-style training of a generally curious agent demonstrates zero-shot transfer to unseen tasks, but its discussion section concedes reliance on rejection sampling, a strong base model, and labor-intensive task construction~\cite{tajwar2025paprika}. In short, the field lacks a system that links mechanistically grounded ICRL to embodied, multimodal, safety-constrained adaptation.
+
+\section{Proposed Research: The Three Pillars}
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{p{0.14\linewidth}p{0.78\linewidth}}
+\toprule
+\textbf{Pillar} & \textbf{Role in the closed-loop agenda} \\
+\midrule
+I & Identify the latent algorithmic state of ICRL and turn black-box inner loops into explicit computational objects. \\
+II & Build a new architecture that compiles raw interaction history into algorithmic memory and policy updates. \\
+III & Stress-test the resulting system in open-world, multimodal, long-horizon embodied settings with safety and OOD constraints. \\
+\bottomrule
+\end{tabular}
+\caption{The three pillars are sequential rather than merely orthogonal: Pillar I defines what must be represented; Pillar II operationalizes it into a learnable system; Pillar III validates whether the resulting mechanism survives under realistic deployment stress.}
+\label{tab:pillars}
+\end{table}
+
+\subsection{Pillar I: Foundation \& Theory --- Explicit Algorithmic State for In-Context RL}
+\textbf{Hypothesis.} Successful ICRL requires a low-dimensional but structured latent state that tracks at least four quantities: predictive value, epistemic uncertainty, causal credit assignment, and task-hypothesis posterior mass. Existing models appear to implement fragments of this state implicitly, but not in a form that can be interrogated or regularized.
+
+\textbf{Research plan.}
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{Algorithm-state factorization.} We will formalize a state-space view of ICRL in which a fixed network consumes history \(h_t\) and updates an internal algorithmic state \(z_t\) with typed factors for value, uncertainty, and task belief. This formulation will be designed to subsume posterior-sampling interpretations from DPT~\cite{lee2024dpt}, TD-style updates from~\cite{wang2024td}, and weighted pseudo-labeling from DIT~\cite{dong2024dit}.
+\item \textbf{Causal mechanistic supervision.} Rather than probing the learned model post hoc only, we will train on synthetic micro-worlds with counterfactual interventions over reward delay, transition ambiguity, and action informativeness. The goal is to force separable algorithmic coordinates that support interventions of the form: ``increase uncertainty while keeping value fixed,'' or ``change delayed credit while preserving immediate reward.''
+\item \textbf{Theory under mismatch.} Existing regret guarantees hinge on favorable distribution ratios~\cite{lin2023provableicrl}. We will derive a new theory for \emph{algorithm-state sufficiency under context mismatch}, asking when compressed algorithmic state is enough to preserve near-optimal adaptation even when the raw history distribution shifts.
+\end{itemize}
+
+\textbf{Why this is non-incremental.} This pillar does not tune an existing backbone; it changes the object of study from action prediction to explicit online algorithm state. If successful, it will convert the current claim ``the network might be doing RL inside'' into a falsifiable statement about \emph{which state variables} are computed and whether they are causally necessary.
+
+\textbf{Risks and mitigation.} The main risk is representational collapse: the latent state may simply absorb nuisance information. We will mitigate this through intervention-based identifiability tests and by requiring transfer across task families where shortcut memorization fails, following the diversity lessons of ReLIC, AdA, and OmniRL~\cite{elawady2024relic,adaptive2023ada,wang2025omnirl}.
+
+\subsection{Pillar II: Methodology \& Architecture --- A Context-Compiling Memory Agent}
+\textbf{Hypothesis.} The main engineering bottleneck in ICRL is not sequence length per se but the absence of a \emph{context compiler}: a system that decides what from raw history should be written into memory, when it should be revised, and which fragments should condition the next decision.
+
+\textbf{Proposed system.} I will develop a new architecture, tentatively called the \emph{Algorithm-State Memory Agent} (ASMA), composed of four modules:
+\begin{enumerate}[leftmargin=1.3em]
+\item \textbf{Context Compiler:} converts raw trajectories into compressed algorithm-state updates and event tokens. This directly addresses the failure mode identified by LMAct and~\cite{krishnamurthy2024explore,ruoss2024lmact}, namely that raw long histories often do not become usable decision summaries.
+\item \textbf{Writable Episodic Memory:} stores algorithmic events, retrieved hypotheses, and failure certificates, extending RA-DT from passive nearest-neighbor retrieval to revision-capable memory~\cite{schmied2024radt}.
+\item \textbf{Uncertainty-Aware Actor-Critic Heads:} replaces pure next-action cloning with a joint objective over value, advantage, and calibrated uncertainty. This is motivated by the repeated evidence that offline RL objectives help more than imitation alone; \emph{Yes, Q-learning Helps Offline ICRL} reports average test-target gains up to \(28.8\%\) for conservative Q-learning relative to AD in its overall-performance analysis~\cite{tarasov2025qlearning}.
+\item \textbf{Task-Scale-Invariant Optimization:} generalizes the AMAGO-2 insight that classification-style actor-critic losses reduce return-scale imbalance~\cite{grigsby2024amago2}, but couples it with explicit algorithmic state rather than a purely black-box sequence representation.
+\end{enumerate}
+
+\textbf{Training protocol.}
+The architecture will be trained in three phases. Phase A is synthetic algorithm-state pretraining on procedurally generated decision problems. Phase B is offline ICRL pretraining on large heterogeneous datasets and self-generated histories, using data-centric filtering inspired by LHF~\cite{chen2025lhf}. Phase C is online adaptation training with partial updates and memory stressors, leveraging lessons from ReLIC's long-context optimization recipe~\cite{elawady2024relic}.
+
+\textbf{Why this is non-incremental.} Existing methods modify only one axis at a time: data weighting~\cite{chen2025lhf}, retrieval~\cite{schmied2024radt}, conservative value learning~\cite{tarasov2025qlearning}, or return-scale normalization~\cite{grigsby2024amago2}. ASMA instead posits a \emph{systems-level architecture} in which these components are derived from an explicit theory of algorithmic state and context sufficiency.
+
+\textbf{Expected challenges.} The hardest challenge is avoiding a degenerate memory system that stores abundant but non-causal details. To address this, memory writes will be scored not by reconstruction fidelity but by \emph{counterfactual regret reduction}: a memory item is useful only if removing it degrades future adaptation on held-out tasks.
+
+\subsection{Pillar III: System \& Extreme Application --- Open-World Embodied Validation}
+\textbf{Hypothesis.} A true ICRL foundation agent must survive the regimes where existing methods demonstrably break: multimodal long-context imitation, variable task interfaces, long-horizon embodied interaction, and high-risk distribution shifts.
+
+\textbf{Validation environments.}
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{Procedural task universes:} XLand-style and AnyMDP-style generators will test task diversity, adaptation speed, and train--test mismatch. This is necessary because XLand-100B already shows that baseline AD performance degrades with ruleset depth, while OmniRL shows that greater task diversity can lengthen adaptation periods~\cite{nikulin2024xland100b,wang2025omnirl}.
+\item \textbf{Long-horizon embodied navigation/manipulation:} ReLIC and AdA provide the immediate template for scaling to visual, partially observable, long-horizon domains~\cite{elawady2024relic,adaptive2023ada}.
+\item \textbf{Multimodal demonstration-rich regimes:} LMAct-style evaluation will determine whether the proposed context compiler converts demonstrations into actionable competence, rather than merely increasing token count~\cite{ruoss2024lmact}.
+\item \textbf{Language-mediated exploration tasks:} BanditBench- and PAPRIKA-like settings will test whether the system can reuse algorithmic state in textual environments where current LLMs still rely heavily on external support or costly synthetic curricula~\cite{nie2024evolve,tajwar2025paprika}.
+\end{itemize}
+
+\textbf{Evaluation criteria.}
+The target metrics will go beyond reward: (i) adaptation regret over trials; (ii) memory utility under ablation; (iii) calibration of uncertainty and abstention; (iv) out-of-distribution recovery after dynamics, reward, and interface shifts; and (v) intervention fidelity, i.e., whether manipulating explicit algorithmic state predictably changes behavior.
+
+\textbf{Extreme-case scenario.}
+The final stress test will combine language instructions, pixel observations, long interaction histories, and irreversible or costly actions. This design is motivated by two contradictory observations in the literature: \emph{Reward Is Enough} shows that scalar-reward-driven self-improvement is surprisingly broad~\cite{song2025reward}, while \emph{Can Large Language Models Explore In-Context?} shows that unsummarized histories almost never suffice~\cite{krishnamurthy2024explore}. The proposed agent must therefore prove that it can translate raw multimodal experience into compact algorithmic memory without external hand-crafted summaries.
+
+\section{Expected Outcomes \& Timeline}
+\subsection{Expected outcomes}
+This project is expected to deliver:
+\begin{itemize}[leftmargin=1.2em]
+\item a new theory of algorithmic-state sufficiency for in-context adaptation;
+\item a mechanistically interpretable ICRL architecture that unifies memory, value learning, uncertainty, and context compilation;
+\item a benchmark suite for open-world embodied and multimodal ICRL with explicit OOD and safety stress tests;
+\item empirical evidence about when in-context improvement reflects genuine online learning rather than retrieval or superficial imitation.
+\end{itemize}
+
+The intended academic outputs are one theory paper, one methods paper, one systems paper, and an integrated dissertation. The broader outcome is a principled blueprint for adaptive agents that can improve online without test-time backpropagation, while remaining auditable and deployable.
+
+\subsection{Timeline}
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.16\linewidth}p{0.74\linewidth}}
+\toprule
+\textbf{Period} & \textbf{Milestones} \\
+\midrule
+Year 1 & Full formalization of algorithmic state; synthetic testbeds for intervention-based mechanistic study; first submission on interpretable inner-loop learning. \\
+Year 2 & Design and implementation of ASMA; offline and hybrid pretraining; ablations against AD, DPT, DIT, LHF, CQL-style ICRL, and RA-DT. \\
+Year 3 & Open-world embodied scaling on XLand/AnyMDP/ReLIC-style tasks; multimodal long-context validation on LMAct-style protocols; uncertainty and abstention modules. \\
+Year 4 & End-to-end integration, safety and OOD stress testing, thesis consolidation, public release of code, benchmark, and reproducibility artifacts. \\
+\bottomrule
+\end{tabular}
+\caption{Gantt-style timeline for the proposed doctoral research program.}
+\label{tab:timeline}
+\end{table}
+
+\begin{thebibliography}{99}
+
+\bibitem{laskin2022ad}
+Michael Laskin, Luyu Wang, Junhyuk Oh, Emilio Parisotto, Stephen Spencer, Richie Steigerwald, DJ Strouse, Steven Hansen, Angelos Filos, Ethan Brooks, Maxime Gazeau, Himanshu Sahni, Satinder Singh, and Volodymyr Mnih.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock \emph{arXiv preprint arXiv:2210.14215}, 2022.
+
+\bibitem{lee2024dpt}
+Jonathan N. Lee, Annie Xie, Aldo Pacchiano, Yash Chandak, Chelsea Finn, Ofir Nachum, and Emma Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2306.14892}, 2023.
+
+\bibitem{lin2023provableicrl}
+Licong Lin, Yu Bai, and Song Mei.
+\newblock Transformers as decision makers: Provable in-context reinforcement learning via supervised pretraining.
+\newblock \emph{arXiv preprint arXiv:2310.08566}, 2023.
+
+\bibitem{wang2024td}
+Jiuqi Wang, Ethan Blaser, Hadi Daneshmand, and Shangtong Zhang.
+\newblock Transformers learn temporal difference methods for in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2405.13861}, 2024.
+
+\bibitem{demircan2024sae}
+Can Demircan, Tankred Saanum, Akshay K. Jagadish, Marcel Binz, and Eric Schulz.
+\newblock Sparse autoencoders reveal temporal difference learning in large language models.
+\newblock \emph{arXiv preprint arXiv:2410.01280}, 2024.
+
+\bibitem{dong2024dit}
+Juncheng Dong, Moyang Guo, Ethan X. Fang, Zhuoran Yang, and Vahid Tarokh.
+\newblock In-context reinforcement learning without optimal action labels.
+\newblock In \emph{Proceedings of the First Workshop on In-Context Learning}, 2024.
+
+\bibitem{chen2025lhf}
+Weiqin Chen, Xinjie Zhang, Dharmashankar Subramanian, and Santiago Paternain.
+\newblock Filtering learning histories enhances in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2505.15143}, 2025.
+
+\bibitem{tarasov2025qlearning}
+Denis Tarasov, Alexander Nikulin, Ilya Zisman, Albina Klepach, Andrei Polubarov, Nikita Lyubaykin, Alexander Derevyagin, Igor Kiselev, and Vladislav Kurenkov.
+\newblock Yes, Q-learning helps offline in-context RL.
+\newblock \emph{arXiv preprint arXiv:2502.17666}, 2025.
+
+\bibitem{schmied2024radt}
+Thomas Schmied, Fabian Paischer, Vihang Patil, Markus Hofmarcher, Razvan Pascanu, and Sepp Hochreiter.
+\newblock Retrieval-augmented decision transformer: External memory for in-context RL.
+\newblock \emph{arXiv preprint arXiv:2410.07071}, 2024.
+
+\bibitem{grigsby2024amago2}
+Jake Grigsby, Justin Sasek, Samyak Parajuli, Daniel Adebi, Amy Zhang, and Yuke Zhu.
+\newblock AMAGO-2: Breaking the multi-task barrier in meta-reinforcement learning with transformers.
+\newblock \emph{arXiv preprint arXiv:2411.11188}, 2024.
+
+\bibitem{adaptive2023ada}
+Adaptive Agent Team, Jakob Bauer, Kate Baumli, Satinder Baveja, Feryal Behbahani, Avishkar Bhoopchand, Nathalie Bradley-Schmieg, Michael Chang, Natalie Clay, Adrian Collister, Vibhavari Dasagi, Lucy Gonzalez, Karol Gregor, Edward Hughes, Sheleem Kashem, Maria Loks-Thompson, Hannah Openshaw, Jack Parker-Holder, Shreya Pathak, Nicolas Perez-Nieves, Nemanja Rakicevic, Tim Rockt\"aschel, Yannick Schroecker, Jakub Sygnowski, Karl Tuyls, Sarah York, Alexander Zacherl, and Lei Zhang.
+\newblock Human-timescale adaptation in an open-ended task space.
+\newblock \emph{arXiv preprint arXiv:2301.07608}, 2023.
+
+\bibitem{wang2025omnirl}
+Fan Wang, Pengtao Shao, Yiming Zhang, Bo Yu, Shaoshan Liu, Ning Ding, Yang Cao, Yu Kang, and Haifeng Wang.
+\newblock OmniRL: In-context reinforcement learning by large-scale meta-training in randomized worlds.
+\newblock \emph{arXiv preprint arXiv:2502.02869}, 2025.
+
+\bibitem{nikulin2024xland100b}
+Alexander Nikulin, Ilya Zisman, Alexey Zemtsov, Viacheslav Sinii, Vladislav Kurenkov, and Sergey Kolesnikov.
+\newblock XLand-100B: A large-scale multi-task dataset for in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2406.08973}, 2024.
+
+\bibitem{elawady2024relic}
+Ahmad Elawady, Gunjan Chhablani, Ram Ramrakhya, Karmesh Yadav, Dhruv Batra, Zsolt Kira, and Andrew Szot.
+\newblock ReLIC: A recipe for 64k steps of in-context reinforcement learning for embodied AI.
+\newblock \emph{arXiv preprint arXiv:2410.02751}, 2024.
+
+\bibitem{ruoss2024lmact}
+Anian Ruoss, Fabio Pardo, Harris Chan, Bonnie Li, Volodymyr Mnih, and Tim Genewein.
+\newblock LMAct: A benchmark for in-context imitation learning with long multimodal demonstrations.
+\newblock \emph{arXiv preprint arXiv:2412.01441}, 2024.
+
+\bibitem{krishnamurthy2024explore}
+Akshay Krishnamurthy, Keegan Harris, Dylan J. Foster, Cyril Zhang, and Aleksandrs Slivkins.
+\newblock Can large language models explore in-context?
+\newblock \emph{arXiv preprint arXiv:2403.15371}, 2024.
+
+\bibitem{nie2024evolve}
+Allen Nie, Yi Su, Bo Chang, Jonathan N. Lee, Ed H. Chi, Quoc V. Le, and Minmin Chen.
+\newblock EVOLvE: Evaluating and optimizing LLMs for exploration.
+\newblock \emph{arXiv preprint arXiv:2410.06238}, 2024.
+
+\bibitem{song2025reward}
+Kefan Song, Amir Moeini, Peng Wang, Lei Gong, Rohan Chandra, Yanjun Qi, and Shangtong Zhang.
+\newblock Reward is enough: LLMs are in-context reinforcement learners.
+\newblock \emph{arXiv preprint arXiv:2506.06303}, 2025.
+
+\bibitem{tajwar2025paprika}
+Fahim Tajwar, Yiding Jiang, Abitha Thankaraj, Sumaita Sadia Rahman, J. Zico Kolter, Jeff Schneider, and Ruslan Salakhutdinov.
+\newblock Training a generally curious agent.
+\newblock \emph{arXiv preprint arXiv:2502.17543}, 2025.
+
+\end{thebibliography}
+
+\end{document}

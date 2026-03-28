@@ -1,0 +1,13 @@
+\section{Feasibility of Obtaining Curricular Data}
+\label{supp:sec:feasibility}
+
+The challenge of accurately orchestrating a curriculum is non-trivial and hinges on various factors. In the present work, three curriculum designs are introduced and validated, each with its practical considerations and underlying assumptions, discussed herein.
+
+\para{Learning-Progress-Based Curriculum.}
+RL agents typically exhibit monotonic improvement over training epochs, thereby naturally producing incrementally better data. The curriculum here is devised through a series of checkpoints throughout the training duration, necessitating no supplementary assumptions for its formulation.
+
+\para{Task-Difficulty-Based Curriculum.}
+In contexts where environmental difficulty is parameterizable, curricula can be structured through a schedule, determined by the relevant difficulty parameter, as demonstrated within this work. In scenarios lacking parameterized difficulty, alternatives such as methods proposed by \citet{kanitscheider2021multitask} may be employed. The application of our method to tasks where difficulty is not explicitly characterized presents an intriguing avenue for future research.
+
+\para{Expertise-Based Curriculum.}
+A notable limitation resides in the requisite to estimate demonstrators’ proficiency. While some IL benchmarks, e.g., RoboMimic \citep{mandlekar2021matters}, come pre-equipped with proficiency labels, a broader application of our method necessitates an approximation of proficiency. One plausible approach entails ranking trajectories via completion time. Furthermore, a demonstrator's proficiency is likely to organically improve—from initial unfamiliarity with teleoperation systems or tasks, to a stage of executing data collection with muscle memory \citep{mandlekar2018roboturk}. This progression potentially provides a rich learning signal conducive for CEC application.

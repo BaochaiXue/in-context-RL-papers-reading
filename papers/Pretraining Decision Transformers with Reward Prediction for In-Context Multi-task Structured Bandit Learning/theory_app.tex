@@ -1,0 +1,184 @@
+
+
+
+%%%%%%%%%%%%%%%%%% Removed the Lemma 1 %%%%%%%%%%%%%%%
+% \subsection{Proof of \Cref{lemma:bayes-reg}}
+% \label{app:proof-lemma-1}
+
+
+% \begin{proof}
+%     % Consider that there are $M$ tasks, indexed as $m=1,2,\ldots,M$. From each task $m$, 
+
+% The learner collects $n$ rounds of data. Define the matrix of observed features as $\bH_n\in\R^{n\times d}$.
+% %
+% Then after $n$ rounds the observed rewards under linear feedback are given by the vector
+% \begin{align*}
+%     \bY_{n} = \bH_n \btheta_{*} + \eta_{n}
+% \end{align*}
+% where the unknown parameter $\btheta_{*}\in\R^d$ and the noise $\eta_{n}\in\R^n$.
+% %
+% Also, recall that $\btheta_{*}\sim\N(0,\sigma^2_{\btheta}\bI_d)$.
+% %
+% Therefore we can show that 
+% \begin{align*}
+%     \bY_{n} \sim \N(0, \bH_n(\sigma^2_{\btheta}\bI_d)\bH_n^\top + \sigma^2\bI_n).
+% \end{align*}
+% Using Gauss Markov theorem we can show that
+% \begin{align*}
+%     \wtheta =  \sigma^2_{\btheta}\bI_{d}\bH_n^\top\left(\bH_n(\sigma^2_{\btheta}\bI_d)\bH_n^\top + \sigma^2\bI_n\right)^{-1}\bY_{n}.
+% \end{align*}
+% % Assume that $\bSigma_{\btheta_m\btheta_m} = \sigma^2_{\btheta_m}\bI_{d\times d}$ and $\bSigma_{\eta_m\eta_m} = \sigma^2_{\eta_m}\bI_{n\times n}$. 
+% Then we have that
+% \begin{align*}
+%      \wtheta =  \sigma^2_{\btheta}\bH_n^\top\left(\sigma^2_{\btheta}\bH_n\bH_n^\top + \sigma^2\bI_n\right)^{-1}\bY_{n}.
+% \end{align*}
+% Finally plugging this back we get that the learner can estimate the mean vector of the actions for the $m$-th task as follows
+% \begin{align*}
+%     \wmu_m = \bX_m \wtheta = \sigma^2_{\btheta}\bX_m\bH_n^\top\left(\sigma^2_{\btheta}\bH_n\bH_n^\top + \sigma^2\bI_n\right)^{-1}\bY_{n}.
+% \end{align*}
+% The claim of the lemma follows.
+% \end{proof}
+
+
+
+
+\subsection{Proof of \Cref{lemma:bayes-reg-1}}
+\label{app:proof-lemma-2}
+
+\begin{proof}
+The learner collects $n$ rounds of data following $\pi^w$. The weak demonstrator $\pi^w$ only observes the $\{I_t, r_t\}_{t=1}^n$. Recall that $N_n(a)$ denotes the total number of times the action $a$ is sampled for $n$ rounds. 
+%
+%
+Define the matrix $\bH_n \in \R^{n \times A}$ where the $t$-th row represents the action sampled at round $t\in [n]$. 
+%
+The $t$-th row is a one-hot vector with $1$ as the $a$-th component in the vector for $a\in [A]$.
+%
+Then define the reward vector $\bY_n \in \R^n$ as the reward vector where the $t$-th component is the observed reward for the action $I_t$ for $t\in [n]$.
+% estimated empirical mean $\wmu_n(a)$ for the action $a$ after $n$ rounds of observed rewards.
+%
+Finally define the diagonal matrix $\bD_A\in\R^{A\times A}$ as in \eqref{eq:D-matrix} and the estimated reward covariance matrix as $\bS_A\in\R^{A\times A}$ such that $\bS_A(a,a') = \wmu_n(a)\wmu_n(a')$. This matrix captures the reward correlation between the pairs of actions $a,a'\in [A]$.
+
+%
+Assume $\mu\sim\N(0, \bS_*)$ where $\bS_*\in\R^{A\times A}$. Then the observed mean vector $\bY_n$ is 
+\begin{align*}
+    \bY_n = \bH_n \mu + \bH_n \bD_A^{1/2} \eta_n
+\end{align*}
+where, $\eta_n$ is the noise vector over the $[n]$ training data. Then the posterior mean of $\wmu$ by Gauss Markov Theorem \citep{johnson2002applied} is given by
+\begin{align}
+    \wmu = \bS_*\bH_n^\top\left(\bH_n(\bS_* + \bD_A)\bH_n^\top\right)^{-1}\bY_n. \label{eq:posterior}
+\end{align}
+However, the learner does not know the true reward co-variance matrix. Hence it needs to estimate the $\bS_*$ from the observed data. Let the estimate be denoted by $\bS_A$. 
+
+\begin{assumption}
+\label{assm:exploration}
+    We assume that $\pi^w$ is sufficiently exploratory so that each action is sampled at least once. 
+\end{assumption}
+The \Cref{assm:exploration} ensures that the matrix $\left(\sigma^2_{\btheta}\bH_n(\bS_A + \bD_A)\bH_n^\top\right)^{-1}$ is invertible.
+%
+Under \Cref{assm:exploration}, plugging the estimate $\bS_A$ back in \eqref{eq:posterior} shows that the average posterior mean over all the tasks is
+\begin{align}
+    \wmu = \bS_A\bH_n^\top\left(\bH_n(\bS_A + \bD_A)\bH_n^\top\right)^{-1}\bY_n.
+\end{align}
+%
+%
+% Define the matrix $\bH_A \in \R^{A \times A}$ where the $a$-th column represents the action $a\in [A]$.
+% %
+% Then define the reward vector $\bY_A \in \R^A$ as the mean reward vector where the $a$-th component is the estimated empirical mean $\wmu_n(a)$ for the action $a$ after $n$ rounds of observed rewards.
+%
+%
+% of observed features as $\bH_n\in\R^{n\times A}$, where $A$ is the number of actions.
+% %
+% Then after $n$ rounds the observed rewards under linear feedback are given by the vector
+% \begin{align*}
+%     \bY_{n} = \bH_n \btheta_{m,*} + \eta_{m,n}
+% \end{align*}
+% where the unknown parameter $\btheta_{m,*}\in\R^d$ and the noise $\eta_{m,n}\in\R^n$.
+% %
+% Also, recall that $\btheta_{m,*}\sim\N(0,\sigma^2_{\btheta}\bI_d)$.
+%
+%
+% Therefore we can show that for the $m$-th task we have that
+% \begin{align*}
+%     \bY_{n} \sim \N(0, \bH_n(\sigma^2_{\btheta}\bI_d)\bH_n^\top + \sigma^2_{\btheta}\bI_n).
+% \end{align*}
+% However, since we do not know the features of the action, we cannot proceed the same way as in \Cref{lemma:bayes-reg}. 
+%
+% Using Gauss Markov theorem we can show that
+% Then define the 
+% \begin{align*}
+%     \wtheta =  \sigma^2_{\btheta}\bI_{d}\bH_A^\top\left(\bH_A(\sigma^2_{\btheta}\bI_d)\bH_A^\top + \sigma^2\bI_d\right)^{-1}\bY_n.
+% \end{align*}
+% % Assume that $\bSigma_{\btheta_m\btheta_m} = \sigma^2_{\btheta_m}\bI_{d\times d}$ and $\bSigma_{\eta_m\eta_m} = \sigma^2_{\eta_m}\bI_{n\times n}$. 
+% Then we have that
+% \begin{align*}
+%      \wtheta =  \sigma^2_{\btheta}\bH_n^\top\left(\sigma^2_{\btheta}\bH_n\bH_n^\top + \sigma^2\bI_d\right)^{-1}\bY_n.
+% \end{align*}
+% Finally plugging this back we get that the learner can estimate the mean vector of the actions as follows
+% \begin{align*}
+%     \wmu_m = \bX_m \wtheta = \sigma^2_{\btheta}\bX_m\bH_A^\top\left(\sigma^2_{\btheta}\bH_A\bH_A^\top + \sigma^2\bI_d\right)^{-1}\bY_n.
+% \end{align*}
+The claim of the lemma follows.
+\end{proof}
+
+
+
+
+% \subsection{Learning reward distributions using Transformers with new actions}
+
+% Now, consider that there are $M$ tasks, indexed as $m=1,2,\ldots,M$. From each task $m$, we collect $T$ rounds of data. Define the matrix of observed features specific to the task as $\bX_{m}\in\R^{T\times d}$.
+% %
+% For the $m$-th task after $T$ rounds we have the vector of means given by
+% \begin{align*}
+%     \mu_{m,T} = \bX_m \btheta_m + \eta_{m,T} = \bX_m \bB \bw_m + \eta_{m,T}
+% \end{align*}
+% where, $\mu_{m,T}\in\R^n$, the unknown parameter $\btheta_m\in\R^d$, $\bB\in \R^{d \times k}$ is the shared feature extractors across the tasks, $\bw_m\in\R^k$ is the latent unknown parameter such that $k\ll d$ and the noise $\eta_{m,T}\in\R^n$. This can be re-written as follows:
+% \begin{align*}
+%      \mu_{m,T} = \bX_m \bB \bw_m + \eta_{m,T} = \bH_m \bw_m + \eta_{m,T}
+% \end{align*}
+% where $\bX_m \bB = \bH_m \in \R^{T\times k}$.
+% %
+% Therefore we can show that for the $m$-th task we have that
+% \begin{align*}
+%     \mu_{m,T} \sim \N(0, \bH_m\bSigma_{\btheta_m\btheta_m}\bH_m^\top + \bSigma_{\eta_m\eta_m})
+% \end{align*}
+% Using Gauss Markov theorem we can show that
+% \begin{align*}
+%     \wtheta_m =  \bSigma_{\btheta_m\btheta_m}\bH_m^\top\left(\bH_m\bSigma_{\btheta_m\btheta_m}\bH_m^\top + \bSigma_{\eta_m\eta_m}\right)^{-1}\mu_{m,T}
+% \end{align*}
+% Assume that $\bSigma_{\btheta_m\btheta_m} = \sigma^2_{\btheta_m}\bI_{d\times d}$ and $\bSigma_{\eta_m\eta_m} = \sigma^2_{\eta_m}\bI_{n\times n}$. Then we have that
+% \begin{align*}
+%      \wtheta_m &=  \sigma^2_{\btheta_m}\bI_{d\times d}\bH_m^\top\left(\bH_m\sigma^2_{\btheta_m}\bI_{d\times d}\bH_m^\top + \sigma^2_{\eta_m}\bI_{n\times n}\right)^{-1}\mu_{m,T} \\
+%      %%%%%%%%%%%%%%%%%%%%%%
+%      &= \sigma^2_{\btheta_m}\bH_m^\top\left( \sigma^2_{\btheta_m}\bH_m\bH_m^\top + \sigma^2_{\eta_m}\bI_{n\times n}\right)^{-1}\mu_{m,T}
+% \end{align*}
+% Finally plugging this back we get that the transformer learns as estimate as follows
+% \begin{align*}
+%     \wmu_{} = \bH_m \wtheta_m = \sigma^2_{\btheta_m}\bH_m\bH_m^\top\left(\sigma^2_{\btheta_m}\bH_m\bH_m^\top + \sigma^2_{\eta_m}\bI_{n\times n}\right)^{-1}\mu_{m,T}
+% \end{align*}
+% This holds for task $m$. Now let $\bH_m\bH_m^\top = \bX_m \bB \bB^\top \bX_m^\top =  \bX_m\bU\bD\bU^\top\bX_m^\top = \bV_m\bD\bV_m^\top$ be its eigen decomposition where $\bD\in\R^{k\times k}$ is a diagonal matrix and $\bV_m\in\R^{d\times k}$. Since the rank of $\bV_m$ is $k \ll d < T$, then we have that $\bD$ only has $k$ diagonal elements denoted by $\lambda_1, \lambda_2, \ldots, \lambda_k$. Then we have that
+% \begin{align*}
+%     \wmu_{m,T} &= \sigma^2_{\btheta_m}\bV_m\bD\bV_m^\top\left(\sigma^2_{\btheta_m}\bV_m\bD\bV_m^\top + \sigma^2_{\eta_m}\bI_{n\times n}\right)^{-1}\mu_{m,T}\\
+%     %%%%%%%%%%%%%%
+%     &= \sigma^2_{\btheta_m}\bV_m\bD\bV_m^\top\left(\sigma^2_{\btheta_m}\bV_m\bD\bV_m^\top + \sigma^2_{\eta_m}\bV_m\bV_m^\top\right)^{-1}\mu_{m,T}\\
+%     %%%%%%%%%%%%%%%%
+%     &=\sigma^2_{\btheta_m}\bV_m\bD\bV_m^\top\left(\bV_m\left[\sigma^2_{\btheta_m}\bD + \sigma^2_{\eta_m}\bI_{n\times n}\right]\bV_m^\top\right)^{-1}\mu_{m,T}\\
+%     %%%%%%%%%%%%%%%%
+%     &= \sigma^2_{\btheta_m}\bV_m\bD\left(\left[\sigma^2_{\btheta_m}\bD + \sigma^2_{\eta_m}\bI_{n\times n}\right]\right)^{-1}\bV_m^\top\mu_{m,T}\\
+%     %%%%%%%%%%%%%%%%%
+%     &= \bV_m\underbrace{\left[\sigma^2_{\btheta_m}\bD\left(\left[\sigma^2_{\btheta_m}\bD + \sigma^2_{\eta_m}\bI_{n\times n}\right]\right)^{-1}\right]}_{\textbf{Part A}}\bV_m^\top\mu_{m,T}
+% \end{align*}
+% Now the quantity A we have that
+% \begin{align*}
+%     \left[\begin{array}{cccccc}\frac{\sigma^2_{\btheta_m} \lambda_1^2}{\sigma^2_{\btheta_m} \lambda_1^2+\sigma_{\eta_m}^2} & \ldots & 0 & 0 & \ldots & 0 \\ \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 0 & \ldots & \frac{\sigma^2_{\btheta_m}\lambda_k^2}{\sigma^2_{\btheta_m} \lambda_k^2+\sigma_{\eta_m}^2} & 0 & \ldots & 0 \\ 0 & \ldots & 0 & 0 & \ldots & 0 \\ \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 0 & \ldots & 0 & 0 & \ldots & 0\end{array}\right] =
+%     %%%%%%%%%%%%%%%%%%%%%
+%     \left[\begin{array}{cccccc}\frac{\lambda_1^2}{ \lambda_1^2+\frac{\sigma_{\eta_m}^2}{\sigma^2_{\btheta_m} }} & \ldots & 0 & 0 & \ldots & 0 \\ \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 0 & \ldots & \frac{\lambda_k^2}{ \lambda_k^2+\frac{\sigma_{\eta_m}^2}{\sigma^2_{\btheta_m}}} & 0 & \ldots & 0 \\ 0 & \ldots & 0 & 0 & \ldots & 0 \\ \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 0 & \ldots & 0 & 0 & \ldots & 0\end{array}\right] 
+% \end{align*}
+% Note that the variance $\sigma^2_{\btheta_m}$ is not task specific and so $\sigma^2_{\btheta_m} = \sigma^2_{\btheta}$. Similarly we have noise variance independent of the task $m$ and so $\sigma^2_{\eta_m} = \sigma^2_{\eta}$. With this, as the number of tasks $M \rightarrow \infty$ we have the SNR $\frac{\sigma_{\eta}^2}{\sigma^2_{\btheta}} \rightarrow 0$ and then we can show that
+% \begin{align*}
+%     \left[\begin{array}{cccccc}\frac{\lambda_1^2}{ \lambda_1^2+\frac{\sigma_{\eta}^2}{\sigma^2_{\btheta} }} & \ldots & 0 & 0 & \ldots & 0 \\ \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 0 & \ldots & \frac{\lambda_k^2}{ \lambda_k^2+\frac{\sigma_{\eta}^2}{\sigma^2_{\btheta}}} & 0 & \ldots & 0 \\ 0 & \ldots & 0 & 0 & \ldots & 0 \\ \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 0 & \ldots & 0 & 0 & \ldots & 0\end{array}\right] = \bI_{k \times k}
+% \end{align*}
+% Thos implies that
+% \begin{align*}
+%     \wmu_{m,T} \rightarrow \bV_m \bV_m^\top \mu_{m,T} = P_{\bV_m}\mu_{m,T}
+% \end{align*}
+% for all envirinements $m$, where $P_{\bV_m}=\bV_m\left(\bV_m^\top \bV_m\right)^{-1} \bV_m^\top$, the orthogonal projection matrix onto the subspace spanned by $\bV_m$.

@@ -1,0 +1,117 @@
+\documentclass{article}
+
+\usepackage[final]{corl_2023}
+
+\usepackage{pdfx}
+\usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{inconsolata}
+\usepackage{soul}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage[subtle]{savetrees}
+\usepackage{CJKutf8}
+\usepackage{floatrow}
+\usepackage{tcolorbox}
+\usepackage{listings}
+
+\input{macros}
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=[rgb]{0,0.07843,0.45098},
+    filecolor=magenta,      
+    urlcolor=[rgb]{0,0.07843,0.45098},
+    citecolor=[rgb]{0,0.07843,0.45098},
+}
+\urlstyle{same}
+\usepackage[capitalise, nameinlink]{cleveref}
+
+\newcommand{\ie}{i.e., }
+\newcommand{\eg}{e.g., }
+
+\title{Large Language Models as General Pattern Machines}
+
+
+\begin{document}
+
+\maketitle
+
+\vspace{-4.5em}
+\begin{center}
+    \textbf{
+        Suvir Mirchandani\textsuperscript{1},
+        Fei Xia\textsuperscript{2},
+        Pete Florence\textsuperscript{2},
+        Brian Ichter\textsuperscript{2},
+        Danny Driess\textsuperscript{2 3}, \\
+        Montserrat Gonzalez Arenas\textsuperscript{2},
+        Kanishka Rao\textsuperscript{2},
+        Dorsa Sadigh\textsuperscript{1 2},
+        Andy Zeng\textsuperscript{2}
+    }\\
+    \textsuperscript{1}Stanford University,
+    \textsuperscript{2}Google DeepMind,
+    \textsuperscript{3}TU Berlin \\
+    \url{https://general-pattern-machines.github.io}
+\end{center}
+\vspace{1em}
+
+\begin{abstract}
+\input{sections_camera_ready/00_abstract}
+\end{abstract}
+
+\keywords{large language models, in-context learning, language for robotics} 
+
+\section{Introduction}
+\label{sec:introduction}
+\input{sections_camera_ready/01_introduction}	
+
+\section{Related Work}
+\label{sec:related_work}
+\input{sections_camera_ready/02_related_work}
+
+\section{Language Models as General Pattern Machines}
+\label{sec:result}
+\input{sections_camera_ready/03_setup}
+
+\vspace{-1mm}
+\section{Sequence Transformation}
+\label{sec:sequence_transformation}
+\vspace{-3mm}
+\input{sections_camera_ready/04_sequence_transformation}
+
+\section{Sequence Completion}
+\label{sec:sequence_completion}
+\input{sections_camera_ready/05_sequence_completion}
+
+\vspace{-3mm}
+\section{Sequence Improvement}
+\label{sec:sequence_improvement}
+\vspace{-3mm}
+\input{sections_camera_ready/06_sequence_improvement}
+
+\section{Discussion}
+\label{sec:discussion_and_limitations}
+\input{sections_camera_ready/07_discussion_and_limitations}
+
+\acknowledgments{
+The authors would like to acknowledge Jie Tan, Peng Xu, Carolina Parada, Alexander Herzog, Jensen Gao, Joey Hejna, Megha Srivastava, and Allen Ren for valuable feedback and discussions.
+}
+
+\small
+\bibliography{references/references}  %
+\normalsize
+
+\clearpage
+\appendix
+\input{sections_camera_ready/appendix}
+
+\end{document}

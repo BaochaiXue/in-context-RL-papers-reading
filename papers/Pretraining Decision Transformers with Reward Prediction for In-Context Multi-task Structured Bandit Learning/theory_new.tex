@@ -1,0 +1,88 @@
+In this section, we present a theoretical analysis of how \predt\ generalizes to an unknown target task given a set of source tasks. We observe that \predt's performance hinges on a low excess error on the predicted reward of the actions of the unknown target task based on the in-context data. Thus, in our analysis, we show that, in low-data regimes, \predt\ has a low expected excess risk for the unknown target task as the number of source tasks increases. This is summarized as follows:
+
+\begin{tcolorbox}
+\customfinding \pred\ (\gt) has a low expected excess risk for the unknown target task as the number of source tasks increases.  Moreover, the transfer learning risk of \predt\ (once trained on the $M$ source tasks) scales with $\widetilde{O}(1/\sqrt{M})$. 
+\end{tcolorbox}
+
+
+
+
+To show this, we proceed as follows: Suppose we have the training data set $\H_{\mathrm{all}} = \{\H_m\}_{m=1}^{\Mpr},$ where the task $m\sim \cT$ with a distribution $\cT$ and the task data $\H_m$ is generated from a distribution $ \Dpr(\cdot | m).$ 
+%
+%
+For illustration purposes, here we consider the training data distribution $\Dpr(\cdot | m) $ where the actions are sampled following soft-LinUCB (a stochastic variant of LinUCB) \citep{chu2011contextual}. 
+% Note that soft-LinUCB produces a distribution over actions (see \Cref{sec:validation} for a detailed description). 
+% Then the training set $\H_m\sim \Dpr(\cdot | m)$.
+%
+Given the loss function in \cref{eq:loss-transformer}, we can define the task $m$ training loss of \predt\ as $\widehat{\L}_m(\rT_{\bTheta}) = \frac{1}{n}\sum_{t=1}^n\ell(r_{m,t},\rT_{\bTheta}(\wr_{m,t}(I_{m, t})|\H^t_m)) = \frac{1}{n}\sum_{t=1}^n(\rT_{\bTheta}(\wr_{m,t}(I_{m, t})|\H^t_m) - r_{m,t})^2$. We drop the notation $\bTheta, \mathbf{r}$ from $\rT_{\bTheta}$ for simplicity and let $M=\Mpr$. We define
+\begin{align}
+\widehat{\T}= & \underset{\T \in \alg}{\arg \min } \widehat{\L}_{\H_{\mathrm{all}}}(\T):=\frac{1}{M} \sum_{m=1}^M \widehat{\L}_m(\T), \quad \text {(ERM)} \label{eq:erm}
+\end{align}
+where $\alg$ denotes the space of algorithms induced by the $\T$.
+%
+%
+%
+Let $\L_m(\T)=\mathbb{E}_{\H_m}\big[\widehat{\L}_m(\T)\big]$ and $\L_{\mathrm{MTL}}(\T)=\E\big[\widehat{\L}_{\H_{\mathrm{all }}}(\T)\big]=$ $\frac{1}{M} \sum_{m=1}^M \L_m(\T)$ be the corresponding population risks. For the ERM in \eqref{eq:erm}, we want to bound the following excess Multi-Task Learning (MTL) risk of \predt\ 
+\begin{align}
+\cR^{}_{\mathrm{MTL}}(\widehat{\T})=\L_{\mathrm{MTL}}(\widehat{\T})-\min_{\T \in \alg} \L_{\mathrm{MTL}}(\T) .\label{eq:risk}
+\end{align}
+% \mathrm{\pred-\textcolor{green!60!black}{\tau}}
+%
+Note that for in-context learning, a training sample $\left(I_t, r_t\right)$ impacts all future decisions of the algorithm from time step $t+1$ to $n$. Therefore, we need to control the stability of the input perturbation of the learning algorithm learned by the transformer. We introduce the following stability condition.
+\begin{assumption}
+\label{assm:stability-assumption}
+(Error stability \citep{bousquet2002stability, li2023transformers}). Let $\H=\left(I_t, r_t\right)_{t=1}^n$ be a sequence in $[A] \times [0,1]$ with $n \geq 1$ and $\H^{\prime}$ be the sequence where the $t'$th sample of $\H$ is replaced by $\left(I_t^{\prime}, r_t^{\prime}\right)$. Error stability holds for a distribution $(I, r)\sim\D$ if there exists a $K>0$ such that for any $\H,\left(I_t^{\prime}, r_t^{\prime}\right) \in([A] \times [0,1]), t \leq n$, and $\T \in \alg$, we have
+\begin{align*}
+\big\lvert \mathbb{E}_{(I, r)}\left[\ell(r_{},\T_{}(\wr_{}(I_{})|\H))-\ell\left(r_{},\T_{}(\wr_{}(I_{})|\H^\prime)\right)\right] \big\rvert\, \leq \tfrac{K}{n}.
+\end{align*}
+Let $\rho$ be a distance metric on $\alg$. Pairwise error stability holds if for all $\T, \T^{\prime} \in \alg$ we have
+\begin{align*}
+\begin{aligned}
+& \big\lvert \mathbb{E}_{(x, y)}\left[\ell(r_{},\T_{}(\wr_{}(I_{})|\H))-\ell\left(r_{},\T'_{}(\wr_{}(I_{})|\H)\right)-\ell(r_{},\T_{}(\wr_{}(I_{})|\H'))+\ell\left(r_{},\T'_{}(\wr_{}(I_{})|\H')\right)\right] \big\rvert \leq \tfrac{K \rho\left(\T, \T^{\prime}\right)}{n}.
+% \right. \\
+% & \left.
+% -\ell\left(y, \operatorname{TF}\left(\mathcal{S}^{\prime}, x\right)\right)+\ell\left(y, \T^{\prime}\left(\mathcal{S}^{\prime}, x\right)\right)\right] \left\lvert\, \leq \frac{K \rho\left(\T, \T^{\prime}\right)}{n}\right.
+\end{aligned}
+\end{align*}
+\end{assumption}
+Now we present the Multi-task learning (MTL) risk of \predt.  
+\begin{theorem}
+\label{thm:multi-task-risk}\textbf{(\pred\ risk)}
+    Suppose error stability \Cref{assm:stability-assumption} holds and assume loss function $\ell(\cdot,\cdot)$ is $C$-Lipschitz for all $r_t \in [0,B]$ and horizon $n\geq 1$. Let $\widehat{\T}$ be the empirical solution of (ERM) and $\mathcal{N}(\mathcal{A}, \rho, \epsilon)$ be the covering number of the algorithm space $\alg$ following Definition \ref{def:covering-number} and \ref{def:alg-dist}. Then with probability at least $1-2 \delta$, the excess MTL risk of \predt\ is bounded by
+    \begin{align*} %\mathrm{\pred-\textcolor{green!60!black}{\tau}}
+        \cR^{}_{\mathrm{MTL}}(\widehat{\T}_{}) \leq 4 \tfrac{C}{\sqrt{nM}} +2(B+K \log n) \sqrt{\tfrac{\log (\N(\alg, \rho, \varepsilon) / \delta)}{c n M}},
+    \end{align*}
+    where $\N(\alg, \rho, \varepsilon)$ is the covering number of transformer $\widehat{\T}_{}$ and $\epsilon = 1/\sqrt{nM}$. 
+    % We can use Lemma 16 of \citet{li2023transformers} to show that $\log(\N(\alg, \rho, \varepsilon))\leq O(L^2D^2J)$ where $L$ is the number of layers, and $J, D$ denote the upper bound to the number of heads and hidden neurons in any layer respectively.
+\end{theorem}
+The proof of Theorem \ref{thm:multi-task-risk} is provided in \Cref{app:generalization}. 
+%
+From \Cref{thm:multi-task-risk} we see that in low-data regime with a small horizon $n$, as the number of tasks $M$ increases the MTL risk decreases. We further discuss the stability factor $K$ and covering number $\N(\alg, \rho, \varepsilon)$ in \Cref{remark:stability}, and \ref{remark:covering-number}. We also present the transfer learning risk of \predt\ in \Cref{app:transfer}.
+
+
+% We now present the transfer learning risk of \predt\ for an unknown target task $g \sim \cT$ with the test dataset $\H_{g}\sim \Dts(\cdot | g)$.
+% %
+% Note that the test data distribution $\Dts(\cdot | g) $ is such that the actions are sampled following soft-LinUCB. 
+% %
+% %
+% % for the task $g$ is a soft-LinUCB.
+% % which produces a distribution over actions. 
+% %
+% %
+% \begin{theorem}\textbf{(Transfer risk)}
+% Consider the setting of \Cref{thm:multi-task-risk} and assume the training source tasks are independently drawn from task distribution $\cT$. Let $\widehat{\text { TF }}$ be the empirical solution of (ERM) and $g \!\sim\! \cT$. 
+% %
+% Define the expected excess transfer learning risk $\mathbb{E}_{g}[\mathcal{R}_{g}]=\mathbb{E}_{{g}}\big[\L_{g}(\widehat{\T})\big]\!-\!\arg \min_{\T \in \alg} \mathbb{E}_{{g}}\left[\L_{g}(\T)\right]$.
+% %
+% Then with probability at least $1\!-\!2 \delta$, the
+% % \begin{align*}
+% $\mathbb{E}_{g}\big[\mathcal{R}_{g}\big] \!\leq\! 4 \tfrac{C}{\sqrt{M}} \!+\! 2B \sqrt{\tfrac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{M}}$,
+% % \end{align*}
+% where $\mathcal{N}(\alg, \rho, \varepsilon)$ is the covering number of $\widehat{\T}_{}$ and $\epsilon = \tfrac{1}{\sqrt{M}}$. 
+% % We can use Lemma 16 of \citet{lin2023transformers} to show that $\log(\mathcal{N}(\alg, \rho, \varepsilon))\leq O(L^2D^2J)$ where $L$ is the number of layers, and $J, D$ denote the upper bound to the number of heads and hidden neurons in any layer respectively.
+% \end{theorem}
+% The proof is given in \Cref{app:transfer}. This shows that for the transfer learning risk of \predt\ (once trained on the $M$ source tasks) scales with $\widetilde{O}(1/\sqrt{M})$. 
+% %
+% This is because the unseen target task $g\sim\cT$ induces a distribution shift, which, typically, cannot be mitigated with more samples $n$ per task. A similar observation is provided in \citet{lin2023transformers}. We further discuss this in \Cref{remark:target-risk}. 
+% %
+% We also observe a similar phenomenon empirically; see the discussion in \Cref{sec:validation}. 

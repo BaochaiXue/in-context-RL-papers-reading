@@ -1,0 +1,123 @@
+%
+%
+\section{In-Context Reinforcement Learning}
+
+% \red{In this work, we focus on ICRL under random policies and random contexts.}\blue{I would remove this.} 
+%
+This section introduces the background of ICRL mechanisms and three SOTA ICRL algorithms. We start by presenting the preliminaries of ICRL.
+
+\subsection{Preliminaries}
+
+RL problems are generally formulated as Markov Decision Processes (MDPs)~\citep{sutton2018reinforcement}.
+% \blue{I understand that we want to push our paper and get citations, but I would remove it from here. This is a generic citation for RL, I don't think other people would cite our work in that context. If we were discussing safe RL I wouldn't have a problem with this.}
+An MDP can be represented by a tuple $\tau = (S, A, R, P, \rho)$, where $S$ and $A$ denote finite state and action spaces, $R: S \times A \to \Real$ denotes the reward function that evaluates the quality of the action, $P: S \times A \times S \to [0, 1]$ denotes the transition probability that describes the dynamics of the system, and $\rho: S \to [0, 1]$ denotes the initial state distribution.  
+
+
+
+A policy $\pi$ defines a mapping from states to probability distributions over actions, providing a strategy that guides the agent in the decision making.
+%
+The agent interacts with the environment following the policy $\pi$ and the transition dynamics of the system, and then generates an episode of the transition data $(s_0, a_0, r_0, \cdots)$.
+%
+The performance measure $J (\pi)$ is defined by the expected discounted cumulative reward under the policy $\pi$
+\begin{align}
+    J (\pi) = \mbE_{s_0 \sim \rho, a_t \sim \pi(\cdot | s_t), s_{t+1} \sim P(\cdot|s_t, a_t)} \left[ \sum_{t=0}^\infty \gamma^t r_t \right].
+\end{align}
+%
+The goal of RL is to find an optimal policy $\pi^*$ that maximizes $J (\pi)$.
+%
+It is crucial to recognize that $\pi^*$ often varies across different MDPs (environments). Thus, the optimal policy for standard RL must be re-learned each time a new environment is encountered.
+%
+%
+Under this circumstance, ICRL proposes to pretrain a FM on a wide variety of pretraining environments, and then deploy it in the \textit{unseen} test environments without updating parameters in the pretrained model, i.e., zero-shot generalization~\citep{sohn2018hierarchical, mazoure2022improving, zisselman2023explore, kirk2023survey}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Supervised Pretraining Mechanism}
+
+In this subsection, we introduce the methodology behind ICRL--a supervised pretraining mechanism. Consider two distributions over environments $\ccalT_{\text{train}}$ and $\ccalT_{\text{test}}$ {for} pretraining and test (evaluation), respectively. Each environment, along with its corresponding MDP $\tau$, can be regarded as an instance drawn from the environment distributions, where each environment may exhibit distinct reward functions and transition dynamics.
+%
+Given an environment $\tau$, a context/prompt $\ccalC = \{s_i, a_i, r_i, s_i'\}_{i \in [n]}$ refers to a sample from a pretraining context dataset $D_{\text{train}} (\cdot \mid \tau)$, i.e., $\ccalC \sim D_{\text{train}} (\cdot \mid \tau)$, which are collected through interactions between a behavior policy and the environment $\tau$ (see e.g., Algorithm~\ref{alg_collect_context}). Notably, $D_{\text{train}} (\cdot \mid \tau)$ contains the contextual information regarding the environment $\tau$.
+%
+We next consider a query state distribution $D_q^\tau$ and a label policy that maps the query state to the distribution of the action label, i.e., $\pi_{l}: S \to \Delta_{a_l} (A)$, where $\Delta_{a_l}(\cdot)$ denotes the probability distribution and $a_l$ denotes the prediction/output goal of the FM.
+ %\blue{Is the output a probability or an action?} \orange{$\Delta$ generally represents the distribution in the literature.} \blue{But the label should be an action, not a probability.}
+Then, the joint distribution over the environment $\tau$, context $\ccalC$, query state $s_{q}$, and action label $a_{l}$ is given by
+\begin{align}\label{eqn_pretrain_distribution}
+    P_{\text{train}} (\tau, \ccalC, s_{q}, a_{l}) = \ccalT_{\text{train}} (\tau) \cdot D_{\text{train}} (\ccalC | \tau) \cdot D_q^\tau \cdot \pi_{l}(a_{l} | s_{q}).
+\end{align}
+%
+%
+%
+ICRL follows a supervised pretraining mechanism. More concretely, a FM with parameter $\theta$ (denoted by $\ccalF_\theta: \mbC \times S \to \Delta (a_{l})$) is pretrained to predict the action label $a_{l}$ given the context $\ccalC$ and query state $s_{q}$. To do so, the current literature~\citep{laskin2022context, lee2024supervised, dong2024context} often considers the following objective function
+%
+\begin{align}\label{eqn_loss}
+    \theta^* = \argmin_\theta \mbE_{P_{\text{train}}} \left[ l \left( \ccalF_\theta(\cdot \mid \ccalC, s_{q}), a_{l}\right) \right],
+\end{align}
+%
+where $l(\cdot, \cdot)$ represents the loss function, for instance, negative log-likelihood (NLL) for discrete-action problems and mean square error (MSE) for continuous-action scenarios.
+%\blue{You need explain when you mention the FM, what is $\mathcal{F}_\theta$}
+%
+We note that while the current SOTA ICRL algorithms (AD, DPT, and DIT) adhere to a common objective function \eqref{eqn_loss}, they differ significantly in constructing the context, query state, and action label.
+%
+Furthermore, it is important to highlight that selecting appropriate action labels in existing ICRL algorithms can be prohibitively expensive. We discuss this in more detail for each of the ICRL baselines  that follow.
+
+
+
+
+
+\paragraph{Algorithm Distillation.} Instead of learning an optimal policy for a specific environment, AD proposes to learn a RL algorithm itself across a wide range of environments. This is, the FM in AD is pretrained to imitate the source (or behavior) algorithm over the pretraining environment distribution $\ccalT_{\text{train}}$. In general, AD demands a well-trained source algorithm with its complete learning history (from the initial policy to the final-trained policy). Additionally, AD is restricted to the environments with short episode length, as the context must capture cross-episode information of the source algorithm, while standard transformers often have limited context length.
+%
+In terms of the objective function \eqref{eqn_loss}, AD takes the state at the time step $t$ as the query state, $a_t$ from the source algorithm as the action label, and the episodic history data $(s_0, a_0, r_0, \cdots, s_{t-1}, a_{t-1}, r_{t-1})$ to be the context.
+%
+
+
+
+
+
+\paragraph{Decision Pretrained Transformer.} 
+%
+Instead of being stringent on the context and the environment itself, DPT handles the context and query state in a more general manner.
+%
+Specifically, in terms of the objective function \eqref{eqn_loss}, DPT can consider a random collection of transitions as the context $\ccalC$, a random query state $s_q$ drawn from $D_q$, and an optimal action label corresponding to $s_q$.
+%
+Despite less requirements on the context, DPT necessitates access to optimal policies for the optimal action labels in all pretraining environments, which may not be available in real-world applications.
+
+
+
+
+
+
+\paragraph{Decision Importance Transformer.}
+
+DIT proposes to learn ICRL without optimal action labels, following the same supervised pretraining mechanism as DPT.
+%
+To that end, DIT chooses to consider every possible state and action in the context as the query state and corresponding action label. 
+%
+It is important to point out that DIT requires a (partially) complete episode to form the context, enabling the computation of a return-to-go for each state-action pair. By mapping the return-to-go to a weight that reflects the quality of each state-action pair, DIT can pretrain the FM using the DPT structure, augmented by the weight assigned to each query state and action label. 
+%
+In other words, DIT prioritizes the training on high-return pairs.
+%
+Notably, DIT still mandates that more than $30\%$ of the context data comes from well-trained policies to ensure the coverage of good action labels.
+
+
+
+% \red{However, both AD and DPT rely on optimal (or well-trained) source policies. When only suboptimal policies are available, these SOTA algorithms encounter significant difficulties in achieving effective ICRL. ~\blue{[REF]} proposes Decision Importance Transformer (DIT) that enables to learn ICRL with suboptimal policies.}
+% \vspace{10pt}
+
+To summarize, it is worth highlighting that all these SOTA ICRL algorithms necessitate varying degrees of well-trained, or even optimal policies during the pretraining phase.
+%
+However, obtaining such policies for real-world applications is often prohibitive, as it demands extensive training across a vast number of real-world environments.
+%
+This challenge becomes even more pronounced in the domains where the transition data exhibits high variance to train an effective policy.
+%
+% It is then expected for these ICRL algorithm to encounter significant difficulties when only suboptimal (or even random) policies and random contexts are available.
+%
+Thus, executing ICRL under (e.g., uniform) random policies and random contexts is crucial for enabling the practical application of ICRL in the real-world.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

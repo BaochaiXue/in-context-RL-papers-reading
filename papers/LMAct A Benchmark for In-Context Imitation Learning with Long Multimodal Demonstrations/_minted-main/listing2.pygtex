@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+ \PYG{n}{evaluation\PYGZus{}prompt} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{ This is the current situation:}
+
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}8\PYGZus{}0\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}8\PYGZus{}0\PYGZgt{}}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}8\PYGZus{}1\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}8\PYGZus{}1\PYGZgt{}}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}8\PYGZus{}2\PYGZgt{}}
+
+\PYG{l+s+s1}{ In this situation, this is the list of all the moves that are legal:}
+
+\PYG{l+s+s1}{ no action, jump left, left}
+
+\PYG{l+s+s1}{ Given the demonstrations and the current situation, you should infer the next logical}
+\PYG{l+s+s1}{ action. Check that the chosen action is in the set of legal moves. Think step by step}
+\PYG{l+s+s1}{ and very briefly explain your reasoning for choosing this  action. You must answer with}
+\PYG{l+s+s1}{ the reasoning followed by the action in the following format:}
+\PYG{l+s+s1}{ Reasoning: ...}
+\PYG{l+s+s1}{ Action: ...}
+\PYG{l+s+s1}{ \PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}

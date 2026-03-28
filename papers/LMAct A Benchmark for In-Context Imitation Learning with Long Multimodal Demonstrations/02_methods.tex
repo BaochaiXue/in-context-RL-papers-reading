@@ -1,0 +1,149 @@
+\section{Methods}
+\label{sec:methods}
+
+\ificlr
+We now describe the models we evaluate~(\cref{sec:methods:models}), our benchmark environments~(\cref{sec:methods:environments}), our prompt~(\cref{sec:methods:prompt}), and our evaluation protocol~(\cref{sec:methods:evaluation-protocol}).
+Full details in \cref{app:experimental-details}.
+\else
+We now briefly describe the models we evaluate~(\cref{sec:methods:models}), our benchmark environments~(\cref{sec:methods:environments}), how we construct the prompt~(\cref{sec:methods:prompt}), and our evaluation protocol~(\cref{sec:methods:evaluation-protocol}).
+Full details are given in \cref{app:experimental-details}.
+\fi
+
+
+\subsection{Models}
+\label{sec:methods:models}
+
+We evaluate the current (closed-weights) frontier LMs:
+\claude{} (the 2024-10-22 version)~\citep{anthropic2024claude3.5, anthropic2024introducing},
+\flash{} and \pro{} (the $002$ versions)~\citep{reid2024gemini},
+\expflash{}~\citep{google2024introducing},
+\gpt{} (the 2024-08-06 version)~\citep{openai2024gpt4o,openai2024gpt4ocard},
+\mini{} and \preview{}~\citep{openai2024o1}, and 
+\oone{}~\citep{openai2024o1card}.
+Except for \mini{} and \preview{}, all models process multimodal prompts, though their exact specifications differ (see \cref{app:experimental-details:models}).
+We use temperature $0$ for all models (except for \mini{}, \preview{}, and \oone{}, which have a fixed temperature of $1$~\citep{openai2024reasoning}).
+We set the maximum (output) sample length to $2048$ tokens for all models (except for \mini{}, \preview{}, and \oone{}), which is more than sufficient to achieve strong performance (see our ablation in \cref{fig:sample-length-ablation}).
+In contrast, the performance of \mini{}, \preview{}, and \oone{} crucially depends on the number of ``reasoning tokens'' (see \cref{fig:sample-length-ablation}), so we use a maximum (output) sample length of $8192$ tokens as a good compromise between cost and performance ($2048$ tokens would lead to severe performance degradation on our tasks -- see our ablation in \cref{app:additional-results:max-sample-length-ablation}).
+We post-process the model outputs by removing all the leading/trailing white spaces and only consider the text after the keyword ``Action:'', \ie we discard all (chain-of-thought) reasoning traces.
+
+
+\subsection{Environments}
+\label{sec:methods:environments}
+
+We consider a battery of well-known interactive decision-making environments: the Phoenix game from Atari $2600$~\citep{bellemare2013arcade}, chess, crosswords, the cheetah run task from the DM Control suite~\citep{tassa2018deepmind}, grid world navigation, and tic-tac-toe.
+We briefly describe each environment below (full details in \cref{app:experimental-details:environments}).
+\ificlr
+Since sampling is deterministic for most models (\ie the temperature is $0$, see \cref{sec:methods:models}), we introduce variability in the demonstration and evaluation episodes by varying the initial conditions (\eg by using different openings for chess; see below). 
+\else
+Since sampling is deterministic for most models (\ie the temperature is $0$, see \cref{sec:methods:models}), we introduce variability in the demonstration and evaluation episodes by varying the initial conditions (\eg via the environment seed for DM Control or by using different openings for chess; see below). 
+\fi
+
+\paragraph{Atari -- Phoenix}
+
+We chose Phoenix as a representative Atari task that has somewhat dense rewards, which is important since we can only evaluate $400$ frames (with action repeat $4$, \ie $100$ steps), or roughly $6$ seconds of play due to context size limitations.
+Phoenix also forms part of the set of $5$ games that is highly predictive of the performance on the full Atari suite~\citep{aitchison2023atari}.
+We use the Arcade Learning Environment~\citep{bellemare2013arcade} version, and for expert demonstrations we use the Gato training data~\citep{reed2022generalist}.
+We use the original (\ie not downsampled or grayscale) images as observations (see \cref{fig:observations-atari}).
+
+\paragraph{Chess}
+
+We evaluate models against the \emph{weakest-possible} version of Stockfish~$16$~\citep{romstad2008stockfish}, \ie level $0$ (which corresponds to an Elo of approx.\ $1320$).
+We further weaken this version by evaluating only 1 node.
+We generate expert demonstrations with the strongest (default) version of Stockfish, \ie level $20$ with a time limit of 50ms per move as the agent (note that the opponent, \ie the ``environment'', remains fixed as the weakest version of Stockfish).
+We evaluate four different state representations (see \cref{fig:observations-chess}): (i) a 2D ASCII encoding of the board, (ii) the Forsyth–Edwards Notation (FEN), which encodes the board and very limited historical information as a string, (iii) the Portable Game Notation (PGN), a plain text format for recording chess games via the move history given in algebraic chess notation, and (iv) an RGB image of the board.
+We always represent actions via the algebraic chess notation.
+To ensure variability in the demonstration and evaluation episodes, we use the openings from the Encyclopedia of Chess Openings~\citep{matanovic1978encyclopaedia}, which we randomly sample without replacement.
+\ificlr
+We play for at most $100$ steps (terminating early for a win/draw/loss; the average is $38$) and assign reward $1$ to a win, $0$ to a draw, $-1$ to a loss, and $0$ else.
+\else
+We play all games for at most $100$ steps (terminating early in case of a win/draw/loss; the average number of steps per game is $38$) and assign a reward of $1$ to a win, $0$ to a draw, $-1$ to a loss, and $0$ to all other states.
+\fi
+
+\paragraph{Crossword}
+
+We create a large collection of $7\times7$ crosswords using the genxword crossword generator~\citep{whitlock2011genxword} and a list of \numprint{55189} clues with the \emph{lowest difficulty rating} collected by Matthew Ginsberg (individual clues may appear in multiple crosswords with low probability).
+Each episode is a distinct crossword represented as an ASCII crossword grid followed by two lists of clues, one for the ``Across'' words and one for the ``Down'' words (see \cref{fig:observations-crossword}).
+A valid action consists of either ``A'' (for across) or ``D'' (for down), followed by the word's index and the word itself.
+We assign a reward of $1$ to a correct word, $0$ to an incorrect word with correct length or to a correct word that has been already been placed, and we terminate the episode with a reward of $-1$ for an incorrect word.
+We evaluate $25$ steps (which is sufficient to place the approx.\ $10$ words per crossword on average) and terminate early if all words are filled.
+We generate the expert demonstrations by simply outputting the solution for each clue one by one in random order.
+
+\paragraph{DM Control -- Cheetah Run}
+
+\ificlr
+We evaluate Cheetah Run from DM Control~\citep{tassa2018deepmind}.
+\else
+We use the Cheetah Run task from the DM Control Suite~\citep{tassa2018deepmind}.
+\fi
+We represent observations as string in the style of a Python dictionary of position and velocity vectors with individual values between $-1$ and $1$ (see \cref{fig:observations-dm-control}).
+Each episode begins in a new, randomly initialized state.
+We only evaluate the first $100$ steps of an episode (due to context length limits).
+\ificlr
+We use the Gato training data~\citep{reed2022generalist} to create expert demonstrations (details in \cref{app:experimental-details:environments}).
+\else
+As for Atari, we use the Gato training data~\citep{reed2022generalist} to create expert demonstrations (details in \cref{app:experimental-details:environments}).
+\fi
+
+\paragraph{Grid World}
+
+We consider a $12\times12$ grid world with walls, effectively yielding a $10\times10$ grid, with a single player and a single target (no obstacles).
+Actions are up, down, left, and right, and since the grid is fully observable, memorization is not required.
+\ificlr
+We evaluate three different state representations (see \cref{fig:observations-grid-world}): (i) 2D ASCII of the grid, (ii) the player and target coordinate tuples, and (iii) the RGB image of the grid.
+\else
+We evaluate three different state representations (see \cref{fig:observations-grid-world}): (i) an ASCII encoding of the 2D grid, (ii) the player and target coordinate tuples provided as plain text, and (iii) the RGB image of the grid.
+\fi
+The reward is $1$ if the player reaches the target and $0$ otherwise.
+Episodes run for a maximum of $25$ steps (reaching any target from any initial position in a $10\times10$ grid requires at most $18$ steps).
+We randomly initialize the player/target locations for every episode.
+The expert demonstrations correspond to one of the shortest paths between the player and the target.
+
+\paragraph{Tic-Tac-Toe}
+
+We play tic-tac-toe against a \emph{random} policy that picks an empty spot uniformly at random.
+For demonstration episodes the expert uses minimax search (\ie it plays an optimal action), while the environment remains fixed as a random policy.
+\ificlr
+We evaluate two state representations (see \cref{fig:observations-tic-tac-toe}): (i) 2D ASCII of the grid, and (ii) the RGB image of the grid.
+\else
+We evaluate two state representations (see \cref{fig:observations-tic-tac-toe}): (i) an ASCII encoding of the 2D grid, and (ii) the RGB image of the grid.
+\fi
+To ensure variability, each game starts from an opening state (similar to chess openings), which we draw uniformly across all initial game states (as a result, even the optimal minimax strategy can only win $85\%$ of the games and draws the rest).
+We assign a reward of $1$ to a win, $0$ to a draw, $-1$ to a loss, and $0$ else.
+
+
+\subsection{Prompt}
+\label{sec:methods:prompt}
+
+Our prompt consists of two main parts: (i) the expert demonstration episodes (\cref{code:frozen-prompt}), and (ii) the trajectory of the evaluation episode (including the episode's previous actions and environment states; see \cref{code:dynamic-prompt}).
+We use a generic decision-making zero-shot preamble at the beginning of (i), and a short separator prompt at the beginning of (ii) (see \cref{fig:overview,code:frozen-prompt,code:dynamic-prompt}).
+The expert demonstrations are fixed across an evaluation episode, but resampled across episodes, while the current trajectory starts with a single initial state and grows as more state-action pairs are observed (up to a maximum of $100$ steps).
+We do not include an environment task description (\eg the rules of tic-tac-toe) in the preamble.
+We may, however, show the available legal actions, which depend on the environment, in each step at the end of (ii) (see \cref{code:dynamic-prompt}), depending on whether it is beneficial per model and task (see our ablations in \cref{app:additional-results:ablations}).
+Similarly, we may use a chain-of-thought~\citep{wei2022chain} style prompt at the very end of (ii) asking the model to provide a reasoning before proposing an action (see \cref{code:dynamic-prompt}), again, depending on whether it increases performance in the ablations (\cref{app:additional-results:ablations}).
+We make both of these decisions per model and task, \ie the same model may use chain-of-thought for one task but not another.
+
+
+\subsection{Evaluation Protocol}
+\label{sec:methods:evaluation-protocol}
+
+In every evaluation step, we condition the model on the current context, upon which it generates an action that we feed to the environment.
+We then concatenate the resulting next environment state (prepended with the action that produced it) to the growing context.
+We ablated whether to show the model's previous actions in the evaluation trajectory (see \cref{app:additional-results:past-actions-ablation}) and found that it mostly improves performance, so we always include them.
+If a model fails to generate a legal action, we uniformly sample one of the legal actions (we visualize the percentage of illegal actions in \cref{app:additional-results:illegal-actions}).
+Since the models have different maximum context lengths (and different text/image tokenizers), the maximum number of demonstration episodes that fit into the context depends on the model, the task, and the state representation format.
+\ificlr
+For example, for a given model, we can only use $16$ demonstration episodes with RGB observations but up to $256$ ASCII demonstration episodes.
+\else
+For example, for a given model, we may only by able to use $16$ demonstration episodes with RGB observations but up to $256$ ASCII demonstration episodes.
+\fi
+
+We always evaluate $100$ episodes with different initial conditions (each episode is evaluated individually) and report the average score. 
+The maximum episode duration is $100$~steps and the score per episode is the cumulative reward over all steps (we never show reward information to the models). 
+For each evaluation episode we uniformly subsample (without replacement) the demonstration episodes (for the frozen part of the prompt) from a precomputed pool of up to $1000$ distinct demonstrations.
+We ensure that all evaluation episodes have initial states that differ from the demonstration episodes (except for the replay control experiments in \cref{app:additional-results:replay}).
+\ificlr
+We minimally postprocess (see \cref{sec:methods:models}) the LM generations to extract the action and reject incorrectly formatted but semantically correct actions, as matching the action format is important for our imitation learning benchmark.
+\else
+We only perform very minimal postprocessing (see \cref{sec:methods:models}) of the LM generations to obain the action and (deliberately) reject semantically correct actions that are wrongly formatted, as matching the action format is an important aspect of our imitation learning benchmark.
+\fi
+

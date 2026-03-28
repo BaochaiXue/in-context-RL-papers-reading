@@ -1,0 +1,27 @@
+\section{Background}
+\label{sec:background}
+
+{\bf Partially Observable Markov Decision Processes:} A Markov Decision Process (MDP) consists of states $\state \in \mathcal S$, actions $\action \in \mathcal A$, rewards $r \in \mathcal R$, a discount factor $\gamma$, and a transition probability function $p(s_{t+1}|s_t,a_t)$, where $t$ is an integer denoting the timestep and $(\mathcal S, \mathcal A)$ are state and action spaces. In environments described by an MDP, at each timestep $t$ the agent observes the state $s_t$, selects an action $a_t \sim \pi(\cdot | s_t)$ from its policy, and then observes the next state $s_{t+1} \sim p(\cdot|s_t, a_t)$ sampled from the transition dynamics of the environment. In this work, we operate in the Partially Observable Markov Decision Process (POMDP) setting where instead of states $s \in \mathcal S$ the agent receives observations $o \in \mathcal O$ that only have partial information about the true state of the environment.
+
+Full state information may be incomplete due to missing information about the goal in the environment, which the agent must instead infer through rewards with memory, or because the observations are pixel-based, or both. 
+\looseness=-1
+
+
+{\bf Online and Offline Reinforcement Learning:} Reinforcement Learning algorithms aim to maximize the return, defined as the cumulative sum of rewards $\sum_t \gamma^t r_t$, throughout an agent's lifetime or episode of training. RL algorithms broadly fall into two categories: on-policy algorithms~\citep{williams92reinforce} where the agent directly maximizes a Monte-Carlo estimate of the total returns or off-policy~\citep{mnih2013dqn, mnih2015human} where an agent learns and maximizes a value function that approximates the total future return. Most RL algorithms maximize returns through trial-and-error by directly interacting with the environment. However, offline RL~\citep{levine2020offline} has recently emerged as an alternate and often complementary paradigm for RL where an agent aims to extract return maximizing policies from offline data gathered by another agent. The offline dataset consists of $(s, a, r)$ tuples which are often used to train an off-policy agent, though other algorithms for extracting return maximizing policies from offline data are also possible.
+\looseness=-1
+
+
+
+{\bf Self-Attention and Transformers}
+%%DJ.9.20: is it standard to say "linear networks" rather than "matrices"?
+%%ML 9.27 fixed
+The self-attention~\citep{vaswani2017attention} operation begins by projecting input data $X$ with three separate matrices onto $D$-dimensional vectors called queries $Q$, keys $K$, and values $V$. These vectors are then passed through the attention function:
+\begin{equation}
+    \text{Attention}(Q,K,V) = \text{softmax} (Q K^T / \sqrt{D}) V.
+\end{equation}
+The $QK^T$ term computes an inner product between two projections of the input data $X$. The inner product is then normalized and projected back to a $D$-dimensional vector with the scaling term $V$. Transformers~\citep{vaswani2017attention, devlin2018bert, brown2020gpt3} utilize self-attention as a core part of the architecture to process sequential data such as text sequences. Transformers are usually pre-trained with a self-supervised objective that predicts tokens within the sequential data. Common prediction tasks include predicting randomly masked out tokens~\citep{devlin2018bert} or applying a causal mask and predicting the next token~\citep{radford2018improving}. 
+
+{\bf Offline Policy Distillation:} We refer to the family of methods that treat offline Reinforcement Learning as a sequential prediction problem as Offline Policy Distillation, or Policy Distillation (PD) for brevity. Rather than learning a value function from offline data, PD extracts policies by predicting actions in the offline data (\ie\, behavior cloning) with a sequence model and either return conditioning~\citep{chen2021dt, lee2022mgdt} or filtering out suboptimal data~\citep{reed2022gato}. Initially proposed to learn single-task policies~\citep{chen2021dt, janner2021tto}, PD was recently extended to learn multi-task policies from diverse offline data~\citep{lee2022mgdt, reed2022gato}.
+
+{\bf In-Context Learning:} In-context learning refers to the ability to infer tasks from context. For example, large language models like GPT-3~\citep{brown2020gpt3} or Gopher~\citep{rae2012gopher} can be directed at solving tasks such as text completion, code generation, and text summarization by specifying the task through language as a prompt. This ability to infer the task from prompt is often called in-context learning. We use the terms `in-weights learning' and `in-context learning' from prior work on sequence models~\citep{brown2020gpt3,chan2022data} to distinguish between gradient-based learning with parameter updates and gradient-free learning from context, respectively.
+

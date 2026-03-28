@@ -1,0 +1,102 @@
+topic: in-context-rl
+claim_family: systems_and_data
+claims:
+  - claim_id: icrl-systems-001
+    statement: "Long-context adaptation remains a systems bottleneck in the local corpus, and multiple papers attack it through cheaper memory backbones, partial updates, or attention-kernel engineering."
+    type: evidence
+    support_note_files:
+      - notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+      - notes/papers/decision-mamba-reinforcement-learning-via-hybrid-selective-sequence-modeling.md
+      - notes/papers/structured-state-space-models-for-in-context-reinforcement-learning.md
+      - notes/papers/xlstm-extended-long-short-term-memory.md
+      - notes/papers/flashattention-2-faster-attention-with-better-parallelism-and-work-partitioning.md
+    evidence_anchors:
+      - note_file: notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+        anchors: [Training with 64k Context Length, Sink KV, Conclusion and Limitations]
+      - note_file: notes/papers/decision-mamba-reinforcement-learning-via-hybrid-selective-sequence-modeling.md
+        anchors: [Decision Mamba-Hybrid, Experiments]
+      - note_file: notes/papers/structured-state-space-models-for-in-context-reinforcement-learning.md
+        anchors: [Method, Experiments]
+      - note_file: notes/papers/xlstm-extended-long-short-term-memory.md
+        anchors: [xLSTM Architecture, Memory and Speed Considerations]
+      - note_file: notes/papers/flashattention-2-faster-attention-with-better-parallelism-and-work-partitioning.md
+        anchors: [Hardware Performance, Standard Attention Implementation]
+    confidence: 0.90
+    downstream_use_candidates: [systems-design, compute-justification, architecture-section]
+
+  - claim_id: icrl-systems-002
+    statement: "Increasing task diversity or dataset scale helps coverage and asymptotic capability in local notes, but often introduces slower adaptation or exposes new generalization limits."
+    type: inference
+    support_note_files:
+      - notes/papers/xland-100b-a-large-scale-multi-task-dataset-for-in-context-reinforcement-learning.md
+      - notes/papers/omnirl-in-context-reinforcement-learning-by-large-scale-meta-training-in-randomized-worlds.md
+      - notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+    evidence_anchors:
+      - note_file: notes/papers/xland-100b-a-large-scale-multi-task-dataset-for-in-context-reinforcement-learning.md
+        anchors: [Experiments, Limitations and Future Work, Additional experiments on number of tasks]
+      - note_file: notes/papers/omnirl-in-context-reinforcement-learning-by-large-scale-meta-training-in-randomized-worlds.md
+        anchors: [Demonstration of Generalization and Scalability, Emergence of General-Purpose ICRL by Increasing Task Number, Conclusions and Discussions]
+      - note_file: notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+        anchors: [Scaling the task pool increases performance, Scaling the complexity of the task pool, Computational cost]
+    confidence: 0.84
+    downstream_use_candidates: [dataset-choice, risk-section, scaling-argument]
+
+  - claim_id: icrl-systems-003
+    statement: "Even large local datasets and task generators still preserve narrow interface assumptions, so scale alone does not demonstrate interface-robust adaptation."
+    type: inference
+    support_note_files:
+      - notes/papers/xland-100b-a-large-scale-multi-task-dataset-for-in-context-reinforcement-learning.md
+      - notes/papers/in-context-reinforcement-learning-for-variable-action-spaces.md
+      - notes/papers/vintix-action-model-via-in-context-reinforcement-learning.md
+      - notes/papers/towards-general-purpose-in-context-learning-agents.md
+    evidence_anchors:
+      - note_file: notes/papers/xland-100b-a-large-scale-multi-task-dataset-for-in-context-reinforcement-learning.md
+        anchors: [Limitations and Future Work, Data Format]
+      - note_file: notes/papers/in-context-reinforcement-learning-for-variable-action-spaces.md
+        anchors: [Algorithm Distillation Struggles with Novel Action Spaces, Conclusion]
+      - note_file: notes/papers/vintix-action-model-via-in-context-reinforcement-learning.md
+        anchors: [Cross-Domain Dataset, Results]
+      - note_file: notes/papers/towards-general-purpose-in-context-learning-agents.md
+        anchors: [Conclusion, Discussion]
+    confidence: 0.73
+    downstream_use_candidates: [interface-gap, data-section, benchmark-expansion]
+
+  - claim_id: icrl-systems-004
+    statement: "Strong-teacher or curated-generator dependence remains common in the local corpus, even when papers weaken supervision relative to optimal action labels."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+      - notes/papers/supervised-pretraining-can-learn-in-context-reinforcement-learning.md
+      - notes/papers/in-context-reinforcement-learning-without-optimal-action-labels.md
+      - notes/papers/pretraining-decision-transformers-with-reward-prediction-for-in-context-multi-task-structured-bandit-learning.md
+      - notes/papers/training-a-generally-curious-agent.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+        anchors: [Practical Implementation, Source Algorithm Training Runs]
+      - note_file: notes/papers/supervised-pretraining-can-learn-in-context-reinforcement-learning.md
+        anchors: [Learning in Bandits, Learning in Markov Decision Processes, Discussion]
+      - note_file: notes/papers/in-context-reinforcement-learning-without-optimal-action-labels.md
+        anchors: [Decision Importance Transformer, Numerical Results]
+      - note_file: notes/papers/pretraining-decision-transformers-with-reward-prediction-for-in-context-multi-task-structured-bandit-learning.md
+        anchors: [Reward Prediction, Main Results]
+      - note_file: notes/papers/training-a-generally-curious-agent.md
+        anchors: [Method, Results, Discussion]
+    confidence: 0.80
+    downstream_use_candidates: [data-risk, training-dependencies, proposal-scope]
+
+  - claim_id: icrl-systems-005
+    statement: "Embodied and multimodal deployments in the local notes are fragile enough that distillation, curriculum, or carefully designed long-context recipes still appear necessary."
+    type: inference
+    support_note_files:
+      - notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+      - notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+      - notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+    evidence_anchors:
+      - note_file: notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+        anchors: [Results, In-Context Imitation Learning, Discussion & Related Work]
+      - note_file: notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+        anchors: [In-Context Learning on task, Conclusion and Limitations]
+      - note_file: notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+        anchors: [Auto-curriculum learning improves performance, Distillation improves performance, Prompting through first-person demonstrations]
+    confidence: 0.82
+    downstream_use_candidates: [deployment-caveat, embodied-scope, methodology-risk]

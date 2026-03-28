@@ -1,0 +1,229 @@
+
+In this paper, we study multi-task bandit learning with the goal of learning an algorithm that discovers and exploits structure in a family of related tasks.
+% 
+In multi-task bandit learning, we have multiple distinct bandit tasks for which we want to learn a policy. Though distinct, the tasks share some structure, which we hope to leverage to speed up learning on new instances in this task family.
+% 
+Traditionally, the study of such structured bandit problems has relied on knowledge of the problem structure like linear bandits \citep{li2010contextual, abbasi2011improved, degenne2020gamification}, bilinear bandits \citep{jun2019bilinear}, hierarchical bandits \citep{hong2022deep, hong2022hierarchical}, Lipschitz bandits \citep{bubeck2008online, bubeck2011lipschitz, magureanu2014lipschitz},  other structured bandits settings \citep{riquelme2018deep, lattimore2019information, dong2021provable} and even linear and bilinear multi-task bandit settings \citep{yang2022nearly, du2023multi, mukherjee2023multi}.
+% 
+When structure is unknown an alternative is to adopt sophisticated model classes, such as kernel machines or neural networks, exemplified by kernel or neural bandits \citep{valko2013finite, chowdhury2017kernelized, zhou2020neural, dai2022federated}. However, these approaches are also costly as they learn complex, nonlinear models from the ground up without any prior data \citep{justus2018predicting, zambaldi2018relational}. 
+
+
+ In this paper, we consider an alternative approach of synthesizing a bandit algorithm from historical data where the data comes from recorded bandit interactions with past instances of our target task family.
+% 
+Concretely, we are given a set of state-action-reward tuples obtained by running some bandit algorithm in various instances from the task family.
+% 
+We then aim to train a transformer \citep{vaswani2017attention} from this data such that it can learn in-context to solve new task instances.
+% 
+\citet{laskin2022context} consider a similar goal and introduce the Algorithm Distillation (AD) method, however, AD aims to copy the algorithm used in the historical data and thus is limited by the ability of the data collection algorithm.
+% used when the historical data was computed.
+% 
+\citet{lee2023supervised} develop an approach, DPT, that enables learning a transformer that obtains lower regret in-context bandit learning compared to the algorithm used to produce the historical data. However, this approach requires knowledge of the optimal action at each stage of the decision process. In real problems, this assumption is hard to satisfy and we will show that DPT performs poorly when the optimal action is only approximately known.
+% 
+With this past work in mind, the goal of this paper is to answer the question:
+\begin{tcolorbox}
+\begin{center}
+    \textit{Can we learn an in-context bandit learning algorithm that obtains lower regret than the algorithm used to produce the training data without knowledge of the optimal action in each training task?}
+\end{center}
+\end{tcolorbox}    
+To answer this question, we introduce a new pre-training methodology, called \textbf{Pre}-trained \textbf{De}cision \textbf{T}ransf\textbf{o}rmer with \textbf{R}eward Estimation (\pred) that obviates the need for knowledge of the optimal action in the in-context data –- a piece of information that is often inaccessible. 
+%
+% We call this \textbf{Pre}-trained \textbf{De}cision \textbf{T}ransf\textbf{o}rmer with \textbf{R}eward Estimation (\pred).
+%
+Our key observation is that while the mean rewards of each action change from task to task, certain probabilistic dependencies are persistent across all tasks with a given structure \citep{yang2020impact, yang2022nearly, mukherjee2023multi}. These probabilistic dependencies can be learned from the pretraining data and exploited to better estimate mean rewards and improve performance in a new unknown test task.  
+%
+The nature of the probabilistic dependencies depends on the specific structure of the bandit and can be complex (i.e., higher-order dependencies beyond simple correlations).  
+%
+We propose to use transformer models as a general-purpose architecture to capture the unknown dependencies by training transformers to predict the mean rewards in each of the given trajectories \citep{mirchandani2023large, zhao2023expel}.  The key idea is that transformers have the capacity to discover and exploit complex dependencies in order to predict the rewards of all possible actions in each task from a \emph{small} history of action-reward pairs in a new task. 
+%
+This paper demonstrates how such an approach can achieve lower regret by outperforming state-of-the-art baselines, relying solely on historical data, without the need for any supplementary information like the action features or knowledge of the complex reward models. 
+%
+We also show that the shared actions across the tasks are vital for \pred\ to exploit the latent structure.  
+%
+We show that \pred\ learns to adapt, in-context, to novel actions and new tasks as long as the number of new actions is small compared to shared actions across the tasks.
+%
+% Our new decision transformer learns to adapt, in-context, to novel actions as well as new tasks.
+
+\paragraph{Contributions}
+\begin{enumerate}
+    \item We introduce a new pre-training procedure, \pred, for learning the underlying reward structure and using this to circumvent the issue of requiring access to the optimal (or approximately optimal) action during training time.
+    % 
+    \item We demonstrate empirically that this training procedure results in lower regret in a wide series of tasks (such as linear, nonlinear, bilinear, and latent bandits) compared to prior in-context learning algorithms and bandit algorithms with privileged knowledge of the common structure.
+    %
+    % \dpt, \ad\ (and other in-context decision-making algorithms).
+    % 
+    \item We also show that our training procedure leverages the shared latent structure. We systematically show that when the shared structure breaks down no reward structure or exploration is learned.
+    % 
+    \item Finally, we theoretically analyze the generalization ability of \pred\ through the lens of algorithmic stability and new results for the transformer setting.
+\end{enumerate}
+% Our contributions are as follows:
+% \par
+% \textbf{1.} We propose a new training procedure where predicting the next reward for all arms circumvents the issue of requiring access to the optimal (or approximately optimal) action during training time.
+% \par
+% \textbf{2.} Such transformer training with predicting the next reward results in learning the underlying latent structure and reward correlation across tasks, thus improving upon the in-context data. This results in improved performance in a wide series of tasks (such as linear, nonlinear, bilinear, and latent bandits) where \dpt, \ad\ (and other in-context decision-making algorithms) fail. 
+% % We show this outcome over several structured bandit setting such as linear, nonlinear, bilinear and latent bandits.
+% \par
+% \textbf{3.} We also show that our training procedure leverages the latent structure even when new actions are introduced both during training and testing time. 
+% \par
+% \textbf{4.} Finally, we theoretically analyze the generalization ability of \pred\ through the lens of algorithmic stability and new results for the transformer setting \citep{li2023transformers}.
+
+% In this paper, we study multi-task learning for sequential decision-making problems using transformers. We consider the multi-task setting where there is a set of structured bandit source tasks and target tasks \citep{yang2020impact, yang2022nearly}. 
+% %
+% We want to understand the interplay between training a transformer on the offline data from the source tasks and its sequential decision-making capabilities to the unknown target tasks.
+% %
+% % %%%% Rob's intro %%%%
+% % In this paper, 
+% %
+% We consider the structured bandit problems \citep{tirinzoni2020novel, jun2020crush} as they constitute a complex and multifaceted area of study within machine learning, and studying them through the lens of a transformer can lead to new insights into the sequential decision-making capabilities of the transformer.
+% %
+% Traditionally, the study of such structured bandit problems has relied on knowledge of the problem structure like linear bandits \citep{li2010contextual, abbasi2011improved, degenne2020gamification}, bilinear bandits \citep{jun2019bilinear}, hierarchical bandits \citep{hong2022deep, hong2022hierarchical}, Lipschitz bandits \citep{bubeck2008online, bubeck2011lipschitz, magureanu2014lipschitz},  other structured bandits settings \citep{riquelme2018deep, lattimore2019information, dong2021provable} and even linear and bilinear multi-task bandit settings \citep{yang2022nearly, du2023multi, mukherjee2023multi}.
+% %
+% % Moreover, the study of structured bandit multi-task learning settings through the lens of a transformer can lead to new insights into the sequential decision-making capabilities of the transformer.
+% %
+% % Historically, tackling such problems has led to the development of a plethora of specialized algorithms, each catering to different structural nuances like linear bandits \citep{li2010contextual, abbasi2011improved, degenne2020gamification}, hierarchical bandits \citep{hong2022deep, hong2022hierarchical}, Lipschitz bandits \citep{bubeck2008online, bubeck2011lipschitz, magureanu2014lipschitz} or other highly non-linear structured bandits \citep{riquelme2018deep, lattimore2019information, dong2021provable}. Among these, the theory and methods pertaining to linear bandits and generalized linear bandits \citep{filippi2010parametric, li2017provably} stand out for their advanced and effective nature. However, a common limitation across these methods is their reliance on pre-existing knowledge of the problem's structure. 
+% %
+% An alternative to these approaches for addressing complex and potentially unknown structures involves the adoption of sophisticated model classes, such as kernel machines or neural networks, exemplified by kernel or neural bandits \citep{valko2013finite, chowdhury2017kernelized, zhou2020neural, dai2022federated}. However, these approaches are also costly as they learn complex, nonlinear models from the ground up without any prior data \citep{justus2018predicting, zambaldi2018relational}. 
+% %
+% % this approach is also not without its challenges. Specifically, there is a significant cost associated with the process of learning complex, nonlinear models from the ground up.
+% % %
+% % This cost, both in terms of computational resources and the intricacy of the learning process, represents a substantial investment when initiating models of such representational power from scratch without any prior data \citep{justus2018predicting, zambaldi2018relational}. 
+% %
+
+% In this paper, we propose an alternative approach of learning bandit algorithms from historical data across various classes of problems, such as linear and other structured bandit settings. Our method also utilizes black-box models, like neural networks, to decipher bandit policies from contextual data without explicitly knowing the structure that links actions and rewards. 
+% %
+% In our work, this contextual data takes the form
+% of action-reward tuples representing a dataset of interactions with an unknown environment (task). In this paper, we will refer to this as the in-context data.
+% %
+% Now given this in-context data and taking into account the sequential nature of bandit problems, transformer architectures \citep{vaswani2017attention, chen2021decision, laskin2022context, lee2023supervised, sinii2023context, lin2023transformers, ma2023rethinking, liu2023reason, liu2023self} emerge as a natural choice for modeling the joint distribution of the sequence of actions, and rewards. An example of this is the Decision Pretrained Transformer (\dpt)  \citep{lee2023supervised}, which is trained to discern policies using in-context data, alongside the knowledge of optimal actions in each context. Another approach is Algorithmic Distillation (\ad) \citep{laskin2022context} which is trained to learn policies by predicting the next action with the goal that the transformer can learn the correlation between actions and rewards across the tasks in the process.
+
+
+% \dpt\ can also approximate the optimal action but that requires a large amount of data from the underlying task which may not always be available.
+
+
+
+% % However, we propose an innovative alternative to this approach. 
+% We introduce a new transformer methodology that obviates the need for knowledge of the optimal action in the in-context data –- a piece of information that is often inaccessible. 
+% %
+% Our key observation is that while the mean rewards of each action change from task to task, certain probabilistic dependencies are persistent across all tasks with a given structure \citep{yang2020impact, yang2022nearly, mukherjee2023multi}. These probabilistic dependencies can be learned from the pretraining data and exploited to better estimate mean rewards and improve performance in a new unknown test task.  
+% %
+% The nature of the probabilistic dependencies depends on the specific structure of the bandit and can be complex (i.e., higher-order dependencies beyond simple correlations).  
+% %
+% We propose to use transformer models as a general-purpose architecture to capture the unknown dependencies by training transformers to predict the mean rewards in each of the given trajectories \citep{mirchandani2023large, zhao2023expel}.  The key idea is that transformers have the capacity to discover and exploit complex dependencies in order to predict the rewards of all possible actions in each task from a \emph{small} history of action-reward pairs in a new task. 
+% %
+% This paper demonstrates how such an approach can achieve state-of-the-art performance, relying solely on historical data, without the need for any supplementary information like the action features or knowledge of the complex reward models. Our new decision transformer learns to adapt, in-context, to novel actions as well as new tasks.
+% %
+% That is our decision transformer does not update its model parameters during test time.
+
+
+% Our strategy revolves around training the decision transformer to predict the rewards of all possible actions, based on the history of actions and rewards in each task. This paper demonstrates how such an approach can achieve state-of-the-art performance, relying solely on historical data, without the need for any supplementary information like the action features or knowledge of the complex reward models. Moreover, our new decision transformer learns to adapt, in-context, to novel actions as well as new tasks.
+
+
+% In-context decision making \citep{laskin2022context,lee2023supervised} has also emerged as an attractive alternative in Reinforcement Learning (RL) compared to updating the model parameters after collection of new data \citep{mnih2013playing, franccois2018introduction}. 
+% %
+% In RL the contextual data takes the form
+% of state-action-reward tuples representing a dataset of interactions with an unknown environment (task). In this paper we will refer to this as the in-context data.
+% %
+% % In this paper we focus on the linear bandit setting \citep{li2010contextual, abbasi2011improved, lattimore2020bandit}, where the task is a single state which consist of $A$ actions. 
+% % %
+% % Each action is represented by by its feature vector $\bx(a)\in\R^d$. 
+% % In the linear bandit setting the learner samples an action $I_t$ in round $t$ and observes the reward $r_t$ which is generated through a noisy linear interaction between that action feature $\bx(I_t)$ and a hidden unknown parameter $\btheta_*$.
+% % %r_t = \bx(I_t)^\top\btheta_* + \eta_t$, where $\eta_t$ is the noise.
+% % %
+% % Therefore in this paper the in-context data consist of action-reward tuples representing a dataset of interactions with the unknown linear bandit task. 
+% %
+% % Let the total number of rounds available to the learner be denoted by $n$.
+% % %
+% % Finally, the goal of the learner is to minimize the cumulative regret, where the optimal policy is to maximize the total reward by identifying the most rewarding arms quickly and sampling it till the end of horizon $n$.
+% %
+% Recall that in many real-world settings, the underlying task can be structured with correlated features, and the reward can be highly non-linear. So specialized bandit algorithms fail to learn in these tasks.
+% % \citep{riquelme2018deep, dong2021provable, lattimore2019information}. Therefore bandit algorithms designed for specific reward models like linear bandit \citep{abbasi2011improved}, or generalized linear bandit \citep{filippi2010parametric} does not perform well in this setting.  
+% %
+% To circumvent this issue, a learner can first collect in-context data consisting of just action indices $I_t$ and rewards $r_t$. Then it can leverage the massive representation learning capability of a deep neural network models to learn a pattern across the in-context data and subsequently derive a near-optimal policy \citep{lee2023supervised, mirchandani2023large}. We refer to this learning framework as an in-context decision-making setting.
+
+
+
+% %
+% In the in-context decision-making setting, the learning model is first trained on supervised input-output examples with the in-context data during training. Then during test time, the model is asked to complete a new input (related to the context provided) without any update to the model parameters \citep{xie2021explanation, min2022rethinking}. Motivated from this, \citet{lee2023supervised} recently proposed the Decision Pretrained Transformers (\dpt) that exhibit the following properties: \textbf{(1)} During supervised pretraining of \dpt, predicting optimal actions alone gives rise to near-optimal decision-making algorithms for unforeseen task during test time. Note that \dpt\ does not update model parameters during test time and therefore conducts in-context learning on the unforeseen task. \textbf{(2)} \dpt\ improves over the in-context data used to pretrain it by exploiting latent structure. However, \dpt\ either requires the optimal action during training or if it needs to approximate the optimal action. For approximating the optimal action, it requires a large amount of data from the underlying task.
+% to infer the latent structure.
+
+
+
+
+% At the same time, learning the underlying data pattern from few examples during training is becoming more relevant in many domains like chatbot interaction \citep{madotto2021few,semnani2023wikichat}, recommendation systems, healthcare \citep{ge2022few, liu2023large}, etc. This is referred to as few-shot learning.
+% %
+% However, most current RL decision-making systems (including in-context learners like \dpt) require an enormous amount of data to learn a good policy.
+%
+% Motivated by this we propose the \textbf{Pre}trained \textbf{De}cision \textbf{T}ransf\textbf{o}rmer for \textbf{R}eward Estimation (abbreviated as \pred, but read pre-da-tor) for in-context learning. 
+% %
+% %
+% Our proposed model \pred\ does not require the optimal action (or even a greedy approximation) during pretraining. 
+% % Hence \pred\ can be pretrained with in-context data from each task.
+% %
+% \pred\ learns the underlying correlation between rewards across the tasks given a particular reward structure (like linear or non-linear structured bandit setting).
+% %
+% Hence, \pred\ can predict mean rewards with high precision as the number of tasks increases. So \pred\ can be trained 
+% with much smaller amounts of data from each of the underlying tasks. 
+% % Hence \pred\ is a few-shot learner. 
+% It is trained to predict the reward of each action in the task and generalizes well to unforeseen tasks during test time. Moreover, \pred\ does not update its model parameters during test time and hence it is an in-context learner. See \cref{sec:related} for more related works.
+
+% Another major issue with \dpt\ is that to learn the underlying latent representation of the task, the action representations are kept fixed across the different tasks in the in-context and testing data. 
+% %
+% However, in many settings like lifelong learning in RL \citep{chandak2020lifelong, mendez2020lifelong}, continual learning \citep{wang2023comprehensive, abel2023definition}, linear and contextual bandits \citep{li2021tight, lattimore2020bandit} the changing action set during training or evaluation time is an important factor.
+% %
+% So in this work, we study changing action sets and show \pred\ generalizes better to changing action sets compared to \dpt\ during in-context learning.
+
+%
+%
+% In the recent work of \citet{lee2023supervised} they proposed the Decision Pretrained Transformers (\dpt) that exhibit the following properties: \textbf{(1)}
+%
+% \begin{itemize}
+%     \item While training DPT, predicting optimal actions alone gives rise to near-optimal decision-making algorithms during unforseen task at test time.
+%     \item DPT can handle reward distributions unseen in its pretraining data on bandit problems as well as unseen goals, dynamics, and datasets in simple MDPs.
+%     \item DPT improves over the data used to pretrain it by exploiting latent structure. As an example, in parametric bandit problems, specialized algorithms can leverage structure (such as linear rewards) and offer provably better regret, but a representation must be known in advance.
+%     \item DPT can be viewed as learning a posterior distribution over optimal actions, shortcutting the Posterior Sampling (PS) procedure. Under some conditions, they show theoretically that DPT in-context is equivalent to PS.
+% \end{itemize}
+% However, the strong assumption of DPT to have access to the optimal action during training can be overcome by using an approximate optimal action estimated from the collected data itself. But in many tasks when the horizon is small, learning the approximate optimal action can be hard. 
+% %
+% The second major issue with DPT is that to learn the underlying latent representation and reward structure, the representation of actions is kept fixed across the the different training and testing task. 
+%
+% So in this paper, we answer the two following questions:
+% \begin{quote}
+%     \small{\textbf{1. Can a transformer improve over its in-context data and  learn a near-optimal policy by training without access to the approximated optimal action?}\\\\
+%     %%%%%%%%%%%%
+%     % \textbf{2. Can such a transformer learn a near-optimal policy with limited data in each task by improving over its in-context data?}\\\\
+%     %%%%%%%%%%%%%
+%     \textbf{2. Can such a transformer generalize to perform in-context learning on an unforeseen task with new action representations?}}
+%     \vspace*{-1em}
+% \end{quote}
+% We answer positively to all these questions. Our contributions are as follows:
+% \par
+% \textbf{1.} We propose a new training procedure where predicting the next reward for all arms circumvents the issue of requiring access to the optimal (or approximately optimal) action during training time.
+% \par
+% \textbf{2.} Such transformer training with predicting the next reward results in learning the underlying latent structure and reward correlation across tasks, thus improving upon the in-context data. This results in improved performance in a wide series of tasks (such as linear, nonlinear, bilinear, and latent bandits) where \dpt, \ad\ (and other in-context decision-making algorithms) fail. 
+% % We show this outcome over several structured bandit setting such as linear, nonlinear, bilinear and latent bandits.
+% \par
+% \textbf{3.} We also show that our training procedure leverages the latent structure even when new actions are introduced both during training and testing time. 
+% \par
+% \textbf{4.} Finally, we theoretically analyze the generalization ability of \pred\ through the lens of algorithmic stability and new results for the transformer setting \citep{li2023transformers}.
+
+% \begin{enumerate}
+%     \item We propose a new training procedure where predicting the next reward for all arms circumvents the issue of requiring access to the optimal (or approximately optimal) action during training time.
+%     \item Such transformer training with predicting the next reward results in learning the latent reward structure across tasks. This results in 
+%     improved performance in a short-horizon setting where DPT fails.
+%     \item We also show that our training procedure leverages the latent structure even when new actions are introduced both during training and testing time. 
+%     \item Finally we draw a connection between training the transformer across different tasks and Bayesian Linear Estimators.
+% \end{enumerate}
+
+% Consider a setting where the reward has a highly non-linear relationship with its feature. Instead of building a new customized algorithm for this setting, we conduct learning through demonstration.
+% %
+% We proceed as follows: Take a demonstrator that samples action and does not rely on features, and ask it to sample actions and rewards. Then we take a transformer and train it on the history and ask it to predict the next action and the reward of the next action, calculate the loss and back-prop it. We hope that in this way we will be able to learn the structure of the reward and outperform the demonstrator.
+
+% 
+
+
+
+
+
+
+
+
+

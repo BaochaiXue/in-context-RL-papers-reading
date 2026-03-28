@@ -1,0 +1,24 @@
+Success Rate
+
+AD
+
+AD-permuted
+
+1.0
+0.8
+0.6
+
+Impossible
+to evaluate
+
+0.4
+0.2
+0.0
+
+Train
+
+Altered Semantics
+
+Altered Size
+
+

@@ -1,0 +1,18 @@
+Here, we provide additional background on the multi-armed bandit problem, and on the baseline algorithms used in this paper. Deeper discussion can be found in \citet{Bubeck-survey12,slivkins-MABbook,LS19bandit-book}.
+
+The \ucb algorithm \citep{bandits-ucb1} explores by assigning each arm $a$ an \emph{index}, defined as the average reward from the arm so far plus a \emph{bonus} of the form $\sqrt{C/n_a}$, where $C = \Theta(\log T)$ and $n_a$ is the number of samples from the arm so far. In each round, it chooses an arm with the largest index. The bonus implements the principle of \emph{optimism under uncertainty}. We use a version of \ucb that sets $C=1$ (a heuristic), which has been observed to have a favorable empirical performance \citep[\eg][]{ZoomingRBA-icml10,RepeatedPA-ec14}.
+
+Thompson Sampling~\citep[][for a survey]{Thompson-1933,TS-survey-FTML18} proceeds as if the arms' mean rewards were initially drawn from some Bayesian prior. In each round, it computes a Bayesian posterior given the history so far, draws a sample from the posterior, and chooses an arm with largest mean reward according to this sample (\ie assuming the sample were the ground truth).
+In our setting, the prior is essentially a parameter to the algorithm. We choose the prior that draws the mean reward of each arm independently and uniformly at random from the $[0,1]$ interval. This is one standard choice, achieving near-optimal regret bounds, as well as good empirical performance \citep{Kaufmann-alt12,Shipra-colt12,Shipra-aistats13-JACM}. Each arm is updated independently as a Beta-Bernoulli conjugate prior. Further optimizing \ucb and Thompson Sampling is non-essential to this paper, as they already perform quite well in our experiments.
+
+Provable guarantees for bandit algorithms are commonly expressed via \emph{regret}: the difference in expected total reward of the best arm and the algorithm. Both baselines achieve regret $O(\sqrt{KT\log T})$, which is nearly minimax optimal as a function of $T$ and $K$. They also achieve a nearly instance-optimal regret rate, which scales as $O\rbr{\nicefrac{K}{\Delta}\,\log T}$ for the instances we consider.
+
+The \EpsGreedy algorithm (\pref{fn:eps-greedy}) is fundamentally inefficient in that it does not adaptively steer its exploration toward better-performing arms. Accordingly, its regret rate scales as $T^{2/3}$ (for an optimal setting of $\eps\sim T^{-1/3}$). Fixing such $\eps$, regret does not improve for easier instances.
+
+The \greedy algorithm (\pref{fn:greedy}) does not explore at all, which causes suffix failures. This is obvious when the algorithm is initialized with a single sample ($n=1$) of each arm: a suffix failure happens when the good arm returns $0$, and one of the other arms returns $1$. However, suffix failures are not an artifact of small $n$: they can happen for any $n$, with probability that scales as $\Omega(1/\sqrt{n})$~\citep{BSL-myopic23}.
+
+
+
+
+
+

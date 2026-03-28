@@ -1,0 +1,14 @@
+\section{Conclusion}
+\label{sec:conclusion}
+In this work, we introduce a new learning algorithm named \emph{Cross-Episodic Curriculum} to enhance the sample efficiency of policy learning and generalization capability of Transformer agents.
+It leverages the shifting distributions of past learning experiences or human demonstrations when they are viewed as curricula.
+Combined with cross-episodic attention, \cec yields embodied policies that attain high performance and robust generalization across distinct and representative RL and IL settings.
+\cec represents a solid step toward sample-efficient policy learning and is promising for data-scarce problems and real-world domains.
+
+
+
+\para{Limitations and future work.}
+The CEC algorithm relies on the accurate formulation of curricular sequences that capture the improving nature of multiple experiences. However, defining these sequences accurately can be challenging, especially when dealing with complex environments or tasks. Incorrect or suboptimal formulations of these sequences could negatively impact the algorithm's effectiveness and the overall learning efficiency of the agents.
+A thorough exploration regarding the attainability of curricular data is elaborated upon in Appendix, Sec \ref{supp:sec:feasibility}.
+
+In subsequent research, the applicability of \cec to real-world tasks, especially where task difficulty remains ambiguous, merits investigation. A deeper assessment of a demonstrator's proficiency trajectory --- from initial unfamiliarity to the establishment of muscle memory --- could offer a valuable learning signal. Moreover, integrating real-time human feedback to dynamically adjust the curriculum poses an intriguing challenge, potentially enabling \cec to efficiently operate in extended contexts, multi-agent environments, and tangible real-world tasks.

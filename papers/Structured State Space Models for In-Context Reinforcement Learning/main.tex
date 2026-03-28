@@ -1,0 +1,826 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2023
+
+
+% ready for submission
+\PassOptionsToPackage{numbers, compress}{natbib}
+\usepackage[final]{neurips_2023}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2023}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2023}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+% \usepackage[nonatbib]{neurips_2023}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsmath}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+% \usepackage{subfigure}
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+\usepackage{wrapfig}
+
+\usepackage{geometry}
+
+\newcommand{\oldop}{\bullet}
+\newcommand{\newop}{\oplus}
+
+% \bibliographystyle{plain}
+% \bibliography{main_bib}
+%\usepackage{natbib}
+
+
+\title{Structured State Space Models for In-Context Reinforcement Learning}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+% \icmlauthor{Yannick Schroecker}{comp}
+% \icmlauthor{Albert Gu}{comp}
+% \icmlauthor{Emilio Parisotto}{comp}
+
+% \icmlauthor{Jakob Foerster}{sch}
+% \icmlauthor{Satinder Singh}{comp}
+% \icmlauthor{Feryal Behbahani}{comp}
+
+\author{%
+  Chris Lu\thanks{Work done during an internship at DeepMind. Contact: christopher.lu@exeter.ox.ac.uk} \\
+  FLAIR, University of Oxford\\
+  \And
+  Yannick Schroecker \\
+  DeepMind \\
+  % \texttt{email} \\
+  \And
+  Albert Gu \\
+  DeepMind \\
+  % \texttt{email} \\
+  \And
+  Emilio Parisotto \\
+  DeepMind \\
+  % \texttt{email} \\
+  \And
+  Jakob Foerster \\
+  FLAIR, University of Oxford \\
+  % \texttt{email} \\
+  \And
+  Satinder Singh \\
+  DeepMind \\
+  % \texttt{email} \\
+  \And
+  Feryal Behbahani \\
+  DeepMind \\
+  % \texttt{email} 
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+ \textit{Structured state space sequence} (S4) models have recently achieved state-of-the-art performance on long-range sequence modeling tasks. These models also have fast inference speeds and parallelisable training, making them potentially useful in many reinforcement learning settings. We propose a  modification to a variant of S4 that enables us to initialise and reset the hidden state in parallel, allowing us to tackle reinforcement learning tasks. We show that our modified architecture runs asymptotically faster than Transformers in sequence length and performs better than RNN's on a simple memory-based task. We evaluate our modified architecture on a set of partially-observable environments and find that, in practice, our model outperforms RNN's while also running over five times faster. Then, by leveraging the model’s ability to handle long-range sequences, we achieve strong performance on a challenging meta-learning task in which the agent is given a randomly-sampled continuous control environment, combined with a randomly-sampled linear projection of the environment's observations and actions. Furthermore, we show the resulting model can adapt to out-of-distribution held-out tasks. Overall, the results presented in this paper show that structured state space models are fast and performant for in-context reinforcement learning tasks. We provide code at \url{https://github.com/luchris429/s5rl}.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:Introduction}
+
+Structured state space sequence (S4) models~\citep{gu2021efficiently} and their variants such as S5~\citep{smith2022simplified} have recently achieved impressive results in long-range sequence modelling tasks, far outperforming other popular sequence models such as the Transformer~\citep{vaswani2017attention} and LSTM~\citep{hochreiter1997long} on the Long-Range Arena benchmark~\citep{tay2020long}. Notably, S4 was the first architecture to achieve a non-trivial result on the difficult Path-X task, which requires the ability to handle extremely long-range dependencies of lengths $16k$.
+
+Furthermore, S4 models display a number of desirable properties that are not directly tested by raw performance benchmarks. Unlike transformers, for which the per step runtime usually scales quadratically with the sequence length, S4 models have highly-scalable inference runtime performance, asymptotically using \textit{constant} memory and time per step with respect to the sequence length. While LSTMs and other RNNs also have this property, empirically, S4 models are far more performant while also being \textit{parallelisable across the sequence dimension} during training. 
+
+While inference-time is normally not included when evaluating on sequence modelling benchmarks, 
+it has a large impact on the scalability and wallclock-time for reinforcement learning (RL) because the agent uses inference to collect data from the environment. Thus, transformers usually have poor runtime performance in reinforcement learning~\citep{parisotto2021efficient}. While transformers have become the default architecture for many supervised sequence-modelling tasks~\citep{vaswani2017attention}, RNNs are still widely-used for memory-based RL tasks~\citep{ni2022recurrent}. 
+
+The ability to efficiently model contexts that are orders of magnitude larger may enable new possibilities in RL. This is particularly applicable in meta-reinforcement learning (Meta-RL), in which the agent is trained to adapt across \textit{multiple} environment episodes. One approach to Meta-RL, RL$^2$~\citep{duan2016rl, wang2016learning}, uses sequence models to directly learn across these episodes, which can often result in trajectories that are thousands of steps long. Most instances of RL$^2$ approaches, however, are limited to narrow task distributions and short adaptation horizons because of their limited effective memory length and slow training speeds. 
+% S4 models would enable training across larger, more complex, task distributions by providing a more scalable and performant memory architecture, ultimately resulting in more general agents. 
+
+Unfortunately, simply applying S4 models to reinforcement learning is challenging. This is because the most popular training paradigm in on-policy RL with multiple actors involves collecting fixed-length environment trajectories, which often cross episode boundaries. RNNs handle episode boundaries by resetting the hidden state at those transitions when performing backpropagation through time. Unlike RNNs, S4 models cannot simply reset their hidden states within the sequence because they train using a fixed convolution kernel instead of using backpropagation through time. 
+
+A recent modification to S4, called Simplified Structured State Space Sequence Models (S5), replaces this convolution with a \textit{parallel scan} operation~\citep{smith2022simplified}, which we describe in Section \ref{sec:Background}. In this paper, we propose a modification to S5 that enables resetting its hidden state within a trajectory during the training phase, which in turn allows practitioners to simply replace RNNs with S5 layers in existing frameworks. We then demonstrate S5's performance and runtime properties on the simple bsuite memory-length task~\citep{osband2019behaviour}, showing that S5 achieves a higher score than RNNs while also being nearly two times faster when using their provided baseline algorithm. 
+% We also evaluate our architecture on the environments in the recently-proposed Partially Observable Process Gym (POPGym) suite~\citep{morad2023popgym} and show that S5 outperforms GRU's while also running over six times faster, achieving state-of-the-art results on the ``Repeat Hard'' task, which all other architectures previously struggled to solve.
+We also re-implement and open source the recently-proposed Partially Observable Process Gym (POPGym) suite~\citep{morad2023popgym} in pure JAX, resulting in end-to-end evaluation speedups of over $30x$. When evaluating our architecture on this suite, we show that S5 outperforms GRU's while also running over six times faster, achieving state-of-the-art results on the ``Repeat Hard'' task, which all other architectures previously struggled to solve.
+We further show that the modified S5 architecture can tackle a long-context partially-observed Meta-RL task with episode lengths of up to $6400$. Finally, we evaluate S5 on a challenging Meta-RL task in which the environment samples a random DMControl environment~\citep{tassa2018deepmind} and a random linear projection of the state and action spaces at the beginning of each episode. We show that the S5 agent achieves higher returns than LSTMs in this setting. Furthermore, we demonstrate that the resulting S5 agent performs well even on random linear projections of the state and action spaces of out-of-distribution held-out tasks.
+
+\begin{table}[t]
+\centering
+\begin{tabular}{l|lllll}
+               & Inference     & Training      & Parallel     & Variable Lengths & bsuite Score \\ \hline
+RNNs           & \textbf{O($1$)} & \textbf{O($L$)} & No           & \textbf{Yes}     & No           \\
+Transformers   & O($L^2$)         & O($L^2$)         & \textbf{Yes} & \textbf{Yes}     & \textbf{Yes} \\
+S5 with $\oldop$  & \textbf{O($1$)} & \textbf{O($L$)} & \textbf{Yes} & No               & N/A          \\
+S5 with $\newop$ & \textbf{O($1$)} & \textbf{O($L$)} & \textbf{Yes} & \textbf{Yes}     & \textbf{Yes}
+\end{tabular}
+\vspace{1em}
+\caption{The different properties of the different architectures. The asymptotic runtimes are in terms of the sequence length $L$ assume a constant hidden size. The bsuite scores correspond to whether or not they achieve a perfect score in the median runs on the bsuite memory length environment.}
+\end{table}
+
+
+\section{Background}
+\label{sec:Background}
+
+\subsection{Structured State Space Sequence Models}
+\label{subsec:s4}
+
+State Space Models (SSMs) have been widely used to model various phenomenon  using first-order differential equations \cite{hamilton1994state}. At each timestep $t$, these models take an input signal $u(t)$. This is used to update a latent state $x(t)$ which in turn computes the signal $y(t)$. Some of the more widely-used canonical SSMs are continuous-time linear SSMs, which are defined by the following equations:
+\begin{align}
+\dot{x}(t) &= \mathbf{A}x(t) + \mathbf{B}u(t)&\\
+y(t) &= \mathbf{C}x(t) + \mathbf{D}u(t) \nonumber
+\end{align}
+
+where $\mathbf{A}, \mathbf{B}, \mathbf{C},$ and $\mathbf{D}$ are matrices of appropriate sizes. To model sequences with a fixed step size $\Delta$, one can \textit{discretise} the SSM using various techniques, such as the zero-order hold method, to obtain a simple linear recurrence:
+\begin{align}
+\label{eq:discretised-ssm}
+x_n &= \mathbf{\bar{A}} x_{n-1} + \mathbf{\bar{B}} u_n&\\
+y_n &= \mathbf{\bar{C}}x_{n} + \mathbf{\bar{D}}u_n \nonumber
+\end{align}
+
+where $\mathbf{\bar{A}}, \mathbf{\bar{B}}, \mathbf{\bar{C}},$ and $\mathbf{\bar{D}}$ can be calculated as functions of $\mathbf{A}, \mathbf{B}, \mathbf{C}, \mathbf{D},$ and $\Delta$. 
+
+S4~\citep{gu2021efficiently} proposed the use of SSMs for modelling long sequences and various techniques to improve its stability, performance, and training speeds when combined with deep learning. For example, S4 models use a special matrix initialisation to better preserve sequence history called HiPPO~\citep{gu2020hippo}. 
+
+One of the primary strengths of the S4 model is that it can be converted to both a recurrent model, which allows for fast and memory-efficient inference-time computation, and a convolutional model, which allows for efficient training that is \textit{parallelisable across timesteps}~\citep{gu2021combining}. 
+
+More recently, \citet{smith2022simplified} proposed multiple simplifications to S4, called S5. One of its contributions is the use of \textit{parallel scans} instead of convolution, which vastly simplifies S4's complexity and enables more flexible modifications. Parallel scans take advantage of the fact that the composition of \textit{associative} operations can be computed in any order. Recall that for an operation $\oldop$ to be associative, it must satisfy $(x \oldop y) \oldop z = x \oldop (y \oldop z)$.
+
+Given an associative binary operator $\oldop$ and a sequence of length $N$, parallel scan returns:
+\begin{align}
+[ e_1, e_1 \oldop e_2, \cdots, e_1 \oldop e_2 \oldop \cdots \oldop e_N ]
+\end{align}
+
+For example, when $\oldop$ is addition, the parallel scan calculates the prefix-sum, which returns the running total of an input sequence. Parallel scans can be computed in $O(\log(N))$ time when given a sequence of length $N$, given $N$ parallel processors. 
+
+% MAKE CLEAERER
+S5's parallel scan is applied to initial elements $e_{0:N}$ defined as:
+\begin{align}
+e_k = (e_{k,a}, e_{k,b}) := (\mathbf{\bar{A}}, \mathbf{\bar{B}}u_k)
+\end{align} 
+
+% DEFINE a
+Where $\mathbf{\bar{A}}$, $\mathbf{\bar{B}}$, and $u_k$ are defined in Equation \ref{eq:discretised-ssm}. S5's parallel operator is then defined as: 
+\begin{align}
+\label{eq:s5-op}
+a_i \oldop a_j = (a_{j,a} \odot a_{i,a}, a_{j,a} \otimes a_{i,b} + a_{j,b})
+\end{align}
+
+where $\odot$ is matrix-matrix multiplication and $\otimes$ is matrix-vector multiplication. The parallel scan then generates the recurrence in the hidden state $x_n$ defined in Equation \ref{eq:discretised-ssm}.
+\begin{alignat}{3}
+e_1 &= (\mathbf{\bar{A}}, \mathbf{\bar{B}}u_1) &&= (\mathbf{\bar{A}}, x_1)&&\\
+e_1 \oldop e_2 &= (\mathbf{\bar{A}}^2, \mathbf{\bar{A}} x_1 + \mathbf{\bar{B}}u_2) &&= (\mathbf{\bar{A}}^2, x_2)&&\\
+e_1 \oldop e_2 \oldop e_3 &= (\mathbf{\bar{A}}^2, \mathbf{\bar{A}} x_2 + \mathbf{\bar{B}}u_3) &&= (\mathbf{\bar{A}}^3, x_3)&&
+\end{alignat}
+
+Note that the model assumes a hidden state initialised to $x_0=0$ by initialising the scan with $e_0=(\mathbf{I}, 0)$.
+
+\subsection{Reinforcement Learning}
+\label{subsect:rl-background}
+
+A Markov Decision Process (MDP)~\citep{sutton2018reinforcement} is defined as a tuple $\langle \mathcal{S}, \mathcal{A}, R, P, \gamma\rangle$, which defines the environment. Here, $\mathcal{S}$ is the set of states, $\mathcal{A}$ the set of actions, $R$ the reward function that maps from a given state and action to a real value $\mathbb{R}$, $P$ defines the distribution of next-state transitions given a state and action, and $\gamma$ defines the discount factor. The agent's objective is to find a policy $\pi$ (a function which maps from a given state to a distribution over actions) which maximises the expected discounted sum of returns. 
+
+\begin{align}
+     \mathbb{E}[\text{R}^{\gamma} | \pi] = \mathbb{E}_{s_0\sim d, a_{0:\infty}\sim\pi, s_{1:\infty}\sim P}\Big[ 
+    \sum_{t=0}^{\infty}\gamma^t R(s_t, a_t) \Big] \nonumber
+\end{align}
+
+
+In a Partially-Observed Markov Decision Process (POMDP), the agent receives an observation $o_t \sim O(s_t)$ instead of directly observing the state. Because of this, the optimal policy $\pi^*$ does not depend just on the current observation $o_t$, but (in generality) also on all previous observations $o_{0:t}$ and actions $a_{0:t}$.
+
+\section{Method}
+\label{sec:Method}
+
+\begin{algorithm}[t]
+   \caption{Pseudocode for the Multi-Environment Meta-Learning environment step. 
+       % Given a distribution of environments $E \sim \rho_E$, a fixed output observation dimension size $O$, and a fixed action dimension size $A$.
+}
+   \label{alg:wrapper-code}
+\begin{algorithmic}[1]
+   \REQUIRE Distribution of environments $E \sim \rho_E$, a fixed output observation dimension size $O$, and a fixed action dimension size $A$. Agent action $a$ and Environment termination $d$
+   \FUNCTION{StepEnvironment($a$, $d$)}
+   \IF{the environment terminated ($d$)}
+   \STATE Sample random environment $E \sim \rho_E$
+   % \STATE Set $E^o$ to its observation size and $E^a$ to its action size.
+   \STATE Initialise random observation projection matrix $M_o \in \mathbb{R}^{E^o \times O}$ where $E^o$ is $E$'s observation size
+   \STATE Initialise random action projection matrix 
+   
+   $M_a \in \mathbb{R}^{A \times E^a}$ where $E^a$ is $E$'s action size
+   \STATE Reset $E$ to receive an initial observation $o$
+   \STATE Apply the random observation projection matrix to the observation $o'=M_oo$
+   \STATE Append $r=0$ and $d=0$ to $o'$ to get $o''$
+   \STATE Return $o''$
+   \ELSE
+   \STATE Apply the projection matrix $a' = M_aa$
+   \STATE Step $E$ using $a'$ to receive the next observation $o$, reward $r$, and done signal $d$. % WORDY -- FIX. 
+   \STATE Apply the projection matrix $o'=M_oo$
+   \STATE Append $r$ and $d$ to $o'$ to get $o''$
+   \STATE Return $o''$, $r$, and $d$
+   \ENDIF
+   \ENDFUNCTION
+\end{algorithmic}
+\end{algorithm}
+
+
+We first modify to S5 to handle variable-length sequences, which makes the architecture more suitable for tackling POMDPs. We then introduce a challenging new  Meta-RL setting that tests for broad generalisation capabilities.
+
+\subsection{Resettable S5}
+
+Implementations of on-policy policy gradient algorithms with parallel environments often collect fixed-length trajectory ``rollouts'' from the environment for training, despite the fact that the environment episode lengths are often far longer and vary significantly. Thus, the collected rollouts (1) often begin within an episode and (2) may contain episode boundaries. Note that there are other, more complicated, approaches to rollout collection that can be used to collect full episode trajectories~\cite{liang2018rllib}.
+
+To handle trajectory rollouts that begin in the middle of an episode, sequence models must be able to access the state of memory that was present prior to the rollout's collection. Usually, this is done by storing the RNN's hidden state at the beginning of each rollout to perform truncated backpropagation through time~\citep{williams1995gradient}. This is challenging to do with transformers because they do not normally have an explicit recurrent hidden state, but instead simply retain the entire history during inference time. This is similarly challenging for S4 models since they assume that all hidden states are initialised identically to perform a more efficient backwards pass. 
+
+To handle episode boundaries within the trajectory rollouts, memory-based models must be able to reset their hidden state, otherwise they would be accessing memory and context from other episodes. RNNs can trivially reset their hidden state when performing backpropagation through time, and transformers can mask out the invalid transitions. However, S4 models have no such mechanism to do this. 
+
+To resolve both of these issues, we modify S5's associative operator to include a reset flag that preserves the associative property, allowing S5 to efficiently train over sequences of varying lengths and hidden state initialisations. We create a new associative operator $\newop$ that operates on elements $e_k$ defined:
+\begin{align}
+e_k = (e_{k,a}, e_{k,b}, e_{k,c}) := (\mathbf{\bar{A}}, \mathbf{\bar{B}}u_k, d_k)
+\end{align}
+
+ where $d_k \in \{0, 1\}$ is the binary ``done'' signal for the given transition from the environment.  
+
+We define $\newop$ to be:
+\begin{align}
+a_i \newop a_j := 
+\begin{cases}
+(a_{j,a} \odot a_{i,a}, a_{j,a} \otimes a_{i, b} + a_{j, b}, a_{i, c}) & \text{if $a_{j,c}=0$}\\
+(a_{j,a}, a_{j,b}, a_{j,c}) & \text{if $a_{j,c}=1$} \nonumber
+\end{cases}
+\end{align}
+
+We prove that this operator is associative in Appendix \ref{app:proof-assoc}. We now show that the operator computes the desired value. Assuming $e_{n,c}=1$ corresponds to a ``done'' transition while all other timesteps before it ($e_{0:n-1,c}=0$) and after it ($e_{n+1:L,c}=0$) do not, we see:
+\begin{alignat}{2}
+e_0 \newop \cdots \newop e_{n-1} &= (\mathbf{\bar{A}}^{n-1}, \mathbf{\bar{A}} x_{n-2}+ \mathbf{\bar{B}}u_{n-1}, 0) \nonumber \\ \nonumber
+&= (\mathbf{\bar{A}}^{n-1}, x_{n-1}, 0)\\ \nonumber
+e_0 \newop \cdots \newop e_n &= (\mathbf{\bar{A}}, \mathbf{\bar{B}}u_n, 1) \\ \nonumber 
+&= (\mathbf{\bar{A}}, x_n, 1)\\ \nonumber
+e_0 \newop \cdots \newop e_{n+1} &= (\mathbf{\bar{A}}^2, \mathbf{\bar{A}} x_n + \mathbf{\bar{B}}u_{n+1}, 1) \\ \nonumber
+&= (\mathbf{\bar{A}}^2, x_{n+1}, 1)
+\end{alignat}
+
+Note that even if there are multiple ``resets'' within the rollout, the desired value will still be computed. 
+
+% \begin{figure*}[t]
+%     \centering
+%     \includegraphics[width=.99\textwidth]{newer_figures/marginally_better_figure.png}
+%     \caption{An overview of multi-environment meta-learning with random projections. At the start of each meta-episode, we sample a random observation projection, action projection, and DMControl environment.}
+%     \label{fig:meta-env-figure}
+% \end{figure*}
+
+
+\subsection{Multi-Environment Meta-Learning with Random Projections}
+\label{subsec:memlrp}
+
+Most prior work in Meta-RL has only demonstrated the ability to \textit{adapt} to a small range of similar tasks~\citep{beck2023survey}. Furthermore, the action and observation spaces usually remain identical across different tasks, which severely limits the diversity of meta-learnning environments. To achieve more general meta-learning, ideally the agent should learn from tasks of varying complexity and dynamics. Inspired by \citet{kirsch2022general}, we propose taking \textit{random linear projections} of the observation space and action space to a fixed size, allowing us to use the same model for tasks of varying observation and action space sizes. Furthermore, randomised projections \textit{vastly} increase the number of tasks in the meta-learning space. We can then evaluate the ability of our model to \textit{generalise} to unseen held-out tasks.
+
+We provide pseudocode for the environment implementation in Algorithm \ref{alg:wrapper-code}.
+
+\section{Experiments}
+\label{sec:Results}
+
+% For the Behaviour Suite for Reinforcement Learning (bsuite) \cite{osband2019behaviour} memory length task, we modify their provided actor-critic baseline. For all other environments we use Muesli \cite{hessel2021muesli} as our policy optimisation algorithm. 
+
+\subsection{Memory Length Environment}
+\label{subsec:bsuite-results}
+
+ First, we demonstrate our modified S5's improved training speeds in performance in the extremely simple memory length environment proposed in bsuite~\citep{osband2019behaviour}. 
+ 
+ The environment is based on the well-known `t-maze` environment~\citep{o1971hippocampus} in which the agent receives a cue on the first timestep, which corresponds to the action the agent should take some number of steps in the future to receive a reward. We run our experiments using bsuite's actor-critic baseline while swapping out the LSTM for Transformer self-attention blocks or S5 blocks~\citep{vaswani2017attention} and using Gymnax for faster environment rollouts~\citep{gymnax2022github}. 
+
+We show the results in Figure \ref{fig:bsuite-results}. In general, S5 displays a better asymptotic runtime than Transformers while far outperforming LSTMs in both performance and speed. Note that while S5 is theoretically $O(\log(N))$ in the backwards pass during training time (given enough processors), it is still bottle-necked by rollout collection from the environment, which takes $O(N)$ time. Because of the poor runtime performance of transformers for long sequences, we did not collect results for them in the following experiments.
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/bsuite_memory_rebuttal.png}
+      \caption{}
+      % \label{fig:popgym-runtimes}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/bsuite_runtime_rebuttal_new.png}
+      \caption{}
+      % \label{fig:popgym-runtimes}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/bsuite_return_rebuttal_new.png}
+      \caption{}
+      % \label{fig:popgym-returns}
+    \end{subfigure}
+    % \caption{Results in bsuite's Memory Length task. Self-attention achieves perfect performance because it is given access to the entire sequence, but shows poor asymptotic performance in runtime. Meanwhile, LSTMs run more quickly, but show poor performance. S5 achieves a high performance while running almost twice as quickly as LSTMs. Experiments were performed on a single NVIDIA V100.}
+    \caption{Evaluating S5, LSTM, and Self-Attention across different Bsuite memory lengths in terms of (a) memory usage, (b) runtime, and (c) return. Error bars report the standard error of the mean across 5 seeds. Runs were performed on a single NVIDIA A100.}
+    \label{fig:bsuite-results}
+\end{figure*}
+
+\subsection{POPGym Environments}
+\label{subsec:popgym-results}
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_popgym_mmer.png}
+      \caption{}
+      \label{fig:popgym-runtimes}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_popgym_mmer_time.png}
+      \caption{}
+      \label{fig:popgym-returns}
+    \end{subfigure}
+
+    \caption{(a) Results across implemented environments in POPGym's suite. Scores are normalised by the max-MMER per-environment. The shaded region represents the standard error of the mean across eight seeds. (b) The runtime for a single seed averaged across the environments for each architecture. Note that our implementation is end-to-end compiled to run entirely on a single NVIDIA A40.}
+    \label{fig:popgym-plots}
+\end{figure*}
+
+% \begin{table}[ht!]
+% \centering
+% \begin{tabular}{r|ccccc}
+% \multicolumn{1}{l|}{} &
+%   \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Stateless\\ CartPole Hard\end{tabular}} &
+%   \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Noisy Stateless\\ CartPole Hard\end{tabular}} &
+%   \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Stateless\\ Pendulum Hard\end{tabular}} &
+%   \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Noisy Stateless\\ Pendulum Hard\end{tabular}} &
+%   \begin{tabular}[c]{@{}c@{}}Repeat Previous\\ Hard\end{tabular} \\ \hline
+% S5 with $\newop$  & $\mathbf{1.0 \pm 0.0}$ & $\mathbf{0.28 \pm 0.0}$ & $\mathbf{0.79 \pm 0.01}$ & $0.55 \pm 0.01$          & $\mathbf{0.91 \pm 0.04}$ \\
+% S5 with $\oldop$ & $\mathbf{1.0 \pm 0.0}$ & $\mathbf{0.28 \pm 0.0}$ & $0.71 \pm 0.04$ & $0.5 \pm 0.01$          & $0.76 \pm 0.02$ \\
+% GRU & $\mathbf{1.0 \pm 0.0}$ & $0.27 \pm 0.0$          & $0.75 \pm 0.0$           & $\mathbf{0.61 \pm 0.01}$ & $-0.45 \pm 0.02$         \\
+% MLP & $0.26 \pm 0.0$         & $0.22 \pm 0.0$          & $0.41 \pm 0.02$          & $0.34 \pm 0.01$          & $-0.48 \pm 0.00$        
+% \end{tabular}
+% \vspace{1em}
+% \caption{Results in POPGym's suite. The reported number is the max-mean episodic reward (MMER) used in \citet{morad2023popgym}. To calculate this, we take the mean episodic reward for each epoch, and then take the maximum
+% over all epochs. The mean and standard deviation across eight seeds are reported.}
+% \vspace{-1em}
+% \label{table:popgym-results}
+% \end{table}
+
+We evaluate our S5 architecture on environments from the Partially Observable Process Gym (POPGym) \cite{morad2023popgym} suite, a set of simple environments designed to benchmark memory in deep RL. To increase experiment throughput on a limited compute budget, we carefully re-implemented environments from the POPGym suite entirely in JAX \cite{jax2018github} by leveraging existing implementations of CartPole and Pendulum in Gymnax \cite{gymnax2022github}. PyTorch does not support the associative scan operation, so we could directly use the S5 architecture in POPGym's RLLib benchmark.
+
+\citet{morad2023popgym} evaluated several architectures and found the Gated Recurrent Unit (GRU)~\citep{cho2014learning} to be the most performant. Thus, we compare our results to the GRU architecture proposed in the original POPGym benchmark. Note that POPGym's reported results use RLLib's~\citep{liang2018rllib} implementation of PPO, which makes several non-standard code-level implementation decisions. For example, it uses a dynamic KL-divergence coefficient on top of the clipped surrogate objective of PPO~\citep{ppo} -- a feature that does not appear in most PPO implementations~\citep{engstrom2020implementation}. 
+% Furthermore, RLLib uses advanced orchestration to return full episode trajectories, rather than using the more commonly-studied "stored state" \cite{kapturowski2018recurrent} strategy. 
+We instead use a recurrent PPO implementation that is more closely aligned with StableBaselines3~\citep{stable-baselines3} and CleanRL's~\citep{huang2022cleanrl} recurrent PPO implementations. We include more discussion and the hyperparameters in Appendix \ref{app:hyperparameters}.
+
+We show the results in Figure \ref{fig:popgym-plots} and Appendix \ref{app:popgym}. Notably, the S5 architecture performs well on the challenging "Repeat Previous Hard" task, far outperforming all architectures tested in \citet{morad2023popgym}. Furthermore, the S5 architecture also runs over six times faster than the GRU architecture. 
+
+\subsection{Randomly-Projected CartPole In-Context}
+
+We first demonstrate the long-horizon in-context learning capabilities of the modified S5 architecture by meta-learning across random projections of POPGym's Stateless CartPole (CartPole without velocity observations) task. More specifically, we perform the observation and action projections described in Section~\ref{subsec:memlrp} and report the results in Figure \ref{fig:metacart-plots}. 
+
+Agents are given $16$ trials per episode on randomly-sampled linear projections of StatelessCartPole's observation and action spaces. We find that S5 with $\newop$ outperforms GRU's while running twice as quickly. Furthermore, we show that performance improves across trials, demonstrating in-context learning and show that the modified S5 architecture, unlike the GRU, can continue to learn even past its training horizon, which was previously shown using Transformers in \citet{ada2023ada}. 
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_mmer.png}
+      \caption{}
+      % \label{fig:popgym-runtimes}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_runtime.png}
+      \caption{}
+      % \label{fig:popgym-returns}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_incontext.png}
+          \caption{}
+      \label{fig:popgym-runtimes}
+    \end{subfigure}
+    \caption{(a) Performance and (b) runtime on randomly-projected StatelessCartPole across 4 seeds. The shaded region represents the standard error. (c) Shows performance at the end of training across different trials.  We evaluate on $32$ trials even though we only train on $16$. GRU's appear to have overfit to the training horizon while S5 models continue to perform well. The error bars represent the standard error across 4 seeds. Runs were performed on a single NVIDIA A100.}
+    \label{fig:metacart-plots}
+\end{figure*}
+
+\subsection{Multi-Environment Meta-Reinforcement Learning}
+\label{subsec:meta-rl-results}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=.99\linewidth]{Figures/mean_all_envs.pdf}
+  \end{center}
+    \caption{The mean of the return across all of the training environments. The shaded regions represent the range of returns reported across the three seeds. The environment observations and actions are randomly projected as described in Algorithm \ref{alg:wrapper-code}.}
+    \label{fig:mean-train}
+\end{wrapfigure}
+
+We run our S5 architecture, an LSTM baseline, and a memory-less fully-connected network in the environment described in Section \ref{subsec:memlrp}. For these experiments, we use Muesli~\citep{hessel2021muesli} as our policy optimisation algorithm. We randomly project the environment observations to a fixed size of $12$ and randomly project from an action space of size $2$ to the corresponding environment's action space. We selected all of the DMControl environments and tasks that had observation and action spaces of size equal to or less than those values and split them into train and test set environments. 
+
+We use the S5 architecture described in \citet{smith2022simplified}, which consists of multiple stacked layers of S5 blocks. For both S5 and LSTM architectures, we found that setting the trajectory length equal to the maximum episode length $1k$ achieved the best performance in this setting. We provide a more detailed description of our architecture and hyperparameters in the supplementary material.
+
+\textbf{In-Distribution Training Results} We meta-train the model across the six DMControl environments in Figure \ref{fig:all-train-results} and show the mean performance across them in Figure \ref{fig:mean-train}. Note that while these environments are in the training distribution, they are still being evaluated on \textit{unseen random linear projections} of the state and action spaces and are \textit{not given task labels}. Thus, the agent must infer from the reward and obfuscated dynamics which environment it is in. In this setting, S5 outperforms LSTMs in both sample efficiency and ultimate performance.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=.99\textwidth]{Figures/all_train_envs.pdf}
+    \caption{Results across the different environments of the training distribution. The shaded regions represent the range of returns reported across the three seeds.  The environment observations and actions are randomly projected as described in Algorithm \ref{alg:wrapper-code}}
+    \label{fig:all-train-results}
+\end{figure*}
+
+\begin{wrapfigure}{l}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=.99\linewidth]{Figures/mean_test_envs.pdf}
+  \end{center}
+    \caption{The mean of the return across all of the unseen held-out environments. The shaded regions represent the range of returns reported across the three seeds. The environment observations and actions are randomly projected as described in Algorithm \ref{alg:wrapper-code}.}
+    \label{fig:mean-test}
+    \vspace{-4em}
+\end{wrapfigure}
+
+\textbf{Out-of-Distribution Evaluation Results:} After training the model on the DMControl tasks in Figure \ref{fig:all-train-results}, we next evaluate the trained model on random linear projections of five \textit{held-out} DMControl tasks, \textit{without any extra fine-tuning}. We present the mean score across these tasks in Figure \ref{fig:mean-test} and the results for each task in Figure \ref{fig:all-test-results}. While the agent displays impressive transfer performance to some tasks with unseen rewards and dynamics, it fails to successfully transfer to a completely unseen task in the test set, pendulum swingup, which has an unseen observation space, action space, and reward dynamics. 
+
+
+\section{Related Work}
+\label{sec:Related_Work}
+
+
+S4 models have previously been shown to work in a number of previous settings, including audio generation~\citep{goel2022audio} and video modeling~\citep{nguyen2022s4nd}. Concurrent work investigated S4 models in other reinforcement learning settings. \citet{david2023decisions4} investigated S4 models in a largely offline RL setting, with some modifications for online finetuning of the model. \citet{morad2023popgym} investigated sequence models for POMDPs and found that naively using S4 models did not perform well.
+% However, to the best of our knowledge no published works have used S4 models for reinforcement learning. S4 models are particularly well-suited for reinforcement learning because they are capable of modeling long-range dependencies like transformer-based models while being asymptotically faster in the sequence length.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=.99\textwidth]{newer_figures/all_test_envs.pdf}
+
+    \caption{Results when evaluating on held-out DMControl tasks. The shaded regions represent the range of returns reported across the three seeds. The environment observations and actions are randomly projected as described in Algorithm \ref{alg:wrapper-code}}
+    \label{fig:all-test-results}
+\end{figure}
+
+
+Most works in memory-based meta-RL have not focused on generalisation to out-of-distribution tasks, but instead focused on maximising performance on the training task distribution~\citep{duan2016rl, wang2016learning, beck2023survey}. Many past works that increased generalisation in meta-RL did so by restricting the model architecture class or architecture to symmetric models~\citep{kirsch2022introducing}, loss functions~\citep{houthooft2018evolved}, target values~\citep{oh2020discovering}, or drift functions~\citep{lu2022discovered}. In contrast, this work achieves generalisation by vastly increasing the task distribution \textit{without limiting the expressivity of the underlying model}, which eliminates the need for hand-crafted restrictions.
+
+Some works perform long-horizon meta-reinforcement learning through the use of evolution strategies~\citep{houthooft2018evolved, lu2022discovered}. This is because RNNs and Transformers have historically struggled to model very long sequences due to computational constraints and vanishing or exploding gradients~\citep{metz2021gradients}. However, evolution strategies are notoriously sample inefficient and computationally expensive.
+
+Other works have investigated different sequence model architectures for memory-based reinforcement learning. \citet{ni2022recurrent} showed that using well-tuned RNNs can be particularly effective compared to many more complicated methods in POMDPs. \citet{parisotto2020stabilizing} investigated the use of transformer-based models for memory-based reinforcement learning environments.
+
+Sequence models have also been used for a number of other tasks in RL. For example, Transformers have been used for offline reinforcement learning~\citep{chen2021decision}, multi-task behavioural cloning~\citep{reed2022generalist}, and algorithm distillation~\citep{laskin2022context}. Concurrent work used transformers to also demonstrate out-of-distribution generalisation in meta-reinforcement learning by leveraging a large task space~\citep{ada2023ada}. 
+
+\section{Conclusion and Limitations}
+
+In this paper, we investigated the performance of the recently-proposed S5 model architecture in reinforcement learning. S5 models are highly promising for reinforcement learning because of their strong performance in sequence modelling tasks and their fast and efficient runtime properties, with clear advantages over RNNs and Transformers. After identifying challenges in integrating S5 models into existing recurrent reinforcement learning implementations, we made a simple modification to the method that allowed us to reset the hidden state within a training sequence. 
+
+We then showed the desirable properties S5 models in the bsuite memory length task. We demonstrated that S5 is \textit{asymptotically} faster than Transformers in the sequence length. Furthermore, we also showed that S5 models run nearly twice as quickly as LSTMs with the same number of parameters while outperforming them. We further evaluated our S5 architecture on environments in the POPGym suite~\citep{morad2023popgym}, where we match or outperform RNNs while also running nearly five times faster. We achieve strong results in the "Repeat Previous Hard" task, which previous models struggled to solve.
+
+Finally, we proposed a new meta-learning setting in which we meta-learn across random linear projections of the observation and action spaces of randomly sampled DMControl tasks. We show that S5 outperforms LSTMs in this setting. We then evaluate the models on held-out DMControl tasks and demonstrate out-of-distribution performance to unseen tasks through in-context adaptation. 
+ 
+There are several possible ways to further investigate S5 models for reinforcement learning in future work. For one, it may be possible to learn or distill~\citep{laskin2022context} entire reinforcement learning algorithms within an S5 model, given its ability to scale to extremely long contexts. 
+Another direction would be to investigate S5 models for continuous-time RL settings~\citep{doya2000reinforcement}. While $\Delta$, the discrete time between timesteps, is fixed for the original S4 model, S5 can in theory use a different $\Delta$ for each timestep. 
+
+\textbf{Limitations:} There are several notable limitations of this architecture and analysis. Firstly, implementing the associative scan operator is currently not possible using PyTorch, limiting us to using the JAX~\cite{jax2018github} framework. Furthermore, on tasks where short rollouts are sufficient to achieve good performance, S5 offers limited speedups, as rolling out across time is no longer a bottleneck. Finally, it was not possible to perform a fully comprehensive hyperparameter sweep in our results in Section~\ref{subsec:meta-rl-results} because the experiments used significant amounts of compute.
+
+\begin{ack}
+Work funded by DeepMind. We would like to thank Antonio Orvieto, Robert Lange, Junhyok Oh, Greg Farquhar, Ted Moskovitz, and the rest of the Discovery Team at DeepMind for their helpful discussions throughout the course of the project. 
+\end{ack}
+
+
+
+
+% Authors may wish to optionally include extra information (complete proofs, additional experiments and plots) in the appendix. All such materials should be part of the supplemental material (submitted separately) and should NOT be included in the main submission.
+
+
+% \section*{References}
+\bibliographystyle{plainnat}
+\bibliography{main_bib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+% \section{Supplementary Material}
+\appendix
+\section{Proof of Associativity of Binary Operator}
+\label{app:proof-assoc}
+
+Recall that $\newop$ is defined as:
+\begin{align}
+a_i \newop a_j := 
+\begin{cases}
+(a_{j,a} \odot a_{i,a}, a_{j,a} \otimes a_{i, b} + a_{j, b}, a_{i, c}) & \text{if $a_{j,c}=0$}\\
+(a_{j,a}, a_{j,b}, a_{j,c}) & \text{if $a_{j,c}=1$} \nonumber
+\end{cases}
+\end{align}
+
+This is equivalent to the following:
+\begin{align}
+a_i \newop a_j := 
+\begin{cases}
+((a_i \oldop a_j)_a, (a_i \oldop a_j)_b, a_{i, c}) & \text{if $a_{j,c}=0$}\\
+a_j & \text{if $a_{j,c}=1$} \nonumber
+\end{cases}
+\end{align}
+where $\oldop$ is S5's binary operator defined in Equation \ref{eq:s5-op}. Note that $\oldop$'s associativity was proved in \citet{smith2022simplified}. Using this, we can prove the associativity of $\newop$. 
+
+Let $x$, $y$, and $z$ refer to three elements. We will prove that for all possible values of $x$, $y$, and $z$, $\newop$ retains associativity.
+
+\textbf{Case 1:} $z_c = 1$ 
+\begin{align}
+(x \newop y) \newop z &= z \\
+&= y \newop z \\
+&= x \newop (y \newop z)
+\end{align}
+
+\textbf{Case 2:} $z_c = 0$ and $y_c = 1$
+\begin{align}
+(x \newop y) \newop z &= y \newop z \\
+ \text{Note that } (y\newop z)_c &= 1 \text{ thus,} \\
+&= x \newop (y \newop z)
+\end{align}
+
+\textbf{Case 3:} $z_c = 0$ and $y_c = 0$
+
+\begin{align}
+(x \newop y) \newop z &= ((x \oldop y)_a, (x\oldop y)_b, x_c)\newop z \\
+&= (((x\oldop y) \oldop z)_a, ((x\oldop y) \oldop z)_b, x_c) \\
+&= ((x \oldop (y \oldop z))_a, (x \oldop (y \oldop z))_b, x_c) \\
+&= x \newop ((y \oldop z)_a, (y \oldop z)_b, y_c) \\
+&= x \newop (y \newop z)
+\end{align}
+
+\newpage
+\section{Hyperparameters}
+\label{app:hyperparameters}
+
+\begin{table}[h]
+\centering
+\caption{Hyperparameters for training A2C on Bsuite}
+\label{tab:bsuite-params}
+\begin{tabular}{l|l}
+Parameter & Value \\ \hline
+Adam Learning Rate & 3e-4 \\
+Entropy Coefficient & 0.0 \\
+Encoder Layer Sizes & [256, 256] \\
+Number of Recurrent Layers & 1 \\
+Size of Recurrent Layer & 256 \\
+Discount $\gamma$ & 0.99 \\
+TD $\lambda$ & 0.9 \\
+Number of Environments & 1 \\
+Unroll Length & 32 \\
+Number of Episodes & 10000 \\
+Activation Function & ReLU \\
+\end{tabular}
+\end{table}
+
+% \newpage
+
+\begin{table}[h]
+\centering
+\caption{Hyperparameters for training PPO on POPGym}
+\label{tab:popgym-params}
+\begin{tabular}{l|l}
+Parameter & Value \\ \hline
+Adam Learning Rate & 5e-5 \\
+Number of Environments & 64 \\
+Unroll Length & 1024 \\
+Number of Timesteps & 15e6 \\
+Number of Epochs & 30 \\
+Number of Minibatches & 8 \\
+Discount $\gamma$ & 0.99 \\
+GAE $\lambda$ & 1.0 \\
+Clipping Coefficient $\epsilon$ & 0.2 \\
+Entropy Coefficient & 0.0 \\
+Value Function Weight & 1.0 \\
+Maximum Gradient Norm & 0.5 \\
+Learning Rate Annealing & None \\
+Activation Function & LeakyReLU \\
+Encoder Layer Sizes & [128, 256] \\
+Recurrent Layer Hidden Size & 256 \\
+Action Decoder Layer Sizes & [128, 128] \\
+Value Decoder Layer Sizes & [128, 128] \\
+S5 Layers & 4 \\
+S5 Hidden Size & 256 \\
+S5 Discretization & ZOH \\
+S5 $\Delta$ min & 0.001 \\
+S5 $\Delta$ max & 0.1 \\
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{table}[h]
+\centering
+\caption{Hyperparameters for training Muesli on Multi-Environment Meta-RL. These experiments were run using 64 TPUv3's.}
+\label{tab:meta-params}
+\begin{tabular}{l|l}
+Parameter & Value \\ \hline
+Adam Learning Rate & 3e-4 \\
+Value Function Weight & 1.0 \\ 
+Muesli Auxiliary Loss Weight & 3.0 \\
+Muesli Model Unroll Length & 1.0 \\
+Encoder Layer Sizes & [512, 512] \\
+Number of Environments & 1024 \\
+Discount $\gamma$ & 0.995 \\
+Rollout Length & 1000 \\
+Offline Data Fraction & 0.0 \\
+Total Frames & 2e9 \\ 
+LSTM Hidden Size & 512 \\
+Projected Observation Size & 12 \\
+Projected Action Size & 2 \\
+S5 Layers & 10 \\
+S5 Hidden Size & 256 \\
+S5 Discretization & ZOH \\
+S5 $\Delta$ min & 0.001 \\
+S5 $\Delta$ max & 0.1 \\
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section{POPGym Discussion}
+\label{app:popgym}
+
+\begin{table}[ht!]
+\centering
+\hspace{-5em}
+\begin{tabular}{r|ccccc}
+\multicolumn{1}{l|}{} &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Stateless\\ CartPole Hard\end{tabular}} &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Noisy Stateless\\ CartPole Hard\end{tabular}} &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Stateless\\ Pendulum Hard\end{tabular}} &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Noisy Stateless\\ Pendulum Hard\end{tabular}} &
+  \begin{tabular}[c]{@{}c@{}}Repeat Previous\\ Hard\end{tabular} \\ \hline
+S5 (ours)  & $\mathbf{1.0 \pm 0.0}$     & $\mathbf{0.28 \pm 0.0}$    & $\mathbf{0.79 \pm 0.01}$   & $0.55 \pm 0.01$            & $\mathbf{0.91 \pm 0.01}$   \\
+GRU (ours) & $\mathbf{1.0 \pm 0.0}$     & $0.27 \pm 0.0$             & $0.75 \pm 0.0$             & $\mathbf{0.61 \pm 0.01}$   & $-0.46 \pm 0.01$           \\
+MLP (ours) & $0.26 \pm 0.0$             & $0.22 \pm 0.0$             & $0.41 \pm 0.02$            & $0.34 \pm 0.01$            & $-0.48 \pm 0.00$           \\ \hline
+GRU        & $\mathbf{1.000 \pm 0.000}$ & $0.390 \pm 0.007$          & $\mathbf{0.828 \pm 0.001}$ & $\mathbf{0.657 \pm 0.002}$ & $-0.428 \pm 0.002$         \\
+MLP        & $0.265 \pm 0.002$          & $0.229 \pm 0.002$          & $0.477 \pm 0.030$          & $0.351 \pm 0.012$          & $-0.486 \pm 0.002$         \\
+IndRNN     & $\mathbf{1.000 \pm 0.000}$ & $\mathbf{0.404 \pm 0.005}$ & $0.804 \pm 0.023$          & $0.521 \pm 0.109$          & $-0.384 \pm 0.013$         \\
+LMU        & $0.987 \pm 0.007$          & $0.352 \pm 0.019$          & $0.806 \pm 0.006$          & $0.563 \pm 0.014$          & $\mathbf{0.191 \pm 0.041}$ \\
+S4D        & $0.127 \pm 0.026$          & $0.207 \pm 0.007$          & $0.303 \pm 0.014$          & $0.289 \pm 0.011$          & $-0.491 \pm 0.001$         \\
+FART       & $\mathbf{0.996 \pm 0.000}$ & $0.366 \pm 0.002$          & $0.698 \pm 0.077$          & $0.553 \pm 0.007$          & $-0.485 \pm 0.001$        
+\end{tabular}
+\vspace{1em}
+\caption{Results in POPGym's suite. The reported number is the max-mean episodic reward (MMER) used in \citet{morad2023popgym}. To calculate this, we take the mean episodic reward for each epoch, and then take the maximum
+over all epochs. For our results above, the mean and standard deviation across eight seeds are reported. The results below are selected architectures from \citet{morad2023popgym}, which also includes the best-performing one from each environment. They report the mean and standard deviation across three trials.}
+\vspace{-1em}
+\label{table:popgym-results-app}
+\end{table}
+
+% \subsection{Algorithm Design Decisions}
+
+\citet{morad2023popgym} used RLLib's~\citep{liang2018rllib} implementation of PPO, which differs significantly from standard implementations of PPO. It uses a dynamic KL-divergence coefficient on top of the clipped surrogate objective of PPO~\citep{ppo}. Furthermore, they use advanced orchestration to return full episode trajectories, rather than using the more commonly-studied "stored state" \cite{kapturowski2018recurrent} strategy. 
+
+Instead, we follow the design decisions outlined in the StableBaselines3~\citep{stable-baselines3} and CleanRL's~\citep{huang2022cleanrl} recurrent PPO implementations. While this results in different results shown in Table \ref{table:popgym-results-app} for the same architecture, it recovers similar performance across the environments. Notably, our S5 architecture far outperforms the best performing architecture in \citet{morad2023popgym} in the ``RepeatPreviousHard'' environment.
+
+We used the learning rate, number of environments, unroll length, timesteps, epochs, and minibatches, GAE $\lambda$, and model architectures from \citet{morad2023popgym}. However, we used the standard clipping coefficient $\epsilon$ of $0.2$ instead of $0.3$ to account for the lack of a dynamic KL-divergence coefficient. Note that we also adjusted the S5 architecture to contain approximately the same number of \textit{parameters} as the GRU implementation instead of matching the size of the \textit{hidden state}, which was done in \citet{morad2023popgym}.
+
+We did not evaluate our architecture across the full POPGym suite. To enable more rapid experimentation, we implement our algorithms and environments end-to-end in JAX \cite{jax2018github, lu2022discovered}. While the original POPGym results took $2$ hours per trial with a GRU with a Quadro RTX 8000 and 24 CPUs, we could run our experiments using only $3$ \textit{minutes} per trial on an NVIDIA A40. Because of this, we selected environments from \citet{morad2023popgym} to implement in JAX. We chose the CartPole, Pendulum, and Repeat environments because they are modified versions of existing environments in \citet{gymnax2022github}. We found that the ``Easy'' and ``Medium'' versions of these environments were not informative, as most models perform well on them and only report the ``Hard'' difficulty results.
+
+We attach our code in the supplementary materials.
+
+% \newpage
+% \thispagestyle{empty}
+% % \section{Rebuttal Figures}
+
+% \newgeometry{left=0.2cm, right=0.2cm, top=1.0cm}
+
+% \begin{figure*}[t]
+%     \centering
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_mmer.png}
+%       \caption{}
+%       % \label{fig:popgym-runtimes}
+%     \end{subfigure}
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_runtime.png}
+%       \caption{}
+%       % \label{fig:popgym-returns}
+%     \end{subfigure}
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_incontext.png}
+%           \caption{}
+%       \label{fig:popgym-runtimes}
+%     \end{subfigure}
+%     \caption{(a) Performance and (b) runtime on randomly-projected StatelessCartPole across 4 seeds. The shaded region represents the standard error. Agents are given 16 trials per episode on randomly-sampled linear projections of StatelessCartPole (CartPole without velocity observations). S5 with $\newop$ outperforms GRU's while running twice as quickly. (c) Shows performance at the end of training across different trials. Performance improves across trials, demonstrating in-context learning. We evaluate on $32$ trials even though we only train on $16$. GRU's appear to have overfit to the training horizon while S5 models continue to perform well. The error bars represent the standard error across 4 seeds. Runs were performed on a single NVIDIA A100.}
+%     \label{fig:metacart-plots}
+% \end{figure*}
+
+% \begin{figure*}[t]
+%     \centering
+%     \begin{subfigure}{0.6\textwidth}
+%       \centering
+%       \includegraphics[width=.6\linewidth]{rebuttal/rebuttal_metacart_incontext.png}
+%           \caption{}
+%       \label{fig:popgym-runtimes}
+%     \end{subfigure}
+%     % \begin{subfigure}{0.45\textwidth}
+%     %   \centering
+%     %   \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_metacart_mmer_time.png}
+%     %   \caption{}
+%     %   % \label{fig:popgym-returns}
+%     % \end{subfigure}
+%     \caption{Performance after training across the different trials. Performance improves across trials, demonstrating in-context learning. We evaluate on $32$ trials even though we only train on $16$. GRU's appear to have overfit to the training horizon while S5 models continue to perform well.}
+%     \label{fig:metacart-others}
+% \end{figure*}
+
+% \begin{figure*}[b]
+%     \centering
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/bsuite_memory_rebuttal.png}
+%       \caption{}
+%       % \label{fig:popgym-runtimes}
+%     \end{subfigure}
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/bsuite_runtime_rebuttal_new.png}
+%       \caption{}
+%       % \label{fig:popgym-runtimes}
+%     \end{subfigure}
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/bsuite_return_rebuttal_new.png}
+%       \caption{}
+%       % \label{fig:popgym-returns}
+%     \end{subfigure}
+
+%     \caption{Evaluating S5, LSTM, and Self-Attention across different Bsuite memory lengths in terms of (a) memory usage, (b) runtime, and (c) return. Error bars report the standard error of the mean across 5 seeds. Runs were performed on a single NVIDIA A100.}
+%     \label{fig:popgym-re-plots}
+% \end{figure*}
+
+
+
+
+% \begin{figure*}[b]
+%     \centering
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_popgym_mmer.png}
+%       \caption{}
+%       % \label{fig:popgym-runtimes}
+%     \end{subfigure}
+%     \begin{subfigure}{0.32\textwidth}
+%       \centering
+%       \includegraphics[width=.99\linewidth]{rebuttal/rebuttal_popgym_mmer_time.png}
+%       \caption{}
+%       % \label{fig:popgym-returns}
+%     \end{subfigure}
+
+%     \caption{A recreation of Figure 3, but also including results on S5 with $\oldop$ to show that S5 with $\newop$ improves performance significantly. The shaded region represents the standard error of the mean across eight seeds. (a) Shows normalised MMER with respect to updates, and (b) shows it with respect to time.}
+%     \label{fig:popgym-re-plots}
+% \end{figure*}
+
+
+
+% \begin{table}[h]
+%     \centering
+%     \begin{minipage}{.45\textwidth}
+%         \centering
+%         \begin{tabular}{lccc}
+%             \toprule
+%             Architecture & \textbf{stateless\_hard (s)} & \textbf{noisy\_hard (s)} & \textbf{previous\_hard (s)} \\
+%             \midrule
+%             S5 & 297.56 $\pm$ 0.45 & 321.18 $\pm$ 0.15 & 308.50 $\pm$ 0.31 \\
+%             Transformer & 2018.25 $\pm$ 0.22 & 706.49 $\pm$ 0.10 & 863.64 $\pm$ 0.20 \\
+%             GRU & 970.82 $\pm$ 11.60 & 1925.91 $\pm$ 32.59 & 1476.80 $\pm$ 16.37 \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{Seconds for each architecture}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{.45\textwidth}
+%         \centering
+%         \begin{tabular}{lccc}
+%             \toprule
+%             Architecture & \textbf{stateless\_hard MMER} & \textbf{noisy\_hard MMER} & \textbf{previous\_hard MMER} \\
+%             \midrule
+%             S5 & 0.805 $\pm$ 0.003 & 0.575 $\pm$ 0.002 & 0.986 $\pm$ 0.000 \\
+%             Transformer & 0.796 $\pm$ 0.005 & 0.544 $\pm$ 0.003 & -0.462 $\pm$ 0.003 \\
+%             GRU & 0.808 $\pm$ 0.005 & 0.628 $\pm$ 0.001 & -0.457 $\pm$ 0.013 \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{MMER values for each architecture}
+%     \end{minipage}
+% \end{table}
+
+\end{document}

@@ -1,0 +1,95 @@
+LMAct
+Benchmark
+
+Environment
+
+Atari - Phoenix
+
+Chess
+
+Crosswords
+
+DM Control - Cheetah Run
+
+Gridworld navigation
+
+Tic-Tac-Toe
+
+Expert
+
+Expert* policy
+
+Stockfish 16
+
+Oracle solver
+
+Expert* policy
+
+Shortest path
+
+Minimax search
+
+RGB
+
+RGB
+ASCII
+FEN
+PGN
+
+ASCII
+
+Coordinates
+
+RGB
+ASCII
+Coordinates
+
+RGB
+ASCII
+
+State
+representations
+
+*
+
+from Gato training corpus
+
+Observation
+
+LM Agent
+Preamble
+
+Demo episodes (0 to N)
+
+Separator
+
+Test episode
+
+LM Call
+
+Environment
+
+…
+up to 1M tokens
+
+You are a powerful RL
+agent [...]
+Here are a number of
+demonstrations:
+
+Observation: <IMG_0_0> Action: <AC_0_0>
+Observation: <IMG_0_1> Action: <AC_0_1>
+[...]
+Observation: <IMG_7_9> Action: <AC_7_9>
+
+Action
+
+Observation: <IMG_8_0> Action: <AC_8_0>
+Observation: <IMG_8_1> Action: <AC_8_1>
+This is the
+Observation: <IMG_8_2> Action: <AC_8_2>
+current situation:
+Observation: <IMG_8_3>
+What is the best next action?
+
+

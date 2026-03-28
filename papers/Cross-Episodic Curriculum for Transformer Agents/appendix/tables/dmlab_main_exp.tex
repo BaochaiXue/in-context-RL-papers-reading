@@ -1,0 +1,17 @@
+\begin{table}[!htbp]
+\caption{Experiment details on DMLab tasks. Columns ``Epoch'' denote the exact training epochs with best validation performance. We select these checkpoints for evaluation.
+For task-difficulty-based curriculum, the column ``Training Trajectories'' with $n \times m$ entries means $n$ trajectories per difficulty level ($m$ levels in total). The column ``Sampled Episodes'' with $[i, j]$ entries means we first determine the number of episodes per difficulty level by uniformly sampling an integer from $[i, j]$ (inclusively).}
+\centering
+\vspace{0.1in}
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{c|c|ccc|ccc}
+\hline
+\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Level\\ Name\end{tabular}}} & \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Context\\ Length\end{tabular}}} & \multicolumn{3}{c|}{\textbf{Task-Difficulty-Based Curriculum}}     & \multicolumn{3}{c}{\textbf{Learning-Progress-Based Curriculum}}    \\ \cline{3-8} 
+                                                                               &                                                                                    & Epoch                   & Training Trajectories & Sampled Episodes & Epoch                   & Training Trajectories & Sampled Episodes \\ \hline
+Goal Maze                                                                      & 500                                                                                & \multicolumn{1}{c|}{84} & 100 x 3               & {[}1, 5{]}       & \multicolumn{1}{c|}{88} & 300                   & 9                \\
+Watermaze                                                                      & 400                                                                                & \multicolumn{1}{c|}{89} & 100 x 3               & {[}1, 5{]}       & \multicolumn{1}{c|}{80} & 300                   & 9                \\
+Irreversible Path                                                              & 1600                                                                               & \multicolumn{1}{c|}{90} & 100 x 4               & {[}1, 3{]}       & \multicolumn{1}{c|}{97} & 400                   & 8                \\ \hline
+\end{tabular}
+}
+\label{supp:table:dmlab_main}
+\end{table}

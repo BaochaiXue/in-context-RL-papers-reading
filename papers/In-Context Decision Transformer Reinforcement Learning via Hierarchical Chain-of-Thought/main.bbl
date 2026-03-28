@@ -1,0 +1,223 @@
+\begin{thebibliography}{43}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alayrac et~al.(2022)Alayrac, Donahue, Luc, Miech, Barr, Hasson, Lenc, Mensch, Millican, Reynolds, et~al.]{7}
+Alayrac, J.-B., Donahue, J., Luc, P., Miech, A., Barr, I., Hasson, Y., Lenc, K., Mensch, A., Millican, K., Reynolds, M., et~al.
+\newblock Flamingo: a visual language model for few-shot learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 23716--23736, 2022.
+
+\bibitem[Ba et~al.(2016)Ba, Kiros, and Hinton]{26}
+Ba, J.~L., Kiros, J.~R., and Hinton, G.~E.
+\newblock Layer normalization.
+\newblock \emph{arXiv preprint arXiv:1607.06450}, 2016.
+
+\bibitem[Bacon et~al.(2017)Bacon, Harb, and Precup]{19}
+Bacon, P.-L., Harb, J., and Precup, D.
+\newblock The option-critic architecture.
+\newblock In \emph{Proceedings of the AAAI conference on artificial intelligence}, volume~31, 2017.
+
+\bibitem[Bellemare et~al.(2013)Bellemare, Naddaf, Veness, and Bowling]{15}
+Bellemare, M.~G., Naddaf, Y., Veness, J., and Bowling, M.
+\newblock The arcade learning environment: An evaluation platform for general agents.
+\newblock \emph{Journal of Artificial Intelligence Research}, 47:\penalty0 253--279, 2013.
+
+\bibitem[Brown et~al.(2020{\natexlab{a}})Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.]{21}
+Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.~D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et~al.
+\newblock Language models are few-shot learners.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 1877--1901, 2020{\natexlab{a}}.
+
+\bibitem[Brown et~al.(2020{\natexlab{b}})Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.]{5}
+Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.~D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et~al.
+\newblock Language models are few-shot learners.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 1877--1901, 2020{\natexlab{b}}.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel, Srinivas, and Mordatch]{2}
+Chen, L., Lu, K., Rajeswaran, A., Lee, K., Grover, A., Laskin, M., Abbeel, P., Srinivas, A., and Mordatch, I.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 15084--15097, 2021.
+
+\bibitem[Devlin et~al.(2018)Devlin, Chang, Lee, and Toutanova]{22}
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K.
+\newblock Bert: Pre-training of deep bidirectional transformers for language understanding.
+\newblock \emph{arXiv preprint arXiv:1810.04805}, 2018.
+
+\bibitem[Dorfman et~al.(2021)Dorfman, Shenfeld, and Tamar]{36}
+Dorfman, R., Shenfeld, I., and Tamar, A.
+\newblock Offline meta reinforcement learning--identifiability challenges and effective data collection strategies.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34:\penalty0 4607--4618, 2021.
+
+\bibitem[Dosovitskiy et~al.(2020)Dosovitskiy, Beyer, Kolesnikov, Weissenborn, Zhai, Unterthiner, Dehghani, Minderer, Heigold, Gelly, et~al.]{6}
+Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X., Unterthiner, T., Dehghani, M., Minderer, M., Heigold, G., Gelly, S., et~al.
+\newblock An image is worth 16x16 words: Transformers for image recognition at scale.
+\newblock \emph{arXiv preprint arXiv:2010.11929}, 2020.
+
+\bibitem[Duan et~al.(2016)Duan, Schulman, Chen, Bartlett, Sutskever, and Abbeel]{32}
+Duan, Y., Schulman, J., Chen, X., Bartlett, P.~L., Sutskever, I., and Abbeel, P.
+\newblock Rl2: Fast reinforcement learning via slow reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1611.02779}, 2016.
+
+\bibitem[Finn et~al.(2017)Finn, Abbeel, and Levine]{46}
+Finn, C., Abbeel, P., and Levine, S.
+\newblock Model-agnostic meta-learning for fast adaptation of deep networks.
+\newblock In \emph{International conference on machine learning}, pp.\  1126--1135. PMLR, 2017.
+
+\bibitem[Fu et~al.(2020)Fu, Kumar, Nachum, Tucker, and Levine]{13}
+Fu, J., Kumar, A., Nachum, O., Tucker, G., and Levine, S.
+\newblock D4rl: Datasets for deep data-driven reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2004.07219}, 2020.
+
+\bibitem[Fujimoto \& Gu(2021)Fujimoto and Gu]{29}
+Fujimoto, S. and Gu, S.~S.
+\newblock A minimalist approach to offline reinforcement learning.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 20132--20145, 2021.
+
+\bibitem[Fujimoto et~al.(2019)Fujimoto, Meger, and Precup]{39}
+Fujimoto, S., Meger, D., and Precup, D.
+\newblock Off-policy deep reinforcement learning without exploration.
+\newblock In \emph{International conference on machine learning}, pp.\  2052--2062. PMLR, 2019.
+
+\bibitem[Hao~Liu(2023)]{1}
+Hao~Liu, P.~A.
+\newblock Emergent agentic transformer from chain of hindsight experience.
+\newblock In \emph{Proceedings of the 20th International Conference on Machine Learning (ICML 2023)}, 2023.
+
+\bibitem[Ishii et~al.(2002)Ishii, Yoshida, and Yoshimoto]{31}
+Ishii, S., Yoshida, W., and Yoshimoto, J.
+\newblock Control of exploitation--exploration meta-parameter in reinforcement learning.
+\newblock \emph{Neural networks}, 15\penalty0 (4-6):\penalty0 665--687, 2002.
+
+\bibitem[Jang et~al.(2016)Jang, Gu, and Poole]{20}
+Jang, E., Gu, S., and Poole, B.
+\newblock Categorical reparameterization with gumbel-softmax.
+\newblock \emph{arXiv preprint arXiv:1611.01144}, 2016.
+
+\bibitem[Janner et~al.(2021)Janner, Li, and Levine]{43}
+Janner, M., Li, Q., and Levine, S.
+\newblock Offline reinforcement learning as one big sequence modeling problem.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 1273--1286, 2021.
+
+\bibitem[Kumar et~al.(2019)Kumar, Fu, Soh, Tucker, and Levine]{42}
+Kumar, A., Fu, J., Soh, M., Tucker, G., and Levine, S.
+\newblock Stabilizing off-policy q-learning via bootstrapping error reduction.
+\newblock \emph{Advances in Neural Information Processing Systems}, 32, 2019.
+
+\bibitem[Kumar et~al.(2020)Kumar, Zhou, Tucker, and Levine]{40}
+Kumar, A., Zhou, A., Tucker, G., and Levine, S.
+\newblock Conservative q-learning for offline reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 1179--1191, 2020.
+
+\bibitem[Laskin et~al.(2023)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald, Strouse, Hansen, Filos, Brooks, et~al.]{8}
+Laskin, M., Wang, L., Oh, J., Parisotto, E., Spencer, S., Steigerwald, R., Strouse, D., Hansen, S.~S., Filos, A., Brooks, E., et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock In \emph{The Eleventh International Conference on Learning Representations}, 2023.
+
+\bibitem[Lee et~al.(2023{\natexlab{a}})Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill]{3}
+Lee, J.~N., Xie, A., Pacchiano, A., Chandak, Y., Finn, C., Nachum, O., and Brunskill, E.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2306.14892}, 2023{\natexlab{a}}.
+
+\bibitem[Lee et~al.(2023{\natexlab{b}})Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill]{44}
+Lee, J.~N., Xie, A., Pacchiano, A., Chandak, Y., Finn, C., Nachum, O., and Brunskill, E.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2306.14892}, 2023{\natexlab{b}}.
+
+\bibitem[Lee et~al.(2022)Lee, Nachum, Yang, Lee, Freeman, Guadarrama, Fischer, Xu, Jang, Michalewski, et~al.]{14}
+Lee, K.-H., Nachum, O., Yang, M.~S., Lee, L., Freeman, D., Guadarrama, S., Fischer, I., Xu, W., Jang, E., Michalewski, H., et~al.
+\newblock Multi-game decision transformers.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 27921--27936, 2022.
+
+\bibitem[Liu et~al.(2023)Liu, Sferrazza, and Abbeel]{24}
+Liu, H., Sferrazza, C., and Abbeel, P.
+\newblock Chain of hindsight aligns language models with feedback.
+\newblock \emph{arXiv preprint arXiv:2302.02676}, 3, 2023.
+
+\bibitem[Mitchell et~al.(2021)Mitchell, Rafailov, Peng, Levine, and Finn]{37}
+Mitchell, E., Rafailov, R., Peng, X.~B., Levine, S., and Finn, C.
+\newblock Offline meta-reinforcement learning with advantage weighting.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  7780--7791. PMLR, 2021.
+
+\bibitem[Mnih et~al.(2013)Mnih, Kavukcuoglu, Silver, Graves, Antonoglou, Wierstra, and Riedmiller]{28}
+Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., and Riedmiller, M.
+\newblock Playing atari with deep reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1312.5602}, 2013.
+
+\bibitem[Nachum et~al.(2018)Nachum, Gu, Lee, and Levine]{10}
+Nachum, O., Gu, S.~S., Lee, H., and Levine, S.
+\newblock Data-efficient hierarchical reinforcement learning.
+\newblock \emph{Advances in neural information processing systems}, 31, 2018.
+
+\bibitem[Nichol et~al.(2018)Nichol, Achiam, and Schulman]{45}
+Nichol, A., Achiam, J., and Schulman, J.
+\newblock On first-order meta-learning algorithms.
+\newblock \emph{arXiv preprint arXiv:1803.02999}, 2018.
+
+\bibitem[Pateria et~al.(2021)Pateria, Subagdja, Tan, and Quek]{18}
+Pateria, S., Subagdja, B., Tan, A.-h., and Quek, C.
+\newblock Hierarchical reinforcement learning: A comprehensive survey.
+\newblock \emph{ACM Computing Surveys (CSUR)}, 54\penalty0 (5):\penalty0 1--35, 2021.
+
+\bibitem[Pong et~al.(2022)Pong, Nair, Smith, Huang, and Levine]{35}
+Pong, V.~H., Nair, A.~V., Smith, L.~M., Huang, C., and Levine, S.
+\newblock Offline meta-reinforcement learning with online self-supervision.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  17811--17829. PMLR, 2022.
+
+\bibitem[Radford et~al.(2018)Radford, Narasimhan, Salimans, Sutskever, et~al.]{23}
+Radford, A., Narasimhan, K., Salimans, T., Sutskever, I., et~al.
+\newblock Improving language understanding by generative pre-training.
+\newblock 2018.
+
+\bibitem[Reed et~al.(2022)Reed, Zolna, Parisotto, Colmenarejo, Novikov, Barth-Maron, Gimenez, Sulsky, Kay, Springenberg, et~al.]{27}
+Reed, S., Zolna, K., Parisotto, E., Colmenarejo, S.~G., Novikov, A., Barth-Maron, G., Gimenez, M., Sulsky, Y., Kay, J., Springenberg, J.~T., et~al.
+\newblock A generalist agent.
+\newblock \emph{arXiv preprint arXiv:2205.06175}, 2022.
+
+\bibitem[Sutton \& Barto(2018)Sutton and Barto]{16}
+Sutton, R.~S. and Barto, A.~G.
+\newblock \emph{Reinforcement learning: An introduction}.
+\newblock 2018.
+
+\bibitem[Sutton et~al.(1999{\natexlab{a}})Sutton, McAllester, Singh, and Mansour]{38}
+Sutton, R.~S., McAllester, D., Singh, S., and Mansour, Y.
+\newblock Policy gradient methods for reinforcement learning with function approximation.
+\newblock \emph{Advances in neural information processing systems}, 12, 1999{\natexlab{a}}.
+
+\bibitem[Sutton et~al.(1999{\natexlab{b}})Sutton, Precup, and Singh]{12}
+Sutton, R.~S., Precup, D., and Singh, S.
+\newblock Between mdps and semi-mdps: A framework for temporal abstraction in reinforcement learning.
+\newblock \emph{Artificial intelligence}, 112\penalty0 (1-2):\penalty0 181--211, 1999{\natexlab{b}}.
+
+\bibitem[Thorndike(1927)]{17}
+Thorndike, E.~L.
+\newblock The law of effect.
+\newblock \emph{The American journal of psychology}, 39\penalty0 (1/4):\penalty0 212--222, 1927.
+
+\bibitem[Torabi et~al.(2018)Torabi, Warnell, and Stone]{30}
+Torabi, F., Warnell, G., and Stone, P.
+\newblock Behavioral cloning from observation.
+\newblock \emph{arXiv preprint arXiv:1805.01954}, 2018.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{4}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N., Kaiser, {\L}., and Polosukhin, I.
+\newblock Attention is all you need.
+\newblock \emph{Advances in neural information processing systems}, 30, 2017.
+
+\bibitem[Wang et~al.(2016)Wang, Kurth-Nelson, Tirumala, Soyer, Leibo, Munos, Blundell, Kumaran, and Botvinick]{33}
+Wang, J.~X., Kurth-Nelson, Z., Tirumala, D., Soyer, H., Leibo, J.~Z., Munos, R., Blundell, C., Kumaran, D., and Botvinick, M.
+\newblock Learning to reinforcement learn.
+\newblock \emph{arXiv preprint arXiv:1611.05763}, 2016.
+
+\bibitem[Yu et~al.(2021)Yu, Kumar, Rafailov, Rajeswaran, Levine, and Finn]{41}
+Yu, T., Kumar, A., Rafailov, R., Rajeswaran, A., Levine, S., and Finn, C.
+\newblock Combo: Conservative offline model-based policy optimization.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 28954--28967, 2021.
+
+\bibitem[Zahavy et~al.(2020)Zahavy, Xu, Veeriah, Hessel, Oh, van Hasselt, Silver, and Singh]{34}
+Zahavy, T., Xu, Z., Veeriah, V., Hessel, M., Oh, J., van Hasselt, H.~P., Silver, D., and Singh, S.
+\newblock A self-tuning actor-critic algorithm.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 20913--20924, 2020.
+
+\end{thebibliography}

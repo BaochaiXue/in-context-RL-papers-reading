@@ -1,0 +1,72 @@
+
+
+\section{Experimental Setup}\label{sec:exp}
+
+\paragraph{Models}
+
+We use the instruction-tuned versions of \llama{}~3.1 8B ~\citep{dubey2024llama} and \qwen{2.5}~\citep{qwen2024qwen25} for all model sizes.\footnote{We include in the appendix early experiments with  \phillm{}-3.5-mini~\citep{abdin2024phi3technicalreporthighly}, which generally performs worse due to relative model weakness.} %
+For the hardest tasks, we also experiment with \gemini~1.5 Flash 8B~\citep{geminiteam2024geminifamilyhighlycapable}.\footnote{We limits our experiments with \gemini due to costs. Overall, we spent \$2{,}120 USD on \gemini API calls.}
+We use all models in a multi-turn chat format. 
+We compute the maximum number of episodes the context window can take for each model-task combination (\aautoref{appendix:exp_setup:data}).
+We use constrained decoding to generate model predictions, as in recent work on ICL~\citep{bertsch2024incontext}. 
+
+
+
+
+\paragraph{Tasks}
+
+We follow \citeauthor{bertsch2024incontext}'s (\citeyear{bertsch2024incontext}) study of many-shot ICL in focusing on five classification problems: \banking~(77 labels; \citealp{Casanueva2020}), \clinic~(150 labels; \citealp{larson-etal-2019-evaluation}, \nlu~(68 labels; \citealp{Liu2021}), \trec~(6 labels; \citealp{li-roth-2002-learning, hovy-etal-2001-toward}), and \trecfine~(50 labels; \citealp{li-roth-2002-learning, hovy-etal-2001-toward}). 
+Because of the large output spaces (up to 150 labels in \clinic), these tasks are particularly challenging for large language models, as empirically shown by \citet{bertsch2024incontext} and replicated in our zero-shot results.
+The classification problem creates a contextual bandit scenario \citep{pmlr-v97-zhang19b, bietti2021contextual}. The labels in each dataset are used to compute rewards, and are never shown to the model. 
+\aautoref{sec:appendix:datasets} offers more details on the datasets.
+
+
+
+The datasets are of different sizes. 
+The size of the datasets dictates the number of time steps in our experiments.
+We randomly sub-sample \banking, \clinic, and \nlu to 10k examples. 
+\trec and \trecfine are smaller, so we only use 5k training examples for each. 
+This allows the experiments to be of relatively standard length. 
+The training data corresponds to the data distribution $\datadist$ in our algorithms.  
+We also sub-sample all test sets to 500 examples each, to reduce the computational cost of experiments. 
+\nlu does not provide a standard test set, so we create our own train and test splits. 
+In all experiments, the datasets contain the same examples in the same order.
+
+\paragraph{Semantic vs. Abstract Class Names}
+
+We study using both the original class names and abstract labels. 
+The original class names carry important \emph{semantic} information, which gives the model helpful clues on how input examples map to them (e.g., the output class name \textit{calendar update} in \clinic is a strong hint to which input queries may apply to it). 
+Experiments with abstract labels remove this information by mapping all labels to meaningless abstract strings (e.g., \textit{label5}). 
+Experiments and results use the original (semantic) labels by default, unless noted explicitly that they are using abstract labels. 
+
+
+
+
+
+
+
+\paragraph{Rewards and Prompt Design}
+
+We simulate interactive binary rewards from perfect automatic verifiers or human actors interacting with the system. We do so by comparing the model outputs with the gold label of each input. This is a common practice in studies of the effect of rewards on learning processes~\citep{10.5555/3618408.3618845,lightman2024lets}, for practical convenience. We deterministically transform the binary numerical rewards into a natural language format indicating if the model prediction is correct or not, which is more suitable for LLM reasoning. 
+This formulation abstracts over challenges like exact numerical interpretation (i.e., of continuous rewards), while focusing on the fundamental skills of exploration and learning from rewards. 
+\aautoref{appendix:exp_setup:prompt} elaborates on our prompting.
+
+
+
+\paragraph{Evaluation} 
+
+We report running test accuracy, using the held-out test set of each dataset. We compute it every 500 steps for each test example separately, using the context used to process that step's training example. In the appendix, we also report regret, the forgone utility from an actual model prediction in comparison to the oracle choice. 
+
+
+
+
+
+\paragraph{Comparisons}
+
+We compare ICRL with the zero-shot setting, which corresponds to the performance on the test set without any in-context examples.\footnote{We visually highlight the zero-shot performance with sampling temperature $T=1.0$, which is the temperature we use for \naiveshort and \expshort experiments. Zero-shot accuracy with \naiveplusshort's temperature of $2.0$ can still be observed by looking at the accuracy at the first step of the \naiveplusshort curves.} 
+We also report a supervised ICL upper bound by testing performance with the maximum possible number of gold-standard supervised demonstrations in context.
+These results use expert demonstrations, which the ICRL results have no access to in our learning process. 
+As expected these ICL results outperform the ICRL trends we report. 
+However, the reliance on annotated demonstrations makes them not comparable to the ICRL results. We provide them to get an idea of the upper bound of ICL in these scenarios. 
+
+

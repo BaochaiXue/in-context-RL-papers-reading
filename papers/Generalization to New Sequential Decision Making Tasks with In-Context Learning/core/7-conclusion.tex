@@ -1,0 +1,7 @@
+\section{Conclusion and Future Work}
+
+In this work, we perform an in-depth study of the different factors which influence in-context learning for sequential decision making tasks. 
+We find that a key ingredient during pretraining is to include entire trajectories in the context, which belong to the same environment level as the query trajectory a.k.a trajectory burstiness. 
+%Our key insight is that the training dataset must be constructed such that the transformer contexts include entire trajectories from the same level as the query. Leveraging this, we are able 
+In addition, we find that larger model and dataset sizes, as well as more task diversity, environment stochasticity, and trajectory burstiness, all result in better few-shot learning of out-of-distribution tasks.
+Leveraging these insights, we are able to train models which generalize to unseen MiniHack and Procgen tasks, using only a handful of expert demonstrations and no additional weight updates. To our knowledge, we are the first to demonstrate cross-task generalization on MiniHack and Procgen in the few-shot imitation learning setting. We also probe the limits of our approach by highlighting different failure modes, such as those caused by environment stochasticity or low tolerance for errors, which we believe constitute important directions for future work. 

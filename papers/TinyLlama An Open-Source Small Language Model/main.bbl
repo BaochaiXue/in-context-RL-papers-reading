@@ -1,0 +1,233 @@
+\begin{thebibliography}{}
+
+\bibitem[Ainslie et~al., 2023]{DBLP:journals/corr/abs-2305-13245}
+Ainslie, J., Lee-Thorp, J., de~Jong, M., Zemlyanskiy, Y., Lebron, F., and Sanghai, S. (2023).
+\newblock {GQA}: Training generalized multi-query transformer models from multi-head checkpoints.
+\newblock In {\em Proceedings of EMNLP}.
+
+\bibitem[Anil et~al., 2023]{anil2023palm}
+Anil, R., Dai, A.~M., Firat, O., Johnson, M., Lepikhin, D., Passos, A., Shakeri, S., Taropa, E., Bailey, P., Chen, Z., Chu, E., Clark, J.~H., Shafey, L.~E., Huang, Y., Meier-Hellstern, K., Mishra, G., Moreira, E., Omernick, M., Robinson, K., Ruder, S., Tay, Y., Xiao, K., Xu, Y., Zhang, Y., Abrego, G.~H., Ahn, J., Austin, J., Barham, P., Botha, J., Bradbury, J., Brahma, S., Brooks, K., Catasta, M., Cheng, Y., Cherry, C., Choquette-Choo, C.~A., Chowdhery, A., Crepy, C., Dave, S., Dehghani, M., Dev, S., Devlin, J., Díaz, M., Du, N., Dyer, E., Feinberg, V., Feng, F., Fienber, V., Freitag, M., Garcia, X., Gehrmann, S., Gonzalez, L., Gur-Ari, G., Hand, S., Hashemi, H., Hou, L., Howland, J., Hu, A., Hui, J., Hurwitz, J., Isard, M., Ittycheriah, A., Jagielski, M., Jia, W., Kenealy, K., Krikun, M., Kudugunta, S., Lan, C., Lee, K., Lee, B., Li, E., Li, M., Li, W., Li, Y., Li, J., Lim, H., Lin, H., Liu, Z., Liu, F., Maggioni, M., Mahendru, A., Maynez, J., Misra, V., Moussalem, M., Nado, Z., Nham, J., Ni, E., Nystrom,
+  A., Parrish, A., Pellat, M., Polacek, M., Polozov, A., Pope, R., Qiao, S., Reif, E., Richter, B., Riley, P., Ros, A.~C., Roy, A., Saeta, B., Samuel, R., Shelby, R., Slone, A., Smilkov, D., So, D.~R., Sohn, D., Tokumine, S., Valter, D., Vasudevan, V., Vodrahalli, K., Wang, X., Wang, P., Wang, Z., Wang, T., Wieting, J., Wu, Y., Xu, K., Xu, Y., Xue, L., Yin, P., Yu, J., Zhang, Q., Zheng, S., Zheng, C., Zhou, W., Zhou, D., Petrov, S., and Wu, Y. (2023).
+\newblock Palm 2 technical report.
+
+\bibitem[Azerbayev et~al., 2023]{azerbayev2023llemma}
+Azerbayev, Z., Schoelkopf, H., Paster, K., Santos, M.~D., McAleer, S., Jiang, A.~Q., Deng, J., Biderman, S., and Welleck, S. (2023).
+\newblock Llemma: An open language model for mathematics.
+\newblock {\em arXiv preprint arXiv:2310.10631}.
+
+\bibitem[Bai et~al., 2023]{bai2023qwen}
+Bai, J., Bai, S., Chu, Y., Cui, Z., Dang, K., Deng, X., Fan, Y., Ge, W., Han, Y., Huang, F., Hui, B., Ji, L., Li, M., Lin, J., Lin, R., Liu, D., Liu, G., Lu, C., Lu, K., Ma, J., Men, R., Ren, X., Ren, X., Tan, C., Tan, S., Tu, J., Wang, P., Wang, S., Wang, W., Wu, S., Xu, B., Xu, J., Yang, A., Yang, H., Yang, J., Yang, S., Yao, Y., Yu, B., Yuan, H., Yuan, Z., Zhang, J., Zhang, X., Zhang, Y., Zhang, Z., Zhou, C., Zhou, J., Zhou, X., and Zhu, T. (2023).
+\newblock Qwen technical report.
+
+\bibitem[Bi et~al., 2024]{bi2024deepseek}
+Bi, X., Chen, D., Chen, G., Chen, S., Dai, D., Deng, C., Ding, H., Dong, K., Du, Q., Fu, Z., et~al. (2024).
+\newblock Deepseek llm: Scaling open-source language models with longtermism.
+\newblock {\em arXiv preprint arXiv:2401.02954}.
+
+\bibitem[Biderman et~al., 2023]{biderman2023pythia}
+Biderman, S., Schoelkopf, H., Anthony, Q.~G., Bradley, H., O’Brien, K., Hallahan, E., Khan, M.~A., Purohit, S., Prashanth, U.~S., Raff, E., et~al. (2023).
+\newblock Pythia: A suite for analyzing large language models across training and scaling.
+\newblock In {\em Proceedings of ICML}.
+
+\bibitem[Bisk et~al., 2020]{bisk2020piqa}
+Bisk, Y., Zellers, R., Gao, J., Choi, Y., et~al. (2020).
+\newblock Piqa: Reasoning about physical commonsense in natural language.
+\newblock In {\em Proceedings of AAAI}.
+
+\bibitem[Brown et~al., 2020]{brown2020gpt3}
+Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.~D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D., Wu, J., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin, M., Gray, S., Chess, B., Clark, J., Berner, C., McCandlish, S., Radford, A., Sutskever, I., and Amodei, D. (2020).
+\newblock Language models are few-shot learners.
+\newblock In {\em Proceedings of NeurIPS}.
+
+\bibitem[Chia et~al., 2023]{DBLP:journals/corr/abs-2306-04757}
+Chia, Y.~K., Hong, P., Bing, L., and Poria, S. (2023).
+\newblock {INSTRUCTEVAL:} towards holistic evaluation of instruction-tuned large language models.
+\newblock {\em CoRR}, abs/2306.04757.
+
+\bibitem[Chowdhery et~al., 2022]{chowdhery2022palm}
+Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra, G., Roberts, A., Barham, P., Chung, H.~W., Sutton, C., Gehrmann, S., et~al. (2022).
+\newblock Palm: Scaling language modeling with pathways.
+\newblock {\em arXiv preprint arXiv:2204.02311}.
+
+\bibitem[Clark et~al., 2019]{clark2019boolq}
+Clark, C., Lee, K., Chang, M.-W., Kwiatkowski, T., Collins, M., and Toutanova, K. (2019).
+\newblock {B}ool{Q}: Exploring the surprising difficulty of natural yes/no questions.
+\newblock In {\em Proceedings of NAACL}.
+
+\bibitem[Clark et~al., 2018]{clark2018arc}
+Clark, P., Cowhey, I., Etzioni, O., Khot, T., Sabharwal, A., Schoenick, C., and Tafjord, O. (2018).
+\newblock Think you have solved question answering? try arc, the ai2 reasoning challenge.
+\newblock {\em arXiv preprint arXiv:1803.05457}.
+
+\bibitem[Conneau et~al., 2018]{conneau-etal-2018-xnli}
+Conneau, A., Rinott, R., Lample, G., Williams, A., Bowman, S., Schwenk, H., and Stoyanov, V. (2018).
+\newblock {XNLI}: Evaluating cross-lingual sentence representations.
+\newblock In Riloff, E., Chiang, D., Hockenmaier, J., and Tsujii, J., editors, {\em Proceedings of EMNLP}, pages 2475--2485, Brussels, Belgium. Association for Computational Linguistics.
+
+\bibitem[Dao, 2023]{dao2023fa2}
+Dao, T. (2023).
+\newblock Flashattention-2: Faster attention with better parallelism and work partitioning.
+\newblock {\em arXiv preprint arXiv:2307.08691}.
+
+\bibitem[Dauphin et~al., 2017]{dauphin2017glu}
+Dauphin, Y.~N., Fan, A., Auli, M., and Grangier, D. (2017).
+\newblock Language modeling with gated convolutional networks.
+\newblock In {\em Proceedings of ICML}.
+
+\bibitem[Dua et~al., 2019]{dua2019drop}
+Dua, D., Wang, Y., Dasigi, P., Stanovsky, G., Singh, S., and Gardner, M. (2019).
+\newblock {DROP}: A reading comprehension benchmark requiring discrete reasoning over paragraphs.
+\newblock In {\em Proceedings of NAACL}.
+
+\bibitem[Emelin and Sennrich, 2021]{emelin-sennrich-2021-wino}
+Emelin, D. and Sennrich, R. (2021).
+\newblock Wino-{X}: Multilingual {W}inograd schemas for commonsense reasoning and coreference resolution.
+\newblock In Moens, M.-F., Huang, X., Specia, L., and Yih, S. W.-t., editors, {\em Proceedings of EMNLP}, pages 8517--8532, Online and Punta Cana, Dominican Republic. Association for Computational Linguistics.
+
+\bibitem[Gao et~al., 2023]{evalharness}
+Gao, L., Tow, J., Abbasi, B., Biderman, S., Black, S., DiPofi, A., Foster, C., Golding, L., Hsu, J., Le~Noac'h, A., Li, H., McDonell, K., Muennighoff, N., Ociepa, C., Phang, J., Reynolds, L., Schoelkopf, H., Skowron, A., Sutawika, L., Tang, E., Thite, A., Wang, B., Wang, K., and Zou, A. (2023).
+\newblock A framework for few-shot language model evaluation.
+
+\bibitem[Hendrycks et~al., 2021]{hendrycks2020mmlu}
+Hendrycks, D., Burns, C., Basart, S., Zou, A., Mazeika, M., Song, D., and Steinhardt, J. (2021).
+\newblock Measuring massive multitask language understanding.
+\newblock In {\em Proceedings of ICLR}.
+
+\bibitem[Hoffmann et~al., 2022]{hoffmann2022chinchilla}
+Hoffmann, J., Borgeaud, S., Mensch, A., Buchatskaya, E., Cai, T., Rutherford, E., de~las Casas, D., Hendricks, L.~A., Welbl, J., Clark, A., Hennigan, T., Noland, E., Millican, K., van~den Driessche, G., Damoc, B., Guy, A., Osindero, S., Simonyan, K., Elsen, E., Vinyals, O., Rae, J.~W., and Sifre, L. (2022).
+\newblock Training compute-optimal large language models.
+\newblock In {\em Proceedings of NeurIPS}.
+
+\bibitem[Hu et~al., 2024]{hu2024minicpm}
+Hu, S., Tu, Y., Han, X., He, C., Cui, G., Long, X., Zheng, Z., Fang, Y., Huang, Y., Zhao, W., et~al. (2024).
+\newblock Minicpm: Unveiling the potential of small language models with scalable training strategies.
+\newblock {\em arXiv preprint arXiv:2404.06395}.
+
+\bibitem[Kaplan et~al., 2020]{kaplan2020scaling}
+Kaplan, J., McCandlish, S., Henighan, T., Brown, T.~B., Chess, B., Child, R., Gray, S., Radford, A., Wu, J., and Amodei, D. (2020).
+\newblock Scaling laws for neural language models.
+\newblock {\em arXiv preprint arXiv:2001.08361}.
+
+\bibitem[Lefaudeux et~al., 2022]{xFormers2022}
+Lefaudeux, B., Massa, F., Liskovich, D., Xiong, W., Caggiano, V., Naren, S., Xu, M., Hu, J., Tintore, M., Zhang, S., Labatut, P., and Haziza, D. (2022).
+\newblock xformers: A modular and hackable transformer modelling library.
+\newblock https://github.com/facebookresearch/xformers.
+
+\bibitem[Li et~al., 2023]{li2023starcoder}
+Li, R., allal, L.~B., Zi, Y., Muennighoff, N., Kocetkov, D., Mou, C., Marone, M., Akiki, C., LI, J., Chim, J., Liu, Q., Zheltonozhskii, E., Zhuo, T.~Y., Wang, T., Dehaene, O., Lamy-Poirier, J., Monteiro, J., Gontier, N., Yee, M.-H., Umapathi, L.~K., Zhu, J., Lipkin, B., Oblokulov, M., Wang, Z., Murthy, R., Stillerman, J.~T., Patel, S.~S., Abulkhanov, D., Zocca, M., Dey, M., Zhang, Z., Bhattacharyya, U., Yu, W., Luccioni, S., Villegas, P., Zhdanov, F., Lee, T., Timor, N., Ding, J., Schlesinger, C.~S., Schoelkopf, H., Ebert, J., Dao, T., Mishra, M., Gu, A., Anderson, C.~J., Dolan-Gavitt, B., Contractor, D., Reddy, S., Fried, D., Bahdanau, D., Jernite, Y., Ferrandis, C.~M., Hughes, S., Wolf, T., Guha, A., Werra, L.~V., and de~Vries, H. (2023).
+\newblock Starcoder: may the source be with you!
+\newblock {\em Transactions on Machine Learning Research}.
+
+\bibitem[Lightning-AI, 2023]{lit-gpt}
+Lightning-AI (2023).
+\newblock Lit-gpt.
+
+\bibitem[Lin et~al., 2022]{lin-etal-2022-shot}
+Lin, X.~V., Mihaylov, T., Artetxe, M., Wang, T., Chen, S., Simig, D., Ott, M., Goyal, N., Bhosale, S., Du, J., Pasunuru, R., Shleifer, S., Koura, P.~S., Chaudhary, V., O{'}Horo, B., Wang, J., Zettlemoyer, L., Kozareva, Z., Diab, M., Stoyanov, V., and Li, X. (2022).
+\newblock Few-shot learning with multilingual generative language models.
+\newblock In Goldberg, Y., Kozareva, Z., and Zhang, Y., editors, {\em Proceedings of EMNLP}, pages 9019--9052, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+
+\bibitem[Loshchilov and Hutter, 2019]{DBLP:conf/iclr/LoshchilovH19}
+Loshchilov, I. and Hutter, F. (2019).
+\newblock Decoupled weight decay regularization.
+\newblock In {\em Proceedings of ICLR}.
+
+\bibitem[Mihaylov et~al., 2018]{mihaylov2018obqa}
+Mihaylov, T., Clark, P., Khot, T., and Sabharwal, A. (2018).
+\newblock Can a suit of armor conduct electricity? a new dataset for open book question answering.
+\newblock In {\em Proceedings of EMNLP}.
+
+\bibitem[OpenAI, 2023]{gpt4}
+OpenAI (2023).
+\newblock Gpt-4 technical report.
+\newblock {\em arXiv preprint arXiv:2303.08774}.
+
+\bibitem[Ponti et~al., 2020]{ponti-etal-2020-xcopa}
+Ponti, E.~M., Glava{\v{s}}, G., Majewska, O., Liu, Q., Vuli{\'c}, I., and Korhonen, A. (2020).
+\newblock {XCOPA}: A multilingual dataset for causal commonsense reasoning.
+\newblock In Webber, B., Cohn, T., He, Y., and Liu, Y., editors, {\em Proceedings of EMNLP}, pages 2362--2376, Online. Association for Computational Linguistics.
+
+\bibitem[Sakaguchi et~al., 2021]{sakaguchi2021winogrande}
+Sakaguchi, K., Bras, R.~L., Bhagavatula, C., and Choi, Y. (2021).
+\newblock Winogrande: An adversarial winograd schema challenge at scale.
+\newblock {\em Communications of the ACM}, 64(9):99--106.
+
+\bibitem[Shazeer, 2020]{DBLP:journals/corr/abs-2002-05202}
+Shazeer, N. (2020).
+\newblock {GLU} variants improve transformer.
+\newblock {\em CoRR}, abs/2002.05202.
+
+\bibitem[Soboleva et~al., 2023]{cerebras2023slimpajama}
+Soboleva, D., Al-Khateeb, F., Myers, R., Steeves, J.~R., Hestness, J., and Dey, N. (2023).
+\newblock {SlimPajama: A 627B token cleaned and deduplicated version of RedPajama}.
+
+\bibitem[Srivastava et~al., 2022]{srivastava2022beyond}
+Srivastava, A., Rastogi, A., Rao, A., Shoeb, A. A.~M., Abid, A., Fisch, A., Brown, A.~R., Santoro, A., Gupta, A., Garriga-Alonso, A., et~al. (2022).
+\newblock Beyond the imitation game: Quantifying and extrapolating the capabilities of language models.
+\newblock {\em arXiv preprint arXiv:2206.04615}.
+
+\bibitem[Su et~al., 2021]{su2021roformer}
+Su, J., Lu, Y., Pan, S., Murtadha, A., Wen, B., and Liu, Y. (2021).
+\newblock Roformer: Enhanced transformer with rotary position embedding.
+\newblock {\em arXiv preprint arXiv:2104.09864}.
+
+\bibitem[Suzgun et~al., 2023]{suzgun2022challenging}
+Suzgun, M., Scales, N., Sch{\"a}rli, N., Gehrmann, S., Tay, Y., Chung, H.~W., Chowdhery, A., Le, Q., Chi, E., Zhou, D., and Wei, J. (2023).
+\newblock Challenging {BIG}-bench tasks and whether chain-of-thought can solve them.
+\newblock In {\em Findings of ACL}.
+
+\bibitem[Thaddée, 2023]{thaddee2020cd}
+Thaddée, Y.~T. (2023).
+\newblock Chinchilla’s death.
+\newblock https://espadrine.github.io/blog/posts/chinchilla-s-death.html.
+
+\bibitem[{Together Computer}, 2023]{together2023redpajama}
+{Together Computer} (2023).
+\newblock Redpajama: an open dataset for training large language models.
+
+\bibitem[Touvron et~al., 2023a]{touvron2023llama}
+Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux, M.-A., Lacroix, T., Rozi{\`e}re, B., Goyal, N., Hambro, E., Azhar, F., et~al. (2023a).
+\newblock Llama: Open and efficient foundation language models.
+\newblock {\em arXiv preprint arXiv:2302.13971}.
+
+\bibitem[Touvron et~al., 2023b]{touvron2023llama2}
+Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., et~al. (2023b).
+\newblock Llama 2: Open foundation and fine-tuned chat models.
+\newblock {\em arXiv preprint arXiv:2307.09288}.
+
+\bibitem[Vaswani et~al., 2017]{vaswani2017transformer}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N., Kaiser, L., and Polosukhin, I. (2017).
+\newblock Attention is all you need.
+\newblock In {\em Proceedings of NeurIPS}.
+
+\bibitem[Wei et~al., 2022]{wei2022cot}
+Wei, J., Wang, X., Schuurmans, D., Bosma, M., Chi, E., Le, Q., and Zhou, D. (2022).
+\newblock Chain of thought prompting elicits reasoning in large language models.
+\newblock In {\em Proceedings of NeurIPS}.
+
+\bibitem[Wei et~al., 2023]{wei2023skywork}
+Wei, T., Zhao, L., Zhang, L., Zhu, B., Wang, L., Yang, H., Li, B., Cheng, C., L{\"u}, W., Hu, R., et~al. (2023).
+\newblock Skywork: A more open bilingual foundation model.
+\newblock {\em arXiv preprint arXiv:2310.19341}.
+
+\bibitem[Zellers et~al., 2019]{zellers2019hellaswag}
+Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., and Choi, Y. (2019).
+\newblock {H}ella{S}wag: Can a machine really finish your sentence?
+\newblock In {\em Proceedings of the ACL}.
+
+\bibitem[Zhang and Sennrich, 2019]{DBLP:conf/nips/ZhangS19a}
+Zhang, B. and Sennrich, R. (2019).
+\newblock Root mean square layer normalization.
+\newblock In {\em Proceedings of NeurIPS}.
+
+\bibitem[Zhang et~al., 2022]{zhang2022opt}
+Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M., Chen, S., Dewan, C., Diab, M., Li, X., Lin, X.~V., et~al. (2022).
+\newblock Opt: Open pre-trained transformer language models.
+\newblock {\em arXiv preprint arXiv:2205.01068}.
+
+\bibitem[Zheng et~al., 2023]{DBLP:conf/kdd/ZhengXZDWXSW0LS23}
+Zheng, Q., Xia, X., Zou, X., Dong, Y., Wang, S., Xue, Y., Shen, L., Wang, Z., Wang, A., Li, Y., Su, T., Yang, Z., and Tang, J. (2023).
+\newblock Codegeex: {A} pre-trained model for code generation with multilingual benchmarking on humaneval-x.
+\newblock In {\em Proceedings of the 29th {ACM} {SIGKDD} Conference on Knowledge Discovery and Data Mining, {KDD} 2023, Long Beach, CA, USA, August 6-10, 2023}, pages 5673--5684. {ACM}.
+
+\end{thebibliography}

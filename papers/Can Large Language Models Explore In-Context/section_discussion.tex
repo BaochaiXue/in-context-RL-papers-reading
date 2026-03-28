@@ -1,0 +1,31 @@
+Our investigation suggests that contemporary LLMs do not
+robustly engage in exploration required for very basic
+statistical reinforcement learning and decision making problems, at least without further
+intervention. In what follows, we identify several next steps to further evaluate this
+hypothesis and search for interventions to mitigate this behavior.
+
+\xhdr{Basic interventions and the need for methodological advancements.}
+In light of our negative results, the most obvious interventions one might consider include:
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+\item \emph{Experiment with other prompts.} As with many other settings~\citep{sclar2023quantifying}, it is possible that small changes to our prompt template might improve performance. However, sensitivity to prompt design is already concerning.
+\item \emph{Experiment with few-shot prompting,} where the prompt contains examples of exploratory behavior, use such examples to \emph{fine-tune} the LLM, or curate the training corpus to include examples of exploratory behavior.
+\item \emph{Train the LLM to use auxiliary tools,} such as a calculator for basic arithmetic or a ``randomizer" to correctly sample from a distribution.
+\end{enumerate}
+While these steps are quite natural, cost, access to models, and compute pose significant barriers to further study, particularly because of the need to employ long horizons $T$ and many replicates $N$ to obtain statistically meaningful results.
+To this end, we believe that further methodological and/or statistical advancements to enable cost-effective diagnosis and understanding of LLM-agent behavior (e.g., our surrogate statistics) are essential.
+
+
+\xhdr{Implications for complex decision making problems.}
+Our focus on simple multi-armed bandit problems provides a clean and controllable
+experimental setup to study the exploratory behavior of LLMs and
+potential algorithmic interventions. Exploration failures here suggest
+that similar failures will also occur in more complex RL and decision making settings. On the other hand, caution must be exercised in developing mitigations, as solutions that succeed for the MAB setting may not generalize to more complex settings.
+For example, while \gptfour
+with summarized interaction history and reinforced CoT seems to successfully
+explore in our MAB setting, it is not clear how one should externally summarize the history in settings with complex, high-dimensional observations such as contextual bandits (see \pref{fn:summarization}). Indeed, even for linear contextual bandits, the  approach may not be applicable without a substantial algorithmic intervention (such as, \eg a linear regression computed externally and included in the prompt)
+and the many explicit modeling and algorithmic choices involved in such interventions. 
+We believe a deeper investigation of algorithmic interventions is essential to understand the extent to which LLMs can operate as decision making agents.
+
+
+

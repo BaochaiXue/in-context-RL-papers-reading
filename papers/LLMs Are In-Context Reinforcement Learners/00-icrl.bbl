@@ -1,0 +1,374 @@
+\begin{thebibliography}{61}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abdin et~al.(2024)Abdin, Aneja, Awadalla, Awadallah, Awan, Bach, Bahree, Bakhtiari, Bao, Behl, Benhaim, Bilenko, Bjorck, Bubeck, Cai, Cai, Chaudhary, Chen, Chen, Chen, Chen, Chen, Cheng, Chopra, Dai, Dixon, Eldan, Fragoso, Gao, Gao, Gao, Garg, Giorno, Goswami, Gunasekar, Haider, Hao, Hewett, Hu, Huynh, Iter, Jacobs, Javaheripi, Jin, Karampatziakis, Kauffmann, Khademi, Kim, Kim, Kurilenko, Lee, Lee, Li, Li, Liang, Liden, Lin, Lin, Liu, Liu, Liu, Liu, Liu, Luo, Madan, Mahmoudzadeh, Majercak, Mazzola, Mendes, Mitra, Modi, Nguyen, Norick, Patra, Perez-Becker, Portet, Pryzant, Qin, Radmilac, Ren, de~Rosa, Rosset, Roy, Ruwase, Saarikivi, Saied, Salim, Santacroce, Shah, Shang, Sharma, Shen, Shukla, Song, Tanaka, Tupini, Vaddamanu, Wang, Wang, Wang, Wang, Wang, Wang, Ward, Wen, Witte, Wu, Wu, Wyatt, Xiao, Xu, Xu, Xu, Xue, Yadav, Yang, Yang, Yang, Yang, Yu, Yuan, Zhang, Zhang, Zhang, Zhang, Zhang, Zhang, Zhang, and Zhou]{abdin2024phi3technicalreporthighly}
+Marah Abdin, Jyoti Aneja, Hany Awadalla, Ahmed Awadallah, Ammar~Ahmad Awan, Nguyen Bach, Amit Bahree, Arash Bakhtiari, Jianmin Bao, Harkirat Behl, Alon Benhaim, Misha Bilenko, Johan Bjorck, Sébastien Bubeck, Martin Cai, Qin Cai, Vishrav Chaudhary, Dong Chen, Dongdong Chen, Weizhu Chen, Yen-Chun Chen, Yi-Ling Chen, Hao Cheng, Parul Chopra, Xiyang Dai, Matthew Dixon, Ronen Eldan, Victor Fragoso, Jianfeng Gao, Mei Gao, Min Gao, Amit Garg, Allie~Del Giorno, Abhishek Goswami, Suriya Gunasekar, Emman Haider, Junheng Hao, Russell~J. Hewett, Wenxiang Hu, Jamie Huynh, Dan Iter, Sam~Ade Jacobs, Mojan Javaheripi, Xin Jin, Nikos Karampatziakis, Piero Kauffmann, Mahoud Khademi, Dongwoo Kim, Young~Jin Kim, Lev Kurilenko, James~R. Lee, Yin~Tat Lee, Yuanzhi Li, Yunsheng Li, Chen Liang, Lars Liden, Xihui Lin, Zeqi Lin, Ce~Liu, Liyuan Liu, Mengchen Liu, Weishung Liu, Xiaodong Liu, Chong Luo, Piyush Madan, Ali Mahmoudzadeh, David Majercak, Matt Mazzola, Caio César~Teodoro Mendes, Arindam Mitra, Hardik Modi, Anh Nguyen,
+  Brandon Norick, Barun Patra, Daniel Perez-Becker, Thomas Portet, Reid Pryzant, Heyang Qin, Marko Radmilac, Liliang Ren, Gustavo de~Rosa, Corby Rosset, Sambudha Roy, Olatunji Ruwase, Olli Saarikivi, Amin Saied, Adil Salim, Michael Santacroce, Shital Shah, Ning Shang, Hiteshi Sharma, Yelong Shen, Swadheen Shukla, Xia Song, Masahiro Tanaka, Andrea Tupini, Praneetha Vaddamanu, Chunyu Wang, Guanhua Wang, Lijuan Wang, Shuohang Wang, Xin Wang, Yu~Wang, Rachel Ward, Wen Wen, Philipp Witte, Haiping Wu, Xiaoxia Wu, Michael Wyatt, Bin Xiao, Can Xu, Jiahang Xu, Weijian Xu, Jilong Xue, Sonali Yadav, Fan Yang, Jianwei Yang, Yifan Yang, Ziyi Yang, Donghan Yu, Lu~Yuan, Chenruidong Zhang, Cyril Zhang, Jianwen Zhang, Li~Lyna Zhang, Yi~Zhang, Yue Zhang, Yunan Zhang, and Xiren Zhou.
+\newblock Phi-3 technical report: A highly capable language model locally on your phone, 2024.
+\newblock URL \url{https://arxiv.org/abs/2404.14219}.
+
+\bibitem[Agarwal et~al.(2024)Agarwal, Singh, Zhang, Bohnet, Rosias, Chan, Zhang, Faust, and Larochelle]{agarwal2024manyshotincontextlearning}
+Rishabh Agarwal, Avi Singh, Lei~M Zhang, Bernd Bohnet, Luis Rosias, Stephanie~C.Y. Chan, Biao Zhang, Aleksandra Faust, and Hugo Larochelle.
+\newblock Many-shot in-context learning.
+\newblock In \emph{ICML 2024 Workshop on In-Context Learning}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=goi7DFHlqS}.
+
+\bibitem[Auer et~al.(2002)Auer, Cesa-Bianchi, and Fischer]{Auer2002}
+Peter Auer, Nicol{\`o} Cesa-Bianchi, and Paul Fischer.
+\newblock Finite-time analysis of the multiarmed bandit problem.
+\newblock \emph{Machine Learning}, 47\penalty0 (2):\penalty0 235--256, May 2002.
+\newblock ISSN 1573-0565.
+\newblock \doi{10.1023/A:1013689704352}.
+\newblock URL \url{https://doi.org/10.1023/A:1013689704352}.
+
+\bibitem[Bertsch et~al.(2024)Bertsch, Ivgi, Alon, Berant, Gormley, and Neubig]{bertsch2024incontext}
+Amanda Bertsch, Maor Ivgi, Uri Alon, Jonathan Berant, Matthew~R. Gormley, and Graham Neubig.
+\newblock In-context learning with long-context models: An in-depth exploration, 2024.
+
+\bibitem[Bietti et~al.(2021)Bietti, Agarwal, and Langford]{bietti2021contextual}
+Alberto Bietti, Alekh Agarwal, and John Langford.
+\newblock A contextual bandit bake-off.
+\newblock \emph{Journal of Machine Learning Research}, 22\penalty0 (133):\penalty0 1--49, 2021.
+
+\bibitem[Bloom et~al.(2025)Bloom, Brumberg, Fisk, Harrison, Hull, Ramasubramanian, Vliet, and Wing]{Bloom2025EmpireAI}
+Stacie Bloom, Joshua~C. Brumberg, Ian Fisk, Robert~J. Harrison, Robert Hull, Melur Ramasubramanian, Krystyn~Van Vliet, and Jeannette Wing.
+\newblock Empire {AI}: A new model for provisioning {AI} and {HPC} for academic research in the public good.
+\newblock In \emph{Practice and Experience in Advanced Research Computing ({PEARC} '25)}, 2025.
+\newblock URL \url{https://doi.org/10.1145/3708035.3736070}.
+
+\bibitem[Brooks et~al.(2023)Brooks, Walls, Lewis, and Singh]{NEURIPS2023_60dc7fa8}
+Ethan Brooks, Logan Walls, Richard~L Lewis, and Satinder Singh.
+\newblock Large language models can implement policy iteration.
+\newblock In A.~Oh, T.~Naumann, A.~Globerson, K.~Saenko, M.~Hardt, and S.~Levine (eds.), \emph{Advances in Neural Information Processing Systems}, volume~36, pp.\  30349--30366. Curran Associates, Inc., 2023.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/60dc7fa827f5f761ad481e2ad40b5573-Paper-Conference.pdf}.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, Agarwal, Herbert-Voss, Krueger, Henighan, Child, Ramesh, Ziegler, Wu, Winter, Hesse, Chen, Sigler, Litwin, Gray, Chess, Clark, Berner, McCandlish, Radford, Sutskever, and Amodei]{brown2020language}
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared~D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel Ziegler, Jeffrey Wu, Clemens Winter, Chris Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, and Dario Amodei.
+\newblock Language models are few-shot learners.
+\newblock In H.~Larochelle, M.~Ranzato, R.~Hadsell, M.F. Balcan, and H.~Lin (eds.), \emph{Advances in Neural Information Processing Systems}, volume~33, pp.\  1877--1901. Curran Associates, Inc., 2020.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf}.
+
+\bibitem[Casanueva et~al.(2020)Casanueva, Tem{\v{c}}inas, Gerz, Henderson, and Vuli{\'c}]{Casanueva2020}
+I{\~n}igo Casanueva, Tadas Tem{\v{c}}inas, Daniela Gerz, Matthew Henderson, and Ivan Vuli{\'c}.
+\newblock Efficient intent detection with dual sentence encoders.
+\newblock In Tsung-Hsien Wen, Asli Celikyilmaz, Zhou Yu, Alexandros Papangelis, Mihail Eric, Anuj Kumar, I{\~n}igo Casanueva, and Rushin Shah (eds.), \emph{Proceedings of the 2nd Workshop on Natural Language Processing for Conversational AI}, pp.\  38--45, Online, July 2020. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2020.nlp4convai-1.5}.
+\newblock URL \url{https://aclanthology.org/2020.nlp4convai-1.5}.
+
+\bibitem[Chan et~al.(2022)Chan, Santoro, Lampinen, Wang, Singh, Richemond, McClelland, and Hill]{chan_data_2022}
+Stephanie Chan, Adam Santoro, Andrew Lampinen, Jane Wang, Aaditya Singh, Pierre Richemond, James McClelland, and Felix Hill.
+\newblock Data distributional properties drive emergent in-context learning in transformers.
+\newblock In S.~Koyejo, S.~Mohamed, A.~Agarwal, D.~Belgrave, K.~Cho, and A.~Oh (eds.), \emph{Advances in Neural Information Processing Systems}, volume~35, pp.\  18878--18891. Curran Associates, Inc., 2022.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2022/file/77c6ccacfd9962e2307fc64680fc5ace-Paper-Conference.pdf}.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel, Srinivas, and Mordatch]{chen2021decision}
+Lili Chen, Kevin Lu, Aravind Rajeswaran, Kimin Lee, Aditya Grover, Misha Laskin, Pieter Abbeel, Aravind Srinivas, and Igor Mordatch.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock In M.~Ranzato, A.~Beygelzimer, Y.~Dauphin, P.S. Liang, and J.~Wortman Vaughan (eds.), \emph{Advances in Neural Information Processing Systems}, volume~34, pp.\  15084--15097. Curran Associates, Inc., 2021.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2021/file/7f489f642a0ddb10272b5c31057f0663-Paper.pdf}.
+
+\bibitem[Chen et~al.(2023)Chen, Zhao, Yu, McKeown, and He]{chen-etal-2023-relation}
+Yanda Chen, Chen Zhao, Zhou Yu, Kathleen McKeown, and He~He.
+\newblock On the relation between sensitivity and accuracy in in-context learning.
+\newblock In Houda Bouamor, Juan Pino, and Kalika Bali (eds.), \emph{Findings of the Association for Computational Linguistics: EMNLP 2023}, pp.\  155--167, Singapore, December 2023. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2023.findings-emnlp.12}.
+\newblock URL \url{https://aclanthology.org/2023.findings-emnlp.12}.
+
+\bibitem[Gao et~al.(2023)Gao, Schulman, and Hilton]{10.5555/3618408.3618845}
+Leo Gao, John Schulman, and Jacob Hilton.
+\newblock Scaling laws for reward model overoptimization.
+\newblock In \emph{Proceedings of the 40th International Conference on Machine Learning}, ICML'23. JMLR.org, 2023.
+
+\bibitem[Garg et~al.(2022)Garg, Tsipras, Liang, and Valiant]{garg2022transformers}
+Shivam Garg, Dimitris Tsipras, Percy~S Liang, and Gregory Valiant.
+\newblock What can transformers learn in-context? a case study of simple function classes.
+\newblock In S.~Koyejo, S.~Mohamed, A.~Agarwal, D.~Belgrave, K.~Cho, and A.~Oh (eds.), \emph{Advances in Neural Information Processing Systems}, volume~35, pp.\  30583--30598. Curran Associates, Inc., 2022.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2022/file/c529dba08a146ea8d6cf715ae8930cbe-Paper-Conference.pdf}.
+
+\bibitem[Gehring et~al.(2024)Gehring, Zheng, Copet, Mella, Cohen, and Synnaeve]{gehring2024rlefgroundingcodellms}
+Jonas Gehring, Kunhao Zheng, Jade Copet, Vegard Mella, Taco Cohen, and Gabriel Synnaeve.
+\newblock Rlef: Grounding code llms in execution feedback with reinforcement learning, 2024.
+\newblock URL \url{https://arxiv.org/abs/2410.02089}.
+
+\bibitem[Gemini~Team(2024)]{geminiteam2024geminifamilyhighlycapable}
+Google Gemini~Team.
+\newblock Gemini: A family of highly capable multimodal models, 2024.
+\newblock URL \url{https://arxiv.org/abs/2312.11805}.
+
+\bibitem[Grigsby et~al.(2024)Grigsby, Fan, and Zhu]{grigsby2023amago}
+Jake Grigsby, Linxi Fan, and Yuke Zhu.
+\newblock {AMAGO}: Scalable in-context reinforcement learning for adaptive agents.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=M6XWoEdmwf}.
+
+\bibitem[Hendel et~al.(2023)Hendel, Geva, and Globerson]{hendel-etal-2023-context}
+Roee Hendel, Mor Geva, and Amir Globerson.
+\newblock In-context learning creates task vectors.
+\newblock In Houda Bouamor, Juan Pino, and Kalika Bali (eds.), \emph{Findings of the Association for Computational Linguistics: EMNLP 2023}, pp.\  9318--9333, Singapore, December 2023. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2023.findings-emnlp.624}.
+\newblock URL \url{https://aclanthology.org/2023.findings-emnlp.624}.
+
+\bibitem[Hovy et~al.(2001)Hovy, Gerber, Hermjakob, Lin, and Ravichandran]{hovy-etal-2001-toward}
+Eduard Hovy, Laurie Gerber, Ulf Hermjakob, Chin-Yew Lin, and Deepak Ravichandran.
+\newblock Toward semantics-based answer pinpointing.
+\newblock In \emph{Proceedings of the First International Conference on Human Language Technology Research}, 2001.
+\newblock URL \url{https://www.aclweb.org/anthology/H01-1069}.
+
+\bibitem[Janner et~al.(2021)Janner, Li, and Levine]{janner2021sequence}
+Michael Janner, Qiyang Li, and Sergey Levine.
+\newblock Offline reinforcement learning as one big sequence modeling problem.
+\newblock In M.~Ranzato, A.~Beygelzimer, Y.~Dauphin, P.S. Liang, and J.~Wortman Vaughan (eds.), \emph{Advances in Neural Information Processing Systems}, volume~34, pp.\  1273--1286. Curran Associates, Inc., 2021.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2021/file/099fe6b0b444c23836c4a5d07346082b-Paper.pdf}.
+
+\bibitem[Kojima et~al.(2022)Kojima, Gu, Reid, Matsuo, and Iwasawa]{kojima2022large}
+Takeshi Kojima, Shixiang~(Shane) Gu, Machel Reid, Yutaka Matsuo, and Yusuke Iwasawa.
+\newblock Large language models are zero-shot reasoners.
+\newblock In S.~Koyejo, S.~Mohamed, A.~Agarwal, D.~Belgrave, K.~Cho, and A.~Oh (eds.), \emph{Advances in Neural Information Processing Systems}, volume~35, pp.\  22199--22213. Curran Associates, Inc., 2022.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2022/file/8bb0d291acd4acf06ef112099c16f326-Paper-Conference.pdf}.
+
+\bibitem[Kossen et~al.(2024)Kossen, Gal, and Rainforth]{kossen2024incontextlearninglearnslabel}
+Jannik Kossen, Yarin Gal, and Tom Rainforth.
+\newblock In-context learning learns label relationships but is not conventional learning.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=YPIA7bgd5y}.
+
+\bibitem[Krishnamurthy et~al.(2024)Krishnamurthy, Harris, Foster, Zhang, and Slivkins]{krishnamurthy2024largelanguagemodelsexplore}
+Akshay Krishnamurthy, Keegan Harris, Dylan~J Foster, Cyril Zhang, and Aleksandrs Slivkins.
+\newblock Can large language models explore in-context?
+\newblock In \emph{ICML 2024 Workshop on In-Context Learning}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=8KpkKsGjED}.
+
+\bibitem[Kwon et~al.(2023)Kwon, Li, Zhuang, Sheng, Zheng, Yu, Gonzalez, Zhang, and Stoica]{kwon2023efficientmemorymanagementlarge}
+Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody~Hao Yu, Joseph Gonzalez, Hao Zhang, and Ion Stoica.
+\newblock Efficient memory management for large language model serving with pagedattention.
+\newblock In \emph{Proceedings of the 29th Symposium on Operating Systems Principles}, SOSP '23, pp.\  611–626, New York, NY, USA, 2023. Association for Computing Machinery.
+\newblock ISBN 9798400702297.
+\newblock \doi{10.1145/3600006.3613165}.
+\newblock URL \url{https://doi.org/10.1145/3600006.3613165}.
+
+\bibitem[Larson et~al.(2019)Larson, Mahendran, Peper, Clarke, Lee, Hill, Kummerfeld, Leach, Laurenzano, Tang, and Mars]{larson-etal-2019-evaluation}
+Stefan Larson, Anish Mahendran, Joseph~J. Peper, Christopher Clarke, Andrew Lee, Parker Hill, Jonathan~K. Kummerfeld, Kevin Leach, Michael~A. Laurenzano, Lingjia Tang, and Jason Mars.
+\newblock An evaluation dataset for intent classification and out-of-scope prediction.
+\newblock In \emph{Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)}, 2019.
+\newblock URL \url{https://www.aclweb.org/anthology/D19-1131}.
+
+\bibitem[Laskin et~al.(2022)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald, Strouse, Hansen, Filos, Brooks, Gazeau, Sahni, Singh, and Mnih]{laskin2022incontextreinforcementlearningalgorithm}
+Michael Laskin, Luyu Wang, Junhyuk Oh, Emilio Parisotto, Stephen Spencer, Richie Steigerwald, DJ~Strouse, Steven~Stenberg Hansen, Angelos Filos, Ethan Brooks, Maxime Gazeau, Himanshu Sahni, Satinder Singh, and Volodymyr Mnih.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock In \emph{NeurIPS 2022 Foundation Models for Decision Making Workshop}, 2022.
+\newblock URL \url{https://openreview.net/forum?id=OridE7C5BP2}.
+
+\bibitem[Lee et~al.(2023)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill]{NEURIPS2023_8644b61a}
+Jonathan Lee, Annie Xie, Aldo Pacchiano, Yash Chandak, Chelsea Finn, Ofir Nachum, and Emma Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock In A.~Oh, T.~Naumann, A.~Globerson, K.~Saenko, M.~Hardt, and S.~Levine (eds.), \emph{Advances in Neural Information Processing Systems}, volume~36, pp.\  43057--43083. Curran Associates, Inc., 2023.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/8644b61a9bc87bf7844750a015feb600-Paper-Conference.pdf}.
+
+\bibitem[Levy et~al.(2023)Levy, Bogin, and Berant]{levy2023diversedemonstrationsimproveincontext}
+Itay Levy, Ben Bogin, and Jonathan Berant.
+\newblock Diverse demonstrations improve in-context compositional generalization.
+\newblock In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki (eds.), \emph{Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pp.\  1401--1422, Toronto, Canada, July 2023. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2023.acl-long.78}.
+\newblock URL \url{https://aclanthology.org/2023.acl-long.78}.
+
+\bibitem[Li et~al.(2024)Li, Hou, Sachan, and Cotterell]{li2024languagemodelslearncontext}
+Jiaoda Li, Yifan Hou, Mrinmaya Sachan, and Ryan Cotterell.
+\newblock What do language models learn in context? the structured task hypothesis.
+\newblock In Lun-Wei Ku, Andre Martins, and Vivek Srikumar (eds.), \emph{Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pp.\  12365--12379, Bangkok, Thailand, August 2024. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2024.acl-long.669}.
+\newblock URL \url{https://aclanthology.org/2024.acl-long.669}.
+
+\bibitem[Li \& Roth(2002)Li and Roth]{li-roth-2002-learning}
+Xin Li and Dan Roth.
+\newblock Learning question classifiers.
+\newblock In \emph{{COLING} 2002: The 19th International Conference on Computational Linguistics}, 2002.
+\newblock URL \url{https://www.aclweb.org/anthology/C02-1150}.
+
+\bibitem[Lightman et~al.(2024)Lightman, Kosaraju, Burda, Edwards, Baker, Lee, Leike, Schulman, Sutskever, and Cobbe]{lightman2024lets}
+Hunter Lightman, Vineet Kosaraju, Yuri Burda, Harrison Edwards, Bowen Baker, Teddy Lee, Jan Leike, John Schulman, Ilya Sutskever, and Karl Cobbe.
+\newblock Let's verify step by step.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=v8L0pN6EOi}.
+
+\bibitem[Liu et~al.(2022)Liu, Shen, Zhang, Dolan, Carin, and Chen]{liu-etal-2022-makes}
+Jiachang Liu, Dinghan Shen, Yizhe Zhang, Bill Dolan, Lawrence Carin, and Weizhu Chen.
+\newblock What makes good in-context examples for {GPT}-3?
+\newblock In Eneko Agirre, Marianna Apidianaki, and Ivan Vuli{\'c} (eds.), \emph{Proceedings of Deep Learning Inside Out (DeeLIO 2022): The 3rd Workshop on Knowledge Extraction and Integration for Deep Learning Architectures}, pp.\  100--114, Dublin, Ireland and Online, May 2022. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2022.deelio-1.10}.
+\newblock URL \url{https://aclanthology.org/2022.deelio-1.10}.
+
+\bibitem[Liu et~al.(2021)Liu, Eshghi, Swietojanski, and Rieser]{Liu2021}
+Xingkun Liu, Arash Eshghi, Pawel Swietojanski, and Verena Rieser.
+\newblock \emph{Benchmarking Natural Language Understanding Services for Building Conversational Agents}, pp.\  165--183.
+\newblock Springer Singapore, Singapore, 2021.
+\newblock ISBN 978-981-15-9323-9.
+\newblock \doi{10.1007/978-981-15-9323-9_15}.
+\newblock URL \url{https://doi.org/10.1007/978-981-15-9323-9_15}.
+
+\bibitem[Llama~Team(2024)]{dubey2024llama}
+AI~@~Meta Llama~Team.
+\newblock The llama 3 herd of models, 2024.
+
+\bibitem[Lu et~al.(2022)Lu, Bartolo, Moore, Riedel, and Stenetorp]{lu-etal-2022-fantastically}
+Yao Lu, Max Bartolo, Alastair Moore, Sebastian Riedel, and Pontus Stenetorp.
+\newblock Fantastically ordered prompts and where to find them: Overcoming few-shot prompt order sensitivity.
+\newblock In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio (eds.), \emph{Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pp.\  8086--8098, Dublin, Ireland, May 2022. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2022.acl-long.556}.
+\newblock URL \url{https://aclanthology.org/2022.acl-long.556}.
+
+\bibitem[Lyu et~al.(2023)Lyu, Min, Beltagy, Zettlemoyer, and Hajishirzi]{lyu-etal-2023-z}
+Xinxi Lyu, Sewon Min, Iz~Beltagy, Luke Zettlemoyer, and Hannaneh Hajishirzi.
+\newblock {Z}-{ICL}: Zero-shot in-context learning with pseudo-demonstrations.
+\newblock In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki (eds.), \emph{Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pp.\  2304--2317, Toronto, Canada, July 2023. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2023.acl-long.129}.
+\newblock URL \url{https://aclanthology.org/2023.acl-long.129}.
+
+\bibitem[Min et~al.(2022)Min, Lyu, Holtzman, Artetxe, Lewis, Hajishirzi, and Zettlemoyer]{min2022rethinking}
+Sewon Min, Xinxi Lyu, Ari Holtzman, Mikel Artetxe, Mike Lewis, Hannaneh Hajishirzi, and Luke Zettlemoyer.
+\newblock Rethinking the role of demonstrations: What makes in-context learning work?
+\newblock In Yoav Goldberg, Zornitsa Kozareva, and Yue Zhang (eds.), \emph{Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing}, pp.\  11048--11064, Abu Dhabi, United Arab Emirates, December 2022. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2022.emnlp-main.759}.
+\newblock URL \url{https://aclanthology.org/2022.emnlp-main.759}.
+
+\bibitem[Mirchandani et~al.(2023)Mirchandani, Xia, Florence, brian ichter, Driess, Arenas, Rao, Sadigh, and Zeng]{mirchandani2023large}
+Suvir Mirchandani, Fei Xia, Pete Florence, brian ichter, Danny Driess, Montserrat~Gonzalez Arenas, Kanishka Rao, Dorsa Sadigh, and Andy Zeng.
+\newblock Large language models as general pattern machines.
+\newblock In \emph{7th Annual Conference on Robot Learning}, 2023.
+\newblock URL \url{https://openreview.net/forum?id=RcZMI8MSyE}.
+
+\bibitem[Mo et~al.(2024)Mo, Liu, Yang, Wang, Zhang, Wang, and Li]{mo2024ciclcontrastiveincontextlearning}
+Ying Mo, Jiahao Liu, Jian Yang, Qifan Wang, Shun Zhang, Jingang Wang, and Zhoujun Li.
+\newblock C-icl: Contrastive in-context learning for information extraction, 2024.
+\newblock URL \url{https://arxiv.org/abs/2402.11254}.
+
+\bibitem[Nie et~al.(2024)Nie, Su, Chang, Lee, Chi, Le, and Chen]{nie2024evolve}
+Allen Nie, Yi~Su, Bo~Chang, Jonathan~N. Lee, Ed~H. Chi, Quoc~V. Le, and Minmin Chen.
+\newblock Evolve: Evaluating and optimizing llms for exploration, 2024.
+
+\bibitem[Olsson et~al.(2022)Olsson, Elhage, Nanda, Joseph, DasSarma, Henighan, Mann, Askell, Bai, Chen, Conerly, Drain, Ganguli, Hatfield-Dodds, Hernandez, Johnston, Jones, Kernion, Lovitt, Ndousse, Amodei, Brown, Clark, Kaplan, McCandlish, and Olah]{olsson2022incontextlearninginductionheads}
+Catherine Olsson, Nelson Elhage, Neel Nanda, Nicholas Joseph, Nova DasSarma, Tom Henighan, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Dawn Drain, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Scott Johnston, Andy Jones, Jackson Kernion, Liane Lovitt, Kamal Ndousse, Dario Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, and Chris Olah.
+\newblock In-context learning and induction heads, 2022.
+\newblock URL \url{https://arxiv.org/abs/2209.11895}.
+
+\bibitem[Pan et~al.(2023)Pan, Gao, Chen, and Chen]{pan-etal-2023-context}
+Jane Pan, Tianyu Gao, Howard Chen, and Danqi Chen.
+\newblock What in-context learning {``}learns{''} in-context: Disentangling task recognition and task learning.
+\newblock In Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki (eds.), \emph{Findings of the Association for Computational Linguistics: ACL 2023}, pp.\  8298--8319, Toronto, Canada, July 2023. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2023.findings-acl.527}.
+\newblock URL \url{https://aclanthology.org/2023.findings-acl.527}.
+
+\bibitem[Qwen et~al.(2024)Qwen, :, Yang, Yang, Zhang, Hui, Zheng, Yu, Li, Liu, Huang, Wei, Lin, Yang, Tu, Zhang, Yang, Yang, Zhou, Lin, Dang, Lu, Bao, Yang, Yu, Li, Xue, Zhang, Zhu, Men, Lin, Li, Tang, Xia, Ren, Ren, Fan, Su, Zhang, Wan, Liu, Cui, Zhang, and Qiu]{qwen2024qwen25}
+Qwen, :, An~Yang, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo~Zheng, Bowen Yu, Chengyuan Li, Dayiheng Liu, Fei Huang, Haoran Wei, Huan Lin, Jian Yang, Jianhong Tu, Jianwei Zhang, Jianxin Yang, Jiaxi Yang, Jingren Zhou, Junyang Lin, Kai Dang, Keming Lu, Keqin Bao, Kexin Yang, Le~Yu, Mei Li, Mingfeng Xue, Pei Zhang, Qin Zhu, Rui Men, Runji Lin, Tianhao Li, Tianyi Tang, Tingyu Xia, Xingzhang Ren, Xuancheng Ren, Yang Fan, Yang Su, Yichang Zhang, Yu~Wan, Yuqiong Liu, Zeyu Cui, Zhenru Zhang, and Zihan Qiu.
+\newblock Qwen2.5 technical report, 2024.
+
+\bibitem[Rahn et~al.(2024)Rahn, D'Oro, and Bellemare]{rahn2024controllinglargelanguagemodel}
+Nate Rahn, Pierluca D'Oro, and Marc~G. Bellemare.
+\newblock Controlling large language model agents with entropic activation steering, 2024.
+\newblock URL \url{https://arxiv.org/abs/2406.00244}.
+
+\bibitem[Raparthy et~al.(2024)Raparthy, Hambro, Kirk, Henaff, and Raileanu]{raparthy2023generalizationnewsequentialdecision}
+Sharath~Chandra Raparthy, Eric Hambro, Robert Kirk, Mikael Henaff, and Roberta Raileanu.
+\newblock Generalization to new sequential decision making tasks with in-context learning.
+\newblock In Ruslan Salakhutdinov, Zico Kolter, Katherine Heller, Adrian Weller, Nuria Oliver, Jonathan Scarlett, and Felix Berkenkamp (eds.), \emph{Proceedings of the 41st International Conference on Machine Learning}, volume 235 of \emph{Proceedings of Machine Learning Research}, pp.\  42138--42158. PMLR, 21--27 Jul 2024.
+\newblock URL \url{https://proceedings.mlr.press/v235/raparthy24a.html}.
+
+\bibitem[Sclar et~al.(2024)Sclar, Choi, Tsvetkov, and Suhr]{sclar2024quantifying}
+Melanie Sclar, Yejin Choi, Yulia Tsvetkov, and Alane Suhr.
+\newblock Quantifying language models' sensitivity to spurious features in prompt design or: How i learned to start worrying about prompt formatting.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=RIu5lyNXjT}.
+
+\bibitem[Shinn et~al.(2023)Shinn, Cassano, Gopinath, Narasimhan, and Yao]{shinn2024reflexion}
+Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao.
+\newblock Reflexion: language agents with verbal reinforcement learning.
+\newblock In A.~Oh, T.~Naumann, A.~Globerson, K.~Saenko, M.~Hardt, and S.~Levine (eds.), \emph{Advances in Neural Information Processing Systems}, volume~36, pp.\  8634--8652. Curran Associates, Inc., 2023.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf}.
+
+\bibitem[Sutton \& Barto(2018)Sutton and Barto]{sutton2018reinforcement}
+Richard~S Sutton and Andrew~G Barto.
+\newblock \emph{Reinforcement learning: An introduction}.
+\newblock MIT press, 2018.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan~N Gomez, \L~ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In I.~Guyon, U.~Von Luxburg, S.~Bengio, H.~Wallach, R.~Fergus, S.~Vishwanathan, and R.~Garnett (eds.), \emph{Advances in Neural Information Processing Systems}, volume~30. Curran Associates, Inc., 2017.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf}.
+
+\bibitem[Von~Oswald et~al.(2023)Von~Oswald, Niklasson, Randazzo, Sacramento, Mordvintsev, Zhmoginov, and Vladymyrov]{pmlr-v202-von-oswald23a}
+Johannes Von~Oswald, Eyvind Niklasson, Ettore Randazzo, Joao Sacramento, Alexander Mordvintsev, Andrey Zhmoginov, and Max Vladymyrov.
+\newblock Transformers learn in-context by gradient descent.
+\newblock In Andreas Krause, Emma Brunskill, Kyunghyun Cho, Barbara Engelhardt, Sivan Sabato, and Jonathan Scarlett (eds.), \emph{Proceedings of the 40th International Conference on Machine Learning}, volume 202 of \emph{Proceedings of Machine Learning Research}, pp.\  35151--35174. PMLR, 23--29 Jul 2023.
+\newblock URL \url{https://proceedings.mlr.press/v202/von-oswald23a.html}.
+
+\bibitem[Wang et~al.(2023)Wang, Li, Dai, Chen, Zhou, Meng, Zhou, and Sun]{wang2023labelwordsanchorsinformation}
+Lean Wang, Lei Li, Damai Dai, Deli Chen, Hao Zhou, Fandong Meng, Jie Zhou, and Xu~Sun.
+\newblock Label words are anchors: An information flow perspective for understanding in-context learning.
+\newblock In Houda Bouamor, Juan Pino, and Kalika Bali (eds.), \emph{Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing}, pp.\  9840--9855, Singapore, December 2023. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2023.emnlp-main.609}.
+\newblock URL \url{https://aclanthology.org/2023.emnlp-main.609}.
+
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, ichter, Xia, Chi, Le, and Zhou]{wei2022chainofthought}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, brian ichter, Fei Xia, Ed~Chi, Quoc~V Le, and Denny Zhou.
+\newblock Chain-of-thought prompting elicits reasoning in large language models.
+\newblock In S.~Koyejo, S.~Mohamed, A.~Agarwal, D.~Belgrave, K.~Cho, and A.~Oh (eds.), \emph{Advances in Neural Information Processing Systems}, volume~35, pp.\  24824--24837. Curran Associates, Inc., 2022.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2022/file/9d5609613524ecf4f15af0f7b31abca4-Paper-Conference.pdf}.
+
+\bibitem[Wei et~al.(2023)Wei, Wei, Tay, Tran, Webson, Lu, Chen, Liu, Huang, Zhou, and Ma]{wei2023largerlanguagemodelsincontext}
+Jerry Wei, Jason Wei, Yi~Tay, Dustin Tran, Albert Webson, Yifeng Lu, Xinyun Chen, Hanxiao Liu, Da~Huang, Denny Zhou, and Tengyu Ma.
+\newblock Larger language models do in-context learning differently, 2023.
+\newblock URL \url{https://arxiv.org/abs/2303.03846}.
+
+\bibitem[Wu et~al.(2024)Wu, Tang, Mitchell, and Li]{wu2024smartplaybenchmarkllmsintelligent}
+Yue Wu, Xuan Tang, Tom Mitchell, and Yuanzhi Li.
+\newblock Smartplay : A benchmark for {LLM}s as intelligent agents.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=S2oTVrlcp3}.
+
+\bibitem[Xie et~al.(2022)Xie, Raghunathan, Liang, and Ma]{xie2022explanationincontextlearningimplicit}
+Sang~Michael Xie, Aditi Raghunathan, Percy Liang, and Tengyu Ma.
+\newblock An explanation of in-context learning as implicit bayesian inference.
+\newblock In \emph{International Conference on Learning Representations}, 2022.
+\newblock URL \url{https://openreview.net/forum?id=RdJVFCHjUMI}.
+
+\bibitem[Xu et~al.(2022)Xu, Shen, Zhang, Lu, Zhao, Tenenbaum, and Gan]{pmlr-v162-xu22g}
+Mengdi Xu, Yikang Shen, Shun Zhang, Yuchen Lu, Ding Zhao, Joshua Tenenbaum, and Chuang Gan.
+\newblock Prompting decision transformer for few-shot policy generalization.
+\newblock In Kamalika Chaudhuri, Stefanie Jegelka, Le~Song, Csaba Szepesvari, Gang Niu, and Sivan Sabato (eds.), \emph{Proceedings of the 39th International Conference on Machine Learning}, volume 162 of \emph{Proceedings of Machine Learning Research}, pp.\  24631--24645. PMLR, 17--23 Jul 2022.
+\newblock URL \url{https://proceedings.mlr.press/v162/xu22g.html}.
+
+\bibitem[Zhang et~al.(2019)Zhang, Agarwal, Iii, Langford, and Negahban]{pmlr-v97-zhang19b}
+Chicheng Zhang, Alekh Agarwal, Hal~Daum{\'e} Iii, John Langford, and Sahand Negahban.
+\newblock Warm-starting contextual bandits: Robustly combining supervised and bandit feedback.
+\newblock In Kamalika Chaudhuri and Ruslan Salakhutdinov (eds.), \emph{Proceedings of the 36th International Conference on Machine Learning}, volume~97 of \emph{Proceedings of Machine Learning Research}, pp.\  7335--7344. PMLR, 09--15 Jun 2019.
+\newblock URL \url{https://proceedings.mlr.press/v97/zhang19b.html}.
+
+\bibitem[Zhang et~al.(2024{\natexlab{a}})Zhang, Hosseini, Bansal, Kazemi, Kumar, and Agarwal]{zhang2024generative}
+Lunjun Zhang, Arian Hosseini, Hritik Bansal, Mehran Kazemi, Aviral Kumar, and Rishabh Agarwal.
+\newblock Generative verifiers: Reward modeling as next-token prediction.
+\newblock In \emph{The 4th Workshop on Mathematical Reasoning and AI at NeurIPS'24}, 2024{\natexlab{a}}.
+\newblock URL \url{https://openreview.net/forum?id=CxHRoTLmPX}.
+
+\bibitem[Zhang et~al.(2024{\natexlab{b}})Zhang, Madaan, Gao, Zhang, Mishra, Yang, Tandon, and Alon]{zhang2024incontextprinciplelearningmistakes}
+Tianjun Zhang, Aman Madaan, Luyu Gao, Steven Zhang, Swaroop Mishra, Yiming Yang, Niket Tandon, and Uri Alon.
+\newblock In-context principle learning from mistakes.
+\newblock In \emph{ICML 2024 Workshop on In-Context Learning}, 2024{\natexlab{b}}.
+\newblock URL \url{https://openreview.net/forum?id=yV6acl90Fq}.
+
+\bibitem[Zhang et~al.(2022)Zhang, Feng, and Tan]{zhang-etal-2022-active}
+Yiming Zhang, Shi Feng, and Chenhao Tan.
+\newblock Active example selection for in-context learning.
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing}, pp.\  9134--9148, Abu Dhabi, United Arab Emirates, December 2022. Association for Computational Linguistics.
+\newblock URL \url{https://aclanthology.org/2022.emnlp-main.622}.
+
+\bibitem[Zheng et~al.(2022)Zheng, Zhang, and Grover]{pmlr-v162-zheng22c}
+Qinqing Zheng, Amy Zhang, and Aditya Grover.
+\newblock Online decision transformer.
+\newblock In Kamalika Chaudhuri, Stefanie Jegelka, Le~Song, Csaba Szepesvari, Gang Niu, and Sivan Sabato (eds.), \emph{Proceedings of the 39th International Conference on Machine Learning}, volume 162 of \emph{Proceedings of Machine Learning Research}, pp.\  27042--27059. PMLR, 17--23 Jul 2022.
+\newblock URL \url{https://proceedings.mlr.press/v162/zheng22c.html}.
+
+\end{thebibliography}

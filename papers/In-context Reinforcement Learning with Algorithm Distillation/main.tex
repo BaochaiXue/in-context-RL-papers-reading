@@ -1,0 +1,42 @@
+\documentclass{article} % For LaTeX2e
+\usepackage[dvipsnames]{xcolor}  % Imported before `iclr2023` to solve the frustrating "Option clash for package xcolor" error.
+\input{preamble}
+\input{defs}
+\usepackage{iclr2023,times}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+\title{In-context Reinforcement Learning \\ with Algorithm Distillation}
+
+\author{Michael Laskin\thanks{ Equal contribution. Corresponding authors: \texttt{mlaskin, luyuwang, vminh@deepmind.com}.} \And Luyu Wang{$^*$} \And Junhyuk Oh \And Emilio Parisotto \And Stephen Spencer \And Richie Steigerwald \And DJ Strouse \And Steven  Hansen \And Angelos Filos \And Ethan Brooks \And Maxime Gazeau \\  \\ DeepMind \And Himanshu Sahni
+\And Satinder Singh \And  Volodymyr Mnih \\
+}
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+
+\maketitle
+
+\input{sections/0_abstract}
+\input{sections/1_introduction}
+\input{sections/2_background}
+\input{sections/3_method}
+\input{sections/4_experimental_setup}
+\input{sections/5_experiments}
+\input{sections/6_related_work}
+\input{sections/7_conclusion}
+
+\bibliography{main}
+\bibliographystyle{iclr2023}
+
+\appendix
+\input{sections/appendix}
+
+
+\end{document}

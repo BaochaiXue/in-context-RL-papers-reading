@@ -1,0 +1,44 @@
+All datasets test performance
+Return after 100
+episodes
+1.0
+0.8
+
+0.8
+0.6
+
+0.6
+0.4
+
+0.4
+0.6
+0.8
+1.0
+
+NAUC
+1.0
+
+Return after 50 episodes
+
+0.4
+0.2
+
+0.2
+
+0.2
+
+0.2
+
+AD
+IC-DQN
+IC-CQL
+IC-IQL
+
+0.4
+0.6
+0.8
+1.0
+
+Return after 25 episodes
+
+

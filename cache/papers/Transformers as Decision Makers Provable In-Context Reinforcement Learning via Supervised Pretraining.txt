@@ -1,0 +1,30 @@
+Emp
+UCB
+TS
+TF
+
+Regret
+
+12
+10
+8
+6
+4
+2
+0
+
+0
+
+50
+
+Bernoulli bandit
+
+100
+
+Time
+
+150
+
+200
+
+

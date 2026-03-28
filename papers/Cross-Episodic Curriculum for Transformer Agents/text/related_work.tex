@@ -1,0 +1,35 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\para{Sequential decision-making with Transformer agents.}
+There are many ongoing efforts to replicate the strong emergent properties demonstrated by Transformer models for sequential decision-making problems~\citep{yang2023foundation}.
+Decision Transformer~\citep{chen2021decisiontransformer} and Trajectory Transformer~\citep{janner2021onebigsequence} pioneered this thread by casting offline RL~\citep{levine2020offline} as sequence modeling problems.
+Gato~\citep{reed2022gato} learns a massively multi-task agent that can be prompted to complete embodied tasks.
+MineDojo~\citep{fan2022minedojo} and VPT~\citep{openai2022vpt} utilize numerous YouTube videos for large-scale pre-training in the video game \textit{Minecraft}.
+VIMA~\citep{jiang2022vima} and RT-1~\citep{brohan2022rt1} build Transformer agents trained at scale for robotic manipulation tasks.
+BeT~\citep{shafiullah2022behavior} and C-BeT~\citep{cui2022play} design novel techniques to learn from demonstrations with multiple modes with Transformers.
+Our causal policy most resembles to VPT~\citep{openai2022vpt}. But we focus on designing learning techniques that are generally effective across a wide spectrum of learning scenarios and application domains.
+
+
+\vspace{-0.5em}
+
+\para{Cross-episodic learning.}
+Cross-episodic learning is a less-explored terrain despite that it has been discussed together with meta-RL~\citep{wang2016learning} for a long time.
+RL$^2$~\citep{duan2016rl2} uses recurrent neural networks for online meta-RL by optimizing multi-episodic value functions.
+Meta-Q-learning~\citep{fakoor2019metaqlearning} instead learns multi-episodic value functions in an offline manner.
+Algorithm Distillation (AD)~\citep{laskin2023incontext} and Adaptive Agent (AdA)~\citep{team2023humantimescale} are two recent, inspiring methods in cross-episodic learning. 
+Though at first glance our learning-progress-based curriculum appears similar to AD, significant differences emerge. Unlike AD, which focuses on in-context improvements at test time and requires numerous single-task source agents for data generation, our approach improves data efficiency for Transformer agents by structuring data in curricula, requiring only a single multi-task agent and allowing for diverse task instances during evaluations. 
+Meanwhile, AdA, although using cross-episodic attention with a Transformer backbone, is rooted in online RL within a proprietary environment. 
+In contrast, we focus on offline behavior cloning in accessible, open-source environments, also extending to IL scenarios unexplored by other meta-learning techniques. 
+Complementary to this, another recent study~\citep{lee2023supervised} provides theoretical insight into cross-episodic learning.
+
+
+\vspace{-0.5em}
+
+\para{Curriculum learning.}
+Curriculum learning represents training strategies that organize learning samples in meaningful orders to facilitate learning~\citep{bengio2009curriculum}.
+It has been proven effective in numerous works that adaptively select simpler task~\citep{Narvekar2017AutonomousTS, Svetlik2017AutomaticCG, riedmiller2018learning, Peng2018CurriculumDF, Czarnecki2018MixMatchA, matiisen2019teacher, narvekar2019learning, Lin2019AdaptiveAT} or auxiliary rewards\citep{Jaderberg2017ReinforcementLW, shen2019situational}. Tasks are also parameterized to form curricula by manipulating goals~\citep{Forestier2017IntrinsicallyMG, Held2018AutomaticGG, Racanire2020AutomatedCG}, environment layouts\citep{wohlke2020performance, baker2019emergent, Portelas2019TeacherAF}, and reward functions~\citep{Gupta2018UnsupervisedMF, Jabri2019UnsupervisedCF}.
+Inspired by this paradigm, our work harnesses the improving nature of sequential experiences to boost learning efficiency and generalization for embodied tasks.
+
+\vspace{-0.5em}
+

@@ -1,0 +1,30 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                                                      & \textbf{Observation}      & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{4}{*}{Gemini 1.5 Flash}                                & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & \textbf{42.83} \\
+                                                                        &                           &                           & True                      & 6.16 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 8.07 \\
+                                                                        &                           &                           & True                      & 6.46 \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{4}{*}{Gemini 1.5 Pro}                                  & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & \textbf{21.86} \\
+                                                                        &                           &                           & True                      & 8.68 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 6.33 \\
+                                                                        &                           &                           & True                      & 6.21 \\
+    \midrule                                
+    \multirow[c]{4}{*}{Gemini 2.0 Flash Exp.}                           & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & \textbf{31.80} \\
+                                                                        &                           &                           & True                      & 11.40 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 15.20 \\
+                                                                        &                           &                           & True                      & 10.20 \\
+    \midrule                                
+    \multirow[c]{4}{*}{GPT-4o}                                          & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & \textbf{9.95} \\
+                                                                        &                           &                           & True                      & 5.40 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 6.40 \\
+                                                                        &                           &                           & True                      & 5.40 \\
+    \midrule                                
+    \multirow[c]{4}{*}{o1}                                              & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & \textbf{29.00} \\
+                                                                        &                           &                           & True                      & 19.20 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 23.00 \\
+                                                                        &                           &                           & True                      & 16.40 \\
+   \bottomrule
+\end{tabular}

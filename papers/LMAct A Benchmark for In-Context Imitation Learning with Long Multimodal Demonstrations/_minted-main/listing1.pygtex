@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+ \PYG{n}{demonstration\PYGZus{}prompt} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{ You are a powerful reinforcement learning agent. You can effectively identify a policy}
+\PYG{l+s+s1}{ exposed by demonstrations and reproduce it in a new situation.}
+
+\PYG{l+s+s1}{ Here are a number of demonstrations:}
+
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}0\PYGZus{}0\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}0\PYGZus{}0\PYGZgt{}}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}0\PYGZus{}1\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}0\PYGZus{}1\PYGZgt{}}
+\PYG{l+s+s1}{ ...}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}0\PYGZus{}9\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}0\PYGZus{}9\PYGZgt{}}
+
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}1\PYGZus{}0\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}1\PYGZus{}0\PYGZgt{}}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}1\PYGZus{}1\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}1\PYGZus{}1\PYGZgt{}}
+\PYG{l+s+s1}{ ...}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}1\PYGZus{}9\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}1\PYGZus{}9\PYGZgt{}}
+
+\PYG{l+s+s1}{ ...}
+
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}7\PYGZus{}0\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}7\PYGZus{}0\PYGZgt{}}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}7\PYGZus{}1\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}7\PYGZus{}1\PYGZgt{}}
+\PYG{l+s+s1}{ ...}
+\PYG{l+s+s1}{ Observation: \PYGZlt{}IMG\PYGZus{}7\PYGZus{}9\PYGZgt{} Action: \PYGZlt{}AC\PYGZus{}7\PYGZus{}9\PYGZgt{}}
+\PYG{l+s+s1}{ \PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}

@@ -1,0 +1,73 @@
+\section{Related Work}
+\label{sec:rel_works}
+
+% Here we give an overview of related work from the areas of learning from a few demonstrations, using transformers for sequential decision making, and in-context learning with transformers. We provide additional references in Appendix \ref{app:related-work}.
+
+
+\textbf{Few-Shot Imitation Learning:}
+ Several other works aim to learn from only a few demonstrations using them as inverse curricula for solving very hard exploration problems~\citep{duan2016rl,james2018task,jang2022bc,mandi2022towards}, even if the demonstrations don't contain any actions~\citep{resnick2018backplay,salimans2018learning}. However, none of these works leverage the in-context learning abilities of transformers to achieve few-shot offline learning of new tasks. There is also a large body of work focusing on meta-reinforcement learning, but this requires online interaction and feedback from the environment in order to adapt to new tasks at test time~\citep{schmidhuber1987evolutionary,duan2016rl,finn2017model,pong2022offline, mitchell2021offline,beck2023survey}, which we do not assume. Instead, our aim is to learn to solve new tasks from a small number of offline demonstrations. 
+
+\textbf{In-Context Learning with Transformers:}
+In-context learning (ICL), first coined in \citep{gpt3}, is a phenomenon where a model learns a completely new task simply by conditioning on a few examples, without the need for any weight updates. Many works thereafter study this phenomenon~\citep{von2022transformers,chan2022transformers,akyurek2022learning,olsson2022context,hahn2023theory,xie2021explanation,dai2022can}. For example, \citep{zipfian_icl} analyze what makes large language models perform well on few-shot learning tasks through the lens of data properties. Their findings suggest that ICL naturally arises when data distribution follows a power law (\ie{} Zipfian) distribution and exhibits inherent "burstiness."  In \cite{kirsch2022generalpurpose}, the authors demonstrate that ICL emerges as a function of the number of tasks and model size, with a clear phase transition between instance memorization, task memorization, and generalization. More recently, \cite{functionclass} show that standard transformers can ICL learn entire function classes such as linear functions, sparse linear functions, and two-layer MLPs. While all these works are confined to the supervised learning setting, our work aims to study what drives the emergence of ICL in the sequential decision making setting. 
+
+\textbf{Transformers for Sequential decision making:}
+The success of transformers in natural language processing \citep{transformers} has motivated their application to sequential decision making~\citep{raileanu2020fast,trajectory_transformer,reid2022can,ajay2022conditional,correia2022hierarchical,yamagata2022q,melo2022transformers,reed2022generalist,zheng2022online,chen2022transdreamer,S3M, ryoo2022token,lincontextual,sun2023smart,hu2023decision,xu2023hyper,sudhakaran2023skill}, with several works emphasizing their limitations in this setting~\citep{brandfonbrener2022does,paster2022you,siebenborn2022crucial}. The Decision Transformer (DT) \citep{decision_transformer} was one of the first works to treat policy optimization as a sequence modelling problem and train transformer policies conditioned on the episode history and future return. 
+%DTs learn a policy conditioned on the episode history and desired return, achieving noteworthy results on offline RL benchmarks. 
+%Concurrently, trajectory transformers \citep{trajectory_transformer} seek to model the environment dynamics. 
+Inspired by DT, Multi-Game Decision Transformer (MGDT) \cite{MGDT} trains a single-trajectory transformer to solve multiple Atari games, but the generalization capablities are limited without additional fine-tuning on the unseen tasks. In contrast with our work, they don't provide the model with additional demonstrations of the new task at test time.
+More similar to our work, Prompt-DT \cite{prompt_dt} shows that DTs conditioned on an explicit prompt exhibit few-shot learning of new tasks (\ie{} with different reward functions) in the same environment (\ie{} with the same states and dynamics). However, the test tasks they consider differ only slightly from the training ones e.g. the agent has to walk in a different direction so the reward function changes but the states, actions, and dynamics remain the same. In contrast, our train and test tasks differ greatly e.g. playing a platform game versus navigating a maze, having entirely new states, actions, dynamics, and reward functions. Similarly,~\cite{melo2022transformers} show that transformers are meta-reinforcement learners, but they require access to rewards and many demonstrations to solve new tasks at test time. While~\cite{team2023humantimescale} demonstrate \textit{few-shot online learning} of new tasks, their model is trained on billions of tasks, whereas we consider the \textit{few-shot offline learning} setting and we train our model only on a handful of tasks. Another related work is Algorithmic Distillation (AD) \cite{algo_dist}, which aims to learn a policy improvement operator by training a transformer on sequences of trajectories with increasing returns. However, AD assumes access to multiple model checkpoints with different proficiency levels and hasn't demonstrated generalization to entirely new tasks with different states, actions, dynamics and rewards. In contrast with all these works, our goal is to generalize to \textit{completely new tasks} with different states, actions, dynamics, and rewards from a handful of expert demonstrations. We demonstrate cross-task generalization on MiniHack and Procgen, two domains that contain vastly different tasks, from maze navigation to platform games. Our work is also first to extensively study how different factors (such as task diversity, trajectory burstiness, environment stochasticity, model and dataset size) influence the emergence of in-context learning in sequential decision making.
+
+Finally, \Cref{tab:related_works} succinctly contrasts our work with prior work. 
+% \begin{table}[t]
+
+% \centering
+
+% \label{tab:related_works}
+% % Adjusting the column types to prevent awkward word breaks
+% \resizebox{\columnwidth}{!}{
+% \begin{tabular}{ccccc}
+% % \begin{center}
+% \toprule
+% \textbf{Paper} & \textbf{Setting} & \textbf{Multi-Env Training} & \textbf{Generalization} & \textbf{Axes of Generalization} \\
+% \midrule
+% Our Work & Few-Shot Imitation Learning & Yes &  OOD & States, rewards, and dynamics \\
+% \cite{prompt_dt} & Offline RL with transformers & No & IID & Rewards \\
+% \cite{kumar2020conservative} & Offline RL  & No &  NA & NA \\
+% \cite{algo_dist}  & Offline RL as a sequence modeling problem with transformers & No & IID & Rewards \\
+% \cite{lu2023structured} & Online RL with structured state space models & Yes  & OOD & Rewards and dynamics \\
+% \cite{DPT} & Offline RL as a sequence modeling problem with transformers & No & IID & Rewards \\
+% \cite{adaptiveagentteam2023humantimescale} & Online RL with transformers & Yes & OOD & Rewards, states and dynamics \\
+% \bottomrule
+% % \end{center}
+% \end{tabular}
+% }
+% \caption{Comparison of our work with different related works}
+% \end{table}
+
+  \begin{table}[t]
+
+\centering
+
+\label{tab:related_works}
+% Adjusting the column types to prevent awkward word breaks
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccc}
+% \begin{center}
+\toprule
+\textbf{Paper} & \textbf{Setting} & \textbf{Multi-Env Training} & \textbf{Generalization} & \textbf{Axes of Generalization} \\
+\midrule
+Our Work & Few-Shot Imitation Learning & Yes &  OOD & States, rewards, and dynamics \\
+\cite{prompt_dt} & Offline RL with Transformers & No & IID & Rewards \\
+\cite{kumar2020conservative} & Offline RL  & No &  NA & NA \\
+\cite{algo_dist}  & Offline RL as a Sequence Modeling Problem with Transformers & No & IID & Rewards \\
+\cite{lu2023structured} & Online RL with Structured State Space Models & Yes  & OOD & Rewards and dynamics \\
+\cite{DPT} & Offline RL as a Sequence Modeling Problem with Transformers & No & IID & Rewards \\
+\cite{adaptiveagentteam2023humantimescale} & Online RL with Transformers & Yes & OOD & Rewards, states and dynamics \\
+\bottomrule
+% \end{center}
+\end{tabular}
+}
+\caption{Comparison of our work with different related works}
+\end{table}
+ % Although the model can improve the policy "in-context," the limited scope of AD experiments leaves it unclear under which conditions cross-domain generalization may occur.
+

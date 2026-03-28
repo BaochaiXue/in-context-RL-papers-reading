@@ -1,0 +1,105 @@
+topic: in-context-rl
+claim_family: methodology
+claims:
+  - claim_id: icrl-method-001
+    statement: "Pure action-imitation objectives are repeatedly described as insufficient in offline ICRL; local notes support that value-oriented or reward-oriented objectives can materially improve performance."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+      - notes/papers/in-context-reinforcement-learning-without-optimal-action-labels.md
+      - notes/papers/pretraining-decision-transformers-with-reward-prediction-for-in-context-multi-task-structured-bandit-learning.md
+      - notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+        anchors: [Method, Evaluation, Conclusion]
+      - note_file: notes/papers/in-context-reinforcement-learning-without-optimal-action-labels.md
+        anchors: [Decision Importance Transformer, Numerical Results]
+      - note_file: notes/papers/pretraining-decision-transformers-with-reward-prediction-for-in-context-multi-task-structured-bandit-learning.md
+        anchors: [Reward Prediction, Main Results]
+      - note_file: notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+        anchors: [RL Incorporation, Overall performance, Conclusion and Limitations]
+    confidence: 0.88
+    downstream_use_candidates: [method-selection, baseline-design, proposal-pillar]
+
+  - claim_id: icrl-method-002
+    statement: "Weaker supervision is viable in the local corpus only when accompanied by careful data curation, trust constraints, relabeling, or reward-structure objectives."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-without-optimal-action-labels.md
+      - notes/papers/random-policy-enables-in-context-reinforcement-learning-within-trust-horizons.md
+      - notes/papers/filtering-learning-histories-enhances-in-context-reinforcement-learning.md
+      - notes/papers/pretraining-decision-transformers-with-reward-prediction-for-in-context-multi-task-structured-bandit-learning.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-without-optimal-action-labels.md
+        anchors: [Decision Importance Transformer, Numerical Results]
+      - note_file: notes/papers/random-policy-enables-in-context-reinforcement-learning-within-trust-horizons.md
+        anchors: [State-Action Distillation, Trustworthiness of the Random Policy, Numerical Results]
+      - note_file: notes/papers/filtering-learning-histories-enhances-in-context-reinforcement-learning.md
+        anchors: [Learning History Filtering, Numerical Results, Discussion]
+      - note_file: notes/papers/pretraining-decision-transformers-with-reward-prediction-for-in-context-multi-task-structured-bandit-learning.md
+        anchors: [Reward Prediction, Main Results]
+    confidence: 0.84
+    downstream_use_candidates: [data-pipeline, training-objective, ablation-plan]
+
+  - claim_id: icrl-method-003
+    statement: "Raw history is a weak interface for adaptation in many local notes; filtering, retrieval, curriculum, or algorithmic summarization repeatedly improve usability of context."
+    type: inference
+    support_note_files:
+      - notes/papers/filtering-learning-histories-enhances-in-context-reinforcement-learning.md
+      - notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+      - notes/papers/cross-episodic-curriculum-for-transformer-agents.md
+      - notes/papers/can-large-language-models-explore-in-context.md
+      - notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+    evidence_anchors:
+      - note_file: notes/papers/filtering-learning-histories-enhances-in-context-reinforcement-learning.md
+        anchors: [Learning History Filtering, Numerical Results]
+      - note_file: notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+        anchors: [Retrieval-augmented Decision Transformer, Ablation Studies, Discussion]
+      - note_file: notes/papers/cross-episodic-curriculum-for-transformer-agents.md
+        anchors: [Cross-Episodic Curriculum, Practical Implementations, Experimental Setup]
+      - note_file: notes/papers/can-large-language-models-explore-in-context.md
+        anchors: [Investigating successes, Root causes]
+      - note_file: notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+        anchors: [Inference-time ag, Algorithm Distillation via Demonstration and Fine-tuning, Results and Ablation studies]
+    confidence: 0.86
+    downstream_use_candidates: [memory-design, context-compiler, retrieval-ablation]
+
+  - claim_id: icrl-method-004
+    statement: "Long-context architectural work in the local corpus is primarily solving memory-efficiency and context-management problems rather than replacing the need for stronger adaptive objectives."
+    type: inference
+    support_note_files:
+      - notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+      - notes/papers/decision-mamba-reinforcement-learning-via-hybrid-selective-sequence-modeling.md
+      - notes/papers/structured-state-space-models-for-in-context-reinforcement-learning.md
+      - notes/papers/xlstm-extended-long-short-term-memory.md
+      - notes/papers/flashattention-2-faster-attention-with-better-parallelism-and-work-partitioning.md
+    evidence_anchors:
+      - note_file: notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+        anchors: [Policy Architecture, Training with 64k Context Length, Conclusion and Limitations]
+      - note_file: notes/papers/decision-mamba-reinforcement-learning-via-hybrid-selective-sequence-modeling.md
+        anchors: [Method, Experiments]
+      - note_file: notes/papers/structured-state-space-models-for-in-context-reinforcement-learning.md
+        anchors: [Method, Experiments]
+      - note_file: notes/papers/xlstm-extended-long-short-term-memory.md
+        anchors: [xLSTM Architecture, Memory and Speed Considerations]
+      - note_file: notes/papers/flashattention-2-faster-attention-with-better-parallelism-and-work-partitioning.md
+        anchors: [Hardware Performance, Standard Attention Implementation]
+    confidence: 0.78
+    downstream_use_candidates: [systems-design, architecture-choices, compute-budgeting]
+
+  - claim_id: icrl-method-005
+    statement: "Local notes on variable action spaces and communicative/world-model approaches support that fixed action heads are a methodological bottleneck for cross-interface adaptation."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-for-variable-action-spaces.md
+      - notes/papers/in-context-reinforcement-learning-via-communicative-world-models.md
+      - notes/papers/vintix-action-model-via-in-context-reinforcement-learning.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-for-variable-action-spaces.md
+        anchors: [Algorithm Distillation Struggles with Novel Action Spaces, Headless-AD, Ablations]
+      - note_file: notes/papers/in-context-reinforcement-learning-via-communicative-world-models.md
+        anchors: [Methodology, Deployment, Multi-Environment Training for Generalization]
+      - note_file: notes/papers/vintix-action-model-via-in-context-reinforcement-learning.md
+        anchors: [Approach, Training and Inference Pipeline, Results]
+    confidence: 0.74
+    downstream_use_candidates: [interface-robustness, action-representation, embodied-transfer]

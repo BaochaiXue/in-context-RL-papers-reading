@@ -1,0 +1,836 @@
+\begin{thebibliography}{83}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Agarwal et~al.(2024)Agarwal, Singh, Zhang, Bohnet, Rosias, Chan,
+  Zhang, Anand, Abbas, Nova, Co{-}Reyes, Chu, Behbahani, Faust, and
+  Larochelle]{agarwal2024many}
+Agarwal, R., Singh, A., Zhang, L., Bohnet, B., Rosias, L., Chan, S. C.~Y.,
+  Zhang, B., Anand, A., Abbas, Z., Nova, A., Co{-}Reyes, J.~D., Chu, E.,
+  Behbahani, F. M.~P., Faust, A., and Larochelle, H.
+\newblock Many-shot in-context learning.
+\newblock In \emph{NeurIPS}, 2024.
+
+\bibitem[Aitchison et~al.(2023)Aitchison, Sweetser, and
+  Hutter]{aitchison2023atari}
+Aitchison, M., Sweetser, P., and Hutter, M.
+\newblock Atari-5: Distilling the arcade learning environment down to five
+  games.
+\newblock In \emph{{ICML}}, Proceedings of Machine Learning Research, 2023.
+
+\bibitem[Anil et~al.(2023)Anil, Borgeaud, Wu, Alayrac, Yu, Soricut, Schalkwyk,
+  Dai, Hauth, Millican, Silver, Petrov, Johnson, Antonoglou, Schrittwieser,
+  Glaese, Chen, Pitler, Lillicrap, Lazaridou, Firat, Molloy, Isard, Barham,
+  Hennigan, Lee, Viola, Reynolds, Xu, Doherty, Collins, Meyer, Rutherford,
+  Moreira, Ayoub, Goel, Tucker, Piqueras, Krikun, Barr, Savinov, Danihelka,
+  Roelofs, White, Andreassen, von Glehn, Yagati, Kazemi, Gonzalez, Khalman,
+  Sygnowski, and et~al.]{anil2023gemini}
+Anil, R., Borgeaud, S., Wu, Y., Alayrac, J., Yu, J., Soricut, R., Schalkwyk,
+  J., Dai, A.~M., Hauth, A., Millican, K., Silver, D., Petrov, S., Johnson, M.,
+  Antonoglou, I., Schrittwieser, J., Glaese, A., Chen, J., Pitler, E.,
+  Lillicrap, T.~P., Lazaridou, A., Firat, O., Molloy, J., Isard, M., Barham,
+  P.~R., Hennigan, T., Lee, B., Viola, F., Reynolds, M., Xu, Y., Doherty, R.,
+  Collins, E., Meyer, C., Rutherford, E., Moreira, E., Ayoub, K., Goel, M.,
+  Tucker, G., Piqueras, E., Krikun, M., Barr, I., Savinov, N., Danihelka, I.,
+  Roelofs, B., White, A., Andreassen, A., von Glehn, T., Yagati, L., Kazemi,
+  M., Gonzalez, L., Khalman, M., Sygnowski, J., and et~al.
+\newblock Gemini: {A} family of highly capable multimodal models.
+\newblock \emph{arXiv:2312.11805}, 2023.
+
+\bibitem[Anthropic(2024{\natexlab{a}})]{anthropic2024claude3}
+Anthropic.
+\newblock The claude 3 model family: Opus, sonnet, haiku.
+\newblock Technical report, Anthropic, 2024{\natexlab{a}}.
+
+\bibitem[Anthropic(2024{\natexlab{b}})]{anthropic2024claude3.5}
+Anthropic.
+\newblock Claude 3.5 sonnet, 2024{\natexlab{b}}.
+\newblock URL \url{https://www.anthropic.com/news/claude-3-5-sonnet}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[Anthropic(2024{\natexlab{c}})]{anthropic2024introducing}
+Anthropic.
+\newblock Introducing computer use, a new claude 3.5 sonnet, and claude 3.5
+  haiku, 2024{\natexlab{c}}.
+\newblock URL \url{https://www.anthropic.com/news/3-5-models-and-computer-use}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[Anthropic(2024{\natexlab{d}})]{anthropic2024rate}
+Anthropic.
+\newblock Using the api --- rate limits, 2024{\natexlab{d}}.
+\newblock URL \url{https://docs.anthropic.com/en/api/rate-limits}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[Anthropic(2024{\natexlab{e}})]{anthropic2024vision}
+Anthropic.
+\newblock Build with claude --- vision, 2024{\natexlab{e}}.
+\newblock URL
+  \url{https://docs.anthropic.com/en/docs/build-with-claude/vision}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[Barth{-}Maron et~al.(2018)Barth{-}Maron, Hoffman, Budden, Dabney,
+  Horgan, TB, Muldal, Heess, and Lillicrap]{barth2018distributed}
+Barth{-}Maron, G., Hoffman, M.~W., Budden, D., Dabney, W., Horgan, D., TB, D.,
+  Muldal, A., Heess, N., and Lillicrap, T.~P.
+\newblock Distributed distributional deterministic policy gradients.
+\newblock In \emph{{ICLR}}, 2018.
+
+\bibitem[Bauer et~al.(2023)Bauer, Baumli, Behbahani, Bhoopchand,
+  Bradley{-}Schmieg, Chang, Clay, Collister, Dasagi, Gonzalez, Gregor, Hughes,
+  Kashem, Loks{-}Thompson, Openshaw, Parker{-}Holder, Pathak, Nieves,
+  Rakicevic, Rockt{\"{a}}schel, Schroecker, Singh, Sygnowski, Tuyls, York,
+  Zacherl, and Zhang]{bauer2023human}
+Bauer, J., Baumli, K., Behbahani, F. M.~P., Bhoopchand, A., Bradley{-}Schmieg,
+  N., Chang, M., Clay, N., Collister, A., Dasagi, V., Gonzalez, L., Gregor, K.,
+  Hughes, E., Kashem, S., Loks{-}Thompson, M., Openshaw, H., Parker{-}Holder,
+  J., Pathak, S., Nieves, N.~P., Rakicevic, N., Rockt{\"{a}}schel, T.,
+  Schroecker, Y., Singh, S., Sygnowski, J., Tuyls, K., York, S., Zacherl, A.,
+  and Zhang, L.~M.
+\newblock Human-timescale adaptation in an open-ended task space.
+\newblock In \emph{{ICML}}, 2023.
+
+\bibitem[Bellemare et~al.(2013)Bellemare, Naddaf, Veness, and
+  Bowling]{bellemare2013arcade}
+Bellemare, M.~G., Naddaf, Y., Veness, J., and Bowling, M.
+\newblock The arcade learning environment: An evaluation platform for general
+  agents.
+\newblock \emph{J. Artif. Intell. Res.}, 47:\penalty0 253--279, 2013.
+
+\bibitem[Brooks et~al.(2023)Brooks, Walls, Lewis, and Singh]{brooks2023large}
+Brooks, E.~A., Walls, L., Lewis, R.~L., and Singh, S.
+\newblock Large language models can implement policy iteration.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, Agarwal, Herbert{-}Voss, Krueger,
+  Henighan, Child, Ramesh, Ziegler, Wu, Winter, Hesse, Chen, Sigler, Litwin,
+  Gray, Chess, Clark, Berner, McCandlish, Radford, Sutskever, and
+  Amodei]{brown2020language}
+Brown, T.~B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P.,
+  Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S.,
+  Herbert{-}Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A.,
+  Ziegler, D.~M., Wu, J., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin,
+  M., Gray, S., Chess, B., Clark, J., Berner, C., McCandlish, S., Radford, A.,
+  Sutskever, I., and Amodei, D.
+\newblock Language models are few-shot learners.
+\newblock In \emph{NeurIPS}, 2020.
+
+\bibitem[Bulatov et~al.(2022)Bulatov, Kuratov, and
+  Burtsev]{bulatov2022recurrent}
+Bulatov, A., Kuratov, Y., and Burtsev, M.
+\newblock Recurrent memory transformer.
+\newblock In \emph{NeurIPS}, 2022.
+
+\bibitem[Carlini(2023)]{carlini2023playing}
+Carlini, N.
+\newblock Playing chess with large language models, 2023.
+\newblock URL \url{https://nicholas.carlini.com/writing/2023/chess-llm.html}.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel,
+  Srinivas, and Mordatch]{chen2021decision}
+Chen, L., Lu, K., Rajeswaran, A., Lee, K., Grover, A., Laskin, M., Abbeel, P.,
+  Srinivas, A., and Mordatch, I.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock In \emph{NeurIPS}, pp.\  15084--15097, 2021.
+
+\bibitem[Cherepanov et~al.(2024)Cherepanov, Staroverov, Yudin, Kovalev, and
+  Panov]{cherepanov2024recurrent}
+Cherepanov, E., Staroverov, A., Yudin, D., Kovalev, A.~K., and Panov, A.~I.
+\newblock Recurrent action transformer with memory.
+\newblock \emph{arXiv:2306.09459}, 2024.
+
+\bibitem[Chevalier{-}Boisvert et~al.(2019)Chevalier{-}Boisvert, Bahdanau,
+  Lahlou, Willems, Saharia, Nguyen, and Bengio]{chevalier2019babyai}
+Chevalier{-}Boisvert, M., Bahdanau, D., Lahlou, S., Willems, L., Saharia, C.,
+  Nguyen, T.~H., and Bengio, Y.
+\newblock Babyai: {A} platform to study the sample efficiency of grounded
+  language learning.
+\newblock In \emph{{ICLR}}, 2019.
+
+\bibitem[Chiang et~al.(2024)Chiang, Zheng, Sheng, Angelopoulos, Li, Li, Zhu,
+  Zhang, Jordan, Gonzalez, and Stoica]{chiang2024chatbot}
+Chiang, W., Zheng, L., Sheng, Y., Angelopoulos, A.~N., Li, T., Li, D., Zhu, B.,
+  Zhang, H., Jordan, M.~I., Gonzalez, J.~E., and Stoica, I.
+\newblock Chatbot arena: An open platform for evaluating llms by human
+  preference.
+\newblock In \emph{{ICML}}, 2024.
+
+\bibitem[Costarelli et~al.(2024)Costarelli, Allen, Hauksson, Sodunke,
+  Hariharan, Cheng, Li, and Yadav]{costarelli2024gamebench}
+Costarelli, A., Allen, M., Hauksson, R., Sodunke, G., Hariharan, S., Cheng, C.,
+  Li, W., and Yadav, A.
+\newblock Gamebench: Evaluating strategic reasoning abilities of {LLM} agents.
+\newblock \emph{arXiv:2406.06613}, 2024.
+
+\bibitem[Duan et~al.(2017)Duan, Andrychowicz, Stadie, Ho, Schneider, Sutskever,
+  Abbeel, and Zaremba]{duan2017oneshot}
+Duan, Y., Andrychowicz, M., Stadie, B.~C., Ho, J., Schneider, J., Sutskever,
+  I., Abbeel, P., and Zaremba, W.
+\newblock One-shot imitation learning.
+\newblock In \emph{{NIPS}}, 2017.
+
+\bibitem[Fang et~al.(2024)Fang, Liu, Abbeel, and Levine]{fang2024moka}
+Fang, K., Liu, F., Abbeel, P., and Levine, S.
+\newblock {MOKA:} open-world robotic manipulation through mark-based visual
+  prompting.
+\newblock In \emph{Robotics: Science and Systems}, 2024.
+
+\bibitem[Fiekas(2012)]{fiekas2012python}
+Fiekas, N.
+\newblock python-chess, 2012.
+\newblock URL \url{https://python-chess.readthedocs.io/en/latest/index.html}.
+
+\bibitem[Fu et~al.(2024)Fu, Huang, Datta, Chen, Panitch, Liu, Li, and
+  Goldberg]{fu2024incontext}
+Fu, L., Huang, H., Datta, G., Chen, L.~Y., Panitch, W.~C., Liu, F., Li, H., and
+  Goldberg, K.
+\newblock In-context imitation learning via next-token prediction.
+\newblock \emph{arXiv:2408.15980}, 2024.
+
+\bibitem[Gallou{\'{e}}dec et~al.(2024)Gallou{\'{e}}dec, Beeching, Romac, and
+  Dellandr{\'{e}}a]{gallouedec2024jack}
+Gallou{\'{e}}dec, Q., Beeching, E., Romac, C., and Dellandr{\'{e}}a, E.
+\newblock Jack of all trades, master of some, a multi-purpose transformer
+  agent.
+\newblock \emph{arXiv:2402.09844}, 2024.
+
+\bibitem[Genewein et~al.(2023)Genewein, Del{\'{e}}tang, Ruoss, Wenliang, Catt,
+  Dutordoir, Grau{-}Moya, Orseau, Hutter, and Veness]{genewein2023memory}
+Genewein, T., Del{\'{e}}tang, G., Ruoss, A., Wenliang, L.~K., Catt, E.,
+  Dutordoir, V., Grau{-}Moya, J., Orseau, L., Hutter, M., and Veness, J.
+\newblock Memory-based meta-learning on non-stationary distributions.
+\newblock In \emph{{ICML}}, 2023.
+
+\bibitem[Genewein et~al.(2025)Genewein, Li, Grau-Moya, Ruoss, Orseau, and
+  Hutter]{genewein2025understanding}
+Genewein, T., Li, K.~W., Grau-Moya, J., Ruoss, A., Orseau, L., and Hutter, M.
+\newblock Understanding prompt tuning and in-context learning via
+  meta-learning.
+\newblock \emph{arXiv:2505.17010}, 2025.
+
+\bibitem[Glazer et~al.(2024)Glazer, Erdil, Besiroglu, Chicharro, Chen, Gunning,
+  Olsson, Denain, Ho, de~Oliveira~Santos, Järviniemi, Barnett, Sandler,
+  Sevilla, Ren, Pratt, Levine, Barkley, Stewart, Grechuk, Grechuk, and
+  Enugandla]{glazer2024frontiermath}
+Glazer, E., Erdil, E., Besiroglu, T., Chicharro, D., Chen, E., Gunning, A.,
+  Olsson, C.~F., Denain, J.-S., Ho, A., de~Oliveira~Santos, E., Järviniemi,
+  O., Barnett, M., Sandler, R., Sevilla, J., Ren, Q., Pratt, E., Levine, L.,
+  Barkley, G., Stewart, N., Grechuk, B., Grechuk, T., and Enugandla, S.~V.
+\newblock Frontiermath: A benchmark for evaluating advanced mathematical
+  reasoning in ai.
+\newblock \emph{arXiv:2411.04872}, 2024.
+
+\bibitem[Google(2024)]{google2024understand}
+Google.
+\newblock Understand and count tokens, 2024.
+\newblock URL \url{https://ai.google.dev/gemini-api/docs/tokens}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[{Google DeepMind}(2024{\natexlab{a}})]{google2024flash}
+{Google DeepMind}.
+\newblock Gemini 2.0 flash experimental, 2024{\natexlab{a}}.
+\newblock URL \url{https://deepmind.google/technologies/gemini/flash}.
+\newblock Accessed: 2025-01-21.
+
+\bibitem[{Google DeepMind}(2024{\natexlab{b}})]{google2024introducing}
+{Google DeepMind}.
+\newblock Introducing gemini 2.0: our new ai model for the agentic era,
+  2024{\natexlab{b}}.
+\newblock URL
+  \url{https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024}.
+\newblock Accessed: 2025-01-21.
+
+\bibitem[Grau{-}Moya et~al.(2024)Grau{-}Moya, Genewein, Hutter, Orseau,
+  Del{\'{e}}tang, Catt, Ruoss, Wenliang, Mattern, Aitchison, and
+  Veness]{grau2024learning}
+Grau{-}Moya, J., Genewein, T., Hutter, M., Orseau, L., Del{\'{e}}tang, G.,
+  Catt, E., Ruoss, A., Wenliang, L.~K., Mattern, C., Aitchison, M., and Veness,
+  J.
+\newblock Learning universal predictors.
+\newblock In \emph{{ICML}}, 2024.
+
+\bibitem[Hafner(2022)]{hafner2022benchmarking}
+Hafner, D.
+\newblock Benchmarking the spectrum of agent capabilities.
+\newblock In \emph{{ICLR}}, 2022.
+
+\bibitem[Hessel et~al.(2021)Hessel, Danihelka, Viola, Guez, Schmitt, Sifre,
+  Weber, Silver, and van Hasselt]{hessel2021muesli}
+Hessel, M., Danihelka, I., Viola, F., Guez, A., Schmitt, S., Sifre, L., Weber,
+  T., Silver, D., and van Hasselt, H.
+\newblock Muesli: Combining improvements in policy optimization.
+\newblock In \emph{{ICML}}, 2021.
+
+\bibitem[Huang et~al.(2022)Huang, Abbeel, Pathak, and
+  Mordatch]{huang2022language}
+Huang, W., Abbeel, P., Pathak, D., and Mordatch, I.
+\newblock Language models as zero-shot planners: Extracting actionable
+  knowledge for embodied agents.
+\newblock In \emph{{ICML}}, 2022.
+
+\bibitem[Jiang et~al.(2024)Jiang, Irvin, Wang, Chaudhry, Chen, and
+  Ng]{jiang2024many}
+Jiang, Y., Irvin, J., Wang, J.~H., Chaudhry, M.~A., Chen, J.~H., and Ng, A.~Y.
+\newblock Many-shot in-context learning in multimodal foundation models.
+\newblock \emph{arXiv:2405.09798}, 2024.
+
+\bibitem[Kojima et~al.(2022)Kojima, Gu, Reid, Matsuo, and
+  Iwasawa]{kojima2022large}
+Kojima, T., Gu, S.~S., Reid, M., Matsuo, Y., and Iwasawa, Y.
+\newblock Large language models are zero-shot reasoners.
+\newblock In \emph{NeurIPS}, 2022.
+
+\bibitem[Kuratov et~al.(2024)Kuratov, Bulatov, Anokhin, Rodkin, Sorokin,
+  Sorokin, and Burtsev]{kuratov2024babilong}
+Kuratov, Y., Bulatov, A., Anokhin, P., Rodkin, I., Sorokin, D., Sorokin, A.~Y.,
+  and Burtsev, M.
+\newblock {BABILong}: Testing the limits of llms with long context
+  reasoning-in-a-haystack.
+\newblock In \emph{NeurIPS}, 2024.
+
+\bibitem[K{\"{u}}ttler et~al.(2020)K{\"{u}}ttler, Nardelli, Miller, Raileanu,
+  Selvatici, Grefenstette, and Rockt{\"{a}}schel]{kuttler2020nethack}
+K{\"{u}}ttler, H., Nardelli, N., Miller, A.~H., Raileanu, R., Selvatici, M.,
+  Grefenstette, E., and Rockt{\"{a}}schel, T.
+\newblock The nethack learning environment.
+\newblock In \emph{NeurIPS}, 2020.
+
+\bibitem[Lee et~al.(2023)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and
+  Brunskill]{lee2023supervised}
+Lee, J., Xie, A., Pacchiano, A., Chandak, Y., Finn, C., Nachum, O., and
+  Brunskill, E.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Li et~al.(2022)Li, Puig, Paxton, Du, Wang, Fan, Chen, Huang,
+  Aky{\"{u}}rek, Anandkumar, Andreas, Mordatch, Torralba, and
+  Zhu]{li2022pretrained}
+Li, S., Puig, X., Paxton, C., Du, Y., Wang, C., Fan, L., Chen, T., Huang, D.,
+  Aky{\"{u}}rek, E., Anandkumar, A., Andreas, J., Mordatch, I., Torralba, A.,
+  and Zhu, Y.
+\newblock Pre-trained language models for interactive decision-making.
+\newblock In \emph{NeurIPS}, 2022.
+
+\bibitem[Ma et~al.(2025)Ma, Hejna, Fu, Shah, Liang, Xu, Kirmani, Xu, Driess,
+  Xiao, Bastani, Jayaraman, Yu, Zhang, Sadigh, and Xia]{ma2025vision}
+Ma, Y.~J., Hejna, J., Fu, C., Shah, D., Liang, J., Xu, Z., Kirmani, S., Xu, P.,
+  Driess, D., Xiao, T., Bastani, O., Jayaraman, D., Yu, W., Zhang, T., Sadigh,
+  D., and Xia, F.
+\newblock Vision language models are in-context value learners.
+\newblock In \emph{{ICLR}}, 2025.
+
+\bibitem[Matanovi\'{c}(1978)]{matanovic1978encyclopaedia}
+Matanovi\'{c}, A.
+\newblock \emph{Encyclopaedia of Chess Openings}.
+\newblock Batsford Limited, 1978.
+
+\bibitem[Mikulik et~al.(2020)Mikulik, Del{\'{e}}tang, McGrath, Genewein,
+  Martic, Legg, and Ortega]{mikulik2020meta}
+Mikulik, V., Del{\'{e}}tang, G., McGrath, T., Genewein, T., Martic, M., Legg,
+  S., and Ortega, P.~A.
+\newblock Meta-trained agents implement bayes-optimal agents.
+\newblock In \emph{NeurIPS}, 2020.
+
+\bibitem[Mirchandani et~al.(2023)Mirchandani, Xia, Florence, Ichter, Driess,
+  Arenas, Rao, Sadigh, and Zeng]{mirchandani2023large}
+Mirchandani, S., Xia, F., Florence, P., Ichter, B., Driess, D., Arenas, M.~G.,
+  Rao, K., Sadigh, D., and Zeng, A.
+\newblock Large language models as general pattern machines.
+\newblock In \emph{CoRL}, 2023.
+
+\bibitem[Mnih et~al.(2013)Mnih, Kavukcuoglu, Silver, Graves, Antonoglou,
+  Wierstra, and Riedmiller]{mnih2013playing}
+Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra,
+  D., and Riedmiller, M.~A.
+\newblock Playing atari with deep reinforcement learning.
+\newblock \emph{arXiv:1312.5602}, 2013.
+
+\bibitem[OpenAI(2023)]{openai2023gpt4}
+OpenAI.
+\newblock {GPT-4} technical report.
+\newblock \emph{arXiv:2303.08774}, 2023.
+
+\bibitem[OpenAI(2024{\natexlab{a}})]{openai2024gpt4o}
+OpenAI.
+\newblock Hello gpt-4o, 2024{\natexlab{a}}.
+\newblock URL \url{https://openai.com/index/hello-gpt-4o}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[OpenAI(2024{\natexlab{b}})]{openai2024models}
+OpenAI.
+\newblock Models, 2024{\natexlab{b}}.
+\newblock URL \url{https://platform.openai.com/docs/models}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[OpenAI(2024{\natexlab{c}})]{openai2024o1}
+OpenAI.
+\newblock Introducing openai o1-preview, 2024{\natexlab{c}}.
+\newblock URL \url{https://openai.com/index/introducing-openai-o1-preview}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[OpenAI(2024{\natexlab{d}})]{openai2024reasoning}
+OpenAI.
+\newblock Reasoning models, 2024{\natexlab{d}}.
+\newblock URL \url{https://platform.openai.com/docs/guides/reasoning}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[OpenAI(2024{\natexlab{e}})]{openai2024vision}
+OpenAI.
+\newblock Vision, 2024{\natexlab{e}}.
+\newblock URL \url{https://platform.openai.com/docs/guides/vision}.
+\newblock Accessed: 2024-11-26.
+
+\bibitem[{OpenAI} et~al.(2024{\natexlab{a}}){OpenAI}, Hurst, Lerer, Goucher,
+  Perelman, Ramesh, Clark, Ostrow, Welihinda, Hayes, Radford, Madry,
+  Baker-Whitcomb, Beutel, Borzunov, Carney, Chow, Kirillov, Nichol, Paino,
+  Renzin, Passos, Kirillov, Christakis, Conneau, Kamali, Jabri, Moyer, Tam,
+  Crookes, Tootoochian, Tootoonchian, Kumar, Vallone, Karpathy, Braunstein,
+  Cann, Codispoti, Galu, Kondrich, Tulloch, Mishchenko, Baek, Jiang, Pelisse,
+  Woodford, Gosalia, Dhar, Pantuliano, Nayak, Oliver, Zoph, Ghorbani,
+  Leimberger, Rossen, Sokolowsky, Wang, Zweig, Hoover, Samic, McGrew, Spero,
+  Giertler, Cheng, Lightcap, Walkin, Quinn, Guarraci, Hsu, Kellogg, Eastman,
+  Lugaresi, Wainwright, Bassin, Hudson, Chu, Nelson, Li, Shern, Conger,
+  Barette, Voss, Ding, Lu, Zhang, Beaumont, Hallacy, Koch, Gibson, Kim, Choi,
+  McLeavey, Hesse, Fischer, Winter, Czarnecki, Jarvis, Wei, Koumouzelis,
+  Sherburn, Kappler, Levin, Levy, Carr, Farhi, Mely, Robinson, Sasaki, Jin,
+  Valladares, Tsipras, Li, Nguyen, Findlay, Oiwoh, Wong, Asdar, Proehl, Yang,
+  Antonow, Kramer, Peterson, Sigler, Wallace, Brevdo, Mays, Khorasani, Such,
+  Raso, Zhang, von Lohmann, Sulit, Goh, Oden, Salmon, Starace, Brockman,
+  Salman, Bao, Hu, Wong, Wang, Schmidt, Whitney, Jun, Kirchner,
+  de~Oliveira~Pinto, Ren, Chang, Chung, Kivlichan, O'Connell, O'Connell,
+  Osband, Silber, Sohl, Okuyucu, Lan, Kostrikov, Sutskever, Kanitscheider,
+  Gulrajani, Coxon, Menick, Pachocki, Aung, Betker, Crooks, Lennon, Kiros,
+  Leike, Park, Kwon, Phang, Teplitz, Wei, Wolfe, Chen, Harris, Varavva, Lee,
+  Shieh, Lin, Yu, Weng, Tang, Yu, Jang, Candela, Beutler, Landers, Parish,
+  Heidecke, Schulman, Lachman, McKay, Uesato, Ward, Kim, Huizinga, Sitkin,
+  Kraaijeveld, Gross, Kaplan, Snyder, Achiam, Jiao, Lee, Zhuang, Harriman,
+  Fricke, Hayashi, Singhal, Shi, Karthik, Wood, Rimbach, Hsu, Nguyen,
+  Gu-Lemberg, Button, Liu, Howe, Muthukumar, Luther, Ahmad, Kai, Itow, Workman,
+  Pathak, Chen, Jing, Guy, Fedus, Zhou, Mamitsuka, Weng, McCallum, Held,
+  Ouyang, Feuvrier, Zhang, Kondraciuk, Kaiser, Hewitt, Metz, Doshi, Aflak,
+  Simens, Boyd, Thompson, Dukhan, Chen, Gray, Hudnall, Zhang, Aljubeh, Litwin,
+  Zeng, Johnson, Shetty, Gupta, Shah, Yatbaz, Yang, Zhong, Glaese, Chen,
+  Janner, Lampe, Petrov, Wu, Wang, Fradin, Pokrass, Castro, de~Castro, Pavlov,
+  Brundage, Wang, Khan, Murati, Bavarian, Lin, Yesildal, Soto, Gimelshein,
+  Cone, Staudacher, Summers, LaFontaine, Chowdhury, Ryder, Stathas, Turley,
+  Tezak, Felix, Kudige, Keskar, Deutsch, Bundick, Puckett, Nachum, Okelola,
+  Boiko, Murk, Jaffe, Watkins, Godement, Campbell-Moore, Chao, McMillan, Belov,
+  Su, Bak, Bakkum, Deng, Dolan, Hoeschele, Welinder, Tillet, Pronin, Tillet,
+  Dhariwal, Yuan, Dias, Lim, Arora, Troll, Lin, Lopes, Puri, Miyara, Leike,
+  Gaubert, Zamani, Wang, Donnelly, Honsby, Smith, Sahai, Ramchandani, Huet,
+  Carmichael, Zellers, Chen, Chen, Nigmatullin, Cheu, Jain, Altman, Schoenholz,
+  Toizer, Miserendino, Agarwal, Culver, Ethersmith, Gray, Grove, Metzger,
+  Hermani, Jain, Zhao, Wu, Jomoto, Wu, Shuaiqi, Xia, Phene, Papay, Narayanan,
+  Coffey, Lee, Hall, Balaji, Broda, Stramer, Xu, Gogineni, Christianson,
+  Sanders, Patwardhan, Cunninghman, Degry, Dimson, Raoux, Shadwell, Zheng,
+  Underwood, Markov, Sherbakov, Rubin, Stasi, Kaftan, Heywood, Peterson,
+  Walters, Eloundou, Qi, Moeller, Monaco, Kuo, Fomenko, Chang, Zheng, Zhou,
+  Manassra, Sheu, Zaremba, Patil, Qian, Kim, Cheng, Zhang, He, Zhang, Jin, Dai,
+  and Malkov]{openai2024gpt4ocard}
+{OpenAI}, Hurst, A., Lerer, A., Goucher, A.~P., Perelman, A., Ramesh, A.,
+  Clark, A., Ostrow, A., Welihinda, A., Hayes, A., Radford, A., Madry, A.,
+  Baker-Whitcomb, A., Beutel, A., Borzunov, A., Carney, A., Chow, A., Kirillov,
+  A., Nichol, A., Paino, A., Renzin, A., Passos, A.~T., Kirillov, A.,
+  Christakis, A., Conneau, A., Kamali, A., Jabri, A., Moyer, A., Tam, A.,
+  Crookes, A., Tootoochian, A., Tootoonchian, A., Kumar, A., Vallone, A.,
+  Karpathy, A., Braunstein, A., Cann, A., Codispoti, A., Galu, A., Kondrich,
+  A., Tulloch, A., Mishchenko, A., Baek, A., Jiang, A., Pelisse, A., Woodford,
+  A., Gosalia, A., Dhar, A., Pantuliano, A., Nayak, A., Oliver, A., Zoph, B.,
+  Ghorbani, B., Leimberger, B., Rossen, B., Sokolowsky, B., Wang, B., Zweig,
+  B., Hoover, B., Samic, B., McGrew, B., Spero, B., Giertler, B., Cheng, B.,
+  Lightcap, B., Walkin, B., Quinn, B., Guarraci, B., Hsu, B., Kellogg, B.,
+  Eastman, B., Lugaresi, C., Wainwright, C., Bassin, C., Hudson, C., Chu, C.,
+  Nelson, C., Li, C., Shern, C.~J., Conger, C., Barette, C., Voss, C., Ding,
+  C., Lu, C., Zhang, C., Beaumont, C., Hallacy, C., Koch, C., Gibson, C., Kim,
+  C., Choi, C., McLeavey, C., Hesse, C., Fischer, C., Winter, C., Czarnecki,
+  C., Jarvis, C., Wei, C., Koumouzelis, C., Sherburn, D., Kappler, D., Levin,
+  D., Levy, D., Carr, D., Farhi, D., Mely, D., Robinson, D., Sasaki, D., Jin,
+  D., Valladares, D., Tsipras, D., Li, D., Nguyen, D.~P., Findlay, D., Oiwoh,
+  E., Wong, E., Asdar, E., Proehl, E., Yang, E., Antonow, E., Kramer, E.,
+  Peterson, E., Sigler, E., Wallace, E., Brevdo, E., Mays, E., Khorasani, F.,
+  Such, F.~P., Raso, F., Zhang, F., von Lohmann, F., Sulit, F., Goh, G., Oden,
+  G., Salmon, G., Starace, G., Brockman, G., Salman, H., Bao, H., Hu, H., Wong,
+  H., Wang, H., Schmidt, H., Whitney, H., Jun, H., Kirchner, H.,
+  de~Oliveira~Pinto, H.~P., Ren, H., Chang, H., Chung, H.~W., Kivlichan, I.,
+  O'Connell, I., O'Connell, I., Osband, I., Silber, I., Sohl, I., Okuyucu, I.,
+  Lan, I., Kostrikov, I., Sutskever, I., Kanitscheider, I., Gulrajani, I.,
+  Coxon, J., Menick, J., Pachocki, J., Aung, J., Betker, J., Crooks, J.,
+  Lennon, J., Kiros, J., Leike, J., Park, J., Kwon, J., Phang, J., Teplitz, J.,
+  Wei, J., Wolfe, J., Chen, J., Harris, J., Varavva, J., Lee, J.~G., Shieh, J.,
+  Lin, J., Yu, J., Weng, J., Tang, J., Yu, J., Jang, J., Candela, J.~Q.,
+  Beutler, J., Landers, J., Parish, J., Heidecke, J., Schulman, J., Lachman,
+  J., McKay, J., Uesato, J., Ward, J., Kim, J.~W., Huizinga, J., Sitkin, J.,
+  Kraaijeveld, J., Gross, J., Kaplan, J., Snyder, J., Achiam, J., Jiao, J.,
+  Lee, J., Zhuang, J., Harriman, J., Fricke, K., Hayashi, K., Singhal, K., Shi,
+  K., Karthik, K., Wood, K., Rimbach, K., Hsu, K., Nguyen, K., Gu-Lemberg, K.,
+  Button, K., Liu, K., Howe, K., Muthukumar, K., Luther, K., Ahmad, L., Kai,
+  L., Itow, L., Workman, L., Pathak, L., Chen, L., Jing, L., Guy, L., Fedus,
+  L., Zhou, L., Mamitsuka, L., Weng, L., McCallum, L., Held, L., Ouyang, L.,
+  Feuvrier, L., Zhang, L., Kondraciuk, L., Kaiser, L., Hewitt, L., Metz, L.,
+  Doshi, L., Aflak, M., Simens, M., Boyd, M., Thompson, M., Dukhan, M., Chen,
+  M., Gray, M., Hudnall, M., Zhang, M., Aljubeh, M., Litwin, M., Zeng, M.,
+  Johnson, M., Shetty, M., Gupta, M., Shah, M., Yatbaz, M., Yang, M.~J., Zhong,
+  M., Glaese, M., Chen, M., Janner, M., Lampe, M., Petrov, M., Wu, M., Wang,
+  M., Fradin, M., Pokrass, M., Castro, M., de~Castro, M. O.~T., Pavlov, M.,
+  Brundage, M., Wang, M., Khan, M., Murati, M., Bavarian, M., Lin, M.,
+  Yesildal, M., Soto, N., Gimelshein, N., Cone, N., Staudacher, N., Summers,
+  N., LaFontaine, N., Chowdhury, N., Ryder, N., Stathas, N., Turley, N., Tezak,
+  N., Felix, N., Kudige, N., Keskar, N., Deutsch, N., Bundick, N., Puckett, N.,
+  Nachum, O., Okelola, O., Boiko, O., Murk, O., Jaffe, O., Watkins, O.,
+  Godement, O., Campbell-Moore, O., Chao, P., McMillan, P., Belov, P., Su, P.,
+  Bak, P., Bakkum, P., Deng, P., Dolan, P., Hoeschele, P., Welinder, P.,
+  Tillet, P., Pronin, P., Tillet, P., Dhariwal, P., Yuan, Q., Dias, R., Lim,
+  R., Arora, R., Troll, R., Lin, R., Lopes, R.~G., Puri, R., Miyara, R., Leike,
+  R., Gaubert, R., Zamani, R., Wang, R., Donnelly, R., Honsby, R., Smith, R.,
+  Sahai, R., Ramchandani, R., Huet, R., Carmichael, R., Zellers, R., Chen, R.,
+  Chen, R., Nigmatullin, R., Cheu, R., Jain, S., Altman, S., Schoenholz, S.,
+  Toizer, S., Miserendino, S., Agarwal, S., Culver, S., Ethersmith, S., Gray,
+  S., Grove, S., Metzger, S., Hermani, S., Jain, S., Zhao, S., Wu, S., Jomoto,
+  S., Wu, S., Shuaiqi, Xia, Phene, S., Papay, S., Narayanan, S., Coffey, S.,
+  Lee, S., Hall, S., Balaji, S., Broda, T., Stramer, T., Xu, T., Gogineni, T.,
+  Christianson, T., Sanders, T., Patwardhan, T., Cunninghman, T., Degry, T.,
+  Dimson, T., Raoux, T., Shadwell, T., Zheng, T., Underwood, T., Markov, T.,
+  Sherbakov, T., Rubin, T., Stasi, T., Kaftan, T., Heywood, T., Peterson, T.,
+  Walters, T., Eloundou, T., Qi, V., Moeller, V., Monaco, V., Kuo, V., Fomenko,
+  V., Chang, W., Zheng, W., Zhou, W., Manassra, W., Sheu, W., Zaremba, W.,
+  Patil, Y., Qian, Y., Kim, Y., Cheng, Y., Zhang, Y., He, Y., Zhang, Y., Jin,
+  Y., Dai, Y., and Malkov, Y.
+\newblock Gpt-4o system card.
+\newblock \emph{arXiv:2410.21276}, 2024{\natexlab{a}}.
+
+\bibitem[{OpenAI} et~al.(2024{\natexlab{b}}){OpenAI}, Jaech, Kalai, Lerer,
+  Richardson, El-Kishky, Low, Helyar, Madry, Beutel, Carney, Iftimie, Karpenko,
+  Passos, Neitz, Prokofiev, Wei, Tam, Bennett, Kumar, Saraiva, Vallone,
+  Duberstein, Kondrich, Mishchenko, Applebaum, Jiang, Nair, Zoph, Ghorbani,
+  Rossen, Sokolowsky, Barak, McGrew, Minaiev, Hao, Baker, Houghton, McKinzie,
+  Eastman, Lugaresi, Bassin, Hudson, Li, de~Bourcy, Voss, Shen, Zhang, Koch,
+  Orsinger, Hesse, Fischer, Chan, Roberts, Kappler, Levy, Selsam, Dohan, Farhi,
+  Mely, Robinson, Tsipras, Li, Oprica, Freeman, Zhang, Wong, Proehl, Cheung,
+  Mitchell, Wallace, Ritter, Mays, Wang, Such, Raso, Leoni, Tsimpourlas, Song,
+  von Lohmann, Sulit, Salmon, Parascandolo, Chabot, Zhao, Brockman, Leclerc,
+  Salman, Bao, Sheng, Andrin, Bagherinezhad, Ren, Lightman, Chung, Kivlichan,
+  O'Connell, Osband, Gilaberte, Akkaya, Kostrikov, Sutskever, Kofman, Pachocki,
+  Lennon, Wei, Harb, Twore, Feng, Yu, Weng, Tang, Yu, Candela, Palermo, Parish,
+  Heidecke, Hallman, Rizzo, Gordon, Uesato, Ward, Huizinga, Wang, Chen, Xiao,
+  Singhal, Nguyen, Cobbe, Shi, Wood, Rimbach, Gu-Lemberg, Liu, Lu, Stone, Yu,
+  Ahmad, Yang, Liu, Maksin, Ho, Fedus, Weng, Li, McCallum, Held, Kuhn,
+  Kondraciuk, Kaiser, Metz, Boyd, Trebacz, Joglekar, Chen, Tintor, Meyer,
+  Jones, Kaufer, Schwarzer, Shah, Yatbaz, Guan, Xu, Yan, Glaese, Chen, Lampe,
+  Malek, Wang, Fradin, McClay, Pavlov, Wang, Wang, Murati, Bavarian,
+  Rohaninejad, McAleese, Chowdhury, Chowdhury, Ryder, Tezak, Brown, Nachum,
+  Boiko, Murk, Watkins, Chao, Ashbourne, Izmailov, Zhokhov, Dias, Arora, Lin,
+  Lopes, Gaon, Miyara, Leike, Hwang, Garg, Brown, James, Shu, Cheu, Greene,
+  Jain, Altman, Toizer, Toyer, Miserendino, Agarwal, Hernandez, Baker,
+  McKinney, Yan, Zhao, Hu, Santurkar, Chaudhuri, Zhang, Fu, Papay, Lin, Balaji,
+  Sanjeev, Sidor, Broda, Clark, Wang, Gordon, Sanders, Patwardhan, Sottiaux,
+  Degry, Dimson, Zheng, Garipov, Stasi, Bansal, Creech, Peterson, Eloundou, Qi,
+  Kosaraju, Monaco, Pong, Fomenko, Zheng, Zhou, McCabe, Zaremba, Dubois, Lu,
+  Chen, Cha, Bai, He, Zhang, Wang, Shao, and Li]{openai2024o1card}
+{OpenAI}, Jaech, A., Kalai, A., Lerer, A., Richardson, A., El-Kishky, A., Low,
+  A., Helyar, A., Madry, A., Beutel, A., Carney, A., Iftimie, A., Karpenko, A.,
+  Passos, A.~T., Neitz, A., Prokofiev, A., Wei, A., Tam, A., Bennett, A.,
+  Kumar, A., Saraiva, A., Vallone, A., Duberstein, A., Kondrich, A.,
+  Mishchenko, A., Applebaum, A., Jiang, A., Nair, A., Zoph, B., Ghorbani, B.,
+  Rossen, B., Sokolowsky, B., Barak, B., McGrew, B., Minaiev, B., Hao, B.,
+  Baker, B., Houghton, B., McKinzie, B., Eastman, B., Lugaresi, C., Bassin, C.,
+  Hudson, C., Li, C.~M., de~Bourcy, C., Voss, C., Shen, C., Zhang, C., Koch,
+  C., Orsinger, C., Hesse, C., Fischer, C., Chan, C., Roberts, D., Kappler, D.,
+  Levy, D., Selsam, D., Dohan, D., Farhi, D., Mely, D., Robinson, D., Tsipras,
+  D., Li, D., Oprica, D., Freeman, E., Zhang, E., Wong, E., Proehl, E., Cheung,
+  E., Mitchell, E., Wallace, E., Ritter, E., Mays, E., Wang, F., Such, F.~P.,
+  Raso, F., Leoni, F., Tsimpourlas, F., Song, F., von Lohmann, F., Sulit, F.,
+  Salmon, G., Parascandolo, G., Chabot, G., Zhao, G., Brockman, G., Leclerc,
+  G., Salman, H., Bao, H., Sheng, H., Andrin, H., Bagherinezhad, H., Ren, H.,
+  Lightman, H., Chung, H.~W., Kivlichan, I., O'Connell, I., Osband, I.,
+  Gilaberte, I.~C., Akkaya, I., Kostrikov, I., Sutskever, I., Kofman, I.,
+  Pachocki, J., Lennon, J., Wei, J., Harb, J., Twore, J., Feng, J., Yu, J.,
+  Weng, J., Tang, J., Yu, J., Candela, J.~Q., Palermo, J., Parish, J.,
+  Heidecke, J., Hallman, J., Rizzo, J., Gordon, J., Uesato, J., Ward, J.,
+  Huizinga, J., Wang, J., Chen, K., Xiao, K., Singhal, K., Nguyen, K., Cobbe,
+  K., Shi, K., Wood, K., Rimbach, K., Gu-Lemberg, K., Liu, K., Lu, K., Stone,
+  K., Yu, K., Ahmad, L., Yang, L., Liu, L., Maksin, L., Ho, L., Fedus, L.,
+  Weng, L., Li, L., McCallum, L., Held, L., Kuhn, L., Kondraciuk, L., Kaiser,
+  L., Metz, L., Boyd, M., Trebacz, M., Joglekar, M., Chen, M., Tintor, M.,
+  Meyer, M., Jones, M., Kaufer, M., Schwarzer, M., Shah, M., Yatbaz, M., Guan,
+  M.~Y., Xu, M., Yan, M., Glaese, M., Chen, M., Lampe, M., Malek, M., Wang, M.,
+  Fradin, M., McClay, M., Pavlov, M., Wang, M., Wang, M., Murati, M., Bavarian,
+  M., Rohaninejad, M., McAleese, N., Chowdhury, N., Chowdhury, N., Ryder, N.,
+  Tezak, N., Brown, N., Nachum, O., Boiko, O., Murk, O., Watkins, O., Chao, P.,
+  Ashbourne, P., Izmailov, P., Zhokhov, P., Dias, R., Arora, R., Lin, R.,
+  Lopes, R.~G., Gaon, R., Miyara, R., Leike, R., Hwang, R., Garg, R., Brown,
+  R., James, R., Shu, R., Cheu, R., Greene, R., Jain, S., Altman, S., Toizer,
+  S., Toyer, S., Miserendino, S., Agarwal, S., Hernandez, S., Baker, S.,
+  McKinney, S., Yan, S., Zhao, S., Hu, S., Santurkar, S., Chaudhuri, S.~R.,
+  Zhang, S., Fu, S., Papay, S., Lin, S., Balaji, S., Sanjeev, S., Sidor, S.,
+  Broda, T., Clark, A., Wang, T., Gordon, T., Sanders, T., Patwardhan, T.,
+  Sottiaux, T., Degry, T., Dimson, T., Zheng, T., Garipov, T., Stasi, T.,
+  Bansal, T., Creech, T., Peterson, T., Eloundou, T., Qi, V., Kosaraju, V.,
+  Monaco, V., Pong, V., Fomenko, V., Zheng, W., Zhou, W., McCabe, W., Zaremba,
+  W., Dubois, Y., Lu, Y., Chen, Y., Cha, Y., Bai, Y., He, Y., Zhang, Y., Wang,
+  Y., Shao, Z., and Li, Z.
+\newblock Openai o1 system card.
+\newblock \emph{arXiv:2412.16720}, 2024{\natexlab{b}}.
+
+\bibitem[Ortega et~al.(2019)Ortega, Wang, Rowland, Genewein, Kurth{-}Nelson,
+  Pascanu, Heess, Veness, Pritzel, Sprechmann, Jayakumar, McGrath, Miller,
+  Azar, Osband, Rabinowitz, Gy{\"{o}}rgy, Chiappa, Osindero, Teh, van Hasselt,
+  de~Freitas, Botvinick, and Legg]{ortega2019meta}
+Ortega, P.~A., Wang, J.~X., Rowland, M., Genewein, T., Kurth{-}Nelson, Z.,
+  Pascanu, R., Heess, N., Veness, J., Pritzel, A., Sprechmann, P., Jayakumar,
+  S.~M., McGrath, T., Miller, K.~J., Azar, M.~G., Osband, I., Rabinowitz,
+  N.~C., Gy{\"{o}}rgy, A., Chiappa, S., Osindero, S., Teh, Y.~W., van Hasselt,
+  H., de~Freitas, N., Botvinick, M.~M., and Legg, S.
+\newblock Meta-learning of sequential strategies.
+\newblock \emph{arXiv:1905.03030}, 2019.
+
+\bibitem[Ortega et~al.(2021)Ortega, Kunesch, Del{\'{e}}tang, Genewein,
+  Grau{-}Moya, Veness, Buchli, Degrave, Piot, P{\'{e}}rolat, Everitt, Tallec,
+  Parisotto, Erez, Chen, Reed, Hutter, de~Freitas, and Legg]{ortega2021shaking}
+Ortega, P.~A., Kunesch, M., Del{\'{e}}tang, G., Genewein, T., Grau{-}Moya, J.,
+  Veness, J., Buchli, J., Degrave, J., Piot, B., P{\'{e}}rolat, J., Everitt,
+  T., Tallec, C., Parisotto, E., Erez, T., Chen, Y., Reed, S.~E., Hutter, M.,
+  de~Freitas, N., and Legg, S.
+\newblock Shaking the foundations: delusions in sequence models for interaction
+  and control.
+\newblock \emph{arXiv:2110.10819}, 2021.
+
+\bibitem[Paglieri et~al.(2025)Paglieri, Cupiał, Coward, Piterbarg, Wolczyk,
+  Khan, Pignatelli, Łukasz Kuciński, Pinto, Fergus, Foerster, Parker-Holder,
+  and Rocktäschel]{paglieri2025balrog}
+Paglieri, D., Cupiał, B., Coward, S., Piterbarg, U., Wolczyk, M., Khan, A.,
+  Pignatelli, E., Łukasz Kuciński, Pinto, L., Fergus, R., Foerster, J.~N.,
+  Parker-Holder, J., and Rocktäschel, T.
+\newblock Balrog: Benchmarking agentic llm and vlm reasoning on games.
+\newblock In \emph{{ICLR}}, 2025.
+
+\bibitem[Palo \& Johns(2024)Palo and Johns]{dipalo2024keypoint}
+Palo, N.~D. and Johns, E.
+\newblock Keypoint action tokens enable in-context imitation learning in
+  robotics.
+\newblock In \emph{Robotics: Science and Systems}, 2024.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, and
+  Sutskever]{radford2019language}
+Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., and Sutskever, I.
+\newblock Language models are unsupervised multitask learners.
+\newblock 2019.
+
+\bibitem[Raparthy et~al.(2024)Raparthy, Hambro, Kirk, Henaff, and
+  Raileanu]{raparthy2024generalization}
+Raparthy, S.~C., Hambro, E., Kirk, R., Henaff, M., and Raileanu, R.
+\newblock Generalization to new sequential decision making tasks with
+  in-context learning.
+\newblock In \emph{{ICML}}, 2024.
+
+\bibitem[Reed et~al.(2022)Reed, Zolna, Parisotto, Colmenarejo, Novikov,
+  Barth{-}Maron, Gimenez, Sulsky, Kay, Springenberg, Eccles, Bruce, Razavi,
+  Edwards, Heess, Chen, Hadsell, Vinyals, Bordbar, and
+  de~Freitas]{reed2022generalist}
+Reed, S.~E., Zolna, K., Parisotto, E., Colmenarejo, S.~G., Novikov, A.,
+  Barth{-}Maron, G., Gimenez, M., Sulsky, Y., Kay, J., Springenberg, J.~T.,
+  Eccles, T., Bruce, J., Razavi, A., Edwards, A., Heess, N., Chen, Y., Hadsell,
+  R., Vinyals, O., Bordbar, M., and de~Freitas, N.
+\newblock A generalist agent.
+\newblock \emph{Trans. Mach. Learn. Res.}, 2022.
+
+\bibitem[Reid et~al.(2024)Reid, Savinov, Teplyashin, Lepikhin, Lillicrap,
+  Alayrac, Soricut, Lazaridou, Firat, Schrittwieser, Antonoglou, Anil,
+  Borgeaud, Dai, Millican, Dyer, Glaese, Sottiaux, Lee, Viola, Reynolds, Xu,
+  Molloy, Chen, Isard, Barham, Hennigan, McIlroy, Johnson, Schalkwyk, Collins,
+  Rutherford, Moreira, Ayoub, Goel, Meyer, Thornton, Yang, Michalewski, Abbas,
+  Schucher, Anand, Ives, Keeling, Lenc, Haykal, Shakeri, Shyam, Chowdhery,
+  Ring, Spencer, Sezener, and et~al.]{reid2024gemini}
+Reid, M., Savinov, N., Teplyashin, D., Lepikhin, D., Lillicrap, T.~P., Alayrac,
+  J., Soricut, R., Lazaridou, A., Firat, O., Schrittwieser, J., Antonoglou, I.,
+  Anil, R., Borgeaud, S., Dai, A.~M., Millican, K., Dyer, E., Glaese, M.,
+  Sottiaux, T., Lee, B., Viola, F., Reynolds, M., Xu, Y., Molloy, J., Chen, J.,
+  Isard, M., Barham, P., Hennigan, T., McIlroy, R., Johnson, M., Schalkwyk, J.,
+  Collins, E., Rutherford, E., Moreira, E., Ayoub, K., Goel, M., Meyer, C.,
+  Thornton, G., Yang, Z., Michalewski, H., Abbas, Z., Schucher, N., Anand, A.,
+  Ives, R., Keeling, J., Lenc, K., Haykal, S., Shakeri, S., Shyam, P.,
+  Chowdhery, A., Ring, R., Spencer, S., Sezener, E., and et~al.
+\newblock Gemini 1.5: Unlocking multimodal understanding across millions of
+  tokens of context.
+\newblock \emph{arXiv:2403.05530}, 2024.
+
+\bibitem[Romera{-}Paredes et~al.(2024)Romera{-}Paredes, Barekatain, Novikov,
+  Balog, Kumar, Dupont, Ruiz, Ellenberg, Wang, Fawzi, Kohli, and
+  Fawzi]{romera2024mathematical}
+Romera{-}Paredes, B., Barekatain, M., Novikov, A., Balog, M., Kumar, M.~P.,
+  Dupont, E., Ruiz, F. J.~R., Ellenberg, J.~S., Wang, P., Fawzi, O., Kohli, P.,
+  and Fawzi, A.
+\newblock Mathematical discoveries from program search with large language
+  models.
+\newblock \emph{Nat.}, 2024.
+
+\bibitem[Romstad et~al.(2008)Romstad, Costalba, Kiiski, Linscott, Nasu,
+  Isozaki, Noda, and et~al.]{romstad2008stockfish}
+Romstad, T., Costalba, M., Kiiski, J., Linscott, G., Nasu, Y., Isozaki, M.,
+  Noda, H., and et~al.
+\newblock Stockfish, 2008.
+\newblock URL \url{https://stockfishchess.org}.
+
+\bibitem[Ruoss et~al.(2024)Ruoss, Del{\'{e}}tang, Medapati, Grau-Moya,
+  Wenliang, Catt, Reid, Lewis, Veness, and Genewein]{ruoss2024amortized}
+Ruoss, A., Del{\'{e}}tang, G., Medapati, S., Grau-Moya, J., Wenliang, L.~K.,
+  Catt, E., Reid, J., Lewis, C.~A., Veness, J., and Genewein, T.
+\newblock Amortized planning with large-scale transformers: A case study on
+  chess.
+\newblock In \emph{NeurIPS}, 2024.
+
+\bibitem[Ryle(1949)]{ryle1949concept}
+Ryle, G.
+\newblock \emph{The concept of mind}.
+\newblock University Of Chicago Press, 1949.
+
+\bibitem[Schultz et~al.(2025)Schultz, Adamek, Jusup, Lanctot, Kaisers, Perrin,
+  Hennes, Shar, Lewis, Ruoss, Zahavy, Veličković, Prince, Singh, Malmi, and
+  Tomašev]{schultz2025mastering}
+Schultz, J., Adamek, J., Jusup, M., Lanctot, M., Kaisers, M., Perrin, S.,
+  Hennes, D., Shar, J., Lewis, C., Ruoss, A., Zahavy, T., Veličković, P.,
+  Prince, L., Singh, S., Malmi, E., and Tomašev, N.
+\newblock Mastering board games by external and internal planning with language
+  models.
+\newblock In \emph{{ICML}}, 2025.
+
+\bibitem[Shen et~al.(2024)Shen, Song, Tan, Zhang, Ren, Yuan, Lu, Li, and
+  Zhuang]{shen2024taskbench}
+Shen, Y., Song, K., Tan, X., Zhang, W., Ren, K., Yuan, S., Lu, W., Li, D., and
+  Zhuang, Y.
+\newblock {TaskBench}: Benchmarking large language models for task automation.
+\newblock In \emph{NeurIPS}, 2024.
+
+\bibitem[{SIMA Team} et~al.(2024){SIMA Team}, Raad, Ahuja, Barros, Besse, Bolt,
+  Bolton, Brownfield, Buttimore, Cant, Chakera, Chan, Clune, Collister,
+  Copeman, Cullum, Dasgupta, de~Cesare, Trapani, Donchev, Dunleavy, Engelcke,
+  Faulkner, Garcia, Gbadamosi, Gong, Gonzalez, Gupta, Gregor, Hallingstad,
+  Harley, Haves, Hill, Hirst, Hudson, Hudson, Hughes{-}Fitt, Rezende,
+  Jasarevic, Kampis, Ke, Keck, Kim, Knagg, Kopparapu, Lampinen, Legg, Lerchner,
+  Limont, Liu, Loks{-}Thompson, Marino, Cussons, Matthey, Mcloughlin,
+  Mendolicchio, Merzic, Mitenkova, Moufarek, Oliveira, Oliveira, Openshaw, Pan,
+  Pappu, Platonov, Purkiss, Reichert, Reid, Richemond, Roberts, Ruscoe, Elias,
+  Sandars, Sawyer, Scholtes, Simmons, Slater, Soyer, Strathmann, Stys, Tam,
+  Teplyashin, Terzi, Vercelli, Vujatovic, Wainwright, Wang, Wang, Wierstra,
+  Williams, Wong, York, and Young]{sima2024scaling}
+{SIMA Team}, Raad, M.~A., Ahuja, A., Barros, C., Besse, F., Bolt, A., Bolton,
+  A., Brownfield, B., Buttimore, G., Cant, M., Chakera, S., Chan, S. C.~Y.,
+  Clune, J., Collister, A., Copeman, V., Cullum, A., Dasgupta, I., de~Cesare,
+  D., Trapani, J.~D., Donchev, Y., Dunleavy, E., Engelcke, M., Faulkner, R.,
+  Garcia, F., Gbadamosi, C., Gong, Z., Gonzalez, L., Gupta, K., Gregor, K.,
+  Hallingstad, A.~O., Harley, T., Haves, S., Hill, F., Hirst, E., Hudson,
+  D.~A., Hudson, J., Hughes{-}Fitt, S., Rezende, D.~J., Jasarevic, M., Kampis,
+  L., Ke, N.~R., Keck, T., Kim, J., Knagg, O., Kopparapu, K., Lampinen, A.~K.,
+  Legg, S., Lerchner, A., Limont, M., Liu, Y., Loks{-}Thompson, M., Marino, J.,
+  Cussons, K.~M., Matthey, L., Mcloughlin, S., Mendolicchio, P., Merzic, H.,
+  Mitenkova, A., Moufarek, A., Oliveira, V., Oliveira, Y.~G., Openshaw, H.,
+  Pan, R., Pappu, A., Platonov, A., Purkiss, O., Reichert, D.~P., Reid, J.,
+  Richemond, P.~H., Roberts, T., Ruscoe, G., Elias, J.~S., Sandars, T., Sawyer,
+  D.~P., Scholtes, T., Simmons, G., Slater, D., Soyer, H., Strathmann, H.,
+  Stys, P., Tam, A.~C., Teplyashin, D., Terzi, T., Vercelli, D., Vujatovic, B.,
+  Wainwright, M., Wang, J.~X., Wang, Z., Wierstra, D., Williams, D., Wong, N.,
+  York, S., and Young, N.
+\newblock Scaling instructable agents across many simulated worlds.
+\newblock \emph{arXiv:2404.10179}, 2024.
+
+\bibitem[Sridhar et~al.(2024)Sridhar, Dutta, Jayaraman, and
+  Lee]{sridhar2024regent}
+Sridhar, K., Dutta, S., Jayaraman, D., and Lee, I.
+\newblock {REGENT}: A retrieval-augmented generalist agent that can act
+  in-context in new environments.
+\newblock In \emph{NeurIPS 2024 Workshop on Open-World Agents}, 2024.
+
+\bibitem[Tassa et~al.(2018)Tassa, Doron, Muldal, Erez, Li, de~Las~Casas,
+  Budden, Abdolmaleki, Merel, Lefrancq, Lillicrap, and
+  Riedmiller]{tassa2018deepmind}
+Tassa, Y., Doron, Y., Muldal, A., Erez, T., Li, Y., de~Las~Casas, D., Budden,
+  D., Abdolmaleki, A., Merel, J., Lefrancq, A., Lillicrap, T.~P., and
+  Riedmiller, M.~A.
+\newblock Deepmind control suite.
+\newblock \emph{arXiv:1801.00690}, 2018.
+
+\bibitem[Todorov et~al.(2012)Todorov, Erez, and Tassa]{todorov2012mujoco}
+Todorov, E., Erez, T., and Tassa, Y.
+\newblock Mujoco: {A} physics engine for model-based control.
+\newblock In \emph{{IROS}}, 2012.
+
+\bibitem[Wang et~al.(2024)Wang, Zhang, Chen, and Sreenath]{wang2024prompt}
+Wang, Y., Zhang, B., Chen, J., and Sreenath, K.
+\newblock Prompt a robot to walk with large language models.
+\newblock In \emph{{CDC}}, 2024.
+
+\bibitem[Waytowich et~al.(2024)Waytowich, White, Sunbeam, and
+  Goecks]{waytowich2024atari}
+Waytowich, N.~R., White, D., Sunbeam, M., and Goecks, V.~G.
+\newblock {Atari-GPT}: Investigating the capabilities of multimodal large
+  language models as low-level policies for atari games.
+\newblock \emph{arXiv:2408.15950}, 2024.
+
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le,
+  and Zhou]{wei2022chain}
+Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E.~H.,
+  Le, Q.~V., and Zhou, D.
+\newblock Chain-of-thought prompting elicits reasoning in large language
+  models.
+\newblock In \emph{NeurIPS}, 2022.
+
+\bibitem[Wenliang et~al.(2025)Wenliang, Ruoss, Grau{-}Moya, Hutter, and
+  Genewein]{li2025why}
+Wenliang, L.~K., Ruoss, A., Grau{-}Moya, J., Hutter, M., and Genewein, T.
+\newblock Why is prompting hard? understanding prompts on binary sequence
+  predictors.
+\newblock \emph{arXiv:2502.10760}, 2025.
+
+\bibitem[White et~al.(2025)White, Dooley, Roberts, Pal, Feuer, Jain,
+  Shwartz{-}Ziv, Jain, Saifullah, Dey, Shubh{-}Agrawal, Sandha, Naidu, Hegde,
+  LeCun, Goldstein, Neiswanger, and Goldblum]{white2025livebench}
+White, C., Dooley, S., Roberts, M., Pal, A., Feuer, B., Jain, S.,
+  Shwartz{-}Ziv, R., Jain, N., Saifullah, K., Dey, S., Shubh{-}Agrawal, Sandha,
+  S.~S., Naidu, S.~V., Hegde, C., LeCun, Y., Goldstein, T., Neiswanger, W., and
+  Goldblum, M.
+\newblock {LiveBench}: {A} challenging, contamination-limited {LLM} benchmark.
+\newblock In \emph{{ICLR}}, 2025.
+
+\bibitem[Whitlock(2011)]{whitlock2011genxword}
+Whitlock, D.
+\newblock genxword, 2011.
+\newblock URL \url{https://github.com/riverrun/genxword}.
+
+\bibitem[Xi et~al.(2025)Xi, Chen, Guo, He, Ding, Hong, Zhang, Wang, Jin, Zhou,
+  Zheng, Fan, Wang, Xiong, Zhou, Wang, Jiang, Zou, Liu, Yin, Dou, Weng, Qin,
+  Zheng, Qiu, Huang, Zhang, and Gui]{xi2025rise}
+Xi, Z., Chen, W., Guo, X., He, W., Ding, Y., Hong, B., Zhang, M., Wang, J.,
+  Jin, S., Zhou, E., Zheng, R., Fan, X., Wang, X., Xiong, L., Zhou, Y., Wang,
+  W., Jiang, C., Zou, Y., Liu, X., Yin, Z., Dou, S., Weng, R., Qin, W., Zheng,
+  Y., Qiu, X., Huang, X., Zhang, Q., and Gui, T.
+\newblock The rise and potential of large language model based agents: a
+  survey.
+\newblock \emph{Sci. China Inf. Sci.}, 2025.
+
+\bibitem[Xu et~al.(2022)Xu, Shen, Zhang, Lu, Zhao, Tenenbaum, and
+  Gan]{xu2022prompting}
+Xu, M., Shen, Y., Zhang, S., Lu, Y., Zhao, D., Tenenbaum, J.~B., and Gan, C.
+\newblock Prompting decision transformer for few-shot policy generalization.
+\newblock In \emph{{ICML}}, 2022.
+
+\bibitem[Yang et~al.(2024)Yang, Wang, Lu, Liu, Le, Zhou, and
+  Chen]{yang2024large}
+Yang, C., Wang, X., Lu, Y., Liu, H., Le, Q.~V., Zhou, D., and Chen, X.
+\newblock Large language models as optimizers.
+\newblock In \emph{{ICLR}}, 2024.
+
+\bibitem[Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and
+  Cao]{yao2023react}
+Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K.~R., and Cao, Y.
+\newblock React: Synergizing reasoning and acting in language models.
+\newblock In \emph{{ICLR}}, 2023.
+
+\bibitem[Yin et~al.(2024)Yin, Wang, Sharma, Niu, Darrell, and
+  Herzig]{yin2024incontext}
+Yin, Y., Wang, Z., Sharma, Y., Niu, D., Darrell, T., and Herzig, R.
+\newblock In-context learning enables robot action prediction in llms.
+\newblock \emph{arXiv:2410.12782}, 2024.
+
+\end{thebibliography}

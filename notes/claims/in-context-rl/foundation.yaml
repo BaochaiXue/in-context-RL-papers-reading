@@ -1,0 +1,76 @@
+topic: in-context-rl
+claim_family: foundation
+claims:
+  - claim_id: icrl-foundation-001
+    statement: "The local note set supports that in-context adaptation is empirically present across sequence-model, meta-RL, and LLM-based settings without test-time weight updates."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+      - notes/papers/supervised-pretraining-can-learn-in-context-reinforcement-learning.md
+      - notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+      - notes/papers/llms-are-in-context-reinforcement-learners.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+        anchors: [Evaluation, Experiments, Conclusion]
+      - note_file: notes/papers/supervised-pretraining-can-learn-in-context-reinforcement-learning.md
+        anchors: [Main Results, Learning in Bandits, Learning in Markov Decision Processes]
+      - note_file: notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+        anchors: [Experiments and Results, AdA shows human-timescale adaptation]
+      - note_file: notes/papers/llms-are-in-context-reinforcement-learners.md
+        anchors: [Results and Analysis, Discussion and Limitations]
+    confidence: 0.87
+    downstream_use_candidates: [background, motivation, scope-definition]
+
+  - claim_id: icrl-foundation-002
+    statement: "Local mechanistic and theoretical notes support the existence of RL-like forward-pass computations in pretrained models, but they do not establish a minimal universal internal state decomposition."
+    type: inference
+    support_note_files:
+      - notes/papers/transformers-as-decision-makers-provable-in-context-reinforcement-learning-via-supervised-pretraining.md
+      - notes/papers/transformers-learn-temporal-difference-methods-for-in-context-reinforcement-learning.md
+      - notes/papers/sparse-autoencoders-reveal-temporal-difference-learning-in-large-language-models.md
+      - notes/papers/learning-how-to-infer-partial-mdps-for-in-context-adaptation-and-exploration.md
+    evidence_anchors:
+      - note_file: notes/papers/transformers-as-decision-makers-provable-in-context-reinforcement-learning-via-supervised-pretraining.md
+        anchors: [Main result, Limitation and discussion, The effect of distribution ratio]
+      - note_file: notes/papers/transformers-learn-temporal-difference-methods-for-in-context-reinforcement-learning.md
+        anchors: [Transformers Can Implement In-Context TD(0), Conclusion]
+      - note_file: notes/papers/sparse-autoencoders-reveal-temporal-difference-learning-in-large-language-models.md
+        anchors: [Llama uses TD features to learn policies in-context, Limitations & Future Work]
+      - note_file: notes/papers/learning-how-to-infer-partial-mdps-for-in-context-adaptation-and-exploration.md
+        anchors: [Learning How to Infer Partial Models, Model adaptation, Exploration]
+    confidence: 0.81
+    downstream_use_candidates: [mechanism-gap, research-question, reviewer-defense]
+
+  - claim_id: icrl-foundation-003
+    statement: "The local notes do not cleanly separate genuine online adaptation from memory exploitation or retrieval, especially in complex or fully observable settings."
+    type: inference
+    support_note_files:
+      - notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+      - notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+      - notes/papers/a-survey-of-in-context-reinforcement-learning.md
+    evidence_anchors:
+      - note_file: notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+        anchors: [Discussion, Conclusion, Ablations, Exploration Analysis]
+      - note_file: notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+        anchors: [In-Context Imitation Learning, Discussion & Related Work]
+      - note_file: notes/papers/a-survey-of-in-context-reinforcement-learning.md
+        anchors: [Open Problems and Opportunities, Theory, Architectures]
+    confidence: 0.76
+    downstream_use_candidates: [gap-framing, benchmark-design, evaluator-checklist]
+
+  - claim_id: icrl-foundation-004
+    statement: "A recurring conceptual split in the local notes is between demonstrating that adaptation exists and understanding which latent quantities make it work."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+      - notes/papers/transformers-learn-temporal-difference-methods-for-in-context-reinforcement-learning.md
+      - notes/papers/sparse-autoencoders-reveal-temporal-difference-learning-in-large-language-models.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+        anchors: [Experiments, Conclusion]
+      - note_file: notes/papers/transformers-learn-temporal-difference-methods-for-in-context-reinforcement-learning.md
+        anchors: [Conclusion, Experimental Results of Pre-training with CartPole]
+      - note_file: notes/papers/sparse-autoencoders-reveal-temporal-difference-learning-in-large-language-models.md
+        anchors: [Discussion, Limitations & Future Work]
+    confidence: 0.79
+    downstream_use_candidates: [introduction, mechanism-gap, skeptical-review]

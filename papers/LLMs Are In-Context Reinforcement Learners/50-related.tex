@@ -1,0 +1,33 @@
+\section{Related Work}\label{sec:related}
+
+
+
+\paragraph{Supervised ICL} 
+ICL was first demonstrated by \citet{brown2020language}, and since then its causes~\citep{chan_data_2022, xie2022explanationincontextlearningimplicit, olsson2022incontextlearninginductionheads, garg2022transformers, pmlr-v202-von-oswald23a, hendel-etal-2023-context, wang2023labelwordsanchorsinformation} and the level of learning it displays~\citep{min2022rethinking, lyu-etal-2023-z} have been studied extensively.
+By now, it is well established that LLMs can learn new tasks in context~\citep{garg2022transformers, wei2023largerlanguagemodelsincontext, pan-etal-2023-context, kossen2024incontextlearninglearnslabel, li2024languagemodelslearncontext}. 
+Our work builds on this line of work, and provides the first evidence that LLMs have the innate capability to perform RL in context, and not only supervised learning (i.e., the standard way it is done), in the contextual bandit setting. 
+
+Our study would not be possible without recent increases in the context window length of LLMs~\citep{dubey2024llama, abdin2024phi3technicalreporthighly, geminiteam2024geminifamilyhighlycapable}. 
+Recent work showed that model performance can continue to increase when including hundreds or thousands of ICL demonstrations~\citep{bertsch2024incontext, agarwal2024manyshotincontextlearning}. We find similar results: LLMs can continually improve when learning through ICRL until their context does not saturate. Interestingly, while some work \citep{zhang2024incontextprinciplelearningmistakes, mo2024ciclcontrastiveincontextlearning, shinn2024reflexion} find that models can learn from mistakes, we do not observe effective learning from episodes with negative rewards. 
+It is possible that models can learn from mistakes only when explicitly reasoning~\citep{kojima2022large, wei2022chainofthought} about them~\citep{shinn2024reflexion, zhang2024incontextprinciplelearningmistakes}, but not implicitly. This is an important direction for further study. 
+
+
+
+
+\paragraph{ICRL}
+Likely the closest work to ours is \citeauthor{krishnamurthy2024largelanguagemodelsexplore}'s (\citeyear{krishnamurthy2024largelanguagemodelsexplore}) study of whether LLMs can solve multi-armed bandit problems, a state-less simpler RL setting than the one we are focused on.
+We observe similar issues to their findings with the \naiveshort approach. 
+They present a set of negative results, and finally are able to elicit effective learning, but through a prompting strategy that cannot generalize beyond their very simple scenario. 
+We address this challenge by showing the strong performances of both \naiveplusshort, which includes only positive outcomes and an increased sampling temperature, and \expshort, which features stochasticity in the prompt construction. 
+Concurrent to our work, \citet{nie2024evolve} studied the contextual bandit ICRL, similar to our study. They also propose a working solution, but take a very different approach by externally tracking learning statistics commonly used in the UCB bandit learning algorithm~\citep{Auer2002}, and fine-tuning or prompting a model to leverage them. 
+In contrast, the approaches we discuss do not rely on explicitly tracking statistics or fine-tuning. Instead, we are interested in innate abilities. 
+
+\citet{wu2024smartplaybenchmarkllmsintelligent} propose benchmarks that include a simplified multi-armed bandit problem. Their baseline results with a method similar to \naiveshort show mixed results in a setting that is even simpler than that of \citet{krishnamurthy2024largelanguagemodelsexplore}.
+
+
+A few studies have also considered multi-step RL toy settings~\citep{NEURIPS2023_60dc7fa8, mirchandani2023large}. \citet{mirchandani2023large} prompt models to improve past trajectories, and~\citet{NEURIPS2023_60dc7fa8} simulate policy iteration with LLMs.
+Both works find that models cannot learn in general. Interestingly, \citet{mirchandani2023large} attribute this failure to LLMs inability to explore and find optimal solutions, as we also observed in our analysis of \naiveshort.
+
+\paragraph{Transformers and RL}
+Another related line of research is that of Transformers trained to solve sequential decision-making problems~\citep{janner2021sequence, chen2021decision, pmlr-v162-xu22g,laskin2022incontextreinforcementlearningalgorithm, pmlr-v162-zheng22c, NEURIPS2023_8644b61a, grigsby2023amago, raparthy2023generalizationnewsequentialdecision}. In all these cases, Transformers~\citep{vaswani2017attention} are trained from scratch. Our focus is different: we study ICRL that emerges from the process of training LLMs, without fine-tuning the LLM for this purpose. 
+

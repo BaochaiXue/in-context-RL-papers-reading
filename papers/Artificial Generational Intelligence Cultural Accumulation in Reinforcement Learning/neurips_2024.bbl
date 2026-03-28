@@ -1,0 +1,278 @@
+\begin{thebibliography}{54}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anthony et~al.(2017)Anthony, Tian, and Barber]{anthony2017thinking}
+Thomas Anthony, Zheng Tian, and David Barber.
+\newblock Thinking fast and slow with deep learning and tree search, 2017.
+
+\bibitem[Bandura and Walters(1977)]{bandura1977social}
+Albert Bandura and Richard~H Walters.
+\newblock \emph{Social learning theory}, volume~1.
+\newblock Englewood cliffs Prentice Hall, 1977.
+
+\bibitem[Barkow et~al.(1975)Barkow, Akiwowo, Barua, Chance, Chapple, Chattopadhyay, Freedman, Geddes, Goswami, Isichei, et~al.]{barkow1975prestige}
+Jerome~H Barkow, Akinsola~A Akiwowo, Tushar~K Barua, MRA Chance, Eliot~D Chapple, Gouranga~P Chattopadhyay, Daniel~G Freedman, WR~Geddes, BB~Goswami, PAC Isichei, et~al.
+\newblock Prestige and culture: a biosocial interpretation [and comments and replies].
+\newblock \emph{Current Anthropology}, 16\penalty0 (4):\penalty0 553--572, 1975.
+
+\bibitem[Bauer et~al.(2023)Bauer, Baumli, Baveja, et~al.]{Bauer23}
+J.~Bauer, K.~Baumli, S.~Baveja, et~al.
+\newblock Human-timescale adaptation in an open-ended task space.
+\newblock In \emph{International Conference on Machine Learning}, 2023.
+
+\bibitem[Bhoopchand et~al.(2023)Bhoopchand, Brownfield, Collister, et~al.]{bhoopchand23}
+A.~Bhoopchand, B.~Brownfield, A.~Collister, et~al.
+\newblock Learning few-shot imitation as cultural transmission.
+\newblock In \emph{Nature Communications 14}, page 7536, 2023.
+
+\bibitem[Bonnet et~al.(2024)Bonnet, Luo, Byrne, Surana, Abramowitz, Duckworth, Coyette, Midgley, Tegegn, Kalloniatis, Mahjoub, Macfarlane, Smit, Grinsztajn, Boige, Waters, Mimouni, Sob, de~Kock, Singh, Furelos-Blanco, Le, Pretorius, and Laterre]{bonnet2024jumanji}
+Clément Bonnet, Daniel Luo, Donal Byrne, Shikha Surana, Sasha Abramowitz, Paul Duckworth, Vincent Coyette, Laurence~I. Midgley, Elshadai Tegegn, Tristan Kalloniatis, Omayma Mahjoub, Matthew Macfarlane, Andries~P. Smit, Nathan Grinsztajn, Raphael Boige, Cemlyn~N. Waters, Mohamed~A. Mimouni, Ulrich A.~Mbou Sob, Ruan de~Kock, Siddarth Singh, Daniel Furelos-Blanco, Victor Le, Arnu Pretorius, and Alexandre Laterre.
+\newblock Jumanji: a diverse suite of scalable reinforcement learning environments in jax, 2024.
+\newblock URL \url{https://arxiv.org/abs/2306.09884}.
+
+\bibitem[Borsa et~al.(2017)Borsa, Piot, Munos, and Pietquin]{borsa2017observational}
+Diana Borsa, Bilal Piot, R{\'e}mi Munos, and Olivier Pietquin.
+\newblock Observational learning by reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1706.06617}, 2017.
+
+\bibitem[Buck and Keller(2008)]{buck16}
+A.~R. Buck and J.~M. Keller.
+\newblock A myopic monte carlo strategy for the partially observable travelling salesman problem.
+\newblock 2008.
+
+\bibitem[Cochrane et~al.(2023)Cochrane, Sims, Bejjanki, Green, and Bavelier]{cochrane2023multiple}
+Aaron Cochrane, Chris~R Sims, Vikranth~R Bejjanki, C~Shawn Green, and Daphne Bavelier.
+\newblock Multiple timescales of learning indicated by changes in evidence-accumulation processes during perceptual decision-making.
+\newblock \emph{npj Science of Learning}, 8\penalty0 (1):\penalty0 19, 2023.
+
+\bibitem[Cornish et~al.(2017)Cornish, Dale, Kirby, and Christiansen]{Cornish17}
+H.~Cornish, R.~Dale, S.~Kirby, and M.~H. Christiansen.
+\newblock Sequence memory constraints give rise to language-like structure through iterated learning.
+\newblock In \emph{PLoS ONE}, 2017.
+
+\bibitem[Dennis et~al.(2020)Dennis, Jaques, Vinitsky, Bayen, Russell, Critch, and Levine]{dennis2020emergent}
+Michael Dennis, Natasha Jaques, Eugene Vinitsky, Alexandre Bayen, Stuart Russell, Andrew Critch, and Sergey Levine.
+\newblock Emergent complexity and zero-shot transfer via unsupervised environment design.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 13049--13061, 2020.
+
+\bibitem[Duan et~al.(2016)Duan, Schulman, Chen, Bartlett, Sutskever, and Abbeel]{Duan16}
+Y.~Duan, J.~Schulman, X.~Chen, P.~L. Bartlett, I.~Sutskever, and P.~Abbeel.
+\newblock R$\text{L}^2$: Fast reinforcement learning via slow reinforcement learning.
+\newblock arXiv preprint, arXiv:1611.02779, 2016.
+
+\bibitem[Enquist et~al.(2008)Enquist, Ghirlanda, and Jarrick]{enquist08}
+M.~Enquist, S.~Ghirlanda, and A.~Jarrick.
+\newblock Why does human culture increase exponentially?
+\newblock 2008.
+
+\bibitem[Ha and Jeong(2023)]{ha2023social}
+Seungwoong Ha and Hawoong Jeong.
+\newblock Social learning spontaneously emerges by searching optimal heuristics with deep reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, pages 12319--12338. PMLR, 2023.
+
+\bibitem[Henrich(2019)]{Henrich19}
+J.~Henrich.
+\newblock The secret of our success: How culture is driving human evolution, domesticating our species, and making us smarter.
+\newblock Princeton University Press, 2019.
+
+\bibitem[Hofstede et~al.(1994)Hofstede, Hofstede, and Minkov]{Hofstede94}
+G.~Hofstede, G.~J. Hofstede, and M.~Minkov.
+\newblock Cultures and organizations: Software of the mind.
+\newblock McGraw-Hill Professional, 1994.
+
+\bibitem[Hoppitt and Laland(2013)]{hoppitt2013social}
+William Hoppitt and Kevin~N Laland.
+\newblock \emph{Social learning: an introduction to mechanisms, methods, and models}.
+\newblock Princeton University Press, 2013.
+
+\bibitem[Horner et~al.(2010)Horner, Proctor, Bonnie, Whiten, and de~Waal]{horner2010prestige}
+Victoria Horner, Darby Proctor, Kristin~E Bonnie, Andrew Whiten, and Frans~BM de~Waal.
+\newblock Prestige affects cultural learning in chimpanzees.
+\newblock \emph{PloS one}, 5\penalty0 (5):\penalty0 e10625, 2010.
+
+\bibitem[Jiang et~al.(2021)Jiang, Dennis, Parker-Holder, Foerster, Grefenstette, and Rockt{\"a}schel]{jiang2021replay}
+Minqi Jiang, Michael Dennis, Jack Parker-Holder, Jakob Foerster, Edward Grefenstette, and Tim Rockt{\"a}schel.
+\newblock Replay-guided adversarial environment design.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34:\penalty0 1884--1897, 2021.
+
+\bibitem[Johnson(2003)]{johnson2003procedural}
+Addie Johnson.
+\newblock Procedural memory and skill acquisition.
+\newblock \emph{Handbook of psychology}, pages 499--523, 2003.
+
+\bibitem[Kaelbling et~al.(1998)Kaelbling, Littman, and Cassandra]{kaelbling98}
+L.~P. Kaelbling, M.~L. Littman, and A.~R. Cassandra.
+\newblock Planning and acting in partially observable stochastic domains.
+\newblock 101:\penalty0 99--134, 1998.
+
+\bibitem[Kuhn(1953)]{kuhn53}
+H.~W. Kuhn.
+\newblock Extensive games and the problem of information.
+\newblock 28:\penalty0 193--216, 1953.
+
+\bibitem[Laskin et~al.(2022)Laskin, Wang, Oh, et~al.]{Laskin22}
+M.~Laskin, L.~Wang, J.~Oh, et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2022.
+
+\bibitem[Lu et~al.(2022{\natexlab{a}})Lu, Kuba, Letcher, Metz, Schroeder~de Witt, and Foerster]{lu2022discovered}
+Chris Lu, Jakub Kuba, Alistair Letcher, Luke Metz, Christian Schroeder~de Witt, and Jakob Foerster.
+\newblock Discovered policy optimisation.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 16455--16468, 2022{\natexlab{a}}.
+
+\bibitem[Lu et~al.(2023{\natexlab{a}})Lu, Towers, and Foerster]{lu2023arbitrary}
+Chris Lu, Sebastian Towers, and Jakob Foerster.
+\newblock Arbitrary order meta-learning with simple population-based evolution.
+\newblock In \emph{ALIFE 2023: Ghost in the Machine: Proceedings of the 2023 Artificial Life Conference}. MIT Press, 2023{\natexlab{a}}.
+
+\bibitem[Lu et~al.(2023{\natexlab{b}})Lu, Willi, Letcher, and Foerster]{lu2023adversarial}
+Chris Lu, Timon Willi, Alistair Letcher, and Jakob~Nicolaus Foerster.
+\newblock Adversarial cheap talk.
+\newblock In \emph{International Conference on Machine Learning}, pages 22917--22941. PMLR, 2023{\natexlab{b}}.
+
+\bibitem[Lu et~al.(2024)Lu, Schroecker, Gu, Parisotto, Foerster, Singh, and Behbahani]{lu2024structured}
+Chris Lu, Yannick Schroecker, Albert Gu, Emilio Parisotto, Jakob Foerster, Satinder Singh, and Feryal Behbahani.
+\newblock Structured state space models for in-context reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Lu et~al.(2022{\natexlab{b}})Lu, Willi, De~Witt, and Foerster]{lu2022model}
+Christopher Lu, Timon Willi, Christian A~Schroeder De~Witt, and Jakob Foerster.
+\newblock Model-free opponent shaping.
+\newblock In \emph{International Conference on Machine Learning}, pages 14398--14411. PMLR, 2022{\natexlab{b}}.
+
+\bibitem[Mesoudi(2011)]{mesoudi2011variable}
+Alex Mesoudi.
+\newblock Variable cultural acquisition costs constrain cumulative cultural evolution.
+\newblock \emph{PloS one}, 6\penalty0 (3):\penalty0 e18239, 2011.
+
+\bibitem[Mesoudi and Thornton(2018)]{mesoudi2018cumulative}
+Alex Mesoudi and Alex Thornton.
+\newblock What is cumulative cultural evolution?
+\newblock \emph{Proceedings of the Royal Society B}, 285\penalty0 (1880):\penalty0 20180712, 2018.
+
+\bibitem[Morad et~al.(2024)Morad, Lu, Kortvelesy, Liwicki, Foerster, and Prorok]{morad2024revisiting}
+Steven Morad, Chris Lu, Ryan Kortvelesy, Stephan Liwicki, Jakob Foerster, and Amanda Prorok.
+\newblock Revisiting recurrent reinforcement learning with memory monoids.
+\newblock \emph{arXiv preprint arXiv:2402.09900}, 2024.
+
+\bibitem[Ndousse et~al.(2021)Ndousse, Eck, Levine, and Jaques]{Ndousse21}
+K.~Ndousse, D.~Eck, S.~Levine, and N.~Jaques.
+\newblock Emergent social learning via multi-agent reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, 2021.
+
+\bibitem[Ni et~al.(2021)Ni, Eysenbach, and Salakhutdinov]{ni21}
+T.~Ni, B.~Eysenbach, and R.~Salakhutdinov.
+\newblock Recurrent model-free rl can be a strong baseline for many pomdps.
+\newblock 2021.
+
+\bibitem[Nikishin et~al.(2022)Nikishin, Schwarzer, D'Oro, Bacon, and Courville]{Nikishin22}
+E.~Nikishin, M.~Schwarzer, P.~D'Oro, P-L. Bacon, and A.~Courville.
+\newblock The primacy bias in deep reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, 2022.
+
+\bibitem[Noormohammadi-Asl and Taghirad(2019)]{asl19}
+A.~Noormohammadi-Asl and H.~D. Taghirad.
+\newblock Multi-goal motion planning using traveling salesman problem in belief space.
+\newblock 2019.
+
+\bibitem[Perez et~al.(2023)Perez, Sánchez-Fibla, and Moulin-Frier]{perez23}
+J.~Perez, M.~Sánchez-Fibla, and C.~Moulin-Frier.
+\newblock Cultural evolution in populations with heterogenous and variable preferences.
+\newblock 2023.
+\newblock URL \url{https://inria.hal.science/hal-04408019}.
+
+\bibitem[Perez et~al.(2024)Perez, Léger, Ovando-Tellez, Foulon, Dussauld, Oudayer, and Moulin-Frier]{perez24}
+J.~Perez, C.~Léger, M.~Ovando-Tellez, C.~Foulon, J.~Dussauld, P.~Oudayer, and C.~Moulin-Frier.
+\newblock Cultural evolution in populations of large language models.
+\newblock 2024.
+
+\bibitem[Perreault(2012)]{perreault2012pace}
+Charles Perreault.
+\newblock The pace of cultural evolution.
+\newblock 2012.
+
+\bibitem[Pomerleau(1988)]{pomerleau1988alvinn}
+Dean~A Pomerleau.
+\newblock Alvinn: An autonomous land vehicle in a neural network.
+\newblock \emph{Advances in neural information processing systems}, 1, 1988.
+
+\bibitem[Poulin-Dubois and Brosseau-Liard(2016)]{poulin16}
+D.~Poulin-Dubois and P.~Brosseau-Liard.
+\newblock The developmental origins of selective social learning.
+\newblock \emph{Current Directions in Psychological Science}, 25\penalty0 (1):\penalty0 60--64, 2016.
+
+\bibitem[Prystawski et~al.(2023)Prystawski, Arumugam, and Goodman]{prystawski23}
+B.~Prystawski, D.~Arumugam, and N.~D. Goodman.
+\newblock Cultural reinforcement learning: a framework for modeling cumulative culture on a limited channel.
+\newblock 2023.
+
+\bibitem[Rendell et~al.(2010)Rendell, Boyd, Cownden, Enquist, Eriksson, Feldman, Fogarty, Ghirlanda, Lillicrap, and Laland]{rendell2010copy}
+Luke Rendell, Robert Boyd, Daniel Cownden, Marquist Enquist, Kimmo Eriksson, Marc~W Feldman, Laurel Fogarty, Stefano Ghirlanda, Timothy Lillicrap, and Kevin~N Laland.
+\newblock Why copy others? insights from the social learning strategies tournament.
+\newblock \emph{Science}, 328\penalty0 (5975):\penalty0 208--213, 2010.
+
+\bibitem[Russell(1998)]{russell1998learning}
+Stuart Russell.
+\newblock Learning agents for uncertain environments.
+\newblock In \emph{Proceedings of the eleventh annual conference on Computational learning theory}, pages 101--103, 1998.
+
+\bibitem[Rutherford et~al.(2023)Rutherford, Ellis, Gallici, Cook, Lupu, Ingvarsson, Willi, Khan, de~Witt, Souly, et~al.]{rutherford2023jaxmarl}
+Alexander Rutherford, Benjamin Ellis, Matteo Gallici, Jonathan Cook, Andrei Lupu, Gardar Ingvarsson, Timon Willi, Akbir Khan, Christian~Schroeder de~Witt, Alexandra Souly, et~al.
+\newblock Jaxmarl: Multi-agent rl environments in jax.
+\newblock \emph{arXiv preprint arXiv:2311.10090}, 2023.
+
+\bibitem[Sasaki and Yamashina(2021)]{Sasaki21}
+F.~Sasaki and R.~Yamashina.
+\newblock Behavioural cloning from noisy demonstrations.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+
+\bibitem[Sasaki and Biro(2017)]{sasaki17}
+T.~Sasaki and D.~Biro.
+\newblock Cumulative culture can emerge from collective intelligence in animal groups.
+\newblock 2017.
+
+\bibitem[Schmitt et~al.(2018)Schmitt, Hudson, Zidek, Osindero, Doersch, Czarnecki, Leibo, Kuttler, Zisserman, Simonyan, and Eslami]{schmitt2018kickstarting}
+Simon Schmitt, Jonathan~J Hudson, Augustin Zidek, Simon Osindero, Carl Doersch, Wojciech~M Czarnecki, Joel~Z Leibo, Heinrich Kuttler, Andrew Zisserman, Karen Simonyan, and S.~M.~Ali Eslami.
+\newblock Kickstarting deep reinforcement learning.
+\newblock \emph{arXiv preprint, arXiv:1803.03835}, 2018.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and Klimov]{Schulman17}
+J.~Schulman, F.~Wolski, P.~Dhariwal, A.~Radford, and O.~Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock arXiv preprint, arXiv:1707.06347, 2017.
+
+\bibitem[Smith et~al.(2022)Smith, Warrington, and Linderman]{Smith22}
+J.~T.~H. Smith, A.~Warrington, and S.~W. Linderman.
+\newblock Simplified state space layers for sequence modelling.
+\newblock arXiv preprint, arXiv:2208.04933, 2022.
+
+\bibitem[Squire(2004)]{squire2004memory}
+Larry~R Squire.
+\newblock Memory systems of the brain: a brief history and current perspective.
+\newblock \emph{Neurobiology of learning and memory}, 82\penalty0 (3):\penalty0 171--177, 2004.
+
+\bibitem[Squire et~al.(1993)Squire, Knowlton, and Musen]{squire1993structure}
+Larry~R Squire, Barbara Knowlton, and Gail Musen.
+\newblock The structure and organization of memory.
+\newblock \emph{Annual review of psychology}, 44\penalty0 (1):\penalty0 453--495, 1993.
+
+\bibitem[Stooke et~al.(2022)Stooke, Mahajan, Barros, et~al.]{Stooke21}
+A.~Stooke, A.~Mahajan, C.~Barros, et~al.
+\newblock Open-ended learning leads to generally capable agents.
+\newblock arXiv preprint, arXiv:2107.12808, 2022.
+
+\bibitem[Tennie et~al.(2009)Tennie, Call, and Tomasello]{Tennie09}
+C.~Tennie, J.~Call, and M.~Tomasello.
+\newblock Ratcheting up the ratchet: On the evolution of cumulative culture.
+\newblock In \emph{Philosophical Transactions of the Royal Society B: Biological Sciences}, 2009.
+
+\bibitem[Wang et~al.(2016)Wang, Kurth-Nelson, Tirumala, Soyer, Leibo, Munos, Blundell, Kumaran, and Botvinick]{wang2016learning}
+Jane~X Wang, Zeb Kurth-Nelson, Dhruva Tirumala, Hubert Soyer, Joel~Z Leibo, Remi Munos, Charles Blundell, Dharshan Kumaran, and Matt Botvinick.
+\newblock Learning to reinforcement learn.
+\newblock \emph{arXiv preprint arXiv:1611.05763}, 2016.
+
+\end{thebibliography}

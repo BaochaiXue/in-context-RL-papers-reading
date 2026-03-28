@@ -1,0 +1,35 @@
+Unseen House
+not in Training
+
+Mobile Robot
+New Target Object
+
+New Robot Start
+
+Target Object
+to Find
+
+Episode 1:
+Ine cient path
+to object
+
+Episode T: After
+adapting to new
+house, e cient
+path to object
+
+In-context adapt
+
+ReLIC: trained with reinforcement learning to in context adapt to new tasks
+Episode T
+
+Episode 1
+
+ffi
+
+ffi
+
+64,000 observations
+of context
+
+

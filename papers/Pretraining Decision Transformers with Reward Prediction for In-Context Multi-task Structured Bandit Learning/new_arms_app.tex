@@ -1,0 +1,209 @@
+In this section, we discuss the exploration of \pred\ (\gt) in the linear and non-linear new arms bandit setting discussed in \Cref{sec:new-actions}.  Recall that we consider the linear bandit setting of horizon $n=50$, $\Mpr = 200000$, $\Mts = 200$, $A=20$, and $d=5$. 
+%
+Here during data collection and during collecting the test data, we randomly select one new action from $\R^d$ for each task $m$. 
+%
+So the number of invariant actions is $|\Anc| = 19$.
+% 
+%
+
+
+\textbf{Outcomes:} We first discuss the main outcomes of our analysis of exploration in the low-data regime:
+
+\begin{tcolorbox}
+    \customfinding The \pred\ (\gt) is robust to changes when the number of in-variant actions is large. \pred\ (\gt) performance drops as shared structure breaks down.
+\end{tcolorbox}
+
+% \noindent
+% \textbf{(1)} The \pred\ (\gt) is robust to changes when the number of changing arms is small. It samples the optimal action in each task more than \dptg. 
+
+% \textbf{(2)} When the number of in-variant actions is small then all algorithms \pred, \predt, and \ad\ sample the optimal action very less. This shows that the latent shared structure across the tasks is very important.
+
+
+
+We first show in \Cref{fig:train-dist-new-1} the training distribution of the optimal actions. For each bar, the frequency indicates the number of tasks where the action (shown in the x-axis) is the optimal action.
+
+Then in \Cref{fig:analysis-epxploration-new-1} we show how the sampling distribution of \dptg, \pred\, and \predt\ change in the first $10$ and last $10$ rounds for all the tasks where action $17$ is optimal. We plot this graph the same way as discussed in \Cref{sec:linear}.
+%
+% Again to plot this graph we first sum over the individual pulls of the action taken by each algorithm over the first $10$ and last $10$ rounds. Then we average these counts over all test tasks where action $5$ is optimal. 
+%
+From the figure \Cref{fig:analysis-epxploration-new-1} we see that \pred (\gt) consistently pulls the action $17$ more than \dptg. It also explores other optimal actions like $\{1,2,3,8,9,15\}$ but discards them quickly in favor of the optimal action $17$ in these tasks. 
+
+Finally, we plot the feasible action set considered by \dptg, \pred, and \predt\ in \Cref{fig:analysis-exploration-time-new-1}. To plot this graph again we consider the test tasks where the optimal action is $17$. Then we count the number of distinct actions that are taken from round $t$ up until horizon $n$. Finally we average this over all the considered tasks where the optimal action is $17$. We call this the candidate action set considered by the algorithm. From the \Cref{fig:analysis-exploration-time-new-1} we see that \predt\ explores more than \pred\ in this setting.
+
+% \dptg\ explores the least and gets stuck with few actions quickly (by round $10$). \predt\ explores more than \pred\ in this setting. We see that \dptg\ explores most but focuses more on sub-optimal actions (see \Cref{fig:analysis-epxploration-new-1}).
+
+
+We also show how the prediction error of the optimal action by \pred\ compared to \linucb\ in this $1$ new arm linear bandit setting. In \Cref{fig:short-horizon-action-dist-new-1} we first show how the $20$ actions are distributed in the $\Mts=200$ test tasks. In \Cref{fig:short-horizon-action-dist-new-1} for each bar, the frequency indicates the number of tasks where the action (shown in the x-axis) is the optimal action. Then in \Cref{fig:short-horizon-action-error-new-1} we show the prediction error of \pred\ (\gt) for each task $m\in[\Mts]$. The prediction error is calculated the same way as stated in \Cref{sec:new-actions} 
+%
+From the \Cref{fig:short-horizon-action-error-new-1} we see that for most actions the prediction error of \pred\ (\gt) is closer to \linucb\ showing that the introduction of $1$ new action does not alter the prediction error much.
+%
+% actions $\{2,3,5,6,7,10\}$ the prediction error of \pred\ is either close or smaller than \linucb. 
+% This constitutes nearly $70\%$ of the $200$ test tasks. 
+Note that \linucb\ estimates the empirical mean directly from the test task, whereas \pred\ has a strong prior based on the training data. Therefore we see that \pred\ is able to estimate the reward of the optimal action quite well from the training dataset $\Dpr$.
+%
+
+% \begin{figure}[!hbt]
+% \centering
+% \begin{tabular}{ccc}
+% \subfigure[Train Optimal Action Distribution]{\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/final/linear_small/optimal_action_train.png}\label{fig:train-dist-new-1}} &
+% %%%%%%%%%%
+% \subfigure[Distribution of action sampling in all tasks where action $17$ is optimal]{\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/final/linear_small/analysis_pull.png} \label{fig:analysis-epxploration-new-1}} &
+% %%%%%%%%%%%%%%%%%%%%%%%
+% \subfigure[Candidate Action Set in Time averaged over all tasks where action $17$ is optimal]{\hspace*{-1.5em}\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/final/linear_small/analysis_time_1.png}\label{fig:analysis-exploration-time-new-1}} 
+% \end{tabular}
+% \caption{Exploration Analysis of \pred (\gt) in linear 1 new arm setting}
+% \label{fig:exploration-analysis-time-new-1}
+% \end{figure}
+% %
+% %
+% %
+% \begin{figure}[!hbt]
+% \centering
+% \vspace*{-1em}
+% \begin{tabular}{cc}
+% %%%%%%%%%%%%%%%%%%%%%%%
+% \hspace*{-1.5em}\subfigure[Test action distribution]{\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/final/linear_small/optimal_action_test.png} \label{fig:short-horizon-action-dist-new-1}}&
+% % %%%%%%%%%%
+% \hspace*{-1.5em}\subfigure[Test Prediction Error]{\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/final/linear_small/analysis_total.png} \label{fig:short-horizon-action-error-new-1}}
+% \end{tabular}
+% \vspace*{-1em}
+% \caption{Prediction error of \pred (\gt) in linear 1 new arm setting}
+% \label{fig:expt-short-horizon-new-1}
+% \vspace{-0.7em}
+% \end{figure}
+
+
+\begin{figure}[!hbt]
+\centering
+\begin{subfigure}[b]{0.32\textwidth}
+    \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/final/linear_small/optimal_action_train.png}
+    \caption{Train Optimal Action Distribution}
+    \label{fig:train-dist-new-1}
+\end{subfigure}%
+\begin{subfigure}[b]{0.32\textwidth}
+    \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/final/linear_small/analysis_pull.png}
+    \caption{Distribution of action sampling in all tasks where action $17$ is optimal}
+    \label{fig:analysis-epxploration-new-1}
+\end{subfigure}%
+\begin{subfigure}[b]{0.32\textwidth}
+    \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/final/linear_small/analysis_time_1.png}
+    \caption{Candidate Action Set in Time averaged over all tasks where action $17$ is optimal}
+    \label{fig:analysis-exploration-time-new-1}
+\end{subfigure}
+\caption{Exploration Analysis of \pred (\gt) in linear 1 new arm setting}
+\label{fig:exploration-analysis-time-new-1}
+\end{figure}
+
+\begin{figure}[!hbt]
+\centering
+\vspace*{-1em}
+\begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/final/linear_small/optimal_action_test.png}
+    \caption{Test action distribution}
+    \label{fig:short-horizon-action-dist-new-1}
+\end{subfigure}%
+\begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/final/linear_small/analysis_total.png}
+    \caption{Test Prediction Error}
+    \label{fig:short-horizon-action-error-new-1}
+\end{subfigure}
+\vspace*{-1em}
+\caption{Prediction error of \pred (\gt) in linear 1 new arm setting}
+\label{fig:expt-short-horizon-new-1}
+\vspace{-0.7em}
+\end{figure}
+
+We now consider the setting where the number of invariant actions is $|\Anc| = 15$.
+% 
+%
+We again show in \Cref{fig:train-dist-new-5} the training distribution of the optimal actions. For each bar, the frequency indicates the number of tasks where the action (shown in the x-axis) is the optimal action. Then in \Cref{fig:analysis-epxploration-new-5} we show how the sampling distribution of \dptg, \pred\, and \predt\ change in the first $10$ and last $10$ rounds for all the tasks where action $17$ is optimal. We plot this graph the same way as discussed in \Cref{sec:linear}.
+%
+% Again to plot this graph we first sum over the individual pulls of the action taken by each algorithm over the first $10$ and last $10$ rounds. Then we average these counts over all test tasks where action $5$ is optimal. 
+%
+From the figure \Cref{fig:analysis-epxploration-new-5} we see that none of the algorithms \pred, \predt, \dptg\ consistently pulls the action $17$ more than other actions. This shows that the common underlying actions across the tasks matter for learning the epxloration.
+% It also explores other optimal actions like $\{1,2,3,8,9, 15\}$ but discards them quickly in favor of the optimal action $17$ in these tasks. 
+
+Finally, we plot the feasible action set considered by \dptg, \pred, and \predt\ in \Cref{fig:analysis-exploration-time-new-5}. To plot this graph again we consider the test tasks where the optimal action is $17$. We build the candidate set the same way as before. From the \Cref{fig:analysis-exploration-time-new-5} we see that none of the three algorithms \dptg, \pred, \predt, is able to sample the optimal action $17$ sufficiently high number of times.
+
+% \dptg\ explores the least and gets stuck with few actions quickly (by round $10$). \predt\ explores more than \pred\ in this setting. We see that \dptg\ explores most but focuses more on sub-optimal actions (see \Cref{fig:analysis-epxploration-new-1}).
+
+
+We also show how the prediction error of the optimal action by \pred\ compared to \linucb\ in this $1$ new arm linear bandit setting. In \Cref{fig:short-horizon-action-dist-new-5} we first show how the $20$ actions are distributed in the $\Mts=200$ test tasks. In \Cref{fig:short-horizon-action-dist-new-5} for each bar, the frequency indicates the number of tasks where the action (shown in the x-axis) is the optimal action. Then in \Cref{fig:short-horizon-action-error-new-5} we show the prediction error of \pred\ (\gt) for each task $m\in[\Mts]$. The prediction error is calculated the same way as stated in \Cref{sec:new-actions}. 
+%
+From the \Cref{fig:short-horizon-action-error-new-5} we see that for most actions the prediction error is higher than \linucb\ showing that the introduction of $5$ new actions (and thereby decreasing the invariant action set) significantly alters the prediction error.
+%
+% actions $\{2,3,5,6,7,10\}$ the prediction error of \pred\ is either close or smaller than \linucb. 
+% This constitutes nearly $70\%$ of the $200$ test tasks. 
+% Note that \linucb\ estimates the empirical mean directly from the test task, whereas \pred\ has a strong prior based on the training data. Therefore we see that \pred\ is able to estimate the reward of the optimal action quite well from the training dataset $\Dpr$.
+
+
+% \begin{figure}[!hbt]
+% \centering
+% \begin{tabular}{ccc}
+% \subfigure[Train Optimal Action Distribution]{\includegraphics[scale = 0.27]{img/Neurips/new_arms/linear/linear_large/optimal_action_train.png}\label{fig:train-dist-new-5}} &
+% %%%%%%%%%%
+% \subfigure[Distribution of action sampling in all tasks where action $17$ is optimal]{\includegraphics[scale = 0.27]{img/Neurips/new_arms/linear/linear_large/analysis_pull.png} \label{fig:analysis-epxploration-new-5}} &
+% %%%%%%%%%%%%%%%%%%%%%%%
+% \subfigure[Candidate Action Set in Time averaged all tasks where action $17$ is optimal]{\includegraphics[scale = 0.27]{img/Neurips/new_arms/linear/linear_large/analysis_time_1.png}\label{fig:analysis-exploration-time-new-5}} 
+% \end{tabular}
+% \caption{Exploration Analysis of \pred (\gt) in linear 5 new arm setting}
+% \label{fig:exploration-analysis-time-new-5}
+% \end{figure}
+% %
+% %
+% %
+% \begin{figure}[!hbt]
+% \centering
+% \vspace*{-1em}
+% \begin{tabular}{cc}
+% %%%%%%%%%%%%%%%%%%%%%%%
+% \hspace*{-1.5em}\subfigure[Test action distribution]{\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/linear_large/optimal_action_test.png} \label{fig:short-horizon-action-dist-new-5}}&
+% % %%%%%%%%%%
+% \hspace*{-1.5em}\subfigure[Test Prediction Error]{\includegraphics[scale =0.27]{img/Neurips/new_arms/linear/linear_large/analysis_total.png} \label{fig:short-horizon-action-error-new-5}}
+% \end{tabular}
+% \vspace*{-1em}
+% \caption{Prediction error of \pred (\gt) in linear 1 new arm setting}
+% \label{fig:expt-short-horizon-new-5}
+% \vspace{-0.7em}
+% \end{figure}
+
+
+\begin{figure}[!hbt]
+\centering
+\begin{subfigure}[b]{0.32\textwidth}
+   \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/linear_large/optimal_action_train.png}
+   \caption{Train Optimal Action Distribution}
+   \label{fig:train-dist-new-5}
+\end{subfigure}%
+\begin{subfigure}[b]{0.32\textwidth}
+   \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/linear_large/analysis_pull.png}
+   \caption{Distribution of action sampling in all tasks where action $17$ is optimal}
+   \label{fig:analysis-epxploration-new-5}
+\end{subfigure}%
+\begin{subfigure}[b]{0.32\textwidth}
+   \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/linear_large/analysis_time_1.png}
+   \caption{Candidate Action Set in Time averaged all tasks where action $17$ is optimal}
+   \label{fig:analysis-exploration-time-new-5}
+\end{subfigure}
+\caption{Exploration Analysis of \pred (\gt) in linear 5 new arm setting}
+\label{fig:exploration-analysis-time-new-5}
+\end{figure}
+
+\begin{figure}[!hbt]
+\centering
+\vspace*{-1em}
+\begin{subfigure}[b]{0.48\textwidth}
+   \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/linear_large/optimal_action_test.png}
+   \caption{Test action distribution}
+   \label{fig:short-horizon-action-dist-new-5}
+\end{subfigure}%
+\begin{subfigure}[b]{0.48\textwidth}
+   \includegraphics[scale=0.27]{img/Neurips/new_arms/linear/linear_large/analysis_total.png}
+   \caption{Test Prediction Error}
+   \label{fig:short-horizon-action-error-new-5}
+\end{subfigure}
+\vspace*{-1em}
+\caption{Prediction error of \pred (\gt) in linear 1 new arm setting}
+\label{fig:expt-short-horizon-new-5}
+\vspace{-0.7em}
+\end{figure}

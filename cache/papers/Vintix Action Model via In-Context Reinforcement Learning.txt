@@ -1,0 +1,34 @@
+Normalized Score IQM in %
+
+Zero-Shot ICRL
++25.0
++74.0
+
+100
+80
+60
+32-shot
+40
+20
+0-shot
+0 Bi-DexHands
+
+0-shot
+
+8-shot
+
+MuJoCo
+
+Many-Shot ICRL
++6.0
++20.0
+0-shot 43-shot
+
+0-shot
+
+11-shot
+
+Industrial Meta-World
+Benchmark
+
+

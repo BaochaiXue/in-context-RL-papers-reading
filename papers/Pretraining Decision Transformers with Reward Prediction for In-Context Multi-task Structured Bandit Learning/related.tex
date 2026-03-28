@@ -1,0 +1,58 @@
+In this section, we briefly discuss related works.
+
+
+In-context decision making \citep{laskin2022context,lee2023supervised} has emerged as an attractive alternative in Reinforcement Learning (RL) compared to updating the model parameters after collection of new data \citep{mnih2013playing, franccois2018introduction}. 
+%
+In RL the contextual data takes the form
+of state-action-reward tuples representing a dataset of interactions with an unknown environment (task). In this paper, we will refer to this as the in-context data.
+%
+% In this paper we focus on the linear bandit setting \citep{li2010contextual, abbasi2011improved, lattimore2020bandit}, where the task is a single state which consist of $A$ actions. 
+% %
+% Each action is represented by by its feature vector $\bx(a)\in\R^d$. 
+% In the linear bandit setting the learner samples an action $I_t$ in round $t$ and observes the reward $r_t$ which is generated through a noisy linear interaction between that action feature $\bx(I_t)$ and a hidden unknown parameter $\btheta_*$.
+% %r_t = \bx(I_t)^\top\btheta_* + \eta_t$, where $\eta_t$ is the noise.
+% %
+% Therefore in this paper the in-context data consist of action-reward tuples representing a dataset of interactions with the unknown linear bandit task. 
+%
+% Let the total number of rounds available to the learner be denoted by $n$.
+% %
+% Finally, the goal of the learner is to minimize the cumulative regret, where the optimal policy is to maximize the total reward by identifying the most rewarding actions quickly and sampling it till the end of horizon $n$.
+%
+Recall that in many real-world settings, the underlying task can be structured with correlated features, and the reward can be highly non-linear. So specialized bandit algorithms fail to learn in these tasks.
+% \citep{riquelme2018deep, dong2021provable, lattimore2019information}. Therefore bandit algorithms designed for specific reward models like linear bandit \citep{abbasi2011improved}, or generalized linear bandit \citep{filippi2010parametric} does not perform well in this setting.  
+%
+To circumvent this issue, a learner can first collect in-context data consisting of just action indices $I_t$ and rewards $r_t$. Then it can leverage the representation learning capability of deep neural networks to learn a pattern across the in-context data and subsequently derive a near-optimal policy \citep{lee2023supervised, mirchandani2023large}. We refer to this learning framework as an in-context decision-making setting.
+
+
+The in-context decision-making setting of \citet{sinii2023context} also allows changing the action space by learning an embedding over the action space yet also requires the optimal action during training. In contrast we do not require the optimal action as well as show that we can generalize to new actions without learning an embedding over them. Similarly, \citet{lin2023transformers} study the in-context decision-making setting of \citet{laskin2022context, lee2023supervised}, but they also require a greedy approximation of the optimal action. The \citet{ma2023rethinking} also studies a similar setting for hierarchical RL where they stitch together sub-optimal trajectories and predict the next action during test time. Similarly, \citet{liu2023reason} studies the in-context decision-making setting to predict action instead of learning a reward correlation from a short horizon setting.
+%
+In contrast we do not require a greedy approximation of the optimal action, deal with short horizon setting and changing action sets during training and testing, and predict the estimated means of the actions instead of predicting the optimal action.
+%
+A survey of the in-context decision-making approaches can be found in \citet{liu2023self}.
+
+%
+In the in-context decision-making setting, the learning model is first trained on supervised input-output examples with the in-context data during training. Then during test time, the model is asked to complete a new input (related to the context provided) without any update to the model parameters \citep{xie2021explanation, min2022rethinking}. Motivated by this, \citet{lee2023supervised} recently proposed the Decision Pretrained Transformers (\dpt) that exhibit the following properties: \textbf{(1)} During supervised pretraining of \dpt, predicting optimal actions alone gives rise to near-optimal decision-making algorithms for unforeseen task during test time. Note that \dpt\ does not update model parameters during test time and, therefore, conducts in-context learning on the unforeseen task. \textbf{(2)} \dpt\ improves over the in-context data used to pretrain it by exploiting latent structure. However, \dpt\ either requires the optimal action during training or if it needs to approximate the optimal action. For approximating the optimal action, it requires a large amount of data from the underlying task.
+% to infer the latent structure.
+
+
+
+
+At the same time, learning the underlying data pattern from a few examples during training is becoming more relevant in many domains like chatbot interaction \citep{madotto2021few,semnani2023wikichat}, recommendation systems, healthcare \citep{ge2022few, liu2023large}, etc. This is referred to as few-shot learning.
+%
+However, most current RL decision-making systems (including in-context learners like \dpt) require an enormous amount of data to learn a good policy.
+
+
+
+The in-context learning framework is related to the meta-learning framework \citep{bengio1990learning, schaul2010metalearning}.  Broadly, these techniques aim to learn the underlying latent shared structure within the training distribution of tasks, facilitating faster learning of novel tasks during test time. In the context of decision-making and reinforcement learning (RL), there exists a frequent choice regarding the specific 'structure' to be learned, be it the task dynamics \citep{fu2016one, nagabandi2018learning, landolfi2019model}, a task context identifier \citep{rakelly2019efficient, zintgraf2019varibad, liu2021decoupling}, or temporally extended skills and options \citep{perkins1999using, gupta2018meta, jiang2022learning}.
+
+However, as we noted in the \Cref{sec:intro}, one can do a greedy approximation of the optimal action from the historical data using a weak demonstrator and a neural network policy \citep{finn2017model, rothfuss2018promp}. Moreover, the in-context framework generally is more agnostic where it learns the policy of the demonstrator \citep{duan2016rl, wang2016learning, mishra2017simple}. Note that both \dptg\ and \pred\ are different than algorithmic distillation \citep{laskin2022context, lu2023structured} as they do not distill an existing RL algorithm. moreover, in contrast to \dptg\ which is trained to predict the optimal action, the \pred\ is trained to predict the reward for each of the actions. This enables the \pred\ (similar to \dptg) to show to potentially emergent online and offline strategies at test time that automatically align with the task structure, resembling posterior sampling.
+
+
+As we discussed in the \Cref{sec:intro}, in decision-making, RL, and imitation learning the transformer models are trained using autoregressive action prediction \citep{yang2023bayesian}. Similar methods have also been used in Large language models \citep{vaswani2017attention, roberts2019exploring}. One of the more notable examples is the Decision Transformers (abbreviated as DT) which utilizes a transformer to autoregressively model sequences of actions from offline experience data, conditioned on the achieved return \citep{chen2021decision, janner2021offline}. This approach has also been shown to be effective for multi-task settings \citep{lee2022multi}, and multi-task imitation learning with transformers \citep{reed2022generalist, brohan2022rt, shafiullah2022behavior}. However, the DT methods are not known to improve upon their in-context data, which is the main thrust of this paper \citep{brandfonbrener2022does, yang2022dichotomy}.
+
+
+Our work is also closely related to the offline RL setting. In offline RL, the algorithms can formulate a policy from existing data sets of state, action, reward, and next-state interactions.
+%
+Recently, the idea of pessimism has also been introduced in an offline setting to address the challenge of distribution shift \citep{kumar2020conservative, yu2021combo, liu2020provably, ghasemipour2022so}. Another approach to solve this issue is policy regularization \citep{fujimoto2019off, kumar2019stabilizing, wu2019behavior, siegel2020keep, liu2019off}, or reuse data for related task \citep{li2020focal, mitchell2021offline}, or additional collection of data along with offline data \citep{pong2022offline}. However, all of these approaches still have to take into account the issue of distributional shifts. In contrast \pred\ and \dptg\ leverages the decision transformers to avoid these issues.
+%
+Both of these methods can also be linked to posterior sampling. Such connections between sequence modeling with transformers and posterior sampling have also been made in \citet{chen2021decision,muller2021transformers,lee2023supervised, yang2023bayesian}.

@@ -1,0 +1,44 @@
+\section{Related Work}
+\label{app:related-work}
+
+The emergence of strong in-context learning capabilities with increasing model and training data scale in LLMs was first observed in the GPT-2 paper~\citep{radford2019language} and even gave the title to the GPT-3 paper~\citep{brown2020language}.
+Soon after, the recipe of next-token prediction at scale was applied to build agents from large sequential predictors, resulting, \eg in the decision (pretrained) transformer~\citep{chen2021decision, lee2023supervised}, or the generalist agent GATO~\citep{reed2022generalist}, and its more recent open source variant JAT~\citep{gallouedec2024jack}.
+While the empirical results were certainly surprising at the time, at least in theory, in-context learning must necessarily arise as a core feature of a sequential predictor trained to minimize next token log loss over an implicit meta distribution of data~\citep{ortega2019meta, mikulik2020meta, genewein2023memory}, and could, in principle, even lead to universal in-context predictors~\citep{grau2024learning}.
+An explicit application of this memory-based meta-learning principle at scale is the ``adaptive agent'' from \citet{bauer2023human}, which shows that an embodied agent in a 3D environment can adapt to novel task instances on human timescales (\ie single- or low double digit numbers of interaction episodes) purely in context and across a vast set of tasks.
+The \citet{sima2024scaling} conducted another impressive large-scale application of training and fine-tuning a complex vision-language agent across a large set of environments, using instruction conditioning together with in-context learning.
+
+Instead of pretraining separate models for general decision-making, many researchers have also attempted to directly use the knowledge and reasoning capabilities of LLMs and VLMs for building agents that interact with an environment (see \citet{xi2025rise} for a 2023 survey of LLM-based agents) --- either by fine-tuning~\citep{li2022pretrained} or purely via in-context demonstrations~\citep{dipalo2024keypoint}.
+In both cases, two open question are: (i) how to best represent environment observations as tokens, and (ii) how to best elicit the decision-making capabilities of pretrained LMs.
+\citet{mirchandani2023large} find that pretrained LLMs are ``general pattern machines'' that can learn to complete complex token sequences via in-context learning, including agent-environment interactions.
+They even find that in many cases, randomly swapping the alphabet does not have significant impact, suggesting that LLMs may be able to deal with many different ways of translating observations into tokens.
+Perhaps more important is the question whether observations should be state-action sequences (as in imitation learning and our work) or whether they should include rewards (for reward conditioning or in-context RL as in \citet{mirchandani2023large} and \citet{raparthy2024generalization}).
+While this is still unclear for pretrained LMs, \citet{ruoss2024amortized} find that, when training a large transformer to play chess, performance is roughly the same for imitation learning compared to learning to predict state or action values (as long as the amount of data for all three variants is equal).
+\citet{schultz2025mastering} extend these results on chess to LLMs by distilling the search proceedure into the model by linearizing the search trees.
+\citet{ma2025vision} find that, when prompted appropriately, a pretrained VLM (\pro{}) can produce good value estimates for real-world robotic tasks.
+The second open problem, how to best prompt LMs for decision-making, is a very active research area~\citep{li2025why,genewein2025understanding}, with a lot of focus on designing or learning zero-shot prompts, such as the famous ``Let's think about this step by step.''~\citep{kojima2022large} and ``Take a deep breath and work on this problem step-by-step.''~\citep{yang2024large}, which has led to many chain-of-thought prompting schemes~\citep{wei2022chain}.
+Besides better zero-shot prompts, advanced sampling and prompt optimization schemes have been explored,
+such as iterative prompt refinement where an agent starts with some demonstrations in the context, then interacts with the environment, and potentially replaces a lower performing episode with a higher performing one~\citep{mirchandani2023large, brooks2023large}. 
+
+With the recent availability of long context models, a third possibility compared to improving zero-shot or few-shot prompts has emerged: many-shot in-context learning, \ie prompting with many demonstrations, on the order of having a full small dataset in the context.
+Both \citet{agarwal2024many} and \citet{jiang2024many} show that many-shot prompts (hundreds or thousands of examples in the prompt) improve pretrained LM performance over few-shot prompts in non-interactive tasks.
+Our paper explores the same direction, with potentially hundreds of full \emph{episodes} in the context, for interactive decision-making tasks.
+At the time of writing, querying long context models with many tokens comes with high computational cost, but it would be interesting to investigate how specialized models that were specifically developed for long-context tasks~\citep{bulatov2022recurrent, cherepanov2024recurrent} would fare on our benchmark.
+An alternative could be to virtually extend the context via retrieval based methods, \eg REGENT~\citep{sridhar2024regent}, which trains a retrieval based agent.
+The retrieval problem is currently not fully solved (as also pointed out in \citet{paglieri2025balrog}), and today's largest state-of-the-art LMs do not offer retrieval via their APIs and/or have not been trained to perform retrieval.
+Accordingly, placing all the data in the context, as in our work, allows estimating LM performance independent of whether retrieval works well.
+Our results thus serve as an upper baseline to calibrate retrieval based methods against.
+
+Another line of work has investigated in-context learning for control~\citep{duan2017oneshot, xu2022prompting, fu2024incontext, fang2024moka, yin2024incontext, wang2024prompt}.
+While these methods focus on developing novel agents with strong in-context learning capabilities, our paper's primary goal is to benchmark the current state of existing, general-purpose frontier LMs on such tasks.
+Understanding how to best leverage insights from specialized agent research to enhance these large, pre-trained models remains an open question, which underscores the importance of establishing clear benchmarks like LMAct.
+
+Comparing capabilities of LMs that span many tasks and domains requires large-scale benchmarks, such as the Chatbot Arena (a.k.a. LMSys, \citet{chiang2024chatbot}) or LiveBench~\citep{white2025livebench}.
+Other benchmarks, such as FrontierMath~\citep{glazer2024frontiermath}, Taskbench~\citep{shen2024taskbench}, Gamebench~\citep{costarelli2024gamebench}, and BABILong~\citep{kuratov2024babilong}, specifically investigate the reasoning or interactive decision-making capabilities of LLMs.
+Closely related to these and to our work, and published in parallel to our work, the BALROG~\citep{paglieri2025balrog} benchmark evaluates state-of-the-art LMs (the same as in our work with the exception of \mini{} and \preview{} and the addition of the Llama 3 models, which we do not evaluate) on multimodal reasoning and decision-making tasks by using a set of 5 increasingly harder game environments from Baby AI to Nethack.
+Like our work, the authors find that state-of-the-art LMs struggle significantly in challenging game environments.
+The authors also make the observation that models arguably possess a lot of knowledge about their tasks when queried appropriately, but that state-of-the-art LMs have a ``knowing-doing'' gap.
+Unlike our work, the BALROG paper performs zero-shot evaluation and lists few-shot and many-shot evaluations as an important open research question (the released codebase supports few-shot evaluations, but these evaluations have not been performed at the time of writing).
+Similar to BALROG, \citet{waytowich2024atari} evaluate the zero-shot game-playing capabilities of frontier LLMs (GPT-4V Turbo, \gpt, \flash{}, and Claude~$3$~Haiku) on $8$ different Atari games (but not the Phoenix game that we consider).
+Compared to these previous benchmarks, ours is the only one that puts the emphasis on imitation learning with long context in multimodal interactive environments --- a regime that pushes against the limits of modern LMs' in-context learning and reasoning capabilities, both from an engineering and a capabilities perspective.
+Furthermore, our benchmark covers the zero-shot, few-shot, and many-shot setting in a unified and thus easily comparable evaluation.
+

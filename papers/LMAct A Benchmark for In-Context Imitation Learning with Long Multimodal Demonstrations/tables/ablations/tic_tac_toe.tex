@@ -1,0 +1,75 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                                                      & \textbf{Observation}      & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{8}{*}{\shortstack{Claude 3.5 Sonnet\\\\(2024-10-22)}}  & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 0.10 \\
+                                                                        &                           &                           & True                      & 0.19 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.14 \\
+                                                                        &                           &                           & True                      & \textbf{0.34} \\
+    \cmidrule{2-5}                                                                                                                                             
+                                                                        & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & -0.04 \\
+                                                                        &                           &                           & True                      & 0.16 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{0.20} \\
+                                                                        &                           &                           & True                      & 0.19 \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{8}{*}{Gemini 1.5 Flash}                                & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & -0.12 \\
+                                                                        &                           &                           & True                      & -0.15 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & -0.10 \\
+                                                                        &                           &                           & True                      & \textbf{0.00} \\
+    \cmidrule{2-5}                                                                                                                                             
+                                                                        & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & 0.07 \\
+                                                                        &                           &                           & True                      & 0.07 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & -0.05 \\
+                                                                        &                           &                           & True                      & \textbf{0.10} \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{8}{*}{Gemini 1.5 Pro}                                  & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & -0.08 \\
+                                                                        &                           &                           & True                      & -0.07 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.02} \\
+                                                                        &                           &                           & True                      & -0.05 \\
+    \cmidrule{2-5}                                                                                                                                             
+                                                                        & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & \textbf{0.08} \\
+                                                                        &                           &                           & True                      & 0.06 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & -0.06 \\
+                                                                        &                           &                           & True                      & 0.01 \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{8}{*}{Gemini 2.0 Flash Exp.}                           & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 0.06 \\
+                                                                        &                           &                           & True                      & 0.05 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.10 \\
+                                                                        &                           &                           & True                      & \textbf{0.18} \\
+    \cmidrule{2-5}                                                                                                                                             
+                                                                        & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & -0.07 \\
+                                                                        &                           &                           & True                      & \textbf{0.07} \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.06 \\
+                                                                        &                           &                           & True                      & 0.04 \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{8}{*}{GPT-4o}                                          & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 0.01 \\
+                                                                        &                           &                           & True                      & 0.15 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.11 \\
+                                                                        &                           &                           & True                      & \textbf{0.20} \\
+    \cmidrule{2-5}                                                                                                                                             
+                                                                        & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & 0.00 \\
+                                                                        &                           &                           & True                      & 0.10 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.15 \\
+                                                                        &                           &                           & True                      & \textbf{0.17} \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{4}{*}{o1-mini}                                         & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 0.25 \\
+                                                                        &                           &                           & True                      & 0.26 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.32 \\
+                                                                        &                           &                           & True                      & \textbf{0.45} \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{4}{*}{o1-preview}                                      & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 0.21 \\
+                                                                        &                           &                           & True                      & 0.24 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.35 \\
+                                                                        &                           &                           & True                      & \textbf{0.36} \\
+    \midrule                                                                                                                                                   
+    \multirow[c]{8}{*}{o1}                                              & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 0.58 \\
+                                                                        &                           &                           & True                      & 0.58 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{0.83} \\
+                                                                        &                           &                           & True                      & 0.66 \\
+    \cmidrule{2-5}                                                                                                                                             
+                                                                        & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & 0.38 \\
+                                                                        &                           &                           & True                      & 0.48 \\
+                                                                        &                           & \multirow[c]{2}{*}{True}  & False                     & 0.52 \\
+                                                                        &                           &                           & True                      & \textbf{0.60} \\
+   \bottomrule                                                                                                                                                   
+\end{tabular}

@@ -1,0 +1,311 @@
+\begin{thebibliography}{60}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Bauer et~al.(2023)Bauer, Baumli, Behbahani, Bhoopchand, Bradley-Schmieg, Chang, Clay, Collister, Dasagi, Gonzalez, Gregor, Hughes, Kashem, Loks-Thompson, Openshaw, Parker-Holder, Pathak, Perez-Nieves, Rakicevic, Rockt\"{a}schel, Schroecker, Singh, Sygnowski, Tuyls, York, Zacherl, and Zhang}]{bauer23}
+Bauer, J.; Baumli, K.; Behbahani, F.; Bhoopchand, A.; Bradley-Schmieg, N.; Chang, M.; Clay, N.; Collister, A.; Dasagi, V.; Gonzalez, L.; Gregor, K.; Hughes, E.; Kashem, S.; Loks-Thompson, M.; Openshaw, H.; Parker-Holder, J.; Pathak, S.; Perez-Nieves, N.; Rakicevic, N.; Rockt\"{a}schel, T.; Schroecker, Y.; Singh, S.; Sygnowski, J.; Tuyls, K.; York, S.; Zacherl, A.; and Zhang, L. 2023.
+\newblock Human-timescale adaptation in an open-ended task space.
+\newblock In \emph{Proceedings of the 40th International Conference on Machine Learning}.
+
+\bibitem[{Bradbury et~al.(2018)Bradbury, Frostig, Hawkins, Johnson, Leary, Maclaurin, Necula, Paszke, Vander{P}las, Wanderman-{M}ilne, and Zhang}]{jax2018github}
+Bradbury, J.; Frostig, R.; Hawkins, P.; Johnson, M.~J.; Leary, C.; Maclaurin, D.; Necula, G.; Paszke, A.; Vander{P}las, J.; Wanderman-{M}ilne, S.; and Zhang, Q. 2018.
+\newblock {JAX}: composable transformations of {P}ython+{N}um{P}y programs.
+\newblock \url{http://github.com/jax-ml/jax}.
+
+\bibitem[{Chen et~al.(2024)Chen, Ganguly, Xu, Mei, Lan, and Aggarwal}]{chen2024deep_survery}
+Chen, J.; Ganguly, B.; Xu, Y.; Mei, Y.; Lan, T.; and Aggarwal, V. 2024.
+\newblock Deep Generative Models for Offline Policy Learning: Tutorial, Survey, and Perspectives on Future Directions.
+\newblock \emph{Transactions on Machine Learning Research}.
+\newblock Survey Certification.
+
+\bibitem[{Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel, Srinivas, and Mordatch}]{chen2021dt}
+Chen, L.; Lu, K.; Rajeswaran, A.; Lee, K.; Grover, A.; Laskin, M.; Abbeel, P.; Srinivas, A.; and Mordatch, I. 2021.
+\newblock Decision Transformer: Reinforcement Learning via Sequence Modeling.
+\newblock In Ranzato, M.; Beygelzimer, A.; Dauphin, Y.; Liang, P.; and Vaughan, J.~W., eds., \emph{Advances in Neural Information Processing Systems}, volume~34, 15084--15097.
+
+\bibitem[{Chevalier-Boisvert et~al.(2023)Chevalier-Boisvert, Dai, Towers, Perez-Vicente, Willems, Lahlou, Pal, Castro, and Terry}]{chevalier2023minigrid}
+Chevalier-Boisvert, M.; Dai, B.; Towers, M.; Perez-Vicente, R.; Willems, L.; Lahlou, S.; Pal, S.; Castro, P.~S.; and Terry, J. 2023.
+\newblock Minigrid \& miniworld: Modular \& customizable reinforcement learning environments for goal-oriented tasks.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36: 73383--73394.
+
+\bibitem[{Chung et~al.(2014)Chung, Gulcehre, Cho, and Bengio}]{chung2014empirical}
+Chung, J.; Gulcehre, C.; Cho, K.; and Bengio, Y. 2014.
+\newblock Empirical evaluation of gated recurrent neural networks on sequence modeling.
+\newblock \emph{arXiv preprint arXiv:1412.3555}.
+
+\bibitem[{Cobbe et~al.(2020)Cobbe, Hesse, Hilton, and Schulman}]{cobbe2020leveraging}
+Cobbe, K.; Hesse, C.; Hilton, J.; and Schulman, J. 2020.
+\newblock Leveraging procedural generation to benchmark reinforcement learning.
+\newblock In \emph{International conference on machine learning}, 2048--2056. PMLR.
+
+\bibitem[{Crawford and Sobel(1982)}]{crawford82signaling}
+Crawford, V.~P.; and Sobel, J. 1982.
+\newblock Strategic Information Transmission.
+\newblock \emph{Econometrica}, 50(6): 1431.
+
+\bibitem[{Dong et~al.(2024)Dong, Li, Dai, Zheng, Ma, Li, Xia, Xu, Wu, Chang, Sun, Li, and Sui}]{dong-etal-2024-survey}
+Dong, Q.; Li, L.; Dai, D.; Zheng, C.; Ma, J.; Li, R.; Xia, H.; Xu, J.; Wu, Z.; Chang, B.; Sun, X.; Li, L.; and Sui, Z. 2024.
+\newblock A Survey on In-context Learning.
+\newblock In Al-Onaizan, Y.; Bansal, M.; and Chen, Y.-N., eds., \emph{Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing}, 1107--1128. Miami, Florida, USA: Association for Computational Linguistics.
+
+\bibitem[{Duan et~al.(2016)Duan, Schulman, Chen, Bartlett, Sutskever, and Abbeel}]{abbeel16rl2}
+Duan, Y.; Schulman, J.; Chen, X.; Bartlett, P.~L.; Sutskever, I.; and Abbeel, P. 2016.
+\newblock {RL}\${\textasciicircum} 2\$: Fast Reinforcement Learning via Slow Reinforcement Learning.
+\newblock \emph{{arXiv}}.
+
+\bibitem[{Espeholt et~al.(2018)Espeholt, Soyer, Munos, Simonyan, Mnih, Ward, Doron, Firoiu, Harley, Dunning et~al.}]{espeholt2018impala}
+Espeholt, L.; Soyer, H.; Munos, R.; Simonyan, K.; Mnih, V.; Ward, T.; Doron, Y.; Firoiu, V.; Harley, T.; Dunning, I.; et~al. 2018.
+\newblock Impala: Scalable distributed deep-rl with importance weighted actor-learner architectures.
+\newblock In \emph{International conference on machine learning}, 1407--1416. PMLR.
+
+\bibitem[{Eysenbach et~al.(2022)Eysenbach, Khazatsky, Levine, and Salakhutdinov}]{eysenbach2022joint}
+Eysenbach, B.; Khazatsky, A.; Levine, S.; and Salakhutdinov, R. 2022.
+\newblock Joint Model-Policy Optimization of a Lower Bound for Model-Based {RL}.
+\newblock In Oh, A.~H.; Agarwal, A.; Belgrave, D.; and Cho, K., eds., \emph{Advances in Neural Information Processing Systems}.
+
+\bibitem[{Fallah et~al.(2021)Fallah, Georgiev, Mokhtari, and Ozdaglar}]{fallah2021convergence}
+Fallah, A.; Georgiev, K.; Mokhtari, A.; and Ozdaglar, A. 2021.
+\newblock On the Convergence Theory of Debiased Model-Agnostic Meta-Reinforcement Learning.
+\newblock In Ranzato, M.; Beygelzimer, A.; Dauphin, Y.; Liang, P.; and Vaughan, J.~W., eds., \emph{Advances in Neural Information Processing Systems}, volume~34, 3096--3107.
+
+\bibitem[{Finn, Abbeel, and Levine(2017)}]{finn17maml}
+Finn, C.; Abbeel, P.; and Levine, S. 2017.
+\newblock Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks.
+\newblock In Precup, D.; and Teh, Y.~W., eds., \emph{Proceedings of the 34th International Conference on Machine Learning}, volume~70, 1126--1135.
+
+\bibitem[{Furuta, Matsuo, and Gu(2021)}]{furuta21generalDT}
+Furuta, H.; Matsuo, Y.; and Gu, S.~S. 2021.
+\newblock {Generalized Decision Transformer for Offline Hindsight Information Matching}.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Grigsby, Fan, and Zhu(2024)}]{grigsby2024amago}
+Grigsby, J.; Fan, L.; and Zhu, Y. 2024.
+\newblock {AMAGO}: Scalable In-Context Reinforcement Learning for Adaptive Agents.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}.
+
+\bibitem[{Ha and Schmidhuber(2018)}]{schmidhuber18wm}
+Ha, D.; and Schmidhuber, J. 2018.
+\newblock Recurrent World Models Facilitate Policy Evolution.
+\newblock In Bengio, S.; Wallach, H.; Larochelle, H.; Grauman, K.; Cesa-Bianchi, N.; and Garnett, R., eds., \emph{Advances in Neural Information Processing Systems}, volume~31.
+
+\bibitem[{Hafner et~al.(2020)Hafner, Lillicrap, Ba, and Norouzi}]{hafnerdream}
+Hafner, D.; Lillicrap, T.; Ba, J.; and Norouzi, M. 2020.
+\newblock Dream to Control: Learning Behaviors by Latent Imagination.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Hafner et~al.(2019)Hafner, Lillicrap, Fischer, Villegas, Ha, Lee, and Davidson}]{hafner19a}
+Hafner, D.; Lillicrap, T.; Fischer, I.; Villegas, R.; Ha, D.; Lee, H.; and Davidson, J. 2019.
+\newblock Learning Latent Dynamics for Planning from Pixels.
+\newblock In Chaudhuri, K.; and Salakhutdinov, R., eds., \emph{Proceedings of the 36th International Conference on Machine Learning}, volume~97 of \emph{Proceedings of Machine Learning Research}, 2555--2565. PMLR.
+
+\bibitem[{Hafner et~al.(2025)Hafner, Pasukonis, Ba, and Lillicrap}]{hafner25worldmodel}
+Hafner, D.; Pasukonis, J.; Ba, J.; and Lillicrap, T. 2025.
+\newblock Mastering diverse control tasks through world models.
+\newblock \emph{Nature}, 640(8059): 647--653.
+
+\bibitem[{Hammar et~al.(2025)Hammar, Li, Stadler, Zhu, and Hammar}]{kim-tao25col}
+Hammar, K.; Li, T.; Stadler, R.; Zhu, Q.; and Hammar, K. 2025.
+\newblock Adaptive Security Response Strategies Through Conjectural Online Learning.
+\newblock \emph{{IEEE} Transactions on Information Forensics and Security}, 20: 4055--4070.
+
+\bibitem[{Hessel et~al.(2019)Hessel, Hasselt, Modayil, and Silver}]{silver19bias}
+Hessel, M.; Hasselt, H.~v.; Modayil, J.; and Silver, D. 2019.
+\newblock On Inductive Biases in Deep Reinforcement Learning.
+\newblock \emph{{arXiv}}.
+
+\bibitem[{Huang et~al.(2024)Huang, Hu, Yang, Yang, Luo, Chen, Sun, and Yang}]{huang2024decision}
+Huang, S.; Hu, J.; Yang, Z.; Yang, L.; Luo, T.; Chen, H.; Sun, L.; and Yang, B. 2024.
+\newblock Decision Mamba: Reinforcement Learning via Hybrid Selective Sequence Modeling.
+\newblock In \emph{The Thirty-eighth Annual Conference on Neural Information Processing Systems}.
+
+\bibitem[{Ioffe and Szegedy(2015)}]{ioffe2015batch}
+Ioffe, S.; and Szegedy, C. 2015.
+\newblock Batch normalization: Accelerating deep network training by reducing internal covariate shift.
+\newblock In \emph{International conference on machine learning}, 448--456. pmlr.
+
+\bibitem[{Kaelbling, Littman, and Cassandra(1998)}]{kaelbling1998planning}
+Kaelbling, L.~P.; Littman, M.~L.; and Cassandra, A.~R. 1998.
+\newblock Planning and acting in partially observable stochastic domains.
+\newblock \emph{Artificial intelligence}, 101(1-2): 99--134.
+
+\bibitem[{Krishnamurthy et~al.(2024)Krishnamurthy, Harris, Foster, Zhang, and Slivkins}]{krishnamurthy2024can}
+Krishnamurthy, A.; Harris, K.; Foster, D.~J.; Zhang, C.; and Slivkins, A. 2024.
+\newblock Can large language models explore in-context?
+\newblock In \emph{ICML 2024 Workshop on In-Context Learning}.
+
+\bibitem[{Laskin et~al.(2023)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald, Strouse, Hansen, Filos, Brooks, maxime gazeau, Sahni, Singh, and Mnih}]{laskin2023incontext}
+Laskin, M.; Wang, L.; Oh, J.; Parisotto, E.; Spencer, S.; Steigerwald, R.; Strouse, D.; Hansen, S.~S.; Filos, A.; Brooks, E.; maxime gazeau; Sahni, H.; Singh, S.; and Mnih, V. 2023.
+\newblock In-context Reinforcement Learning with Algorithm Distillation.
+\newblock In \emph{The Eleventh International Conference on Learning Representations}.
+
+\bibitem[{Lee et~al.(2023)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill}]{lee2023supervised}
+Lee, J.; Xie, A.; Pacchiano, A.; Chandak, Y.; Finn, C.; Nachum, O.; and Brunskill, E. 2023.
+\newblock Supervised Pretraining Can Learn In-Context Reinforcement Learning.
+\newblock In \emph{Thirty-seventh Conference on Neural Information Processing Systems}.
+
+\bibitem[{Li et~al.(2025{\natexlab{a}})Li, Guevara, Xie, and Zhu}]{tao23sce}
+Li, T.; Guevara, J.; Xie, X.; and Zhu, Q. 2025{\natexlab{a}}.
+\newblock Self-Confirming Transformer for Belief-Conditioned Adaptation in Offline Multi-Agent Reinforcement Learning.
+\newblock In \emph{Proceedings of the Seventh Workshop on Adaptive and Learning Agents, the Twenty Fourth International Conference on Autonomous Agents and Multiagent Systems}, 1--10.
+\newblock [Online] Avaiable at \url{https://openreview.net/forum?id=kMaYSsEwCT}.
+
+\bibitem[{Li et~al.(2024{\natexlab{a}})Li, Hammar, Stadler, and Zhu}]{tao24col}
+Li, T.; Hammar, K.; Stadler, R.; and Zhu, Q. 2024{\natexlab{a}}.
+\newblock Conjectural Online Learning with First-order Beliefs in Asymmetric Information Stochastic Games.
+\newblock In \emph{2024 {IEEE} 63rd Conference on Decision and Control ({CDC})}, {IEEE} {CDC}, 6780--6785.
+
+\bibitem[{Li et~al.(2025{\natexlab{b}})Li, Lei, Yin, and Hu}]{li25piprl}
+Li, T.; Lei, H.; Yin, M.; and Hu, Y. 2025{\natexlab{b}}.
+\newblock Reinforcement Learning with Physics-Informed Symbolic Program Priors for Zero-Shot Wireless Indoor Navigation.
+\newblock In \emph{Reinforcement Learning Conference 2025, Inductive Biases in Reinforcement Learning Workshop}.
+\newblock [Online] Available at \url{https://arxiv.org/pdf/2506.22365}.
+
+\bibitem[{Li, Lei, and Zhu(2023)}]{tao23cola}
+Li, T.; Lei, H.; and Zhu, Q. 2023.
+\newblock Self-Adaptive Driving in Nonstationary Environments through Conjectural Online Lookahead Adaptation.
+\newblock In \emph{2023 IEEE International Conference on Robotics and Automation (ICRA)}, 7205--7211.
+
+\bibitem[{Li et~al.(2024{\natexlab{b}})Li, Li, Pan, Xu, Zheng, and Zhu}]{tao2024meta}
+Li, T.; Li, H.; Pan, Y.; Xu, T.; Zheng, Z.; and Zhu, Q. 2024{\natexlab{b}}.
+\newblock Meta stackelberg game: Robust federated learning against adaptive and mixed poisoning attacks.
+\newblock \emph{arXiv preprint arXiv:2410.17431}.
+\newblock [Online] Available at \url{https://arxiv.org/pdf/2410.17431}.
+
+\bibitem[{Li et~al.(2022)Li, Peng, Zhu, and Baar}]{tao22confluence}
+Li, T.; Peng, G.; Zhu, Q.; and Baar, T. 2022.
+\newblock The Confluence of Networks, Games, and Learning a Game-Theoretic Framework for Multiagent Decision Making Over Networks.
+\newblock \emph{{IEEE} Control Systems}, 42(4): 35--67.
+
+\bibitem[{Li and Zhu(2023)}]{tao23pot}
+Li, T.; and Zhu, Q. 2023.
+\newblock On the Price of Transparency: A Comparison Between Overt Persuasion and Covert Signaling.
+\newblock In \emph{2023 62nd IEEE Conference on Decision and Control (CDC)}, 4267--4272.
+
+\bibitem[{Li and Zhu(2024)}]{tao-qz24symbiotic}
+Li, T.; and Zhu, Q. 2024.
+\newblock Symbiotic Game and Foundation Models for Cyber Deception Operations in Strategic Cyber Warfare.
+\newblock \emph{arXiv preprint arXiv:2403.10570}.
+\newblock [Online] Available at \url{https://arxiv.org/pdf/2403.10570}.
+
+\bibitem[{Lowe et~al.(2019)Lowe, Foerster, Boureau, Pineau, and Dauphin}]{lowe2019pitfalls}
+Lowe, R.; Foerster, J.; Boureau, Y.-L.; Pineau, J.; and Dauphin, Y. 2019.
+\newblock On the Pitfalls of Measuring Emergent Communication.
+\newblock In \emph{Proceedings of the 18th International Conference on Autonomous Agents and MultiAgent Systems}, 693--701.
+
+\bibitem[{Lu et~al.(2022)Lu, Kuba, Letcher, Metz, Schroeder~de Witt, and Foerster}]{lu2022discovered}
+Lu, C.; Kuba, J.; Letcher, A.; Metz, L.; Schroeder~de Witt, C.; and Foerster, J. 2022.
+\newblock Discovered policy optimisation.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35: 16455--16468.
+
+\bibitem[{Micheli, Alonso, and Fleuret(2023)}]{micheli2023transformers}
+Micheli, V.; Alonso, E.; and Fleuret, F. 2023.
+\newblock Transformers are Sample-Efficient World Models.
+\newblock In \emph{The Eleventh International Conference on Learning Representations}.
+
+\bibitem[{Mnih et~al.(2015)Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare, Graves, Riedmiller, Fidjeland, Ostrovski, Petersen, Beattie, Sadik, Antonoglou, King, Kumaran, Wierstra, Legg, and Hassabis}]{mnihHumanlevelControlDeep2015}
+Mnih, V.; Kavukcuoglu, K.; Silver, D.; Rusu, A.~A.; Veness, J.; Bellemare, M.~G.; Graves, A.; Riedmiller, M.; Fidjeland, A.~K.; Ostrovski, G.; Petersen, S.; Beattie, C.; Sadik, A.; Antonoglou, I.; King, H.; Kumaran, D.; Wierstra, D.; Legg, S.; and Hassabis, D. 2015.
+\newblock Human-Level Control through Deep Reinforcement Learning.
+\newblock \emph{Nature}, 518(7540): 529--533.
+
+\bibitem[{Moeini et~al.(2025)Moeini, Wang, Beck, Blaser, Whiteson, Chandra, and Zhang}]{moeini2025survey}
+Moeini, A.; Wang, J.; Beck, J.; Blaser, E.; Whiteson, S.; Chandra, R.; and Zhang, S. 2025.
+\newblock A survey of in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2502.07978}.
+
+\bibitem[{Pan, Li, and Zhu(2025)}]{pan-tao25meta-lqr}
+Pan, Y.; Li, T.; and Zhu, Q. 2025.
+\newblock Model-Agnostic Meta-Policy Optimization via Zeroth-Order Estimation: A Linear Quadratic Regulator Perspective.
+\newblock \emph{arXiv preprint arXiv:2503.00385}.
+\newblock [Online] Available at \url{https://arxiv.org/pdf/2503.00385}.
+
+\bibitem[{Pignatelli et~al.(2024)Pignatelli, Liesen, Lange, Lu, Castro, and Toni}]{pignatelli2024navix}
+Pignatelli, E.; Liesen, J.; Lange, R.~T.; Lu, C.; Castro, P.~S.; and Toni, L. 2024.
+\newblock NAVIX: Scaling MiniGrid Environments with JAX.
+\newblock \emph{arXiv preprint arXiv:2407.19396}.
+
+\bibitem[{Raparthy et~al.(2024)Raparthy, Hambro, Kirk, Henaff, and Raileanu}]{raparthy24icrl}
+Raparthy, S.~C.; Hambro, E.; Kirk, R.; Henaff, M.; and Raileanu, R. 2024.
+\newblock Generalization to New Sequential Decision Making Tasks with In-Context Learning.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine Learning}, {ICML}, 42138--42158.
+
+\bibitem[{Reed(2022)}]{reed22gato}
+Reed, S. 2022.
+\newblock A Generalist Agent.
+\newblock \emph{Transactions on Machine Learning Research}.
+
+\bibitem[{Robine et~al.(2023)Robine, H{\"o}ftmann, Uelwer, and Harmeling}]{robine2023transformerbased}
+Robine, J.; H{\"o}ftmann, M.; Uelwer, T.; and Harmeling, S. 2023.
+\newblock Transformer-based World Models Are Happy With 100k Interactions.
+\newblock In \emph{The Eleventh International Conference on Learning Representations}.
+
+\bibitem[{Schrittwieser et~al.(2020)Schrittwieser, Antonoglou, Hubert, Simonyan, Sifre, Schmitt, Guez, Lockhart, Hassabis, Graepel, Lillicrap, and Silver}]{silver20wm}
+Schrittwieser, J.; Antonoglou, I.; Hubert, T.; Simonyan, K.; Sifre, L.; Schmitt, S.; Guez, A.; Lockhart, E.; Hassabis, D.; Graepel, T.; Lillicrap, T.; and Silver, D. 2020.
+\newblock Mastering Atari, Go, chess and shogi by planning with a learned model.
+\newblock \emph{Nature}, 588(7839): 604--609.
+
+\bibitem[{Schrittwieser et~al.(2021)Schrittwieser, Hubert, Mandhane, Barekatain, Antonoglou, and Silver}]{silver21on-off-wm}
+Schrittwieser, J.; Hubert, T.; Mandhane, A.; Barekatain, M.; Antonoglou, I.; and Silver, D. 2021.
+\newblock Online and Offline Reinforcement Learning by Planning with a Learned Model.
+\newblock In Ranzato, M.; Beygelzimer, A.; Dauphin, Y.; Liang, P.; and Vaughan, J.~W., eds., \emph{Advances in Neural Information Processing Systems}, volume~34, 27580--27591.
+
+\bibitem[{Schulman et~al.(2015)Schulman, Moritz, Levine, Jordan, and Abbeel}]{schulman2015high}
+Schulman, J.; Moritz, P.; Levine, S.; Jordan, M.; and Abbeel, P. 2015.
+\newblock High-dimensional continuous control using generalized advantage estimation.
+\newblock \emph{arXiv preprint arXiv:1506.02438}.
+
+\bibitem[{Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and Klimov}]{schulman2017proximal}
+Schulman, J.; Wolski, F.; Dhariwal, P.; Radford, A.; and Klimov, O. 2017.
+\newblock Proximal policy optimization algorithms.
+\newblock \emph{arXiv preprint arXiv:1707.06347}.
+
+\bibitem[{Schwarzer et~al.(2021)Schwarzer, Rajkumar, Noukhovitch, Anand, Charlin, Hjelm, Bachman, and Courville}]{schwarzer2021pretraining}
+Schwarzer, M.; Rajkumar, N.; Noukhovitch, M.; Anand, A.; Charlin, L.; Hjelm, R.~D.; Bachman, P.; and Courville, A.~C. 2021.
+\newblock Pretraining representations for data-efficient reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34: 12686--12699.
+
+\bibitem[{Stooke et~al.(2021)Stooke, Lee, Abbeel, and Laskin}]{pmlr-v139-stooke21a}
+Stooke, A.; Lee, K.; Abbeel, P.; and Laskin, M. 2021.
+\newblock Decoupling Representation Learning from Reinforcement Learning.
+\newblock In Meila, M.; and Zhang, T., eds., \emph{Proceedings of the 38th International Conference on Machine Learning}, volume 139 of \emph{Proceedings of Machine Learning Research}, 9870--9879. PMLR.
+
+\bibitem[{Sukhbaatar, Szlam, and Fergus(2016)}]{sukhbaatar16comm}
+Sukhbaatar, S.; Szlam, A.; and Fergus, R. 2016.
+\newblock Learning multiagent communication with backpropagation.
+\newblock In \emph{Proceedings of the 30th International Conference on Neural Information Processing Systems}. Red Hook, NY, USA: Curran Associates Inc.
+\newblock ISBN 9781510838819.
+
+\bibitem[{Toledo and Prorok(2024)}]{toledocodreamer}
+Toledo, E.; and Prorok, A. 2024.
+\newblock CoDreamer: Communication-Based Decentralised World Models.
+\newblock In \emph{Coordination and Cooperation for Multi-Agent Reinforcement Learning Methods Workshop}.
+
+\bibitem[{Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}]{vaswani2017attention}
+Vaswani, A.; Shazeer, N.; Parmar, N.; Uszkoreit, J.; Jones, L.; Gomez, A.~N.; Kaiser, {\L}.; and Polosukhin, I. 2017.
+\newblock Attention is all you need.
+\newblock \emph{Advances in neural information processing systems}, 30.
+
+\bibitem[{Wang et~al.(2024)Wang, Blaser, Daneshmand, and Zhang}]{wang2024transformers}
+Wang, J.; Blaser, E.~H.; Daneshmand, H.; and Zhang, S. 2024.
+\newblock Transformers Learn Temporal Difference Methods for In-Context Reinforcement Learning.
+\newblock In \emph{ICML 2024 Workshop on In-Context Learning}.
+
+\bibitem[{Wang et~al.(2016)Wang, Kurth-Nelson, Tirumala, Soyer, Leibo, Munos, Blundell, Kumaran, and Botvinick}]{botvinick16learnRL}
+Wang, J.~X.; Kurth-Nelson, Z.; Tirumala, D.; Soyer, H.; Leibo, J.~Z.; Munos, R.; Blundell, C.; Kumaran, D.; and Botvinick, M. 2016.
+\newblock Learning to reinforcement learn.
+\newblock \emph{{arXiv}}.
+
+\bibitem[{Xu et~al.(2022)Xu, Shen, Zhang, Lu, Zhao, Tenenbaum, and Gan}]{xu22prompt-dt}
+Xu, M.; Shen, Y.; Zhang, S.; Lu, Y.; Zhao, D.; Tenenbaum, J.; and Gan, C. 2022.
+\newblock Prompting Decision Transformer for Few-Shot Policy Generalization.
+\newblock In Chaudhuri, K.; Jegelka, S.; Song, L.; Szepesvari, C.; Niu, G.; and Sabato, S., eds., \emph{Proceedings of the 39th International Conference on Machine Learning}, volume 162 of \emph{Proceedings of Machine Learning Research}, 24631--24645. PMLR.
+
+\bibitem[{Yang, Li, and Zhu(2025)}]{yang-tao25misinformation}
+Yang, Y.-T.; Li, T.; and Zhu, Q. 2025.
+\newblock Transparent Tagging for Strategic Social Nudges on User-Generated Misinformation.
+\newblock \emph{IEEE Transactions on Network Science and Engineering}, 1--14.
+
+\bibitem[{Zhu, Dastani, and Wang(2024)}]{zhu2024survey}
+Zhu, C.; Dastani, M.; and Wang, S. 2024.
+\newblock A survey of multi-agent deep reinforcement learning with communication.
+\newblock \emph{Autonomous Agents and Multi-Agent Systems}, 38(1): 4.
+
+\end{thebibliography}

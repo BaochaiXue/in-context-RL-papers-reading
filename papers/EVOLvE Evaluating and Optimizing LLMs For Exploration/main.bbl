@@ -1,0 +1,252 @@
+\begin{thebibliography}{49}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Auer(2002)]{auer2002finite}
+P.~Auer.
+\newblock Finite-time analysis of the multiarmed bandit problem, 2002.
+
+\bibitem[Bai et~al.(2025)Bai, Zhang, Qiu, Zhang, Xu, and Li]{bai2025online}
+C.~Bai, Y.~Zhang, S.~Qiu, Q.~Zhang, K.~Xu, and X.~Li.
+\newblock Online preference alignment for language models via count-based exploration.
+\newblock \emph{arXiv preprint arXiv:2501.12735}, 2025.
+
+\bibitem[Bai et~al.(2023)Bai, Chen, Wang, Xiong, and Mei]{bai2023transformers}
+Y.~Bai, F.~Chen, H.~Wang, C.~Xiong, and S.~Mei.
+\newblock Transformers as statisticians: Provable in-context learning with in-context algorithm selection.
+\newblock \emph{Advances in neural information processing systems}, 36:\penalty0 57125--57211, 2023.
+
+\bibitem[Brooks et~al.(2024)Brooks, Walls, Lewis, and Singh]{brooks2024large}
+E.~Brooks, L.~Walls, R.~L. Lewis, and S.~Singh.
+\newblock Large language models can implement policy iteration.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Chu et~al.(2011)Chu, Li, Reyzin, and Schapire]{chu2011contextual}
+W.~Chu, L.~Li, L.~Reyzin, and R.~Schapire.
+\newblock Contextual bandits with linear payoff functions.
+\newblock In \emph{Proceedings of the Fourteenth International Conference on Artificial Intelligence and Statistics}, pages 208--214. JMLR Workshop and Conference Proceedings, 2011.
+
+\bibitem[Daw et~al.(2006)Daw, O'doherty, Dayan, Seymour, and Dolan]{daw2006cortical}
+N.~D. Daw, J.~P. O'doherty, P.~Dayan, B.~Seymour, and R.~J. Dolan.
+\newblock Cortical substrates for exploratory decisions in humans.
+\newblock \emph{Nature}, 441\penalty0 (7095):\penalty0 876--879, 2006.
+
+\bibitem[Felicioni et~al.(2024)Felicioni, Maystre, Ghiassian, and Ciosek]{felicioni2024importance}
+N.~Felicioni, L.~Maystre, S.~Ghiassian, and K.~Ciosek.
+\newblock On the importance of uncertainty in decision-making with large language models.
+\newblock \emph{arXiv preprint arXiv:2404.02649}, 2024.
+
+\bibitem[Gandhi et~al.(2024)Gandhi, Lee, Grand, Liu, Cheng, Sharma, and Goodman]{gandhi2024stream}
+K.~Gandhi, D.~Lee, G.~Grand, M.~Liu, W.~Cheng, A.~Sharma, and N.~D. Goodman.
+\newblock Stream of search (sos): Learning to search in language.
+\newblock \emph{arXiv preprint arXiv:2404.03683}, 2024.
+
+\bibitem[Gershman(2018)]{gershman2018deconstructing}
+S.~J. Gershman.
+\newblock Deconstructing the human algorithms for exploration.
+\newblock \emph{Cognition}, 173:\penalty0 34--42, 2018.
+
+\bibitem[Guo et~al.(2025)Guo, Yang, Zhang, Song, Zhang, Xu, Zhu, Ma, Wang, Bi, et~al.]{guo2025deepseek}
+D.~Guo, D.~Yang, H.~Zhang, J.~Song, R.~Zhang, R.~Xu, Q.~Zhu, S.~Ma, P.~Wang, X.~Bi, et~al.
+\newblock Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2501.12948}, 2025.
+
+\bibitem[Harper and Konstan(2015)]{harper2015movielens}
+F.~M. Harper and J.~A. Konstan.
+\newblock The movielens datasets: History and context.
+\newblock \emph{Acm transactions on interactive intelligent systems (tiis)}, 5\penalty0 (4):\penalty0 1--19, 2015.
+
+\bibitem[He-Yueya et~al.(2024)He-Yueya, Goodman, and Brunskill]{he2024evaluating}
+J.~He-Yueya, N.~D. Goodman, and E.~Brunskill.
+\newblock Evaluating and optimizing educational content with large language model judgments.
+\newblock \emph{arXiv preprint arXiv:2403.02795}, 2024.
+
+\bibitem[Koren et~al.(2009)Koren, Bell, and Volinsky]{koren2009matrix}
+Y.~Koren, R.~Bell, and C.~Volinsky.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock \emph{Computer}, 42\penalty0 (8):\penalty0 30--37, 2009.
+
+\bibitem[Krishnamurthy et~al.(2024)Krishnamurthy, Harris, Foster, Zhang, and Slivkins]{krishnamurthy2024can}
+A.~Krishnamurthy, K.~Harris, D.~J. Foster, C.~Zhang, and A.~Slivkins.
+\newblock Can large language models explore in-context?
+\newblock \emph{arXiv preprint arXiv:2403.15371}, 2024.
+
+\bibitem[Langford and Zhang(2007)]{langford2007epoch}
+J.~Langford and T.~Zhang.
+\newblock The epoch-greedy algorithm for contextual multi-armed bandits.
+\newblock \emph{Advances in neural information processing systems}, 20\penalty0 (1):\penalty0 96--1, 2007.
+
+\bibitem[Laskin et~al.(2022)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald, Strouse, Hansen, Filos, Brooks, et~al.]{laskin2022context}
+M.~Laskin, L.~Wang, J.~Oh, E.~Parisotto, S.~Spencer, R.~Steigerwald, D.~Strouse, S.~Hansen, A.~Filos, E.~Brooks, et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock \emph{arXiv preprint arXiv:2210.14215}, 2022.
+
+\bibitem[Lee et~al.(2024)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill]{lee2024supervised}
+J.~Lee, A.~Xie, A.~Pacchiano, Y.~Chandak, C.~Finn, O.~Nachum, and E.~Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Li et~al.(2010)Li, Chu, Langford, and Schapire]{li2010contextual}
+L.~Li, W.~Chu, J.~Langford, and R.~E. Schapire.
+\newblock A contextual-bandit approach to personalized news article recommendation.
+\newblock In \emph{Proceedings of the 19th international conference on World wide web}, pages 661--670, 2010.
+
+\bibitem[Li et~al.(2023{\natexlab{a}})Li, Zhang, Liu, and Chen]{li2023large}
+L.~Li, Y.~Zhang, D.~Liu, and L.~Chen.
+\newblock Large language models for generative recommendation: A survey and visionary discussions.
+\newblock \emph{arXiv preprint arXiv:2309.01157}, 2023{\natexlab{a}}.
+
+\bibitem[Li et~al.(2023{\natexlab{b}})Li, Hessel, Yu, Ren, Chang, and Choi]{li2023symbolic}
+L.~H. Li, J.~Hessel, Y.~Yu, X.~Ren, K.-W. Chang, and Y.~Choi.
+\newblock Symbolic chain-of-thought distillation: Small models can also" think" step-by-step.
+\newblock \emph{arXiv preprint arXiv:2306.14050}, 2023{\natexlab{b}}.
+
+\bibitem[Lin et~al.(2023)Lin, Bai, and Mei]{lin2023transformers}
+L.~Lin, Y.~Bai, and S.~Mei.
+\newblock Transformers as decision makers: Provable in-context reinforcement learning via supervised pretraining.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2023.
+
+\bibitem[Liu et~al.(2024{\natexlab{a}})Liu, Fu, Yogatama, and Neiswanger]{liu2024dellma}
+O.~Liu, D.~Fu, D.~Yogatama, and W.~Neiswanger.
+\newblock Dellma: A framework for decision making under uncertainty with large language models.
+\newblock \emph{arXiv preprint arXiv:2402.02392}, 2024{\natexlab{a}}.
+
+\bibitem[Liu et~al.(2024{\natexlab{b}})Liu, Zhou, Wang, Yang, and Qiao]{liu2024inference}
+Z.~Liu, Z.~Zhou, Y.~Wang, C.~Yang, and Y.~Qiao.
+\newblock Inference-time language model alignment via integrated value guidance.
+\newblock \emph{arXiv preprint arXiv:2409.17819}, 2024{\natexlab{b}}.
+
+\bibitem[Mirchandani et~al.(2023)Mirchandani, Xia, Florence, Ichter, Driess, Arenas, Rao, Sadigh, and Zeng]{mirchandani2023large}
+S.~Mirchandani, F.~Xia, P.~Florence, B.~Ichter, D.~Driess, M.~G. Arenas, K.~Rao, D.~Sadigh, and A.~Zeng.
+\newblock Large language models as general pattern machines.
+\newblock \emph{arXiv preprint arXiv:2307.04721}, 2023.
+
+\bibitem[Mnih(2013)]{mnih2013playing}
+V.~Mnih.
+\newblock Playing atari with deep reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1312.5602}, 2013.
+
+\bibitem[Mudgal et~al.(2023)Mudgal, Lee, Ganapathy, Li, Wang, Huang, Chen, Cheng, Collins, Strohman, et~al.]{mudgal2023controlled}
+S.~Mudgal, J.~Lee, H.~Ganapathy, Y.~Li, T.~Wang, Y.~Huang, Z.~Chen, H.-T. Cheng, M.~Collins, T.~Strohman, et~al.
+\newblock Controlled decoding from language models.
+\newblock \emph{arXiv preprint arXiv:2310.17022}, 2023.
+
+\bibitem[Nie et~al.(2024)Nie, Chandak, Suzara, Malik, Woodrow, Peng, Sahami, Brunskill, and Piech]{nie2024gpt}
+A.~Nie, Y.~Chandak, M.~Suzara, A.~Malik, J.~Woodrow, M.~Peng, M.~Sahami, E.~Brunskill, and C.~Piech.
+\newblock The gpt surprise: Offering large language model chat in a massive coding class reduced engagement but increased adopters’ exam performances.
+\newblock Technical report, Center for Open Science, 2024.
+
+\bibitem[Osband et~al.(2013)Osband, Russo, and Van~Roy]{osband2013more}
+I.~Osband, D.~Russo, and B.~Van~Roy.
+\newblock (more) efficient reinforcement learning via posterior sampling.
+\newblock \emph{Advances in Neural Information Processing Systems}, 26, 2013.
+
+\bibitem[Pan et~al.(2025)Pan, Xie, and Wilson]{pan2025large}
+L.~Pan, H.~Xie, and R.~C. Wilson.
+\newblock Large language models think too fast to explore effectively.
+\newblock \emph{arXiv preprint arXiv:2501.18009}, 2025.
+
+\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion, Grisel, Blondel, Prettenhofer, Weiss, Dubourg, et~al.]{pedregosa2011scikit}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel, M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, et~al.
+\newblock Scikit-learn: Machine learning in python.
+\newblock \emph{the Journal of machine Learning research}, 12:\penalty0 2825--2830, 2011.
+
+\bibitem[Pomerleau(1991)]{pomerleau1991efficient}
+D.~A. Pomerleau.
+\newblock Efficient training of artificial neural networks for autonomous navigation.
+\newblock \emph{Neural computation}, 3\penalty0 (1):\penalty0 88--97, 1991.
+
+\bibitem[Qu et~al.(2024)Qu, Wang, Jiang, Shao, Mao, Wang, Liu, and Ji]{qu2024choices}
+Y.~Qu, B.~Wang, Y.~Jiang, J.~Shao, Y.~Mao, C.~Wang, C.~Liu, and X.~Ji.
+\newblock Choices are more important than efforts: Llm enables efficient multi-agent exploration.
+\newblock \emph{arXiv preprint arXiv:2410.02511}, 2024.
+
+\bibitem[Rahn et~al.(2024)Rahn, D'Oro, and Bellemare]{rahn2024controlling}
+N.~Rahn, P.~D'Oro, and M.~G. Bellemare.
+\newblock Controlling large language model agents with entropic activation steering.
+\newblock \emph{arXiv preprint arXiv:2406.00244}, 2024.
+
+\bibitem[Raparthy et~al.(2023)Raparthy, Hambro, Kirk, Henaff, and Raileanu]{raparthy2023generalization}
+S.~C. Raparthy, E.~Hambro, R.~Kirk, M.~Henaff, and R.~Raileanu.
+\newblock Generalization to new sequential decision making tasks with in-context learning.
+\newblock \emph{arXiv preprint arXiv:2312.03801}, 2023.
+
+\bibitem[Reid et~al.(2024)Reid, Savinov, Teplyashin, Lepikhin, Lillicrap, Alayrac, Soricut, Lazaridou, Firat, Schrittwieser, et~al.]{reid2024gemini}
+M.~Reid, N.~Savinov, D.~Teplyashin, D.~Lepikhin, T.~Lillicrap, J.-b. Alayrac, R.~Soricut, A.~Lazaridou, O.~Firat, J.~Schrittwieser, et~al.
+\newblock Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context.
+\newblock \emph{arXiv preprint arXiv:2403.05530}, 2024.
+
+\bibitem[Shinn et~al.(2024)Shinn, Cassano, Gopinath, Narasimhan, and Yao]{shinn2024reflexion}
+N.~Shinn, F.~Cassano, A.~Gopinath, K.~Narasimhan, and S.~Yao.
+\newblock Reflexion: Language agents with verbal reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Singhal et~al.(2023)Singhal, Azizi, Tu, Mahdavi, Wei, Chung, Scales, Tanwani, Cole-Lewis, Pfohl, et~al.]{singhal2023large}
+K.~Singhal, S.~Azizi, T.~Tu, S.~S. Mahdavi, J.~Wei, H.~W. Chung, N.~Scales, A.~Tanwani, H.~Cole-Lewis, S.~Pfohl, et~al.
+\newblock Large language models encode clinical knowledge.
+\newblock \emph{Nature}, 620\penalty0 (7972):\penalty0 172--180, 2023.
+
+\bibitem[Slivkins et~al.(2019)]{slivkins2019introduction}
+A.~Slivkins et~al.
+\newblock Introduction to multi-armed bandits.
+\newblock \emph{Foundations and Trends{\textregistered} in Machine Learning}, 12\penalty0 (1-2):\penalty0 1--286, 2019.
+
+\bibitem[Snell et~al.(2024)Snell, Lee, Xu, and Kumar]{snell2024scaling}
+C.~Snell, J.~Lee, K.~Xu, and A.~Kumar.
+\newblock Scaling llm test-time compute optimally can be more effective than scaling model parameters.
+\newblock \emph{arXiv preprint arXiv:2408.03314}, 2024.
+
+\bibitem[Sutton(2018)]{sutton2018reinforcement}
+R.~S. Sutton.
+\newblock Reinforcement learning: An introduction.
+\newblock \emph{A Bradford Book}, 2018.
+
+\bibitem[Team et~al.(2024)Team, Riviere, Pathak, Sessa, Hardin, Bhupatiraju, Hussenot, Mesnard, Shahriari, Ram{\'e}, et~al.]{team2024gemma}
+G.~Team, M.~Riviere, S.~Pathak, P.~G. Sessa, C.~Hardin, S.~Bhupatiraju, L.~Hussenot, T.~Mesnard, B.~Shahriari, A.~Ram{\'e}, et~al.
+\newblock Gemma 2: Improving open language models at a practical size.
+\newblock \emph{arXiv preprint arXiv:2408.00118}, 2024.
+
+\bibitem[Wang et~al.(2023{\natexlab{a}})Wang, Xie, Jiang, Mandlekar, Xiao, Zhu, Fan, and Anandkumar]{wang2023voyager}
+G.~Wang, Y.~Xie, Y.~Jiang, A.~Mandlekar, C.~Xiao, Y.~Zhu, L.~Fan, and A.~Anandkumar.
+\newblock Voyager: An open-ended embodied agent with large language models.
+\newblock \emph{arXiv preprint arXiv:2305.16291}, 2023{\natexlab{a}}.
+
+\bibitem[Wang et~al.(2023{\natexlab{b}})Wang, Wang, Li, Gao, Yin, and Ren]{wang2023scott}
+P.~Wang, Z.~Wang, Z.~Li, Y.~Gao, B.~Yin, and X.~Ren.
+\newblock Scott: Self-consistent chain-of-thought distillation.
+\newblock \emph{arXiv preprint arXiv:2305.01879}, 2023{\natexlab{b}}.
+
+\bibitem[Wang et~al.(2023{\natexlab{c}})Wang, Cai, Chen, Liu, Ma, and Liang]{wang2023describe}
+Z.~Wang, S.~Cai, G.~Chen, A.~Liu, X.~Ma, and Y.~Liang.
+\newblock Describe, explain, plan and select: Interactive planning with large language models enables open-world multi-task agents.
+\newblock \emph{arXiv preprint arXiv:2302.01560}, 2023{\natexlab{c}}.
+
+\bibitem[Wilson et~al.(2014)Wilson, Geana, White, Ludvig, and Cohen]{wilson2014humans}
+R.~C. Wilson, A.~Geana, J.~M. White, E.~A. Ludvig, and J.~D. Cohen.
+\newblock Humans use directed and random exploration to solve the explore--exploit dilemma.
+\newblock \emph{Journal of experimental psychology: General}, 143\penalty0 (6):\penalty0 2074, 2014.
+
+\bibitem[Xi et~al.(2023)Xi, Chen, Guo, He, Ding, Hong, Zhang, Wang, Jin, Zhou, et~al.]{xi2023rise}
+Z.~Xi, W.~Chen, X.~Guo, W.~He, Y.~Ding, B.~Hong, M.~Zhang, J.~Wang, S.~Jin, E.~Zhou, et~al.
+\newblock The rise and potential of large language model based agents: A survey.
+\newblock \emph{arXiv preprint arXiv:2309.07864}, 2023.
+
+\bibitem[Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and Cao]{yao2023react}
+S.~Yao, J.~Zhao, D.~Yu, N.~Du, I.~Shafran, K.~Narasimhan, and Y.~Cao.
+\newblock React: Synergizing reasoning and acting in language models.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2023.
+
+\bibitem[Yu et~al.(2024)Yu, Xu, Weston, and Kulikov]{yu2024distilling}
+P.~Yu, J.~Xu, J.~Weston, and I.~Kulikov.
+\newblock Distilling system 2 into system 1.
+\newblock \emph{arXiv preprint arXiv:2407.06023}, 2024.
+
+\bibitem[Zheng et~al.(2024)Zheng, Mishra, Zhang, Chen, Chen, Nova, Hou, Cheng, Le, Chi, et~al.]{zheng2024natural}
+H.~S. Zheng, S.~Mishra, H.~Zhang, X.~Chen, M.~Chen, A.~Nova, L.~Hou, H.-T. Cheng, Q.~V. Le, E.~H. Chi, et~al.
+\newblock Natural plan: Benchmarking llms on natural language planning.
+\newblock \emph{arXiv preprint arXiv:2406.04520}, 2024.
+
+\end{thebibliography}

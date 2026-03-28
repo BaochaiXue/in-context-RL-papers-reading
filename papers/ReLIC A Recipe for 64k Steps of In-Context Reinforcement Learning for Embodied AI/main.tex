@@ -1,0 +1,115 @@
+\documentclass{article}
+
+
+
+
+\usepackage{iclr2025_conference,times}
+
+\usepackage[textsize=tiny]{todonotes}
+
+\newcommand{\zkn}[1]{}
+\newcommand{\ky}[1]{}
+\newcommand{\gc}[1]{}
+\newcommand{\asn}[1]{}
+\newcommand{\aen}[1]{}
+\newcommand{\asz}[1]{}
+
+
+
+
+
+
+
+\usepackage[utf8]{inputenc} %
+\usepackage[T1]{fontenc}    %
+\usepackage{url}            %
+\usepackage{booktabs}       %
+\usepackage{amsfonts}       %
+\usepackage{nicefrac}       %
+\usepackage{microtype}      %
+\usepackage{xcolor}         %
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{xspace}
+\usepackage{colortbl}
+\usepackage{bbm}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+
+\definecolor{citecolor}{HTML}{2779af}
+\definecolor{linkcolor}{HTML}{c0392b}
+\usepackage[pagebackref=false,breaklinks=true,colorlinks,bookmarks=false,citecolor=citecolor,linkcolor=linkcolor]{hyperref}
+
+
+\usepackage[capitalize]{cleveref}
+\newcommand{\Method}{Reinforcement Learning In Context \xspace}
+\newcommand{\method}{ReLIC\xspace}
+\newcommand{\rls}{RL$^{2}$\xspace}
+\newcommand{\semethod}{Transformer-SE\xspace}
+\newcommand{\ieafmethod}{\method-No-IEA\xspace}
+\newcommand{\trxl}{Transformer-XL\xspace}
+\newcommand{\task}{\textsc{ExtObjNav}\xspace}
+\newcommand{\obnav}{\textsc{ObjectNav}\xspace}
+\newcommand{\Task}{Extended Object Navigation\xspace}
+
+\newcommand{\sinkv}{Sink-KV\xspace}
+\newcommand{\skv}{Sink-KV\xspace}
+
+\DeclareMathOperator{\mor}{MOR}
+
+
+
+\title{\method: A Recipe for 64k Steps of In-Context Reinforcement Learning for Embodied AI}
+
+
+
+
+
+\author{%
+    Ahmad Elawady \quad
+    Gunjan Chhablani \quad
+    Ram Ramrakhya \quad
+    Karmesh Yadav \quad \\
+    \textbf{Dhruv Batra}  \quad
+    \textbf{Zsolt Kira} \quad
+    \textbf{Andrew Szot} \quad \\
+    Georgia Tech 
+}
+
+
+\iclrfinalcopy %
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\input{sections/intro}
+\input{sections/related_work}
+\input{sections/method}
+\input{sections/experiments}
+\input{sections/conclusion}
+\input{sections/acks}
+
+\bibliography{iclr2025_conference}
+\bibliographystyle{iclr2025_conference}
+
+
+
+
+\appendix
+\newpage
+
+\input{supp/task}
+\input{supp/exps}
+\input{supp/visual_encoder}
+\input{supp/sinkkv}
+\input{supp/targets_attention}
+
+\end{document}

@@ -1,0 +1,14 @@
+\begin{table}[t!]
+\caption{\textbf{Evaluation results on RoboMimic.} Visuomotor policies trained with our expertise-based curriculum outperform the most competing history-dependent behavior cloning baseline, as well as other offline RL algorithms. For our method on the Lift task, we conduct 5 independent runs each with 10 rollout episodes. On the Can task, we conduct 10 independent runs each with 5 rollout episodes due to the longer horizon required to complete the task. Standard deviations are included.}
+\label{table:robomimic_main}
+\vspace{0.1in}
+\centering
+\resizebox{0.58\textwidth}{!}{
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Task} & \textbf{Ours} & \textbf{BC-RNN}~\citep{mandlekar2021matters}             & \textbf{BCQ}~\citep{fujimoto2018offpolicy}                & \textbf{CQL}~\citep{kumar2020conservative}                \\ \midrule
+Lift          &  $\bestscore{100.0 \pm 0.0}$             &    $\bestscore{100.0 \pm 0.0}$                         & $93.3 \pm 0.9$ & $11.3 \pm 9.3$ \\
+Can           &   $\bestscore{100.0 \pm 0.0}$            & $\hphantom{\mathbf{0}}96.0 \pm 1.6$ & $77.3 \pm 6.8$ & $\hphantom{0}0.0 \pm 0.0$  \\ \bottomrule
+\end{tabular}}
+
+\end{table}

@@ -1,0 +1,17 @@
+The capacity of LLMs to act as general pattern machines is driven by their ability to perform in-context learning on sequences of numeric or arbitrary tokens.
+An LLM typically represents sequence modeling autoregressively, with a decoder-only Transformer \cite{vaswani2017attention}, by factorizing the probability of a sequence $x$, which is a sequence of symbols $(s_1, \ \ldots, \ s_n)$, into the product of conditional probabilities $p(x)=\prod_{i=1}^{n}p(s_i|s_1, \ ...,\ s_{i-1})$.
+To perform in-context learning, the model can be conditioned with a prompt that provides the initial tokens in the sequence $s_{1:k} = (s_1, \ \ldots, \ s_k)$ and uses the model to complete $s_{k+1:n}$.
+
+The adaptability of in-context learning lies in the amount of flexibility that can be packed into $s_{1:k}$---this prompt sequence can itself contain many sequences, each an input-output pair, and perhaps additional task conditioning  \cite{radford2019language,min2022rethinking}.  Specifically, a model can in-context learn to complete a prompt which is a set of $N$ examples $s_{1:k} =(x^{1}, \ x^{2}, \ \ldots, \ x^{N})$ where each $x^{i}$ is a variable-length sequence $(s^{i}_1, \ s^{i}_2, \ ..., \ s^{i}_{m^i})$.
+
+Rather than investigating in-context learning with natural language tasks \cite{brown2020language}, in this work we are interested in investigating more abstract notions of non-linguistic patterns.
+The following sections evaluate these capabilities across LLMs, and show how they can be used in robotics. By varying the notion of what each $x^{i}$ should be, we can characterize in-context pattern learning capabilities into the following 3 categories. 
+\begin{itemize}[leftmargin=*, topsep=0pt,itemsep=0ex,partopsep=1ex,parsep=1ex]
+  \item \textbf{Sequence Transformation} (\cref{sec:sequence_transformation}): each $x^{1}, \ \ldots, \ x^{N-1}$ is a sequence-to-sequence input-output pair; \ie %
+  $x^{i} = (x^{i}_{\text{input}}, x^{i}_{\text{output}})$, each subsequence of variable length, %
+  and $x^{N}$ is the query input $(x^N_{\text{input}}$).
+  \item \textbf{Sequence Completion} (\cref{sec:sequence_completion}): rather than containing input-output pairs, and rather than containing many examples of different sequences, the prompt $x = (s_1, \ ..., s_k)$ corresponds to discrete samples from a single function, \eg of the form $s_i = a \cdot \sin(bi)$, which can be extrapolated.
+  \item \textbf{Sequence Improvement} (\cref{sec:sequence_improvement}): each $x^{1}, \ \ldots, \ x^{N-1}$ is a collection of trajectories (potentially labeled with corresponding total rewards), and  $x^{N}$ prompts the model to ``improve'' the sequences by inferring a better one, \eg with least-to-most prompting \cite{zhou2022least}---%
+  this process can be iterative and applied to a variety of formulations, \eg offline trajectory optimization or online in-context reinforcement learning.
+\end{itemize}
+

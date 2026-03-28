@@ -1,0 +1,70 @@
+In this section, we describe in detail the experimental settings and some baselines.
+
+\subsubsection{Experimental Details}
+
+\textbf{Linear Bandit:} We consider the setting when $f(\bx, \btheta_*) = \bx^\top\btheta_*$. Here $\bx \in \R^d$ is the action feature and $\btheta_*\in\R^d$ is the hidden parameter. 
+%
+For every experiment, we first generate tasks from $\cTp$. Then we sample a fixed set of actions from  $\N\left(\mathbf{0}, \bI_d / d\right)$ in $\R^d$ and this constitutes the features. 
+%
+Then for each task $m\in [M]$ we sample $\btheta_{m ,*} \sim \N\left(\mathbf{0}, \bI_d / d\right)$ to produce the means $\mu(m,a)=\left\langle\btheta_{m ,*}, \bx(m,a)\right\rangle$ for $a \in \A$ and $m\in [M]$.
+%
+Finally, note that we do not shuffle the data as the order matters. Also in this setting $\bx(m, a)$ for each $a\in\A$ is fixed for all tasks $m$.
+
+
+
+\textbf{Non-Linear Bandit:} We now consider the setting when $f(\bx, \btheta_*) = 1/(1 + 0.5\cdot\exp(2\cdot\exp(- \bx^\top \btheta_*)))$. Again, here $\bx \in \R^d$ is the action feature, and $\btheta_*\in\R^d$ is the hidden parameter. 
+%
+Note that this is different than the generalized linear bandit setting \citep{filippi2010parametric, li2017provably}.
+%
+Again for every experiment, we first generate tasks from $\cTp$. Then we sample a fixed set of actions from  $\N\left(\mathbf{0}, \bI_d / d\right)$ in $\R^d$ and this constitutes the features. 
+%
+Then for each task $m\in [M]$ we sample $\btheta_{m ,*} \sim \N\left(\mathbf{0}, \bI_d / d\right)$ to produce the means $\mu(m,a)=1/(1 + 0.5\cdot\exp(2\cdot\exp(- \bx(m,a)^\top \btheta_{m,*})))$ for $a \in \A$ and $m\in [M]$.
+%
+Again note that in this setting $\bx(m, a)$ for each $a\in\A$ is fixed for all tasks $m$.
+
+
+We use NVIDIA GeForce RTX 3090 GPU with 24GB RAM to load the GPT 2 Large Language Model. This requires less than 2GB RAM without data, and with large context may require as much as 20GB RAM.
+
+\subsubsection{Details of Baselines}
+\label{app:baseline-details}
+
+\textbf{(1) \ts:} This baseline is the stochastic $A$-action bandit Thompson Sampling algorithm from \citet{thompson1933likelihood,agrawal2012analysis,russo2018tutorial,zhu2020thompson}. We briefly describe the algorithm below: At every round $t$ and each action $a$, \ts\  samples $\gamma_{m,t}(a) \sim \N(\wmu_{m,t-1}(a), \sigma^2/N_{m,t-1}(a))$, where $N_{m,t-1}(a)$ is the number of times the action $a$ has been selected till $t-1$, and $\wmu_{m,t-1}(a) = \frac{\sum_{s=1}^{t-1} \wr_{m,s}\mathbf{1}(I_s =a)}{N_{m,t-1}(a)}$ is the empirical mean. Then the action selected at round $t$ is $I_{t} = \argmax_a \gamma_{m,t}(a)$. 
+%
+Observe that \ts\ is not a deterministic algorithm like \ucb\ \citep{auer2002finite-time}. So we choose \ts\ as the weak demonstrator $\pi^w$ because it is more exploratory than \ucb\ and also chooses the optimal action, $a_{m, *}$, a sufficiently large number of times. 
+% 
+\ts\ is a weak demonstrator as it does not have access to the feature set $\X$ for any task $m$. 
+
+\textbf{(2) \linucb:} (Linear Upper Confidence Bound): This baseline is the Upper Confidence Bound algorithm for the linear bandit setting that selects the action $I_t$ at round $t$ for task $m$ that is most optimistic and reduces the uncertainty of the task unknown parameter $\btheta_{m,*}$.
+%
+To balance exploitation and exploration between choosing different items the \linucb\ computes an upper confidence value to the estimated mean of each action $\bx_{m,a} \in \X$. 
+%
+This is done as follows: At every round $t$ for task $m$, it calculates the ucb value $B_{m,a,t}$ for each action $\bx_{m,a} \in \X$ such that $B_{m,a,t} = \bx_{m,a}^\top \wtheta_{m,t-1} + \alpha\|\bx_{m,a}\|_{\bSigma_{m,t-1}^{-1}}$ where $\alpha > 0$ is a constant and $\wtheta_{m,t}$ is the estimate of the model parameter $\btheta_{m, *}$ at round $t$. 
+%
+Here, $\bSigma_{m,t-1} = \sum_{s=1}^{t-1}\bx_{m,s}\bx_{m,s}^\top +\lambda\bI_d$ is the data covariance matrix or the arms already tried.
+%
+Then it chooses $I_t = \argmax_{a}B_{m,a,t}$. 
+% We only implement \linucb\ during test time evaluation both for online and offline settings. 
+Note that \linucb\ is a \textit{strong} demonstrator that we give oracle access to the features of each action; other algorithms do not observe the features.
+% 
+Hence, in linear bandits, \linucb\ provides an approximate upper bound on the performance of all algorithms.
+
+\textbf{(3) \mlin:} This is the multi-task linear regression bandit algorithm proposed by \citet{yang2021impact}. This algorithm assumes that there is a common low dimensional feature extractor $\mathbf{B}\in\R^{k\times d}$, $k\leq d$ shared between the tasks and the rewards per task $m$ are linearly dependent on a hidden parameter $\btheta_{m,*}$. 
+%
+Under a diversity assumption (which may not be satisfied in real data) and $\bW=\left[\bw_1, \ldots, \bw_M\right]$ they assume $\bTheta =\left[\btheta_{1,*}, \ldots, \btheta_{M,*}\right]=\bB \bW$.
+%
+During evaluation \mlin\ estimates the $\mathbf{\wB}$ and $\widehat{\mathbf{W}}$ from training data and fit $\wtheta_{m}=\mathbf{\wB} \widehat{\bw}_m$ per task and selects action greedily based on $I_{m,t} = \argmax_a \bx_{m,a}^\top\wtheta_{m,*}$. Finally, note that \mlin\ requires access to the action features to estimate $\wtheta_{m}$ and select actions as opposed to \dpt, \ad, and \pred.
+
+% \begin{remark}
+%     \smnote{talk why existing multi-task linear or bilinear algorithms fail.}
+% \end{remark}
+
+
+% \textbf{New action structured bandit:} We now consider the setting when new actions are introduced during the training and testing phase. Again for every experiment, we first generate tasks from $\cTp$. Then we sample a fixed set of actions from  $\N\left(\mathbf{0}, \bI_d / d\right)$ in $\R^d$ and this constitutes the features. 
+
+% $f(\bx, \btheta_*) = 1/(1 + 0.5\cdot\exp(2\cdot\exp(- \bx^\top \btheta_*)))$. Again, here $\bx \in \R^d$ is the action feature, and $\btheta_*\in\R^d$ is the hidden parameter. 
+% %
+% Again for every experiment, we first generate tasks from $\cTp$. Then we sample a fixed set of actions from  $\N\left(\mathbf{0}, \bI_d / d\right)$ in $\R^d$ and this constitutes the features. 
+% %
+% Then for each task $m\in [M]$ we sample $\btheta_{m ,*} \sim \N\left(\mathbf{0}, \bI_d / d\right)$ to produce the means $\mu(m,a)=1/(1 + 0.5\cdot\exp(2\cdot\exp(- \bx(m,a)^\top \btheta_{m,*})))$ for $a \in \A$ and $m\in [M]$.
+% %
+% Again note that in this setting $\bx(m, a)$ for each $a\in\A$ is fixed for all tasks $m$.

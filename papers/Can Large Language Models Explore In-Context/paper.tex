@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage{amsthm,mkolar_definitions,color,comment}
+\usepackage{algorithm,algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+\usepackage[colorlinks,citecolor=blue!70!black,linkcolor=blue!70!black]{hyperref}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\newcommand{\loose}{\looseness=-1}
+
+\usepackage{inconsolata}
+
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{xspace}
+\usepackage{nicefrac}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{authblk}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage[nameinlink,capitalize]{cleveref}
+\Crefformat{figure}{#2Figure #1#3}
+\Crefname{figure}{Figure}{Figures}
+
+\usepackage[suppress]{color-edits}  %
+\addauthor{as}{magenta}  %
+\addauthor{ak}{red}   %
+\addauthor{df}{ForestGreen}   %
+\addauthor{kh}{orange}   %
+\newcommand{\dfc}[1]{\dfcomment{#1}}
+
+\newcount\Comments  %
+\Comments=1 %
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{teal}{rgb}{0.3,0.8,0.8}
+\newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
+\newcommand{\akshay}[1]{\kibitz{red}{[AK: #1]}}
+\newcommand{\alex}[1]{\kibitz{blue}{[AS: #1]}}
+
+\newcommand{\gptfour}{\textsc{Gpt-4}\xspace} %
+\newcommand{\gptfouro}{\textsc{Gpt-4o}\xspace} %
+\newcommand{\gptthree}{\textsc{Gpt-3.5}\xspace} %
+\newcommand{\llama}{\textsc{Llama2}\xspace} %
+\newcommand{\ucb}{\textsc{UCB}\xspace}
+\newcommand{\ts}{\textsc{TS}\xspace}
+\newcommand{\greedy}{\textsc{Greedy}\xspace}
+\newcommand{\EpsGreedy}{$\epsilon$-\textsc{Greedy}\xspace}
+
+\newcommand{\buttons}{\textsc{Buttons}\xspace}
+\newcommand{\bandits}{\textsc{Bandits}\xspace}
+\newcommand{\tC}{\widetilde{\text{C}}}
+
+\newcommand{\OptCount}{\texttt{BestCount}}
+\newcommand{\MinFrac}{\texttt{MinFrac}}
+\newcommand{\LeastFrac}{\texttt{LeastFrac}}
+\newcommand{\SuffFail}{\texttt{SuffFail}} %
+\newcommand{\SuffFailFreq}{\texttt{SuffFailFreq}} %
+\newcommand{\GreedyFrac}{\texttt{GreedyFrac}} %
+\newcommand{\MedRew}{\texttt{MedianReward}} %
+
+\newcommand{\easy}{\texttt{easy}\xspace}
+\newcommand{\hard}{\texttt{hard}\xspace}
+
+\newenvironment{OneLiners}[1][\ensuremath{\bullet}]
+    {\begin{list}
+        {#1}
+        {\setlength{\itemsep}{0pt}
+        \setlength{\parsep}{0pt}
+          \setlength{\topsep }{0pt}}}
+    {\end{list}}
+
+\newrefformat{fn}{\savehyperref{#1}{Footnote~\ref*{#1}}}
+
+
+
+\title{
+Can Large Language Models Explore In-Context?}
+
+\author[1]{Akshay Krishnamurthy\footnote{Corresponding authors: \texttt{\{akshaykr,slivkins\}@microsoft.com}.}}
+\author[2]{Keegan Harris\footnote{Some of the results were obtained while the author was an intern at Microsoft Research.}}
+\author[1]{Dylan J. Foster}
+\author[1]{\\Cyril Zhang}
+\author[1]{Aleksandrs Slivkins$^*$}
+
+\affil[1]{\normalsize Microsoft Research}
+\affil[2]{\normalsize Carnegie Mellon University}
+
+\date{\vspace*{-3mm}\normalsize Initial version: March 2024\\This version: October 2024\footnote{Accepted for publication in Advances in Neural Information Processing Systems, NeurIPS, 2024.}\vspace*{-3mm}%
+}
+
+\newcommand{\eps}{\epsilon}
+\newcommand{\E}{\operatornamewithlimits{\ensuremath{\mathbb{E}}}} %
+
+\newcommand{\capItem}[1]{\vspace{1mm}\newline\textbf{#1}}
+\newcommand{\xhdr}[1]{\vspace{2mm} \noindent{\bf #1}}
+\newcommand{\ie}{{i.e.,~\xspace}}
+\newcommand{\Ie}{{I.e.,~\xspace}}
+\newcommand{\eg}{{e.g.,~\xspace}}
+\newcommand{\Eg}{{E.g.,~\xspace}}
+
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1.}}
+
+\newcommand{\paragraphi}[1]{\par\noindent\emph{#1.}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{section_intro}
+
+\section{Experimental setup}
+\label{sec:setup}
+\input{section_setup}
+
+\section{Experimental results}
+\label{sec:results}
+\input{section_results}
+\input{section_results_figures}
+
+\section{Related work}
+\label{sec:related}
+\input{section_related.tex}
+
+\subsection{Further background on multi-armed bandits}
+\label{sec:bg}
+\input{section_bg}
+
+\section{Discussion and open questions}
+\label{sec:discussion}
+\input{section_discussion}
+
+\clearpage
+
+\bibliography{icl_refs,bib-abbrv,bib-bandits,bib-slivkins,llm_refs}
+
+\clearpage\newpage \clearpage\newpage \clearpage\newpage
+
+\appendix
+
+\input{section_figures.tex}
+
+\end{document}

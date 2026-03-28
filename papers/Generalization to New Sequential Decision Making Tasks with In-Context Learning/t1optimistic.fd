@@ -1,0 +1,4 @@
+\ProvidesFile{t1optimistic.fd}
+\DeclareFontFamily{T1}{optimistic}{}
+\DeclareFontShape{T1}{optimistic}{m}{n}{<-> optimistic}{}
+\DeclareFontShape{T1}{optimistic}{b}{n}{<-> optimistic}{}

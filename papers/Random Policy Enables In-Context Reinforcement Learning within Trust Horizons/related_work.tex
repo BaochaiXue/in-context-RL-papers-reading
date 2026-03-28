@@ -1,0 +1,49 @@
+%
+%
+\section{Related Work}
+\label{appendix_related_work}
+
+
+\subsection{Offline Reinforcement Learning}
+%
+In contrast to the unlimited interactions with the environment in online RL, offline RL seeks to learn optimal policies from a pre-collected and static dataset~\citep{fujimoto2019benchmarking, levine2020offline, kumar2020conservative, kostrikov2021offline, chen2024domain}. One of the critical challenges in offline RL is with bootstrapping from out-of-distribution (OOD) actions~\citep{levine2020offline, kumar2020conservative, xu2022policy, liu2024beyond} due to the mismatch between the behavior policies and the learned policies. To address this issue, the current SOTA offline RL algorithms propose to update pessimistically by either adding a regularization or underestimating the Q-value of OOD actions.
+%
+% \red{Most importantly, offline RL represents a pivotal breakthrough in advancing the practical application of RL in real-world scenarios.} \blue{This sentence here doesn't make too much sense to me. This is okay for an introduction section, but at this point we should be convinced that we care about offline RL. This sentence also sounds very much AI-generated.}
+% \purple{Sounds reasonable to me. I was trying to bridge section 2.1 and section 2.2. But now I think we can just remove this sentence and I added some contents in Section 2.2 in orange.}\blue{ok.}
+
+\subsection{Autoregressive-Supervised Decision Making}
+%
+In addition to the traditional offline RL methods, autoregressive-supervised mechanisms based on the transformer architecture~\citep{vaswani2017attention} have been successfully applied to offline decision making domains by their powerful capability in sequential modeling.
+% \blue{What is primarly attributed to the capability in sequential modeling? Their success? Not clear from the sentence. Rewrite. \purple{Modified.}}
+%
+The pioneering work in the autoregressive-supervised decision making is the Decision Transformer (DT)~\citep{chen2021decision}.
+%
+DT autoregressively models the sequence of actions from the historical offline data conditioned on the sequence of returns in the history.
+%
+% \blue{Not very clear what this means. The sentence is also too lengthy. Split it in two.} \purple{Modified.} 
+%
+During the inference, the trained model can be queried based on pre-defined target returns, allowing it to generate actions aligned with the target returns.
+%
+The subsequent works such as Multi-Game Decision Transformer (MGDT)~\citep{lee2022multi} and Gato~\citep{reed2022generalist} have exhibited the success of the autoregressive-supervised mechanisms in learning multi-task policies by fine-tuning or leveraging expert demonstrations in the downstream tasks.
+
+
+
+
+
+
+\subsection{In-Context Reinforcement Learning}
+%
+However, both traditional offline RL and autoregressive-supervised decision making mechanisms suffer from the poor zero-shot generalization and in-context learning capabilities to new environments, as neither can improve the policy, with a fixed trained model, in context by trial and error. In-context reinforcement learning (ICRL) aims to pretrain a transformer-based FM, such as GPT2~\citep{radford2019language}, across a wide range of pretraining environments. During the evaluation (or inference), the pretrained model can directly infer the unseen environment and learn in-context without the need for updating model parameters. 
+%
+% \blue{What is particular about these methods that make it more generalizable than MGDT or Gato?} \purple{ MGDT adapts the transformer to new tasks by finetuning the model weights while Gato requires prompting with an expert demonstration to adapt to a new task. Modified above.} \blue{Ok. But what is different here? That the FM is exposed to different environments?} \purple{The major difference is MGDT and Gato are not doing the zero-shot generalization. And that they cannot learn in-context, meaning that they cannot improve during the inference/evaluation. They are fixed learned model/policy. I mentioned this in the orange texts above.} \blue{What is d}
+%
+The SOTA ICRL algorithms including AD~\citep{laskin2022context}, DPT~\citep{lee2024supervised} and DIT~\citep{dong2024context} have demonstrated the potential of the ICRL framework. Nevertheless, each of these methods imposes distinct yet strict requirements on the pretraining dataset e.g., requiring well-trained (or even optimal) behavior policies, the context to be episodic and/or substantial, which significantly restrict their practicality in real-world applications.
+% \blue{I simplified a bit the sentence before. It was very repetitive. Double check that is correct.}
+%
+Accordingly, mastering and executing ICRL under (e.g., uniform) random policies and random contexts remains a crucial direction and a critical challenge.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

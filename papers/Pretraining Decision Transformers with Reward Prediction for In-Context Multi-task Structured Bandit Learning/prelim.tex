@@ -1,0 +1,167 @@
+In this section, we first introduce our notation and the multi-task, structured bandit setting. 
+% 
+We then formalize the in-context bandit learning model studied in \citet{laskin2022context, lee2023supervised, sinii2023context, lin2023transformers, ma2023rethinking, liu2023reason, liu2023self}. 
+% 
+% We choose \dpt\ \citep{lee2023supervised} as a representative example of this learning model and explain the \dpt\ model for the online setting.
+
+% our learning model, and then describe our architecture. Finally, we propose and discuss our algorithm both for the online and the offline setting.
+
+
+
+\subsection{Preliminaries}
+% \label{sec:prelim}
+
+% Define $[n] = \{1,2,\ldots,n\}$. 
+In this paper, we consider the multi-task linear bandit setting \citep{du2023multi, yang2020impact, yang2022nearly}.  
+%
+In the multi-task setting, we have a family of related bandit problems that share an action set $\A$ and also a common action feature space $\X$.
+% In the multi-task setting, we denote each task as $m$. Each task $m$ constitutes of the action set $|\A| = A$ and the feature space $\X$. 
+%
+% Recall that we denote the action space for each task as $\A$ and $|\A| = A$. 
+The actions in $\A$ are indexed by $a=1,2,\ldots, A$. The feature of each action is denoted by $\bx(a) \in \R^d$ and $d \ll A$. 
+%
+% Denote $\triangle(\A)$ as the probability simplex over the action space $\A$. 
+%
+A policy, $\pi$, is a probability distribution over the actions.
+% We denote a policy as $\pi: \A \rightarrow [0,1]$, as a probability distribution over actions such that $\pi \in \triangle(\A)$. This implies that $\sum_{a=1}^A\pi(a) = 1$. 
+
+Define $[n] = \{1,2,\ldots,n\}$. 
+In a multi-task structured bandit setting the expected reward for each action in each task is assumed to be an unknown function of the hidden parameter and action features \citep{lattimore2020bandit, gupta2020unified}.
+%
+The interaction proceeds iteratively over $n$ rounds for each task $m\in [M]$.
+%
+At each round $t\in [n]$ for each task $m\in [M]$, the learner selects an action $I_{m,t} \in \A$ and observes the reward $r_{m,t} = f(\bx(I_{m,t}), \btheta_{m,*}) + \eta_{m,t}$, where $\btheta_{m,*}\in\R^d$ is the hidden parameter specific to the task $m$ to be learned by the learner. The function $f(\cdot, \cdot)$ is the unknown reward structure. This can be $f(\bx(I_{m,t}), \btheta_{m,*}) = \bx(I_{m,t})^\top\btheta_{m,*}$ for the linear setting or even more complex correlation between features and $\btheta_{m,*}$ \citep{filippi2010parametric, abbasi2011improved,  riquelme2018deep, lattimore2019information, dong2021provable}.
+%
+% We further assume that the noise $\eta_{m,t}$ is $\sigma^2$ sub-Gaussian. 
+
+In our paper, we assume that there exist weak demonstrators denoted by $\pi^{w}$. These weak demonstrators are stochastic $A$-armed bandit algorithms like Upper Confidence Bound (UCB)  \citep{auer2002finite-time, auer2010ucb} or Thompson Sampling \citep{thompson1933likelihood,agrawal2012analysis,russo2018tutorial,zhu2020thompson}.
+% 
+We refer to these algorithms as weak demonstrators because they do not use knowledge of task structure or arm feature vectors to plan their sampling policy.
+% 
+In contrast to a weak demonstrator, a strong demonstrator, like LinUCB, uses feature vectors and knowledge of task structure to conduct informative exploration.
+% 
+Whereas weak demonstrators always exist, there are many real-world settings with no known strong demonstrator algorithm or where the feature vectors are unobserved and the learner can only use the history of rewards and actions. 
+% The $\pi^w$ at every round $t$ for a task $m\in [M]$ samples an action $I_{m,t}$ and observes the reward $r_{m,t} = f(\bx(I_{m,t}), \btheta_{m,*}) + \eta_{m,t}$. Crucially note that $\pi^w$ does not observe the feature $\bx(I_{m,t})$. Moreover, we assume that the $\pi^w$ does not have access to the feature space $\X$ for any task $m$, and hence cannot plan its sampling policy based on the feature vectors. 
+%
+% The $\pi^w$ is used to collect data on which we train our model. 
+%
+% So we call these algorithms weak demonstrators. 
+%
+%%%%%%%%%%% Can add back later %%%%
+% Note that in many real-world world settings, like robotics \citep{fong2003survey, lauri2022partially}, medical treatment \citep{murphy2003optimal} the task is only partially observed or have a complex correlated structure and therefore a learning agent may not have access to the full set of action features, but only observe the reward and action history. This is characterized by $\pi^w$. 
+%
+% In the next section, we propose the learning model for the training procedure.
+
+\vspace*{-1em}
+\subsection{In-Context Learning Model}
+\label{sec:learning-model}
+\vspace*{-0.7em}
+
+
+Similar to \citet{lee2023supervised, sinii2023context, lin2023transformers, ma2023rethinking, liu2023reason, liu2023self} we assume the in-context learning model. We first discuss the pretraining procedure.
+
+\textbf{Pretraining:} Let $\cTp$ denote the distribution over tasks $m$ at the time of pretraining. 
+%
+% Note that by our definition of the task $m$, the distribution $\cT_{\text {pre }}$ can span different reward and action spaces. 
+Let $\Dpr$ be the distribution over all possible interactions that the $\pi^w$ can generate.
+%
+We first sample a task $m\sim \cT_{\text {pre }}$ and then a context $\H_m$ which is a sequence of interactions for $n$ rounds conditioned on the task $m$ such that $\H_m\sim\Dpr(\cdot|m)$.
+%
+% Then we sample a context (or a prompt) which is a sequence of interactions for $n$ rounds conditioned on the task $m\sim \cT_{\text {pre }}$. We denote this sequence of interactions as 
+%
+So $\H_m = \{I_{m,t}, r_{m,t}\}_{t=1}^n$.
+% and note that $\H_m\sim\Dpr(\cdot|m)$. 
+%
+We call this dataset $\H_m$ an in-context dataset as it contains the contextual information about the task $m$. 
+%
+We denote the samples in $\H_m$ till round $t$ as $\H_{m}^t = \{I_{m,s}, r_{m,s}\}_{s=1}^{t-1}$. 
+% Similarly we denote all the samples in $\H_{m}$ from $t$ to $t'$ as $\H_{m}^{t:t'} = \{I_s, r_s\}_{s=t}^{t'}$.
+%
+This dataset $\H_m$ can be collected in several ways: (1) random interactions within $m$, (2) demonstrations from an expert, and (3) rollouts of an algorithm. 
+%
+% In this paper, we collect this dataset $\H_m$ using a weak demonstrator $\pi^w$ which does not have access to the feature space $\X$.
+%
+%
+%
+% Observe that the total pretraining in-context dataset $\Dpr = \{\H_m\}_{m=1}^{\Mpr}$.
+%
+%
+Finally, we train a causal GPT-2 transformer model $\T$ parameterized by $\bTheta$ on this dataset $\Dpr$. 
+%
+Specifically, we define $\T_{\bTheta}\left(\cdot \mid \H^t_m\right)$ as the transformer model that observes the dataset $\H^t_m$ till round $t$ and then produces a distribution over the actions.
+%
+Our primary novelty lies in our training procedure which we explain in detail in \Cref{sec:training}. 
+
+\textbf{Testing:} We now discuss the testing procedure for our setting. Let $\cTs$ denote the distribution over test tasks $m\in [M_{\text {test }}]$ at the time of testing.
+%
+Let $\Dts$ denote a distribution over all possible interactions that can be generated by $\pi^w$ during test time. 
+%
+%
+%
+%
+%
+% For offline testing, first, a test task $m\sim\cTs$, and then an in-context test dataset $\H_m$ is collected such that $\H_m\sim\Dts(\cdot|m)$. 
+% The policy that the model in-context learns is given conditionally as $\T_{\bTheta}(\cdot \mid \H_m)$. So we evaluate the policy by selecting action $I_t \in \argmax_a \T_{\bTheta}\left(a \mid \H_m\right)$. 
+%
+At deployment time, the dataset $\H_m^0 \leftarrow \{\emptyset\}$ is initialized empty. At each round $t$, an action is sampled from the trained transformer model $I_t \sim \T_{\bTheta}(\cdot \mid \H^t_m)$. The sampled action and resulting reward, $r_t$, are then added to $\H^t_m$ to form $\H^{t+1}_m$ and the process repeats for $n$ total rounds.
+% model observes the reward $r_t$ which is added to $\H^t_m$. So the $\H_m$ during online testing consists of $\{I_t, r_t\}_{t=1}^n$ collected during testing. This interaction procedure is conducted for each test task $m\in [M_{\text {test }}]$.
+%
+Finally, note that in this testing phase, the model parameter $\bTheta$ is not updated. 
+% This is in contrast to other RL settings, where the model parameter $\bTheta$ is updated to improve the policy when a new task is encountered.
+%
+Finally, the goal of the learner is to minimize cumulative regret for all task $m\in [\Mts]$ defined as follows: 
+% \begin{align*}
+$
+    \E[R_n] = \frac{1}{\Mts}\sum_{m=1}^{\Mts}\sum_{t=1}^n\max_{a\in\A}f\left( \bx(a), \btheta_{m,*} \right) - f\left( \bx(I_t), \btheta_{m,*} \right)$.
+% \end{align*}
+
+
+\vspace*{-0.5em}
+\subsection{Related In-context Learning Algorithms}
+\label{sec:prelim-dpt}
+\vspace*{-0.5em}
+In this section, we discuss related algorithms for in-context decision-making.
+%
+% Recall that the \dpt\ requires the optimal action for each task $m$ during training. 
+For completeness, we describe the \dpt\ and \ad\ training procedure and algorithm now.
+%
+%
+During training, \dpt\ first samples $m\sim\cTp$ and then an in-context dataset $\H_m\sim \Dpr(\cdot|,m)$. It adds this $\H_m$ to the training dataset $\Htr$, and repeats to collect $\Mpr$ such training tasks. 
+%
+For each task $m$, \dpt\  requires the optimal action $a_{m,*} = \argmax_a f(\bx(m, a),  \btheta_{m, *})$ where $ f(\bx(m, a),  \btheta_{m, *})$ is the expected reward for the action $a$ in task $m$. 
+%
+Since the optimal action is usually not known in advance, in \Cref{sec:short-horizon} we introduce a practical variant of \dpt\  that approximates the optimal action with the best action identified during task interaction.
+%
+During training \dpt\ minimizes the cross-entropy loss:
+\begin{align}
+    \L^{\mathrm{\dpt}}_t = \operatorname{cross-entropy}(\T_{\bTheta}(\cdot|\H_m^t), p({a}_{m,*})) \label{eq:loss-dptg}
+\end{align}
+where $p({a}_{m,*})\!\in \!\triangle^{\A}$ is a one-hot vector such that $p(j) \!=\! 1$ when $j\!=\!{a}_{m,*}$ and $0$ otherwise. This loss is then back-propagated and used to update the model parameter $\bTheta$. 
+
+
+
+During test time evaluation for online setting the \dpt\ selects $I_t \sim \mathrm{softmax}^\tau_a(\T_{\bTheta}(\cdot|\H^t_m))$ where we define the $\mathrm{softmax}^\tau_a(\bv)$ over a $A$ dimensional vector $\bv\in \R^A$ as $ \mathrm{softmax}^\tau_a(\bv(a)) = \exp(\bv(a)/\tau)/\sum_{a'=1}^A \exp(\bv(a')/\tau)$ which produces a distribution over actions weighted by the temperature parameter $\tau > 0$. Therefore this sampling procedure has a high probability of choosing the predicted optimal action as well as induce sufficient exploration. 
+%
+% In offline setting, the dataset $\H_m$ is sampled before and is not altered.
+%
+In the online setting, the \dpt\ observes the reward $r_t(I_t)$ which is added to $\H^t_m$. So the $\H_m$ during online testing consists of $\{I_t, r_t\}_{t=1}^n$ collected during testing. This interaction procedure is conducted for each test task $m\in [M_{\text {test }}]$.
+%
+In the testing phase, the model parameter $\bTheta$ is not updated. 
+
+An alternative to \dpt\ that does \textit{not} require knowledge of the optimal action is the \ad\ approach \citep{laskin2022context, lu2023structured}. In \ad, the learner aims 
+to predict the next action of the demonstrator. So it
+minimizes the cross-entropy loss as follows:
+\begin{align}
+    \L^{\mathrm{\ad}}_t = \operatorname{cross-entropy}(\T_\bTheta(\cdot|\H_m^t), p({I}_{m,t})) \label{eq:loss-AD}
+\end{align}
+where  $p({I}_{m,t})$ is a one-hot vector such that $p(j) = 1$ when $j={I}_{m,t}$ (the true action taken by the demonstrator) and $0$ otherwise. 
+%
+At deployment time, \ad\ selects $I_t \sim \mathrm{softmax}^\tau_a(\T_{\bTheta}(\cdot|\H^t_m))$.
+%
+% Unfortunately, AD will, at best, match the regret of the demonstrator and cannot obtain lower regret.
+% Note that 
+The objective of \ad\ is to match the performance of the demonstrator.
+% 
+% Note that \dpt\ is different than this approach as it aims to learn an optimal policy using the knowledge of the optimal action.
+% 
+In the next section, we introduce a new method that can improve upon the demonstrator without knowledge of the optimal action.

@@ -1,0 +1,155 @@
+
+
+\section{In-context Reinforcement Learning}\label{sec:icrl}
+
+ICL~\citep{brown2020language} operates by providing a model with  annotated demonstrations of a task. 
+A demonstration includes an input (e.g., \textit{What is the best football club in Europe?}) and its corresponding annotated output (e.g., \textit{AC Milan}).
+ICL's reliance on pre-existing gold-standard labeled data follows the common supervised learning paradigm, although without any change in the model parameters.
+
+ICRL follows the reinforcement learning paradigm~\citep{sutton2018reinforcement}, where models learn by reinforcing their own good behaviors and suppressing their own bad choices. 
+Instead of providing models with correct demonstrations, the model generates an output given an input, then observe the outcome (i.e., reward) of its prediction. It  learns from the reward signals, in an online learning setting, all within the context (i.e., without parameter updates). 
+In this study we focus on a contextual bandit RL scenario, a restricted variant of RL, where the length of each episode is one step. 
+
+Formally, the model $\policy$ observes an input $\example^{(t)} \sim \datadist$ sampled from the data distribution $\datadist$ at time $t$, generates a prediction $\hat{\prediction}^{(t)}$, and then observes a reward $\reward^{(t)} \sim \rewardfunc(\example^{(t)}, \hat{\prediction}^{(t)})$. We denote the tuple $(\example^{(t)}, \hat{\prediction}^{(t)}, \reward^{(t)})$ as an episode. 
+This formulation does not assume access to datasets of correct demonstrations, but to a reward (i.e., feedback) function. 
+
+
+In common RL terminology, the model $\policy$ is the policy, the input $\example^{(t)}$ is the state,\footnote{In the bandit literature, the state is often called \emph{context}, and hence the name contextual bandits. We do not use this term to avoid confusion with the LLM context.} and the prediction $\prediction^{(t)}$ is the action. 
+Throughout our formulation, the policy is also conditioned on previous episodes in the form of an LLM context, similar to how supervised examples are provided in ICL. 
+These past episodes are not part of the RL state. 
+Instead, the context is used to perform in-context policy improvement, similar to how past episodes are used to perform policy improvement in conventional RL (e.g., via parameter updates). 
+
+
+
+We design several methods to elicit ICRL from LLMs. 
+The \naiveshort approach is a straightforward implementation of ICRL following the common ICL recipe (\autoref{sec:icrl:naive}). The \expshort approach (\autoref{sec:icrl:explorative}) is an alternative to increasing sampling temperature, but with more stability. In \aautoref{sec:icrl:approximate}, we propose \approximate, an additional approach that shares similarities with  \expshort, while being more efficient in high-memory setups.  
+
+
+
+\subsection{\naiveshort and \naiveplus}\label{sec:icrl:naive}
+
+\begin{figure}[t]
+    \centering
+    \begin{minipage}[t]{0.475\textwidth}
+    \centering
+    \begin{algorithm}[H]
+        \footnotesize
+        \caption{\naiveshort and \naiveplus}\label{alg:naive_icrl}
+        \begin{algorithmic}[1]
+            \REQUIRE
+            \STATEX $\datadist$: Data distribution
+            \STATEX $\policy$: Language model policy
+            \STATEX $\rewardfunc$: Reward function
+            \STATEX
+            \STATE Init buffer $\episodeset \gets \emptyset$
+            \FOR{$t = 1,2,3,\dots$}
+                \STATE $\context \gets$ $\episodeset$ \label{ln:naive:context-construct}
+                \STATE Observe input $\example^{(t)} \sim \datadist$
+                \STATE Sample prediction $\hat{\prediction}^{(t)} \sim \policy(\cdot \mid \context, \example^{(t)})$ \label{ln:naive:predict}
+                \STATE Observe reward $\reward^{(t)} \sim \rewardfunc(\example^{(t)}, \hat{\prediction}^{(t)})$
+                \IF{$\reward^{(t)} \leq 0$ \tikzmark{top}} \label{ln:naiveplus:check_reward}
+                  
+                  \STATE \textbf{Continue} to next $t$ \tikzmark{right}\tikzmark{bottom}\AddNote{top}{bottom}{right}{{\textcolor{blue}{Only in \naiveplus}}}
+                \label{ln:naiveplus:continue}
+                \ENDIF
+                \STATE Add episode to buffer  $\episodeset \gets \episodeset \cup \{(\example^{(t)}, \hat{\prediction}^{(t)}, \reward^{(t)})\}$
+            \ENDFOR
+        \end{algorithmic}
+    \end{algorithm}
+    \end{minipage}
+    \hspace{0.02\textwidth}
+    \begin{minipage}[t]{0.475\textwidth}
+        \centering
+        \begin{algorithm}[H]
+            \footnotesize
+            \caption{\explorative}\label{alg:explorative_icrl}
+            \begin{algorithmic}[1]
+                \REQUIRE
+                \STATEX $\datadist$: Data distribution
+                \STATEX $\policy$: Language model policy
+                \STATEX $\rewardfunc$: Reward function
+                \STATEX $\keepprob$: Prob. to keep examples in context
+                \STATEX
+                \STATE Init episode buffer $\episodeset \gets \emptyset$
+                \FOR{$t=1,2,3,\dots$}                 
+                    \STATE Init empty context $\context^{(t)} \gets [\,]$ \label{ln:eicrl:initc}
+                    \FOR{$\episode \in \episodeset$}\label{ln:eicrl:context_loop_start}
+                        \STATE $b \sim \text{Bernoulli}(\keepprob)$
+                        \IF{$b = 1$}
+                            \STATE Add episode to context $\context^{(t)} \mathrel{+}= \episode$
+                        \ENDIF
+                    \ENDFOR\label{ln:eicrl:context_loop_end}
+                    \STATE Observe input $\example^{(t)} \sim \datadist$
+                    \STATE Sample prediction $\hat{\prediction}^{(t)} \sim \policy( \cdot \vert \context^{(t)}, \example^{(t)})$ \label{ln:eicrl:prediction}
+                    \STATE Observe reward $\reward^{(t)} \sim \rewardfunc(\example^{(t)}, \hat{\prediction}^{(t)})$
+                    \IF{$r^{(t)} > 0$} \label{ln:eicrl:reward_cond}
+                        \STATE Add episode to buffer \par \hspace{1em}  $\episodeset \gets \episodeset \cup \{(\example^{(t)}, \hat{\prediction}^{(t)}, \reward^{(t)})\}$
+                    \ENDIF\label{ln:eicrl:add_episode}
+                \ENDFOR
+            \end{algorithmic}
+        \end{algorithm}
+    \end{minipage}
+\vspace{-10pt}
+\end{figure}
+
+              
+
+              
+
+
+
+
+
+\autorefalg{alg:naive_icrl} describes the \naiveshort approach, as well as \naiveplusshort, a variant that only considers examples with positive reward. 
+Omitting lines~\ref{ln:naiveplus:check_reward}--\ref{ln:naiveplus:continue} gives \naive, the most straightforward way to implement ICRL. 
+At each time step $t$, the model observes a new example $\example^{(t)}$, produces a prediction $\hat{\prediction}^{(t)}$, and receives a reward $\reward^{(t)}$. 
+Every such model interaction creates an episode, which is appended to the buffer $\episodeset$. 
+For each new interaction, we construct a context $\context$ from prior episodes (line~\ref{ln:naive:context-construct}).  In \naiveshort, this context is simply all past episodes. 
+\naiveplus adds lines~\ref{ln:naiveplus:check_reward}--\ref{ln:naiveplus:continue} and ignores negative-reward episodes, retaining only positive episodes in the buffer. As the LLM’s context window fills, both variants maintain a sliding window by dropping older episodes.
+
+
+
+
+Empirically, \naiveshort does not learn effectively (\autoref{sec:results}; \autoref{fig:main_results}), while \naiveplusshort is very effective, especially with relatively high sampling temperature.
+The gap between the two indicates the failure of \naiveshort is due to the presence of examples with negative reward. 
+
+
+
+Critically, even when only using positive examples, ICRL still differs from supervised ICL in that it relies on the model's generations rather than a fixed set of annotated demonstrations. This much more challenging scenario necessitates the model to explore and iteratively refine its outputs through reinforcement; without this capability, further learning does not occur.
+
+
+
+\subsection{\explorative}\label{sec:icrl:explorative}
+
+
+
+
+\explorative utilizes model sensitivity to prompt composition as an avenue to increase exploration, instead of the increased temperature of \naiveshort. 
+Changes in prompt composition have been widely observed to lead to variance in LLM behavior, including through changes in the set of ICL examples~\citep{zhang-etal-2022-active, liu-etal-2022-makes, chen-etal-2023-relation, levy2023diversedemonstrationsimproveincontext}, seemingly meaningless stylistic changes~\citep{sclar2024quantifying, lu-etal-2022-fantastically}, or even interventions based on entropy in the embedding space~\citep{rahn2024controllinglargelanguagemodel}. 
+Generally, this property of LLMs is not viewed positively. 
+However, it adds stochasticity to the ICRL process, which encourages exploration.
+
+\expshort introduces context stochasticity by randomly choosing the subset of past episodes to include in the prompt for each new input. 
+Like \naiveplus, it includes only positive-reward episodes, which improves results empirically.
+
+
+
+\autorefalg{alg:explorative_icrl} describes \explorative. 
+For each input, we construct a new context (lines \ref{ln:eicrl:initc}--\ref{ln:eicrl:context_loop_end}). 
+We decide what past episodes to include in this context by sampling from a Bernoulli variable parameterized by $\keepprob$ (lines \ref{ln:eicrl:context_loop_start}--\ref{ln:eicrl:context_loop_end}). 
+We sample independently for each past episode. 
+This results in different implicit reasoning for each input, because each is done with a different context. 
+As in \naiveplusshort, we only store episodes with positive reward (lines \ref{ln:eicrl:reward_cond}--\ref{ln:eicrl:add_episode}).
+
+With small $\keepprob$, \expshort will encounter the issue of the LLM context window saturating much later than \naiveshort. 
+However, deploy ICRL for enough interactions, and the context window will saturate, even for models with the largest windows. 
+
+Similar to naive, we downsample the context if it overflows the LLM context window. We do it by removing episodes from the sampled $\context^{(t)}$ uniformly at random until the context fits the model's context window. 
+
+
+
+
+
+
+
+

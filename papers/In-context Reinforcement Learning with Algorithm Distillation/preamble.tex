@@ -1,0 +1,141 @@
+%% Bibliography management tool.
+% \usepackage{natbib}
+% \bibliographystyle{plainnat}
+% % \bibliographystyle{jf}
+% \setcitestyle{authoryear}
+
+%% Custom colours.
+\usepackage{color}
+\usepackage{xcolor,colortbl}
+\usepackage{ml-colors}
+\definecolor{ourmethod}{gray}{0.93}
+\definecolor{dmblue}{RGB}{0, 83, 214}
+
+%% Non-expanding bold font for aligning tables.
+\newcommand{\bftab}{\fontseries{b}\selectfont}
+
+%% Glossary for terms and acronyms.
+\usepackage{glossaries}
+% \usepackage[acronym]{glossaries-extra}
+\loadglsentries{glossary}
+\makeglossaries
+\glsdisablehyper
+
+%% Make sure no indentation is used for \paragraph{}.
+\setlength{\parindent}{0pt}
+
+%% Paragraph settings.
+\usepackage{titlesec}
+\titlespacing*{\paragraph}{0pt}{0.5em}{0.5em}
+
+%% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs} % for professional tables
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage{multirow}
+
+%% Math fonts.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+% \usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{mathtools}
+% \usepackage{bbold}
+% \usepackage[cal=boondox]{mathalfa}
+
+%% Color blocks.
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{
+  backgroundcolor=black!10,
+  roundcorner=10pt,
+  skipabove=0.5em,
+  skipbelow=0.5em
+}
+\usepackage[most]{tcolorbox}
+
+%% TikZ
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata}
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{graphs}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{decorations.pathreplacing}
+
+%% Custom enumerates.
+\usepackage{enumitem}
+
+%% Counter too large error solver.
+\usepackage{alphalph}
+\renewcommand*{\thesubfigure}{%
+\alphalph{\value{subfigure}}%
+}%
+
+%% For loops in LaTeX.
+\usepackage{pgffor}
+
+%% Text highlighting.
+\usepackage{soul} % Enables `\hl`.
+
+%% Algorithm blocks.
+% \usepackage{listings}
+% \usepackage[linesnumbered,ruled,noend]{algorithm2e}
+
+%% Assumptions environment.
+\newtheoremstyle{thm}
+  {2pt} % Space above
+  {2pt} % Space below
+  {\itshape} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font
+  {.} % Punctuation after theorem head
+  {.5em} % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning `normal')
+\theoremstyle{thm}
+\newtheorem{assumption}{Assumption}
+
+% Restatable theorem for the appendix
+\usepackage{thmtools} 
+\usepackage{thm-restate}
+\declaretheorem[name=Theorem]{thm}
+%% AMSThm Theorems and Lemmas
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+%% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+\usepackage[colorlinks]{hyperref}
+\colorlet{hypercolor}{dmblue}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=hypercolor,
+  citecolor=hypercolor,
+  filecolor=hypercolor,
+  urlcolor=hypercolor}
+\usepackage{textcomp}
+
+\usepackage{etoolbox}
+
+%% Strikethrough text.
+\usepackage[normalem]{ulem}
+
+%% From ICLR template.
+\usepackage{url}
+\usepackage{comment}
+
+%% Copied over from `defs.tex`.
+\usepackage{stackengine}
+
+%% Wraps figures around/next to text.
+\usepackage{wrapfig}

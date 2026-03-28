@@ -1,0 +1,20 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                                                      & \textbf{Observation}              & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule        
+    \multirow[c]{13}{*}{\shortstack{Claude 3.5 Sonnet\\\\(2024-10-22)}} & \multirow[c]{4}{*}{ASCII}         & \multirow[c]{2}{*}{False} & False                     & \textbf{1.00} \\
+                                                                        &                                   &                           & True                      & \textbf{1.00} \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & \textbf{1.00} \\
+                                                                        &                                   &                           & True                      & \textbf{1.00} \\
+    \cmidrule{2-5}                                                                                                                                                     
+                                                                        & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & 0.96 \\
+                                                                        &                                   &                           & True                      & \textbf{1.00} \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.99 \\
+                                                                        &                                   &                           & True                      & 0.99 \\
+    \cmidrule{2-5}                                                                                                                                                     
+                                                                        & \multirow[c]{4}{*}{RGB}           & \multirow[c]{2}{*}{False} & False                     & 0.19 \\
+                                                                        &                                   &                           & True                      & 0.40 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.21 \\
+                                                                        &                                   &                           & True                      & \textbf{0.53} \\
+   \bottomrule
+\end{tabular}

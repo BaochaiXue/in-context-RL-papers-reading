@@ -1,0 +1,15 @@
+\section{Related Work}
+
+Here, we discuss previous research in adapting RL to environments with variable action spaces. For an extended Literature Review, see \Cref{appendix:related_work}.
+
+Recent research by \citet{chandak2020lifelong, ye2023action} has focused on scenarios where the amount of available actions grows during evaluation by introducing new actions to an existing set. However, their model requires fine-tuning when new actions are introduced, while our model does not require parameter updates. Additionally, our research explores a broader spectrum of dynamic action spaces, encompassing the addition, removal, and substitution of actions. Lastly, we work in a setting where the action set remains constant throughout model evaluation.
+
+\citet{kirsch2022introducing} present the concept of SymLA, a methodology that ensures resilience to changes in input and output sizes and permutations. This is achieved by integrating symmetries into a neural network model by representing each neuron with uniformly structured RNNs and data flow with message-passing connections. However, we suggest a simpler approach by extending the well-known transformer architecture. Additionally, we demonstrate the high performance of our model on more complex environments.
+
+Further developments by \citet{jain2020generalization} include a specific module designed to generate action representations informed by observed trajectories after action application. Additionally, \citet{jain2021know} delve into variable action spaces, placing a specific emphasis on modeling the interconnections among actions to improve the quality of action representations. Our work, however, adopts a more implicit approach to inferring action-related information.
+
+In a similar work, \citet{lu2023structured, kirsch2023towards} employ random projections for action encoding, a technique we also utilize. This method facilitates training across multiple domains with actions of varying sizes. Nonetheless, their focus is predominantly on continuous spaces, while our focus is on discrete action spaces.
+
+% Lastly, \citet{london2020offline} investigate the challenges of offline policy evaluation in environments where new actions may emerge post-training.
+
+To the best of our knowledge, Headless-AD is the first study to explore variable discrete action spaces for in-context reinforcement learning.

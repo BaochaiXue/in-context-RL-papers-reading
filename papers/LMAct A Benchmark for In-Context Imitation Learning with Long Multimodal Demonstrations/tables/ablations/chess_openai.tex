@@ -1,0 +1,75 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                  & \textbf{Observation}      & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule    
+    \multirow[c]{17}{*}{GPT-4o}     & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & -1.00 \\
+                                    &                           &                           & True                      & -1.00 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & -0.94 \\
+                                    &                           &                           & True                      & \textbf{-0.92} \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{FEN}   & \multirow[c]{2}{*}{False} & False                     & -0.94 \\
+                                    &                           &                           & True                      & -0.98 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & -0.98 \\
+                                    &                           &                           & True                      & \textbf{-0.90} \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{PGN}   & \multirow[c]{2}{*}{False} & False                     & \textbf{-0.63} \\
+                                    &                           &                           & True                      & -0.97 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & -0.88 \\
+                                    &                           &                           & True                      & -0.93 \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & -0.90 \\
+                                    &                           &                           & True                      & -0.99 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.84} \\
+                                    &                           &                           & True                      & -0.91 \\
+    \midrule                                                                                                               
+    \multirow[c]{13}{*}{o1-mini}    & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & -0.99 \\
+                                    &                           &                           & True                      & -0.99 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.96} \\
+                                    &                           &                           & True                      & \textbf{-0.96} \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{FEN}   & \multirow[c]{2}{*}{False} & False                     & -1.00 \\
+                                    &                           &                           & True                      & -1.00 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.89} \\
+                                    &                           &                           & True                      & -0.92 \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{PGN}   & \multirow[c]{2}{*}{False} & False                     & -0.99 \\
+                                    &                           &                           & True                      & -0.97 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & -0.84 \\
+                                    &                           &                           & True                      & \textbf{-0.83} \\
+    \midrule                                                                                                               
+    \multirow[c]{13}{*}{o1-preview} & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & -0.99 \\
+                                    &                           &                           & True                      & -0.99 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.93} \\
+                                    &                           &                           & True                      & -0.94 \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{FEN}   & \multirow[c]{2}{*}{False} & False                     & -0.99 \\
+                                    &                           &                           & True                      & -0.99 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & -0.95 \\
+                                    &                           &                           & True                      & \textbf{-0.89} \\
+    \cmidrule{2-5}                                                                                                         
+                                    & \multirow[c]{4}{*}{PGN}   & \multirow[c]{2}{*}{False} & False                     & -0.98 \\
+                                    &                           &                           & True                      & -0.98 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.95} \\
+                                    &                           &                           & True                      & -0.90 \\
+    \midrule    
+    \multirow[c]{17}{*}{o1}         & \multirow[c]{4}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & -0.98 \\
+                                    &                           &                           & True                      & -0.98 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.85} \\
+                                    &                           &                           & True                      & -0.87 \\
+    \cmidrule{2-5}
+                                    & \multirow[c]{4}{*}{FEN}   & \multirow[c]{2}{*}{False} & False                     & -0.95 \\
+                                    &                           &                           & True                      & -0.89 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.82} \\
+                                    &                           &                           & True                      & -0.87 \\
+    \cmidrule{2-5}
+                                    & \multirow[c]{4}{*}{PGN}   & \multirow[c]{2}{*}{False} & False                     & -0.80 \\
+                                    &                           &                           & True                      & -0.84 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & -0.85 \\
+                                    &                           &                           & True                      & \textbf{-0.79} \\
+    \cmidrule{2-5}
+                                    & \multirow[c]{4}{*}{RGB}   & \multirow[c]{2}{*}{False} & False                     & -0.95 \\
+                                    &                           &                           & True                      & -0.97 \\
+                                    &                           & \multirow[c]{2}{*}{True}  & False                     & \textbf{-0.82} \\
+                                    &                           &                           & True                      & -0.88 \\
+   \bottomrule
+\end{tabular}

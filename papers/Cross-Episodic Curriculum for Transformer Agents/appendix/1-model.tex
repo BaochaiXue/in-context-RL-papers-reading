@@ -1,0 +1,34 @@
+\section{Model Architecture}
+\label{supp:sec:model_architecture}
+
+In this section, we provide comprehensive details about the Transformer model architectures considered in this work.
+We implement all models in PyTorch~\citep{Paszke2019PyTorch} and adapt the implementation of Transformer-XL from VPT~\citep{openai2022vpt}.
+
+\subsection{Observation Encoding}
+Experiments conducted on both DMLab and RoboMimic include RGB image observations.
+For models trained on DMLab, we use a ConvNet~\citep{he2015resnet} similar to the one used in \citet{espeholt2018impala}. 
+For models trained on RoboMimic, we follow \citet{mandlekar2021matters} to use a ResNet-18 network~\citep{he2015resnet} followed by a spatial-softmax layer~\citep{finn2015deep}. We use independent and separate encoders for images taken from the wrist camera and frontal camera.
+Detailed model parameters are listed in Table~\ref{supp:table:vision_encoder}.
+
+\input{appendix/tables/vision_encoder}
+
+
+Since DMLab is highly partially observable, we follow previous work~\citep{espeholt2018impala,fan2022minedojo,openai2022vpt} to supply the model with previous action input.
+We learn 16-dim embedding vectors for all discrete actions.
+
+To encode proprioceptive measurement in RoboMimic, we follow \citet{mandlekar2021matters} to not apply any learned encoding. Instead, these types of observation are concatenated with image features and passed altogether to the following layers.
+Note that we do not provide previous action inputs in RoboMimic, since we find doing so would incur significant overfitting.
+
+\subsection{Transformer Backbone}
+We use Transformer-XL~\citep{dai2019transformerxl} as our model backbone, adapted from \citet{openai2022vpt}. Transformer-XL splits long sequences into shorter sub-sequences that reduce the computational cost of attention while allowing the hidden states to be carried across the entire input by attending to previous keys and values.
+This feature is critical for the long sequence inputs necessary for cross-episodic attention.
+Detailed model parameters are listed in Table~\ref{supp:table:xf_xl}.
+
+\input{appendix/tables/xf}
+
+\subsection{Action Decoding}
+To decode joystick actions in DMLab tasks, we learn a 3-layer MLP whose output directly parameterizes a categorical distribution. This action head has a hidden dimension of 128 with ReLU activations. 
+The ``Goal Maze'' and ``Irreversible Path'' tasks have an action dimension of 7, while ``Watermaze'' has 15 actions.
+To decode continuous actions in RoboMimic, we learn a 2-layer MLP that parameterizes a Gaussian Mixture Model (GMM) with $5$ modes that generates a 7-dimensional action.
+This network has a hidden dimension of 400 with ReLU activations.
+During deployment, we employ the ``low-noise evaluation'' trick~\citep{hoffman2020acme}.

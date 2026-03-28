@@ -1,0 +1,279 @@
+\begin{thebibliography}{54}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Agarwal et~al.(2021)Agarwal, Schwarzer, Castro, Courville, and Bellemare]{agarwal2021deep}
+Rishabh Agarwal, Max Schwarzer, Pablo~Samuel Castro, Aaron Courville, and Marc~G Bellemare.
+\newblock Deep reinforcement learning at the edge of the statistical precipice.
+\newblock \emph{Advances in Neural Information Processing Systems}, 2021.
+
+\bibitem[Aky{\"u}rek et~al.(2024)Aky{\"u}rek, Wang, Kim, and Andreas]{akyurek2024context}
+Ekin Aky{\"u}rek, Bailin Wang, Yoon Kim, and Jacob Andreas.
+\newblock In-context language learning: Architectures and algorithms.
+\newblock \emph{arXiv preprint arXiv:2401.12973}, 2024.
+
+\bibitem[An et~al.(2021)An, Moon, Kim, and Song]{an2021uncertainty}
+Gaon An, Seungyong Moon, Jang-Hyun Kim, and Hyun~Oh Song.
+\newblock Uncertainty-based offline reinforcement learning with diversified q-ensemble.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 7436--7447, 2021.
+
+\bibitem[Ba et~al.(2016)Ba, Kiros, and Hinton]{ba2016layer}
+Jimmy~Lei Ba, Jamie~Ryan Kiros, and Geoffrey~E Hinton.
+\newblock Layer normalization.
+\newblock \emph{arXiv preprint arXiv:1607.06450}, 2016.
+
+\bibitem[Beck et~al.(2023)Beck, Vuorio, Liu, Xiong, Zintgraf, Finn, and Whiteson]{beck2023survey}
+Jacob Beck, Risto Vuorio, Evan~Zheran Liu, Zheng Xiong, Luisa Zintgraf, Chelsea Finn, and Shimon Whiteson.
+\newblock A survey of meta-reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2301.08028}, 2023.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.]{brown2020language}
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared~D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et~al.
+\newblock Language models are few-shot learners.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 1877--1901, 2020.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel, Srinivas, and Mordatch]{chen2021decision}
+Lili Chen, Kevin Lu, Aravind Rajeswaran, Kimin Lee, Aditya Grover, Misha Laskin, Pieter Abbeel, Aravind Srinivas, and Igor Mordatch.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 15084--15097, 2021.
+
+\bibitem[Dai et~al.(2024)Dai, Tomasi, and Ghiassian]{dai2024context}
+Zhenwen Dai, Federico Tomasi, and Sina Ghiassian.
+\newblock In-context exploration-exploitation for reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2403.06826}, 2024.
+
+\bibitem[Elawady et~al.(2024)Elawady, Chhablani, Ramrakhya, Yadav, Batra, Kira, and Szot]{elawady2024relic}
+Ahmad Elawady, Gunjan Chhablani, Ram Ramrakhya, Karmesh Yadav, Dhruv Batra, Zsolt Kira, and Andrew Szot.
+\newblock Relic: A recipe for 64k steps of in-context reinforcement learning for embodied ai.
+\newblock \emph{arXiv preprint arXiv:2410.02751}, 2024.
+
+\bibitem[Farebrother et~al.(2024)Farebrother, Orbay, Vuong, Ta{\"\i}ga, Chebotar, Xiao, Irpan, Levine, Castro, Faust, et~al.]{farebrother2024stop}
+Jesse Farebrother, Jordi Orbay, Quan Vuong, Adrien~Ali Ta{\"\i}ga, Yevgen Chebotar, Ted Xiao, Alex Irpan, Sergey Levine, Pablo~Samuel Castro, Aleksandra Faust, et~al.
+\newblock Stop regressing: Training value functions via classification for scalable deep rl.
+\newblock \emph{arXiv preprint arXiv:2403.03950}, 2024.
+
+\bibitem[Fujimoto \& Gu(2021)Fujimoto and Gu]{fujimoto2021minimalist}
+Scott Fujimoto and Shixiang~Shane Gu.
+\newblock A minimalist approach to offline reinforcement learning.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 20132--20145, 2021.
+
+\bibitem[Fujimoto et~al.(2018)Fujimoto, Hoof, and Meger]{fujimoto2018addressing}
+Scott Fujimoto, Herke Hoof, and David Meger.
+\newblock Addressing function approximation error in actor-critic methods.
+\newblock In \emph{International conference on machine learning}, pp.\  1587--1596. PMLR, 2018.
+
+\bibitem[Fujimoto et~al.(2019)Fujimoto, Meger, and Precup]{fujimoto2019off}
+Scott Fujimoto, David Meger, and Doina Precup.
+\newblock Off-policy deep reinforcement learning without exploration.
+\newblock In \emph{International conference on machine learning}, pp.\  2052--2062. PMLR, 2019.
+
+\bibitem[Grigsby et~al.(2023)Grigsby, Fan, and Zhu]{grigsby2023amago}
+Jake Grigsby, Linxi Fan, and Yuke Zhu.
+\newblock Amago: Scalable in-context reinforcement learning for adaptive agents.
+\newblock \emph{arXiv preprint arXiv:2310.09971}, 2023.
+
+\bibitem[Haarnoja et~al.(2018)Haarnoja, Zhou, Abbeel, and Levine]{haarnoja2018soft}
+Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, and Sergey Levine.
+\newblock Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor.
+\newblock In \emph{International conference on machine learning}, pp.\  1861--1870. PMLR, 2018.
+
+\bibitem[Hu et~al.(2024)Hu, Fan, Huang, Shen, Zhang, Wang, and Tao]{hu2024q}
+Shengchao Hu, Ziqing Fan, Chaoqin Huang, Li~Shen, Ya~Zhang, Yanfeng Wang, and Dacheng Tao.
+\newblock Q-value regularized transformer for offline reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2405.17098}, 2024.
+
+\bibitem[Huang et~al.(2022)Huang, Dossa, Ye, Braga, Chakraborty, Mehta, and Araújo]{huang2022cleanrl}
+Shengyi Huang, Rousslan Fernand~Julien Dossa, Chang Ye, Jeff Braga, Dipam Chakraborty, Kinal Mehta, and João~G.M. Araújo.
+\newblock Cleanrl: High-quality single-file implementations of deep reinforcement learning algorithms.
+\newblock \emph{Journal of Machine Learning Research}, 23\penalty0 (274):\penalty0 1--18, 2022.
+\newblock URL \url{http://jmlr.org/papers/v23/21-1342.html}.
+
+\bibitem[Huang et~al.(2024)Huang, Hu, Chen, Sun, and Yang]{huang2024context}
+Sili Huang, Jifeng Hu, Hechang Chen, Lichao Sun, and Bo~Yang.
+\newblock In-context decision transformer: Reinforcement learning via hierarchical chain-of-thought.
+\newblock \emph{arXiv preprint arXiv:2405.20692}, 2024.
+
+\bibitem[Kingma(2014)]{kingma2014adam}
+Diederik~P Kingma.
+\newblock Adam: A method for stochastic optimization.
+\newblock \emph{arXiv preprint arXiv:1412.6980}, 2014.
+
+\bibitem[Kostrikov et~al.(2021)Kostrikov, Nair, and Levine]{kostrikov2021offline}
+Ilya Kostrikov, Ashvin Nair, and Sergey Levine.
+\newblock Offline reinforcement learning with implicit q-learning.
+\newblock \emph{arXiv preprint arXiv:2110.06169}, 2021.
+
+\bibitem[Kumar et~al.(2020)Kumar, Zhou, Tucker, and Levine]{kumar2020conservative}
+Aviral Kumar, Aurick Zhou, George Tucker, and Sergey Levine.
+\newblock Conservative q-learning for offline reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 1179--1191, 2020.
+
+\bibitem[Kumar et~al.(2022)Kumar, Hong, Singh, and Levine]{kumar2022should}
+Aviral Kumar, Joey Hong, Anikait Singh, and Sergey Levine.
+\newblock When should we prefer offline reinforcement learning over behavioral cloning?
+\newblock \emph{arXiv preprint arXiv:2204.05618}, 2022.
+
+\bibitem[Kurenkov et~al.(2024)Kurenkov, Nikulin, Tarasov, and Kolesnikov]{kurenkov2024katakomba}
+Vladislav Kurenkov, Alexander Nikulin, Denis Tarasov, and Sergey Kolesnikov.
+\newblock Katakomba: tools and benchmarks for data-driven nethack.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[K{\"u}ttler et~al.(2020)K{\"u}ttler, Nardelli, Miller, Raileanu, Selvatici, Grefenstette, and Rockt{\"a}schel]{kuttler2020nethack}
+Heinrich K{\"u}ttler, Nantas Nardelli, Alexander Miller, Roberta Raileanu, Marco Selvatici, Edward Grefenstette, and Tim Rockt{\"a}schel.
+\newblock The nethack learning environment.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 7671--7684, 2020.
+
+\bibitem[Laskin et~al.(2022)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald, Strouse, Hansen, Filos, Brooks, et~al.]{laskin2022context}
+Michael Laskin, Luyu Wang, Junhyuk Oh, Emilio Parisotto, Stephen Spencer, Richie Steigerwald, DJ~Strouse, Steven Hansen, Angelos Filos, Ethan Brooks, et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock \emph{arXiv preprint arXiv:2210.14215}, 2022.
+
+\bibitem[Lee et~al.(2024)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill]{lee2024supervised}
+Jonathan Lee, Annie Xie, Aldo Pacchiano, Yash Chandak, Chelsea Finn, Ofir Nachum, and Emma Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Lee et~al.(2022)Lee, Seo, Lee, Abbeel, and Shin]{lee2022offline}
+Seunghyun Lee, Younggyo Seo, Kimin Lee, Pieter Abbeel, and Jinwoo Shin.
+\newblock Offline-to-online reinforcement learning via balanced replay and pessimistic q-ensemble.
+\newblock In \emph{Conference on Robot Learning}, pp.\  1702--1712. PMLR, 2022.
+
+\bibitem[Levine et~al.(2020)Levine, Kumar, Tucker, and Fu]{levine2020offline}
+Sergey Levine, Aviral Kumar, George Tucker, and Justin Fu.
+\newblock Offline reinforcement learning: Tutorial, review, and perspectives on open problems.
+\newblock \emph{arXiv preprint arXiv:2005.01643}, 2020.
+
+\bibitem[Mnih(2013)]{mnih2013playing}
+Volodymyr Mnih.
+\newblock Playing atari with deep reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1312.5602}, 2013.
+
+\bibitem[Moeini et~al.(2025)Moeini, Wang, Beck, Blaser, Whiteson, Chandra, and Zhang]{moeini2025survey}
+Amir Moeini, Jiuqi Wang, Jacob Beck, Ethan Blaser, Shimon Whiteson, Rohan Chandra, and Shangtong Zhang.
+\newblock A survey of in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2502.07978}, 2025.
+
+\bibitem[Nair et~al.(2020)Nair, Gupta, Dalal, and Levine]{nair2020awac}
+Ashvin Nair, Abhishek Gupta, Murtaza Dalal, and Sergey Levine.
+\newblock Awac: Accelerating online reinforcement learning with offline datasets.
+\newblock \emph{arXiv preprint arXiv:2006.09359}, 2020.
+
+\bibitem[Nikulin et~al.(2023)Nikulin, Kurenkov, Zisman, Agarkov, Sinii, and Kolesnikov]{nikulin2023xland}
+Alexander Nikulin, Vladislav Kurenkov, Ilya Zisman, Artem Agarkov, Viacheslav Sinii, and Sergey Kolesnikov.
+\newblock Xland-minigrid: Scalable meta-reinforcement learning environments in jax.
+\newblock \emph{arXiv preprint arXiv:2312.12044}, 2023.
+
+\bibitem[Nikulin et~al.(2024)Nikulin, Zisman, Zemtsov, Sinii, Kurenkov, and Kolesnikov]{nikulin2024xland}
+Alexander Nikulin, Ilya Zisman, Alexey Zemtsov, Viacheslav Sinii, Vladislav Kurenkov, and Sergey Kolesnikov.
+\newblock Xland-100b: A large-scale multi-task dataset for in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2406.08973}, 2024.
+
+\bibitem[Obando-Ceron et~al.(2024)Obando-Ceron, Sokar, Willi, Lyle, Farebrother, Foerster, Dziugaite, Precup, and Castro]{obando2024mixtures}
+Johan Obando-Ceron, Ghada Sokar, Timon Willi, Clare Lyle, Jesse Farebrother, Jakob Foerster, Gintare~Karolina Dziugaite, Doina Precup, and Pablo~Samuel Castro.
+\newblock Mixtures of experts unlock parameter scaling for deep rl.
+\newblock \emph{arXiv preprint arXiv:2402.08609}, 2024.
+
+\bibitem[Polubarov et~al.(2025)Polubarov, Lyubaykin, Derevyagin, Zisman, Tarasov, Nikulin, and Kurenkov]{polubarov2025vintixactionmodelincontext}
+Andrey Polubarov, Nikita Lyubaykin, Alexander Derevyagin, Ilya Zisman, Denis Tarasov, Alexander Nikulin, and Vladislav Kurenkov.
+\newblock Vintix: Action model via in-context reinforcement learning, 2025.
+\newblock URL \url{https://arxiv.org/abs/2501.19400}.
+
+\bibitem[Rakelly et~al.(2019)Rakelly, Zhou, Finn, Levine, and Quillen]{rakelly2019efficient}
+Kate Rakelly, Aurick Zhou, Chelsea Finn, Sergey Levine, and Deirdre Quillen.
+\newblock Efficient off-policy meta-reinforcement learning via probabilistic context variables.
+\newblock In \emph{International conference on machine learning}, pp.\  5331--5340. PMLR, 2019.
+
+\bibitem[Raparthy et~al.(2023)Raparthy, Hambro, Kirk, Henaff, and Raileanu]{raparthy2023generalization}
+Sharath~Chandra Raparthy, Eric Hambro, Robert Kirk, Mikael Henaff, and Roberta Raileanu.
+\newblock Generalization to new sequential decision making tasks with in-context learning.
+\newblock \emph{arXiv preprint arXiv:2312.03801}, 2023.
+
+\bibitem[Schmied et~al.(2024)Schmied, Paischer, Patil, Hofmarcher, Pascanu, and Hochreiter]{schmied2024retrieval}
+Thomas Schmied, Fabian Paischer, Vihang Patil, Markus Hofmarcher, Razvan Pascanu, and Sepp Hochreiter.
+\newblock Retrieval-augmented decision transformer: External memory for in-context rl.
+\newblock \emph{arXiv preprint arXiv:2410.07071}, 2024.
+
+\bibitem[Schweighofer et~al.(2021)Schweighofer, Radler, Dinu, Hofmarcher, Patil, Bitto-Nemling, Eghbal-zadeh, and Hochreiter]{schweighofer2021dataset}
+Kajetan Schweighofer, Andreas Radler, Marius-Constantin Dinu, Markus Hofmarcher, Vihang Patil, Angela Bitto-Nemling, Hamid Eghbal-zadeh, and Sepp Hochreiter.
+\newblock A dataset perspective on offline reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2111.04714}, 2021.
+
+\bibitem[Shazeer et~al.(2017)Shazeer, Mirhoseini, Maziarz, Davis, Le, Hinton, and Dean]{shazeer2017outrageously}
+Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, and Jeff Dean.
+\newblock Outrageously large neural networks: The sparsely-gated mixture-of-experts layer.
+\newblock \emph{arXiv preprint arXiv:1701.06538}, 2017.
+
+\bibitem[Sinii et~al.(2023)Sinii, Nikulin, Kurenkov, Zisman, and Kolesnikov]{sinii2023context}
+Viacheslav Sinii, Alexander Nikulin, Vladislav Kurenkov, Ilya Zisman, and Sergey Kolesnikov.
+\newblock In-context reinforcement learning for variable action spaces.
+\newblock \emph{arXiv preprint arXiv:2312.13327}, 2023.
+
+\bibitem[Snell et~al.(2022)Snell, Kostrikov, Su, Yang, and Levine]{snell2022offline}
+Charlie Snell, Ilya Kostrikov, Yi~Su, Mengjiao Yang, and Sergey Levine.
+\newblock Offline rl for natural language generation with implicit language q learning.
+\newblock \emph{arXiv preprint arXiv:2206.11871}, 2022.
+
+\bibitem[Son et~al.(2024)Son, Lee, and Kim]{sondistilling}
+Jaehyeon Son, Soochan Lee, and Gunhee Kim.
+\newblock Distilling reinforcement learning algo-rithms for in-context model-based planning.
+\newblock 2024.
+
+\bibitem[Tarasov et~al.(2024{\natexlab{a}})Tarasov, Brilliantov, and Kharlapenko]{tarasov2024value}
+Denis Tarasov, Kirill Brilliantov, and Dmitrii Kharlapenko.
+\newblock Is value functions estimation with classification plug-and-play for offline reinforcement learning?
+\newblock \emph{arXiv preprint arXiv:2406.06309}, 2024{\natexlab{a}}.
+
+\bibitem[Tarasov et~al.(2024{\natexlab{b}})Tarasov, Kurenkov, Nikulin, and Kolesnikov]{tarasov2024revisiting}
+Denis Tarasov, Vladislav Kurenkov, Alexander Nikulin, and Sergey Kolesnikov.
+\newblock Revisiting the minimalist approach to offline reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024{\natexlab{b}}.
+
+\bibitem[Tarasov et~al.(2024{\natexlab{c}})Tarasov, Nikulin, Akimov, Kurenkov, and Kolesnikov]{tarasov2024corl}
+Denis Tarasov, Alexander Nikulin, Dmitry Akimov, Vladislav Kurenkov, and Sergey Kolesnikov.
+\newblock Corl: Research-oriented deep offline reinforcement learning library.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024{\natexlab{c}}.
+
+\bibitem[Todorov et~al.(2012)Todorov, Erez, and Tassa]{todorov2012mujoco}
+Emanuel Todorov, Tom Erez, and Yuval Tassa.
+\newblock Mujoco: A physics engine for model-based control.
+\newblock In \emph{2012 IEEE/RSJ international conference on intelligent robots and systems}, pp.\  5026--5033. IEEE, 2012.
+
+\bibitem[Vaswani(2017)]{vaswani2017attention}
+A~Vaswani.
+\newblock Attention is all you need.
+\newblock \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem[Watkins \& Dayan(1992)Watkins and Dayan]{watkins1992q}
+Christopher~JCH Watkins and Peter Dayan.
+\newblock Q-learning.
+\newblock \emph{Machine learning}, 8:\penalty0 279--292, 1992.
+
+\bibitem[Yamagata et~al.(2023)Yamagata, Khalil, and Santos-Rodriguez]{yamagata2023q}
+Taku Yamagata, Ahmed Khalil, and Raul Santos-Rodriguez.
+\newblock Q-learning decision transformer: Leveraging dynamic programming for conditional sequence modelling in offline rl.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  38989--39007. PMLR, 2023.
+
+\bibitem[Yu et~al.(2020)Yu, Quillen, He, Julian, Hausman, Finn, and Levine]{yu2020meta}
+Tianhe Yu, Deirdre Quillen, Zhanpeng He, Ryan Julian, Karol Hausman, Chelsea Finn, and Sergey Levine.
+\newblock Meta-world: A benchmark and evaluation for multi-task and meta reinforcement learning.
+\newblock In \emph{Conference on robot learning}, pp.\  1094--1100. PMLR, 2020.
+
+\bibitem[Zhuang et~al.(2024)Zhuang, Peng, Liu, Zhang, and Wang]{zhuang2024reinformer}
+Zifeng Zhuang, Dengyun Peng, Jinxin Liu, Ziqi Zhang, and Donglin Wang.
+\newblock Reinformer: Max-return sequence modeling for offline rl.
+\newblock \emph{arXiv preprint arXiv:2405.08740}, 2024.
+
+\bibitem[Zisman et~al.(2023)Zisman, Kurenkov, Nikulin, Sinii, and Kolesnikov]{zisman2023emergence}
+Ilya Zisman, Vladislav Kurenkov, Alexander Nikulin, Viacheslav Sinii, and Sergey Kolesnikov.
+\newblock Emergence of in-context reinforcement learning from noise distillation.
+\newblock \emph{arXiv preprint arXiv:2312.12275}, 2023.
+
+\bibitem[Zisman et~al.(2024)Zisman, Nikulin, Sinii, Tarasov, Lyubaykin, Polubarov, Kiselev, and Kurenkov]{zisman2024n}
+Ilya Zisman, Alexander Nikulin, Viacheslav Sinii, Denis Tarasov, Nikita Lyubaykin, Andrei Polubarov, Igor Kiselev, and Vladislav Kurenkov.
+\newblock N-gram induction heads for in-context rl: Improving stability and reducing data needs.
+\newblock \emph{arXiv preprint arXiv:2411.01958}, 2024.
+
+\end{thebibliography}

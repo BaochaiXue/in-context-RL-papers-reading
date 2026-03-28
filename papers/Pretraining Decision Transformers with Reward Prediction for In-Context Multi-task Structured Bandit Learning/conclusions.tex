@@ -1,0 +1,17 @@
+In this paper, we studied the supervised pretraining of decision transformers in the multi-task structured bandit setting when the knowledge of the optimal action is unavailable.
+%
+Our proposed methods \pred\ (\gt) do not need to know the action representations or the reward structure and learn these with the help of offline data. 
+% (as opposed to \dptg). 
+%
+% when the training data consists of small amounts of data from each task, and contains action representations not seen during test time. 
+\pred\ (\gt) predict the reward for the next action of each action during pretraining and can generalize well in-context in several regimes spanning low-data, new actions, and structured bandit settings like linear, non-linear, bilinear, latent bandits. The \pred\ (\gt) outperforms other in-context algorithms like \ad, \dptg\ in most of the experiments. Finally, we theoretically analyze \predt\ and show that pretraining it in $M$ source tasks leads to a low expected excess error on a target task drawn from the same task distribution $\cT$.
+%
+% show empirically that \pred\ in a linear feedback setting behaves similarly to a Bayesian linear regression that does not have access to feature representation (like \pred) but estimates the reward correlation between tasks using training/testing data.
+%
+% The \pred\ is a greedy algorithm. During evaluation, it always chooses the action with the highest predicted reward. Therefore \pred\ requires a better exploration during evaluation that balances exploration and exploitation. 
+%
+% The second limitation is that \pred\ requires the weak demonstrator $\pi^w$ to be sufficiently exploratory so that all actions in each task are sampled atleast a few number of times. This is require
+%
+In the future, we want to extend our \pred\ (\gt) to the MDP setting \citep{sutton2018reinforcement, agarwal2019reinforcement}, and constrained MDP setting \citep{efroni2020exploration, gu2022review}.
+
+\textbf{Acknowledgments:} Q.\ Xie is supported in part by National Science Foundation (NSF) grants CNS-1955997 and EPCN-2339794 and EPCN-2432546. J.\ Hanna is supported in part by NSF (IIS-2410981) and Sandia National Labs through a University Partnership Award.

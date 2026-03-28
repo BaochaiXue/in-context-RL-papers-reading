@@ -1,0 +1,26 @@
+\section{Related Work}
+
+\textbf{Meta RL.} Prior work has explored how agents can learn to quickly adapt to new scenarios through experience.
+Meta-RL deals with how agents can learn via RL to quickly adapt to new scenarios such as new environment dynamics, layouts, or task specifications.
+Since Meta-RL is a large space, we only focus on the most relevant Meta-RL variants and refer the readers to \citet{beck2023survey} for a complete survey of Meta-RL.
+Some Meta-RL works explicitly condition the policy on a representation of the task and adapt by inferring this representation in the new setting~\citep{zhao2020meld,yu2020learning,rakelly2019efficient}.
+Our work falls under the ``in-context RL'' Meta-RL paradigm where the policies implicitly infer the context by taking an entire history of interactions as input.
+\rls~\cite{duan2016rl} trains an RNN that operates over a sequence of episodes with RL and the agent implicitly learns to adapt based on the RNN hidden state. 
+Other works leverage transformers for this in-context adaptation~\citep{team2023human,melo2022transformers,laskin2022context}.
+\cite{raparthy2023generalizationnewsequentialdecision,lee2023supervisedpretraininglearnincontext} also address in-context learning for decision making, but do so via supervised learning from expert demonstrations, whereas our work only requires reward.
+Most similar to our work is AMAGO~\citep{grigsby2023amago}, an algorithm for in-context learning through off-policy RL.
+AMAGO modifies a standard transformer with off-policy loss to make it better suited for long-context learning, with changes consisting of: a shared actor and critic network, using Leaky ReLU activations, and learning over multiple discount factors.
+Our work does not require these modifications, instead leveraging standard transformer architectures, and proposes a novel update scheme and \sinkv for scaling the context length with on-policy RL.
+Empirically, we demonstrate our method scaling to $8\times$ longer context length and on visual tasks, whereas AMAGO focuses primarily on state-based tasks.
+
+\textbf{Scaling context length.}
+Another related area of research scaling the context length of transformers.
+Prior work extend the context length using a compressed representation of the old context, either as a recurrent memory or a specialized token \citep{dai2019transformerxl,munkhdalai2024leave,zhang2024soaring}.
+Other work address the memory and computational inefficiencies of the attention method by approximating it \citep{beltagy2020longformer,wang2020linformer} or by doing system-level optimization \citep{dao2023flashattention2}. Another direction is context extrapolation at inference time either by changing the position encoding \citep{su2023roformer,press2022train} or by introducing attention sink \citep{xiao2023efficient}. Our work utilizes the system-level optimized attention \citep{dao2023flashattention2} and extends attention sinks for on-policy RL in Embodied AI.
+
+\textbf{Embodied AI.} 
+Prior work in Embodied AI has primarily concentrated on the single episode evaluation setting, where an agent is randomly initialized in the environment at the beginning of each episode and is tasked with taking the shortest exploratory path to a single goal specified in every episode~\citep{wijmans2019dd,yadav2022ovrl}. In contrast,~\cite{wani2020multion} introduced the multi-ON benchmark, which extends the complexity of the original task by requiring the agent to navigate to a series of goal objects in a specified order within a single episode. Here, the agent must utilize information acquired during its journey to previous goals to navigate more efficiently to subsequent locations. Go to anything (GOAT)~\citep{chang2023goat}, extended this to the multi-modal goal setting, providing a mix of image, language, or category goals as input. In comparison, we consider a multi-episodic setting where the agent is randomly instantiated in the environment after a successful or failed trial but has access to the prior episode history.
+
+
+
+

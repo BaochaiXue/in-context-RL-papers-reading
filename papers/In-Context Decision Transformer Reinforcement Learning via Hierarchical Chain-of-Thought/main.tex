@@ -1,0 +1,134 @@
+%%%%%%%% ICML 2024 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2024} with \usepackage[nohyperref]{icml2024} above.
+\usepackage{hyperref}
+\usepackage{bm}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+% \usepackage{icml2024}
+
+% If accepted, instead use the following line for the camera-ready submission:
+\usepackage[accepted]{icml2024}
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{multirow}
+
+\usepackage{afterpage}
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\newcommand\jf[1]{\textcolor{cyan}{[JF: #1]}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+\usepackage{pifont}
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{In-Context Decision Transformer: Reinforcement Learning via Hierarchical Chain-of-Thought}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{In-Context Decision Transformer: Reinforcement Learning via Hierarchical Chain-of-Thought}
+% Boosting Transformer-based in-context Reinforcement Learning with Hierarchical Chain-of-Thought
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2024
+% package.
+
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
+
+% You can specify symbols, otherwise they are numbered in order.
+% Ideally, you should not use this facility. Affiliations will be numbered
+% in order of appearance and this is the preferred way.
+\icmlsetsymbol{equal}{*}
+
+\begin{icmlauthorlist}
+\icmlauthor{Sili Huang}{sch1,sch2}
+\icmlauthor{Jifeng Hu}{sch1}
+\icmlauthor{Hechang Chen}{equal,sch1}
+\icmlauthor{Lichao Sun}{sch3}
+\icmlauthor{Bo Yang}{equal,sch2}
+\end{icmlauthorlist}
+
+\icmlaffiliation{sch1}{School of Artificial Intelligence, Jilin University, China}
+\icmlaffiliation{sch2}{Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, China}
+\icmlaffiliation{sch3}{Lehigh University, Bethlehem, Pennsylvania, USA}
+
+\icmlcorrespondingauthor{Bo Yang}{ybo@jlu.edu.cn}
+\icmlcorrespondingauthor{Hechang Chen}{chenhc@jlu.edu.cn}
+
+% You may provide any keywords that you
+% find helpful for describing your paper; these are used to populate
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{Machine Learning, ICML}
+
+\vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column
+% listing the affiliations and the copyright notice.
+% The command takes one argument, which is text to display at the start of the footnote.
+% The \icmlEqualContribution command is standard text for equal contribution.
+% Remove it (just {}) if you do not need this facility.
+
+%\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+
+
+\input{0_Abstract}
+\input{1_Introduction}
+\input{2_Related_Work}
+\input{3_Preliminaries}
+\input{4_Method}
+\input{5_Experiments}
+\input{6_Conclusion}
+
+\bibliography{reference}
+\bibliographystyle{icml2024}
+\input{7_Appendix}
+
+
+
+\end{document}

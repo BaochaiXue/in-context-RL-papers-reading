@@ -1,0 +1,148 @@
+
+\usepackage[compact]{titlesec}         %
+\titlespacing{\section}{0pt}{0pt}{0pt} %
+\AtBeginDocument{%
+  \setlength\abovedisplayskip{0pt}
+  \setlength\belowdisplayskip{0pt}}
+
+\usepackage{microtype}
+\usepackage{wrapfig}
+\usepackage{subcaption} 
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+
+
+
+\usepackage[hyphens]{url}
+
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{tcolorbox}
+\usepackage[bottom]{footmisc}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{booktabs} %
+\usepackage{varwidth} %
+\usepackage{tabularx}
+
+\usepackage{hyperref}
+
+
+
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\usepackage{color-edits}
+\usepackage{comment}
+\addauthor{kb}{purple}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+\usepackage{microtype}
+
+\usepackage[]{bbm}
+
+\usepackage{inconsolata}
+
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,calc}
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+\newcommand*{\AddNote}[4]{%
+    \begin{tikzpicture}[overlay, remember picture]
+        \draw [decoration={brace,amplitude=0.5em},decorate,ultra thick,blue]
+            ($(#3)!(#1.north)!($(#3)-(0,1)$)$) --  
+            ($(#3)!(#2.south)!($(#3)-(0,1)$)$)
+                node [align=center, text width=2.5cm, pos=0.5, anchor=west] {#4};
+    \end{tikzpicture}
+}%
+
+
+\usepackage{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{xcolor}
+
+
+
+
+\usepackage{subcaption}
+
+\usepackage{textcomp}  %
+\usepackage{scalerel}  %
+
+\renewcommand{\sectionautorefname}{Section}
+\let\subsectionautorefname\sectionautorefname
+\let\subsubsectionautorefname\sectionautorefname
+\newcommand{\aautoref}[1]{\hyperref[#1]{Appendix~\ref*{#1}}}
+\newcommand{\autorefalg}[1]{\hyperref[#1]{Algorithm \ref*{#1}}}
+\newcommand{\autoreftab}[1]{\hyperref[#1]{Table \ref*{#1}}}
+
+
+\newcommand{\episodeset}{\mathcal{E}}
+\newcommand{\episode}{e}
+\newcommand{\context}{C}
+\newcommand{\example}{x}
+\newcommand{\prediction}{y}
+\newcommand{\datadist}{\mathcal{D}}
+\newcommand{\isnaiveplus}{\mathit{isNaivePlus}}
+\newcommand{\rewardfunc}{R}
+\newcommand{\reward}{r}
+\newcommand{\keepprob}{p_\text{keep}}
+\newcommand{\policy}{\pi}
+\newcommand{\contextstore}{\mathcal{C}}
+\newcommand{\uniform}{\mathcal{U}}
+\newcommand{\storagesize}{K}
+
+
+
+\newcommand{\xxcomment}[4]{\textcolor{#1}{[$^{\textsc{#2}}_{\textsc{#3}}$ #4]}}
+\newcommand{\gm}[1]{\xxcomment{blue}{G}{M}{#1}}
+\newcommand{\kb}[1]{\xxcomment{orange}{K}{B}{#1}}
+\newcommand{\ya}[1]{\xxcomment{red}{Y}{A}{#1}}
+\newcommand{\todo}[1]{\textcolor{orange}{#1}}
+\newcommand{\eat}[1]{}
+
+\usepackage[normalem]{ulem}
+\newcommand{\ed}[2]{\sout{#1} #2}
+\newcommand{\gmed}[2]{\gm{\ed{#1}{#2}}}
+\newcommand{\yaed}[2]{\ya{\ed{#1}{#2}}}
+
+
+\newcommand{\llama}{Llama\xspace}
+\newcommand{\phillm}{Phi\xspace}
+\newcommand{\qwen}{Qwen\xspace}
+\newcommand{\gemini}{Gemini\xspace}
+
+\newcommand{\banking}{Banking77\xspace}
+\newcommand{\clinic}{CLINC150\xspace}
+\newcommand{\trec}{TREC\xspace}
+\newcommand{\trecfine}{TREC-fine\xspace}
+\newcommand{\nlu}{NLU\xspace}
+
+\newcommand{\naive}{Naive ICRL\xspace}
+\newcommand{\naiveplus}{Naive+ ICRL\xspace}
+\newcommand{\explorative}{Stochastic ICRL\xspace}
+\newcommand{\approximate}{Approximate ICRL\xspace}
+\newcommand{\naiveshort}{Naive\xspace}
+\newcommand{\naiveplusshort}{Naive+\xspace}
+\newcommand{\expshort}{Stochastic\xspace}
+\newcommand{\appshort}{Approximate\xspace}
+

@@ -1,0 +1,641 @@
+\begin{thebibliography}{90}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Chi, Le, and
+  Zhou]{wei2022chain}
+J.~Wei, X.~Wang, D.~Schuurmans, M.~Bosma, E.~Chi, Q.~Le, and D.~Zhou.
+\newblock {Chain of thought prompting elicits reasoning in large language
+  models}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Kojima et~al.(2022)Kojima, Gu, Reid, Matsuo, and
+  Iwasawa]{kojima2022large}
+T.~Kojima, S.~S. Gu, M.~Reid, Y.~Matsuo, and Y.~Iwasawa.
+\newblock {Large language models are zero-shot reasoners}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Suzgun et~al.(2022)Suzgun, Scales, Sch{\"a}rli, Gehrmann, Tay, Chung,
+  Chowdhery, Le, Chi, Zhou, et~al.]{suzgun2022challenging}
+M.~Suzgun, N.~Scales, N.~Sch{\"a}rli, S.~Gehrmann, Y.~Tay, H.~W. Chung,
+  A.~Chowdhery, Q.~V. Le, E.~H. Chi, D.~Zhou, et~al.
+\newblock {Challenging BIG-Bench tasks and whether chain-of-thought can solve
+  them}.
+\newblock \emph{arXiv:2210.09261}, 2022.
+
+\bibitem[Creswell et~al.(2022)Creswell, Shanahan, and
+  Higgins]{creswell2022selection}
+A.~Creswell, M.~Shanahan, and I.~Higgins.
+\newblock {Selection-Inference: Exploiting large language models for
+  interpretable logical reasoning}.
+\newblock \emph{arXiv:2205.09712}, 2022.
+
+\bibitem[Lewkowycz et~al.(2022)Lewkowycz, Andreassen, Dohan, Dyer, Michalewski,
+  Ramasesh, Slone, Anil, Schlag, Gutman-Solo, et~al.]{lewkowycz2022solving}
+A.~Lewkowycz, A.~Andreassen, D.~Dohan, E.~Dyer, H.~Michalewski, V.~Ramasesh,
+  A.~Slone, C.~Anil, I.~Schlag, T.~Gutman-Solo, et~al.
+\newblock {Solving quantitative reasoning problems with language models}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Ahn et~al.(2022)Ahn, Brohan, Brown, Chebotar, Cortes, David, Finn,
+  Gopalakrishnan, Hausman, Herzog, et~al.]{ahn2022can}
+M.~Ahn, A.~Brohan, N.~Brown, Y.~Chebotar, O.~Cortes, B.~David, C.~Finn,
+  K.~Gopalakrishnan, K.~Hausman, A.~Herzog, et~al.
+\newblock {Do as I can, not as I say: Grounding language in robotic
+  affordances}.
+\newblock In \emph{Conference on Robot Learning (CoRL)}, 2022.
+
+\bibitem[Huang et~al.(2022)Huang, Abbeel, Pathak, and
+  Mordatch]{huang2022language}
+W.~Huang, P.~Abbeel, D.~Pathak, and I.~Mordatch.
+\newblock {Language models as zero-shot planners: Extracting actionable
+  knowledge for embodied agents}.
+\newblock \emph{arXiv:2201.07207}, 2022.
+
+\bibitem[Xie et~al.(2023)Xie, Yu, Zhu, Bai, Gong, and Soh]{xie2023translating}
+Y.~Xie, C.~Yu, T.~Zhu, J.~Bai, Z.~Gong, and H.~Soh.
+\newblock {Translating natural language to planning goals with large-language
+  models}.
+\newblock \emph{arXiv:2302.05128}, 2023.
+
+\bibitem[Ding et~al.(2023)Ding, Zhang, Paxton, and Zhang]{ding2023task}
+Y.~Ding, X.~Zhang, C.~Paxton, and S.~Zhang.
+\newblock {Task and motion planning with large language models for object
+  rearrangement}.
+\newblock \emph{arXiv:2303.06247}, 2023.
+
+\bibitem[Liu et~al.(2023)Liu, Jiang, Zhang, Liu, Zhang, Biswas, and
+  Stone]{liu2023llm+}
+B.~Liu, Y.~Jiang, X.~Zhang, Q.~Liu, S.~Zhang, J.~Biswas, and P.~Stone.
+\newblock {LLM+P: Empowering large language models with optimal planning
+  proficiency}.
+\newblock \emph{arXiv:2304.11477}, 2023.
+
+\bibitem[Zelikman et~al.(2023)Zelikman, Huang, Poesia, Goodman, and
+  Haber]{zelikman2023parsel}
+E.~Zelikman, Q.~Huang, G.~Poesia, N.~D. Goodman, and N.~Haber.
+\newblock {Parsel: A (de-) compositional framework for algorithmic reasoning
+  with language models}.
+\newblock \emph{arXiv:2212.10561}, 2023.
+
+\bibitem[Lin et~al.(2023)Lin, Agia, Migimatsu, Pavone, and
+  Bohg]{lin2023text2motion}
+K.~Lin, C.~Agia, T.~Migimatsu, M.~Pavone, and J.~Bohg.
+\newblock {Text2Motion: From natural language instructions to feasible plans}.
+\newblock \emph{arXiv:2303.12153}, 2023.
+
+\bibitem[Liang et~al.(2023)Liang, Huang, Xia, Xu, Hausman, Ichter, Florence,
+  and Zeng]{liang2022code}
+J.~Liang, W.~Huang, F.~Xia, P.~Xu, K.~Hausman, B.~Ichter, P.~Florence, and
+  A.~Zeng.
+\newblock {Code as Policies: Language model programs for embodied control}.
+\newblock In \emph{International Conference on Robotics and Automation (ICRA)},
+  2023.
+
+\bibitem[Singh et~al.(2023)Singh, Blukis, Mousavian, Goyal, Xu, Tremblay, Fox,
+  Thomason, and Garg]{singh2023progprompt}
+I.~Singh, V.~Blukis, A.~Mousavian, A.~Goyal, D.~Xu, J.~Tremblay, D.~Fox,
+  J.~Thomason, and A.~Garg.
+\newblock {ProgPrompt: Generating Situated Robot Task Plans using Large
+  Language Models}.
+\newblock In \emph{International Conference on Robotics and Automation (ICRA)},
+  2023.
+
+\bibitem[Kwon et~al.(2023)Kwon, Xie, Bullard, and Sadigh]{kwon2023reward}
+M.~Kwon, S.~M. Xie, K.~Bullard, and D.~Sadigh.
+\newblock {Reward Design with Language Models}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[Hu and Sadigh(2023)]{hu2023language}
+H.~Hu and D.~Sadigh.
+\newblock {Language Instructed Reinforcement Learning for Human-AI
+  Coordination}.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2023.
+
+\bibitem[Wu et~al.(2023)Wu, Antonova, Kan, Lepert, Zeng, Song, Bohg,
+  Rusinkiewicz, and Funkhouser]{wu2023tidybot}
+J.~Wu, R.~Antonova, A.~Kan, M.~Lepert, A.~Zeng, S.~Song, J.~Bohg,
+  S.~Rusinkiewicz, and T.~Funkhouser.
+\newblock {TidyBot: Personalized Robot Assistance with Large Language Models}.
+\newblock In \emph{International Conference on Intelligent Robots and Systems
+  (IROS)}, 2023.
+
+\bibitem[Liu et~al.(2021)Liu, Shen, Zhang, Dolan, Carin, and
+  Chen]{liu2021makes}
+J.~Liu, D.~Shen, Y.~Zhang, B.~Dolan, L.~Carin, and W.~Chen.
+\newblock {What Makes Good In-Context Examples for GPT-3}.
+\newblock In \emph{Proceedings of Deep Learning Inside Out (DeeLIO 2022): The
+  3rd Workshop on Knowledge Extraction and Integration for Deep Learning
+  Architectures}, 2021.
+
+\bibitem[Zhao et~al.(2021)Zhao, Wallace, Feng, Klein, and
+  Singh]{zhao2021calibrate}
+Z.~Zhao, E.~Wallace, S.~Feng, D.~Klein, and S.~Singh.
+\newblock {Calibrate before use: Improving few-shot performance of language
+  models}.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2021.
+
+\bibitem[Chollet(2019)]{chollet2019measure}
+F.~Chollet.
+\newblock {On the measure of intelligence}.
+\newblock \emph{arXiv:1911.01547}, 2019.
+
+\bibitem[Ferr{\'e}(2021)]{ferre2021first}
+S.~Ferr{\'e}.
+\newblock {First Steps of an Approach to the ARC Challenge based on Descriptive
+  Grid Models and the Minimum Description Length Principle}.
+\newblock \emph{arXiv:2112.00848}, 2021.
+
+\bibitem[Xu et~al.(2022)Xu, Khalil, and Sanner]{xu2022graphs}
+Y.~Xu, E.~B. Khalil, and S.~Sanner.
+\newblock {Graphs, Constraints, and Search for the Abstraction and Reasoning
+  Corpus}.
+\newblock In \emph{AAAI Conference on Artificial Intelligence}, 2022.
+
+\bibitem[Ainooson et~al.(2023)Ainooson, Sanyal, Michelson, Yang, and
+  Kunda]{ainooson2023approach}
+J.~Ainooson, D.~Sanyal, J.~P. Michelson, Y.~Yang, and M.~Kunda.
+\newblock {An approach for solving tasks on the Abstract Reasoning Corpus}.
+\newblock \emph{arXiv:2302.09425}, 2023.
+
+\bibitem[Alford(2021)]{alford2021neurosymbolic}
+S.~Alford.
+\newblock \emph{{A Neurosymbolic Approach to Abstraction and Reasoning}}.
+\newblock PhD thesis, Massachusetts Institute of Technology, 2021.
+
+\bibitem[Assouel et~al.(2022)Assouel, Rodriguez, Taslakian, Vazquez, and
+  Bengio]{assouel2022object}
+R.~Assouel, P.~Rodriguez, P.~Taslakian, D.~Vazquez, and Y.~Bengio.
+\newblock {Object-centric Compositional Imagination for Visual Abstract
+  Reasoning}.
+\newblock In \emph{ICLR Workshop on the Elements of Reasoning: Objects,
+  Structure and Causality}, 2022.
+
+\bibitem[Moskvichev et~al.(2023)Moskvichev, Odouard, and
+  Mitchell]{moskvichev2023conceptarc}
+A.~Moskvichev, V.~V. Odouard, and M.~Mitchell.
+\newblock {The ConceptARC Benchmark: Evaluating Understanding and
+  Generalization in the ARC Domain}.
+\newblock \emph{arXiv:2305.07141}, 2023.
+
+\bibitem[Kolev et~al.(2020)Kolev, Georgiev, and Penkov]{kolev2020neural}
+V.~Kolev, B.~Georgiev, and S.~Penkov.
+\newblock {Neural abstract reasoner}.
+\newblock In \emph{4th Knowledge Representation and Reasoning Meets Machine
+  Learning Workshop (KR2ML) at NeurIPS}, 2020.
+
+\bibitem[Paparaju(2022)]{paparaju2020arc}
+T.~Paparaju.
+\newblock {ARC Competition : EDA + PyTorch CNN}.
+\newblock
+  \url{https://www.kaggle.com/code/tarunpaparaju/arc-competition-eda-pytorch-cnn},
+  2022.
+\newblock Accessed: 2023-05-30.
+
+\bibitem[Min et~al.(2022)Min, Lyu, Holtzman, Artetxe, Lewis, Hajishirzi, and
+  Zettlemoyer]{min2022rethinking}
+S.~Min, X.~Lyu, A.~Holtzman, M.~Artetxe, M.~Lewis, H.~Hajishirzi, and
+  L.~Zettlemoyer.
+\newblock {Rethinking the Role of Demonstrations: What Makes In-Context
+  Learning Work?}
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing}, 2022.
+
+\bibitem[Pan et~al.(2023)Pan, Gao, Chen, and Chen]{pan2023context}
+J.~Pan, T.~Gao, H.~Chen, and D.~Chen.
+\newblock {What In-Context Learning ``Learns'' In-Context: Disentangling Task
+  Recognition and Task Learning}.
+\newblock In \emph{Findings of the Association for Computational Linguistics},
+  2023.
+
+\bibitem[Lu et~al.(2022)Lu, Grover, Abbeel, and Mordatch]{lu2021pretrained}
+K.~Lu, A.~Grover, P.~Abbeel, and I.~Mordatch.
+\newblock {Pretrained transformers as universal computation engines}.
+\newblock In \emph{AAAI Conference on Artificial Intelligence}, 2022.
+
+\bibitem[Reid et~al.(2023)Reid, Yamada, and Gu]{reid2022can}
+M.~Reid, Y.~Yamada, and S.~S. Gu.
+\newblock {Can wikipedia help offline reinforcement learning?}
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[Brohan et~al.(2022)Brohan, Brown, Carbajal, Chebotar, Dabis, Finn,
+  Gopalakrishnan, Hausman, Herzog, Hsu, et~al.]{brohan2022rt}
+A.~Brohan, N.~Brown, J.~Carbajal, Y.~Chebotar, J.~Dabis, C.~Finn,
+  K.~Gopalakrishnan, K.~Hausman, A.~Herzog, J.~Hsu, et~al.
+\newblock {RT-1: Robotics transformer for real-world control at scale}.
+\newblock In \emph{Proceedings of Robotics: Science and Systems (RSS)}, 2022.
+
+\bibitem[Bommasani et~al.(2021)Bommasani, Hudson, Adeli, Altman, Arora, von
+  Arx, Bernstein, Bohg, Bosselut, Brunskill,
+  et~al.]{bommasani2021opportunities}
+R.~Bommasani, D.~A. Hudson, E.~Adeli, R.~Altman, S.~Arora, S.~von Arx, M.~S.
+  Bernstein, J.~Bohg, A.~Bosselut, E.~Brunskill, et~al.
+\newblock {On the opportunities and risks of foundation models}.
+\newblock \emph{arXiv:2108.07258}, 2021.
+
+\bibitem[Nair et~al.(2022)Nair, Rajeswaran, Kumar, Finn, and
+  Gupta]{nair2022r3m}
+S.~Nair, A.~Rajeswaran, V.~Kumar, C.~Finn, and A.~Gupta.
+\newblock {R3M: A universal visual representation for robot manipulation}.
+\newblock In \emph{Conference on Robot Learning (CoRL)}, 2022.
+
+\bibitem[Radosavovic et~al.(2023)Radosavovic, Xiao, James, Abbeel, Malik, and
+  Darrell]{radosavovic2023real}
+I.~Radosavovic, T.~Xiao, S.~James, P.~Abbeel, J.~Malik, and T.~Darrell.
+\newblock {Real-world robot learning with masked visual pre-training}.
+\newblock In \emph{Conference on Robot Learning (CoRL)}, 2023.
+
+\bibitem[Karamcheti et~al.(2023)Karamcheti, Nair, Chen, Kollar, Finn, Sadigh,
+  and Liang]{karamcheti2023voltron}
+S.~Karamcheti, S.~Nair, A.~S. Chen, T.~Kollar, C.~Finn, D.~Sadigh, and
+  P.~Liang.
+\newblock {Language-Driven Representation Learning for Robotics}.
+\newblock In \emph{Proceedings of Robotics: Science and Systems (RSS)}, 2023.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, Sutskever,
+  et~al.]{radford2019language}
+A.~Radford, J.~Wu, R.~Child, D.~Luan, D.~Amodei, I.~Sutskever, et~al.
+\newblock {Language models are unsupervised multitask learners}.
+\newblock \emph{OpenAI blog}, 1\penalty0 (8):\penalty0 9, 2019.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, et~al.]{brown2020language}
+T.~Brown, B.~Mann, N.~Ryder, M.~Subbiah, J.~D. Kaplan, P.~Dhariwal,
+  A.~Neelakantan, P.~Shyam, G.~Sastry, A.~Askell, et~al.
+\newblock {Language models are few-shot learners}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2020.
+
+\bibitem[Raffel et~al.(2020)Raffel, Shazeer, Roberts, Lee, Narang, Matena,
+  Zhou, Li, and Liu]{raffel2020exploring}
+C.~Raffel, N.~Shazeer, A.~Roberts, K.~Lee, S.~Narang, M.~Matena, Y.~Zhou,
+  W.~Li, and P.~J. Liu.
+\newblock {Exploring the limits of transfer learning with a unified
+  text-to-text transformer}.
+\newblock \emph{The Journal of Machine Learning Research (JMLR)}, 21\penalty0
+  (1):\penalty0 5485--5551, 2020.
+
+\bibitem[Hendrycks et~al.(2020)Hendrycks, Liu, Wallace, Dziedzic, Krishnan, and
+  Song]{hendrycks2020pretrained}
+D.~Hendrycks, X.~Liu, E.~Wallace, A.~Dziedzic, R.~Krishnan, and D.~Song.
+\newblock {Pretrained transformers improve out-of-distribution robustness}.
+\newblock In \emph{Annual Meeting of the Association for Computational
+  Linguistics}, 2020.
+
+\bibitem[Dinh et~al.(2022)Dinh, Zeng, Zhang, Lin, Gira, Rajput, Sohn,
+  Papailiopoulos, and Lee]{dinh2022lift}
+T.~Dinh, Y.~Zeng, R.~Zhang, Z.~Lin, M.~Gira, S.~Rajput, J.-y. Sohn,
+  D.~Papailiopoulos, and K.~Lee.
+\newblock {LIFT: Language-interfaced fine-tuning for non-language machine
+  learning tasks}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Chan et~al.(2022)Chan, Santoro, Lampinen, Wang, Singh, Richemond,
+  McClelland, and Hill]{chan2022data}
+S.~Chan, A.~Santoro, A.~Lampinen, J.~Wang, A.~Singh, P.~Richemond,
+  J.~McClelland, and F.~Hill.
+\newblock {Data distributional properties drive emergent in-context learning in
+  transformers}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Garg et~al.(2022)Garg, Tsipras, Liang, and Valiant]{garg2022can}
+S.~Garg, D.~Tsipras, P.~S. Liang, and G.~Valiant.
+\newblock {What can transformers learn in-context? a case study of simple
+  function classes}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Aky{\"u}rek et~al.(2022)Aky{\"u}rek, Schuurmans, Andreas, Ma, and
+  Zhou]{akyurek2022learning}
+E.~Aky{\"u}rek, D.~Schuurmans, J.~Andreas, T.~Ma, and D.~Zhou.
+\newblock {What learning algorithm is in-context learning? investigations with
+  linear models}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2022.
+
+\bibitem[Von~Oswald et~al.(2023)Von~Oswald, Niklasson, Randazzo, Sacramento,
+  Mordvintsev, Zhmoginov, and Vladymyrov]{von2023transformers}
+J.~Von~Oswald, E.~Niklasson, E.~Randazzo, J.~Sacramento, A.~Mordvintsev,
+  A.~Zhmoginov, and M.~Vladymyrov.
+\newblock {Transformers learn in-context by gradient descent}.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2023.
+
+\bibitem[Kirsch et~al.(2022)Kirsch, Harrison, Sohl-Dickstein, and
+  Metz]{kirsch2022general}
+L.~Kirsch, J.~Harrison, J.~Sohl-Dickstein, and L.~Metz.
+\newblock {General-purpose in-context learning by meta-learning transformers}.
+\newblock In \emph{Workshop on Meta-Learning at NeurIPS}, 2022.
+
+\bibitem[Xie et~al.(2022)Xie, Raghunathan, Liang, and Ma]{xie2021explanation}
+S.~M. Xie, A.~Raghunathan, P.~Liang, and T.~Ma.
+\newblock {An explanation of in-context learning as implicit bayesian
+  inference}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2022.
+
+\bibitem[Wang et~al.(2023)Wang, Zhu, and Wang]{wang2023large}
+X.~Wang, W.~Zhu, and W.~Y. Wang.
+\newblock {Large language models are implicitly topic models: Explaining and
+  finding good demonstrations for in-context learning}.
+\newblock \emph{arXiv:2301.11916}, 2023.
+
+\bibitem[Chan et~al.(2022)Chan, Dasgupta, Kim, Kumaran, Lampinen, and
+  Hill]{chan2022transformers}
+S.~C. Chan, I.~Dasgupta, J.~Kim, D.~Kumaran, A.~K. Lampinen, and F.~Hill.
+\newblock {Transformers generalize differently from information stored in
+  context vs in weights}.
+\newblock \emph{arXiv:2210.05675}, 2022.
+
+\bibitem[Shepard and Chang(1963)]{shepard1963stimulus}
+R.~N. Shepard and J.-J. Chang.
+\newblock {Stimulus generalization in the learning of classifications.}
+\newblock \emph{Journal of Experimental Psychology}, 65\penalty0 (1):\penalty0
+  94, 1963.
+
+\bibitem[Ashby and Townsend(1986)]{ashby1986varieties}
+F.~G. Ashby and J.~T. Townsend.
+\newblock {Varieties of perceptual independence.}
+\newblock \emph{Psychological Review}, 93\penalty0 (2):\penalty0 154, 1986.
+
+\bibitem[Ouyang et~al.(2022)Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin,
+  Zhang, Agarwal, Slama, Ray, et~al.]{ouyang2022training}
+L.~Ouyang, J.~Wu, X.~Jiang, D.~Almeida, C.~Wainwright, P.~Mishkin, C.~Zhang,
+  S.~Agarwal, K.~Slama, A.~Ray, et~al.
+\newblock {Training language models to follow instructions with human
+  feedback}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Chen et~al.(2021)Chen, Tworek, Jun, Yuan, Pinto, Kaplan, Edwards,
+  Burda, Joseph, Brockman, et~al.]{chen2021evaluating}
+M.~Chen, J.~Tworek, H.~Jun, Q.~Yuan, H.~P. d.~O. Pinto, J.~Kaplan, H.~Edwards,
+  Y.~Burda, N.~Joseph, G.~Brockman, et~al.
+\newblock {Evaluating large language models trained on code}.
+\newblock \emph{arXiv:2107.03374}, 2021.
+
+\bibitem[Chowdhery et~al.(2022)Chowdhery, Narang, Devlin, Bosma, Mishra,
+  Roberts, Barham, Chung, Sutton, Gehrmann, et~al.]{chowdhery2022palm}
+A.~Chowdhery, S.~Narang, J.~Devlin, M.~Bosma, G.~Mishra, A.~Roberts, P.~Barham,
+  H.~W. Chung, C.~Sutton, S.~Gehrmann, et~al.
+\newblock {PaLM: Scaling language modeling with pathways}.
+\newblock \emph{arXiv:2204.02311}, 2022.
+
+\bibitem[Anil et~al.(2023)Anil, Dai, Firat, Johnson, Lepikhin, Passos, Shakeri,
+  Taropa, Bailey, Chen, et~al.]{anil2023palm}
+R.~Anil, A.~M. Dai, O.~Firat, M.~Johnson, D.~Lepikhin, A.~Passos, S.~Shakeri,
+  E.~Taropa, P.~Bailey, Z.~Chen, et~al.
+\newblock {PaLM 2 Technical Report}.
+\newblock \emph{arXiv:2305.10403}, 2023.
+
+\bibitem[Huang et~al.(2022)Huang, Xia, Xiao, Chan, Liang, Florence, Zeng,
+  Tompson, Mordatch, Chebotar, Sermanet, Brown, Jackson, Luu, Levine, Hausman,
+  and Ichter]{huang2022inner}
+W.~Huang, F.~Xia, T.~Xiao, H.~Chan, J.~Liang, P.~Florence, A.~Zeng, J.~Tompson,
+  I.~Mordatch, Y.~Chebotar, P.~Sermanet, N.~Brown, T.~Jackson, L.~Luu,
+  S.~Levine, K.~Hausman, and B.~Ichter.
+\newblock {Inner Monologue: Embodied Reasoning through Planning with Language
+  Models}.
+\newblock In \emph{Conference on Robot Learning (CoRL)}, 2022.
+
+\bibitem[Zeng et~al.(2023)Zeng, Wong, Welker, Choromanski, Tombari, Purohit,
+  Ryoo, Sindhwani, Lee, Vanhoucke, et~al.]{zeng2022socratic}
+A.~Zeng, A.~Wong, S.~Welker, K.~Choromanski, F.~Tombari, A.~Purohit, M.~Ryoo,
+  V.~Sindhwani, J.~Lee, V.~Vanhoucke, et~al.
+\newblock {Socratic Models: Composing zero-shot multimodal reasoning with
+  language}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[Song et~al.(2022)Song, Wu, Washington, Sadler, Chao, and
+  Su]{song2022llm}
+C.~H. Song, J.~Wu, C.~Washington, B.~M. Sadler, W.-L. Chao, and Y.~Su.
+\newblock {LLM-Planner: Few-shot grounded planning for embodied agents with
+  large language models}.
+\newblock \emph{arXiv:2212.04088}, 2022.
+
+\bibitem[Huang et~al.(2023)Huang, Xia, Shah, Driess, Zeng, Lu, Florence,
+  Mordatch, Levine, Hausman, et~al.]{huang2023grounded}
+W.~Huang, F.~Xia, D.~Shah, D.~Driess, A.~Zeng, Y.~Lu, P.~Florence, I.~Mordatch,
+  S.~Levine, K.~Hausman, et~al.
+\newblock {Grounded Decoding: Guiding text generation with grounded models for
+  robot control}.
+\newblock \emph{arXiv:2303.00855}, 2023.
+
+\bibitem[Wang et~al.(2023)Wang, Xie, Jiang, Mandlekar, Xiao, Zhu, Fan, and
+  Anandkumar]{wang2023voyager}
+G.~Wang, Y.~Xie, Y.~Jiang, A.~Mandlekar, C.~Xiao, Y.~Zhu, L.~Fan, and
+  A.~Anandkumar.
+\newblock {Voyager: An Open-Ended Embodied Agent with Large Language Models}.
+\newblock \emph{arXiv:2305.16291}, 2023.
+
+\bibitem[Laskin et~al.(2023)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald,
+  Strouse, Hansen, Filos, Brooks, et~al.]{laskin2022context}
+M.~Laskin, L.~Wang, J.~Oh, E.~Parisotto, S.~Spencer, R.~Steigerwald,
+  D.~Strouse, S.~Hansen, A.~Filos, E.~Brooks, et~al.
+\newblock {In-context reinforcement learning with algorithm distillation}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[Xu et~al.(2022)Xu, Shen, Zhang, Lu, Zhao, Tenenbaum, and
+  Gan]{xu2022prompting}
+M.~Xu, Y.~Shen, S.~Zhang, Y.~Lu, D.~Zhao, J.~Tenenbaum, and C.~Gan.
+\newblock {Prompting decision transformer for few-shot policy generalization}.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2022.
+
+\bibitem[Zhang et~al.(2023)Zhang, Huang, Liu, Tang, Lu, Chen, Bai, Chu, Yu, and
+  Ouyang]{zhang2023motiongpt}
+Y.~Zhang, D.~Huang, B.~Liu, S.~Tang, Y.~Lu, L.~Chen, L.~Bai, Q.~Chu, N.~Yu, and
+  W.~Ouyang.
+\newblock {MotionGPT: Finetuned LLMs are General-Purpose Motion Generators}.
+\newblock \emph{arXiv:2306.10900}, 2023.
+
+\bibitem[Lee et~al.(2023)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and
+  Brunskill]{lee2023supervised}
+J.~N. Lee, A.~Xie, A.~Pacchiano, Y.~Chandak, C.~Finn, O.~Nachum, and
+  E.~Brunskill.
+\newblock {Supervised Pretraining Can Learn In-Context Reinforcemenet
+  Learning}.
+\newblock \emph{arXiv:2306.14892}, 2023.
+
+\bibitem[Webb et~al.(2023)Webb, Holyoak, and Lu]{webb2023emergent}
+T.~Webb, K.~J. Holyoak, and H.~Lu.
+\newblock Emergent analogical reasoning in large language models.
+\newblock \emph{Nature Human Behaviour}, pages 1--16, 2023.
+
+\bibitem[Brooks et~al.(2022)Brooks, Walls, Lewis, and Singh]{brooks2022context}
+E.~Brooks, L.~Walls, R.~L. Lewis, and S.~Singh.
+\newblock {In-Context Policy Iteration}.
+\newblock \emph{arXiv:2210.03821}, 2022.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  {\L}.~Kaiser, and I.~Polosukhin.
+\newblock {Attention is all you need}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2017.
+
+\bibitem[Zhou et~al.(2023)Zhou, Sch{\"a}rli, Hou, Wei, Scales, Wang,
+  Schuurmans, Bousquet, Le, and Chi]{zhou2022least}
+D.~Zhou, N.~Sch{\"a}rli, L.~Hou, J.~Wei, N.~Scales, X.~Wang, D.~Schuurmans,
+  O.~Bousquet, Q.~Le, and E.~Chi.
+\newblock {Least-to-Most Prompting Enables Complex Reasoning in Large Language
+  Models}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[kag(2020)]{kaggle}
+{Abstraction and Rasoning Challenge 1st place solution}.
+\newblock
+  \url{https://www.kaggle.com/competitions/abstraction-and-reasoning-challenge/discussion/154597},
+  2020.
+
+\bibitem[Su et~al.(2021)Su, Lu, Pan, Murtadha, Wen, and Liu]{su2021roformer}
+J.~Su, Y.~Lu, S.~Pan, A.~Murtadha, B.~Wen, and Y.~Liu.
+\newblock {RoFormer: Enhanced Transformer with Rotary Position Embedding}.
+\newblock \emph{arXiv:2104.09864}, 2021.
+
+\bibitem[Xu et~al.(2023)Xu, Li, Vaezipoor, Sanner, and Khalil]{xu2023llms}
+Y.~Xu, W.~Li, P.~Vaezipoor, S.~Sanner, and E.~B. Khalil.
+\newblock Llms and the abstraction and reasoning corpus: Successes, failures,
+  and the importance of object-based representations.
+\newblock \emph{arXiv:2305.18354}, 2023.
+
+\bibitem[Wang et~al.(2023)Wang, Zelikman, Poesia, Pu, Haber, and
+  Goodman]{wang2023hypothesis}
+R.~Wang, E.~Zelikman, G.~Poesia, Y.~Pu, N.~Haber, and N.~D. Goodman.
+\newblock Hypothesis search: Inductive reasoning with language models.
+\newblock \emph{arXiv:2309.05660}, 2023.
+
+\bibitem[Srivastava et~al.(2022)Srivastava, Rastogi, Rao, Shoeb, Abid, Fisch,
+  Brown, Santoro, Gupta, Garriga-Alonso, et~al.]{srivastava2022beyond}
+A.~Srivastava, A.~Rastogi, A.~Rao, A.~A.~M. Shoeb, A.~Abid, A.~Fisch, A.~R.
+  Brown, A.~Santoro, A.~Gupta, A.~Garriga-Alonso, et~al.
+\newblock {Beyond the imitation game: Quantifying and extrapolating the
+  capabilities of language models}.
+\newblock \emph{Transactions on Machine Learning Research (TMLR)}, 2022.
+
+\bibitem[Sennrich et~al.(2015)Sennrich, Haddow, and Birch]{sennrich2015neural}
+R.~Sennrich, B.~Haddow, and A.~Birch.
+\newblock {Neural machine translation of rare words with subword units}.
+\newblock In \emph{Annual Meeting of the Association for Computational
+  Linguistics}, 2015.
+
+\bibitem[Kudo and Richardson(2018)]{kudo2018sentencepiece}
+T.~Kudo and J.~Richardson.
+\newblock {SentencePiece: A simple and language independent subword tokenizer
+  and detokenizer for neural text processing}.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing}, 2018.
+
+\bibitem[Hupkes et~al.(2020)Hupkes, Dankers, Mul, and
+  Bruni]{hupkes2020compositionality}
+D.~Hupkes, V.~Dankers, M.~Mul, and E.~Bruni.
+\newblock {Compositionality decomposed: How do neural networks generalise?}
+\newblock \emph{Journal of Artificial Intelligence Research (JAIR)}, 2020.
+
+\bibitem[Allen-Zhu and Li(2023)]{allen2023physics}
+Z.~Allen-Zhu and Y.~Li.
+\newblock {Physics of Language Models: Part 1, Context-Free Grammar}.
+\newblock \emph{arXiv:2305.13673}, 2023.
+
+\bibitem[Jang(2022)]{jang2021just}
+E.~Jang.
+\newblock {Just Ask for Generalization}.
+\newblock In \emph{https://evjang.com/2021/10/23/generalization.html}, 2022.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel,
+  Srinivas, and Mordatch]{chen2021decision}
+L.~Chen, K.~Lu, A.~Rajeswaran, K.~Lee, A.~Grover, M.~Laskin, P.~Abbeel,
+  A.~Srinivas, and I.~Mordatch.
+\newblock {Decision transformer: Reinforcement learning via sequence modeling}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2021.
+
+\bibitem[Kaplan et~al.(2002)Kaplan, Oudeyer, Kubinyi, and
+  Mikl{\'o}si]{kaplan2002robotic}
+F.~Kaplan, P.-Y. Oudeyer, E.~Kubinyi, and A.~Mikl{\'o}si.
+\newblock {Robotic clicker training}.
+\newblock \emph{Robotics and Autonomous Systems}, 38\penalty0 (3-4):\penalty0
+  197--206, 2002.
+
+\bibitem[Chiandetti et~al.(2016)Chiandetti, Avella, Fongaro, and
+  Cerri]{chiandetti2016can}
+C.~Chiandetti, S.~Avella, E.~Fongaro, and F.~Cerri.
+\newblock {Can clicker training facilitate conditioning in dogs?}
+\newblock \emph{Applied Animal Behaviour Science}, 184:\penalty0 109--116,
+  2016.
+
+\bibitem[Li et~al.(2022)Li, Puig, Paxton, Du, Wang, Fan, Chen, Huang,
+  Aky{\"u}rek, Anandkumar, et~al.]{li2022pre}
+S.~Li, X.~Puig, C.~Paxton, Y.~Du, C.~Wang, L.~Fan, T.~Chen, D.-A. Huang,
+  E.~Aky{\"u}rek, A.~Anandkumar, et~al.
+\newblock {Pre-trained language models for interactive decision-making}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Driess et~al.(2023)Driess, Xia, Sajjadi, Lynch, Chowdhery, Ichter,
+  Wahid, Tompson, Vuong, Yu, et~al.]{driess2023palm}
+D.~Driess, F.~Xia, M.~S. Sajjadi, C.~Lynch, A.~Chowdhery, B.~Ichter, A.~Wahid,
+  J.~Tompson, Q.~Vuong, T.~Yu, et~al.
+\newblock {PaLM-E: An embodied multimodal language model}.
+\newblock \emph{arXiv:2303.03378}, 2023.
+
+\bibitem[Zafrir et~al.(2019)Zafrir, Boudoukh, Izsak, and
+  Wasserblat]{zafrir2019q8bert}
+O.~Zafrir, G.~Boudoukh, P.~Izsak, and M.~Wasserblat.
+\newblock {Q8bert: Quantized 8bit bert}.
+\newblock In \emph{Fifth Workshop on Energy Efficient Machine Learning and
+  Cognitive Computing-NeurIPS Edition (EMC2-NIPS)}, pages 36--39. IEEE, 2019.
+
+\bibitem[Dao et~al.(2022)Dao, Fu, Ermon, Rudra, and
+  R{\'e}]{dao2022flashattention}
+T.~Dao, D.~Fu, S.~Ermon, A.~Rudra, and C.~R{\'e}.
+\newblock {Flashattention: Fast and memory-efficient exact attention with
+  io-awareness}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Paischer et~al.(2022)Paischer, Adler, Patil, Bitto-Nemling,
+  Holzleitner, Lehner, Eghbal-Zadeh, and Hochreiter]{paischer2022history}
+F.~Paischer, T.~Adler, V.~Patil, A.~Bitto-Nemling, M.~Holzleitner, S.~Lehner,
+  H.~Eghbal-Zadeh, and S.~Hochreiter.
+\newblock History compression via language models in reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2022.
+
+\bibitem[Ellis et~al.(2021)Ellis, Wong, Nye, Sabl\'{e}-Meyer, Morales, Hewitt,
+  Cary, Solar-Lezama, and Tenenbaum]{ellis2021dreamcoder}
+K.~Ellis, C.~Wong, M.~Nye, M.~Sabl\'{e}-Meyer, L.~Morales, L.~Hewitt, L.~Cary,
+  A.~Solar-Lezama, and J.~B. Tenenbaum.
+\newblock {DreamCoder: Bootstrapping Inductive Program Synthesis with
+  Wake-Sleep Library Learning}.
+\newblock In \emph{ACM SIGPLAN International Conference on Programming Language
+  Design and Implementation (PLDI)}, 2021.
+
+\bibitem[Ellis et~al.(2022)Ellis, Morales, Sabl{\'e}-Meyer, Solar-Lezama, and
+  Tenenbaum]{ellis2018learning}
+K.~Ellis, L.~Morales, M.~Sabl{\'e}-Meyer, A.~Solar-Lezama, and J.~Tenenbaum.
+\newblock {Learning libraries of subroutines for neurally--guided bayesian
+  program induction}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+
+\bibitem[Cusumano-Towner et~al.(2019)Cusumano-Towner, Saad, Lew, and
+  Mansinghka]{cusumano2019gen}
+M.~F. Cusumano-Towner, F.~A. Saad, A.~K. Lew, and V.~K. Mansinghka.
+\newblock {Gen: A General-Purpose Probabilistic Programming System with
+  Programmable Inference}.
+\newblock In \emph{ACM SIGPLAN International Conference on Programming Language
+  Design and Implementation (PLDI)}, 2019.
+
+\end{thebibliography}

@@ -1,0 +1,615 @@
+\begin{thebibliography}{121}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI: #1}\else
+  \providecommand{\doi}{DOI: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abbasi-Yadkori et~al.(2011)Abbasi-Yadkori, P{\'a}l, and Szepesv{\'a}ri]{abbasi2011improved}
+Yasin Abbasi-Yadkori, D{\'a}vid P{\'a}l, and Csaba Szepesv{\'a}ri.
+\newblock Improved algorithms for linear stochastic bandits.
+\newblock \emph{Advances in neural information processing systems}, 24, 2011.
+
+\bibitem[Agarwal et~al.(2019)Agarwal, Jiang, Kakade, and Sun]{agarwal2019reinforcement}
+Alekh Agarwal, Nan Jiang, Sham~M Kakade, and Wen Sun.
+\newblock Reinforcement learning: Theory and algorithms.
+\newblock \emph{CS Dept., UW Seattle, Seattle, WA, USA, Tech. Rep}, 32, 2019.
+
+\bibitem[Agrawal \& Goyal(2012)Agrawal and Goyal]{agrawal2012analysis}
+Shipra Agrawal and Navin Goyal.
+\newblock Analysis of thompson sampling for the multi-armed bandit problem.
+\newblock In \emph{Conference on learning theory}, pp.\  39--1. JMLR Workshop and Conference Proceedings, 2012.
+
+\bibitem[Asghar(2016)]{asghar2016yelp}
+Nabiha Asghar.
+\newblock Yelp dataset challenge: Review rating prediction.
+\newblock \emph{arXiv preprint arXiv:1605.05362}, 2016.
+
+\bibitem[Auer \& Ortner(2010)Auer and Ortner]{auer2010ucb}
+Peter Auer and Ronald Ortner.
+\newblock Ucb revisited: Improved regret bounds for the stochastic multi-armed bandit problem.
+\newblock \emph{Periodica Mathematica Hungarica}, 61\penalty0 (1-2):\penalty0 55--65, 2010.
+
+\bibitem[Auer et~al.(2002)Auer, Cesa-Bianchi, and Fischer]{auer2002finite-time}
+Peter Auer, Nicolò Cesa-Bianchi, and Paul Fischer.
+\newblock Finite-time {Analysis} of the {Multiarmed} {Bandit} {Problem}.
+\newblock \emph{Machine Learning}, 47\penalty0 (2):\penalty0 235--256, May 2002.
+\newblock ISSN 1573-0565.
+\newblock \doi{10.1023/A:1013689704352}.
+\newblock URL \url{https://doi.org/10.1023/A:1013689704352}.
+
+\bibitem[Bengio et~al.(1990)Bengio, Bengio, and Cloutier]{bengio1990learning}
+Yoshua Bengio, Samy Bengio, and Jocelyn Cloutier.
+\newblock \emph{Learning a synaptic learning rule}.
+\newblock Universit{\'e} de Montr{\'e}al, D{\'e}partement d'informatique et de recherche~…, 1990.
+
+\bibitem[Bishop(2006)]{bishop2006pattern}
+C~Bishop.
+\newblock Pattern recognition and machine learning.
+\newblock \emph{Springer google schola}, 2:\penalty0 531--537, 2006.
+
+\bibitem[Bousquet \& Elisseeff(2002)Bousquet and Elisseeff]{bousquet2002stability}
+Olivier Bousquet and Andr{\'e} Elisseeff.
+\newblock Stability and generalization.
+\newblock \emph{The Journal of Machine Learning Research}, 2:\penalty0 499--526, 2002.
+
+\bibitem[Box \& Tiao(2011)Box and Tiao]{box2011bayesian}
+George~EP Box and George~C Tiao.
+\newblock \emph{Bayesian inference in statistical analysis}.
+\newblock John Wiley \& Sons, 2011.
+
+\bibitem[Brandfonbrener et~al.(2022)Brandfonbrener, Bietti, Buckman, Laroche, and Bruna]{brandfonbrener2022does}
+David Brandfonbrener, Alberto Bietti, Jacob Buckman, Romain Laroche, and Joan Bruna.
+\newblock When does return-conditioned supervised learning work for offline reinforcement learning?
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 1542--1553, 2022.
+
+\bibitem[Brohan et~al.(2022)Brohan, Brown, Carbajal, Chebotar, Dabis, Finn, Gopalakrishnan, Hausman, Herzog, Hsu, et~al.]{brohan2022rt}
+Anthony Brohan, Noah Brown, Justice Carbajal, Yevgen Chebotar, Joseph Dabis, Chelsea Finn, Keerthana Gopalakrishnan, Karol Hausman, Alex Herzog, Jasmine Hsu, et~al.
+\newblock Rt-1: Robotics transformer for real-world control at scale.
+\newblock \emph{arXiv preprint arXiv:2212.06817}, 2022.
+
+\bibitem[Bubeck et~al.(2008)Bubeck, Stoltz, Szepesv{\'a}ri, and Munos]{bubeck2008online}
+S{\'e}bastien Bubeck, Gilles Stoltz, Csaba Szepesv{\'a}ri, and R{\'e}mi Munos.
+\newblock Online optimization in x-armed bandits.
+\newblock \emph{Advances in Neural Information Processing Systems}, 21, 2008.
+
+\bibitem[Bubeck et~al.(2011)Bubeck, Stoltz, and Yu]{bubeck2011lipschitz}
+S{\'e}bastien Bubeck, Gilles Stoltz, and Jia~Yuan Yu.
+\newblock Lipschitz bandits without the lipschitz constant.
+\newblock In \emph{Algorithmic Learning Theory: 22nd International Conference, ALT 2011, Espoo, Finland, October 5-7, 2011. Proceedings 22}, pp.\  144--158. Springer, 2011.
+
+\bibitem[Carlin \& Louis(2008)Carlin and Louis]{carlin2008bayesian}
+Bradley~P Carlin and Thomas~A Louis.
+\newblock \emph{Bayesian methods for data analysis}.
+\newblock CRC press, 2008.
+
+\bibitem[Chaudhuri et~al.(2017)Chaudhuri, Jain, and Natarajan]{chaudhuri2017active}
+Kamalika Chaudhuri, Prateek Jain, and Nagarajan Natarajan.
+\newblock Active heteroscedastic regression.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  694--702. PMLR, 2017.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel, Srinivas, and Mordatch]{chen2021decision}
+Lili Chen, Kevin Lu, Aravind Rajeswaran, Kimin Lee, Aditya Grover, Misha Laskin, Pieter Abbeel, Aravind Srinivas, and Igor Mordatch.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 15084--15097, 2021.
+
+\bibitem[Chowdhury \& Gopalan(2017)Chowdhury and Gopalan]{chowdhury2017kernelized}
+Sayak~Ray Chowdhury and Aditya Gopalan.
+\newblock On kernelized multi-armed bandits.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  844--853. PMLR, 2017.
+
+\bibitem[Chu et~al.(2011)Chu, Li, Reyzin, and Schapire]{chu2011contextual}
+Wei Chu, Lihong Li, Lev Reyzin, and Robert Schapire.
+\newblock Contextual bandits with linear payoff functions.
+\newblock In \emph{Proceedings of the Fourteenth International Conference on Artificial Intelligence and Statistics}, pp.\  208--214. JMLR Workshop and Conference Proceedings, 2011.
+
+\bibitem[Dai et~al.(2022)Dai, Shu, Verma, Fan, Low, and Jaillet]{dai2022federated}
+Zhongxiang Dai, Yao Shu, Arun Verma, Flint~Xiaofeng Fan, Bryan Kian~Hsiang Low, and Patrick Jaillet.
+\newblock Federated neural bandit.
+\newblock \emph{arXiv preprint arXiv:2205.14309}, 2022.
+
+\bibitem[Degenne et~al.(2020)Degenne, M{\'e}nard, Shang, and Valko]{degenne2020gamification}
+R{\'e}my Degenne, Pierre M{\'e}nard, Xuedong Shang, and Michal Valko.
+\newblock Gamification of pure exploration for linear bandits.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  2432--2442. PMLR, 2020.
+
+\bibitem[Deshpande \& Montanari(2012)Deshpande and Montanari]{deshpande2012linear}
+Yash Deshpande and Andrea Montanari.
+\newblock Linear bandits in high dimension and recommendation systems.
+\newblock In \emph{2012 50th Annual Allerton Conference on Communication, Control, and Computing (Allerton)}, pp.\  1750--1754. IEEE, 2012.
+
+\bibitem[Dong et~al.(2021)Dong, Yang, and Ma]{dong2021provable}
+Kefan Dong, Jiaqi Yang, and Tengyu Ma.
+\newblock Provable model-based nonlinear bandit and reinforcement learning: Shelve optimism, embrace virtual curvature.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 26168--26182, 2021.
+
+\bibitem[Du et~al.(2023)Du, Huang, and Sun]{du2023multi}
+Yihan Du, Longbo Huang, and Wen Sun.
+\newblock Multi-task representation learning for pure exploration in linear bandits.
+\newblock \emph{arXiv preprint arXiv:2302.04441}, 2023.
+
+\bibitem[Duan et~al.(2016)Duan, Schulman, Chen, Bartlett, Sutskever, and Abbeel]{duan2016rl}
+Yan Duan, John Schulman, Xi~Chen, Peter~L Bartlett, Ilya Sutskever, and Pieter Abbeel.
+\newblock Rl $\\^{} 2$: Fast reinforcement learning via slow reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1611.02779}, 2016.
+
+\bibitem[Efroni et~al.(2020)Efroni, Mannor, and Pirotta]{efroni2020exploration}
+Yonathan Efroni, Shie Mannor, and Matteo Pirotta.
+\newblock Exploration-exploitation in constrained mdps.
+\newblock \emph{arXiv preprint arXiv:2003.02189}, 2020.
+
+\bibitem[Fedorov(2013)]{fedorov2013theory}
+Valerii~Vadimovich Fedorov.
+\newblock \emph{Theory of optimal experiments}.
+\newblock Elsevier, 2013.
+
+\bibitem[Filippi et~al.(2010)Filippi, Cappe, Garivier, and Szepesv{\'a}ri]{filippi2010parametric}
+Sarah Filippi, Olivier Cappe, Aur{\'e}lien Garivier, and Csaba Szepesv{\'a}ri.
+\newblock Parametric bandits: The generalized linear case.
+\newblock \emph{Advances in neural information processing systems}, 23, 2010.
+
+\bibitem[Finn et~al.(2017)Finn, Abbeel, and Levine]{finn2017model}
+Chelsea Finn, Pieter Abbeel, and Sergey Levine.
+\newblock Model-agnostic meta-learning for fast adaptation of deep networks.
+\newblock In \emph{International conference on machine learning}, pp.\  1126--1135. PMLR, 2017.
+
+\bibitem[Fran{\c{c}}ois-Lavet et~al.(2018)Fran{\c{c}}ois-Lavet, Henderson, Islam, Bellemare, Pineau, et~al.]{franccois2018introduction}
+Vincent Fran{\c{c}}ois-Lavet, Peter Henderson, Riashat Islam, Marc~G Bellemare, Joelle Pineau, et~al.
+\newblock An introduction to deep reinforcement learning.
+\newblock \emph{Foundations and Trends{\textregistered} in Machine Learning}, 11\penalty0 (3-4):\penalty0 219--354, 2018.
+
+\bibitem[Fu et~al.(2016)Fu, Levine, and Abbeel]{fu2016one}
+Justin Fu, Sergey Levine, and Pieter Abbeel.
+\newblock One-shot learning of manipulation skills with online dynamics adaptation and neural network priors.
+\newblock In \emph{2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, pp.\  4019--4026. IEEE, 2016.
+
+\bibitem[Fujimoto et~al.(2019)Fujimoto, Meger, and Precup]{fujimoto2019off}
+Scott Fujimoto, David Meger, and Doina Precup.
+\newblock Off-policy deep reinforcement learning without exploration.
+\newblock In \emph{International conference on machine learning}, pp.\  2052--2062. PMLR, 2019.
+
+\bibitem[Ge et~al.(2022)Ge, Guo, Yang, Al-Garadi, and Sarker]{ge2022few}
+Yao Ge, Yuting Guo, Yuan-Chi Yang, Mohammed~Ali Al-Garadi, and Abeed Sarker.
+\newblock Few-shot learning for medical text: A systematic review.
+\newblock \emph{arXiv preprint arXiv:2204.14081}, 2022.
+
+\bibitem[Ghasemipour et~al.(2022)Ghasemipour, Gu, and Nachum]{ghasemipour2022so}
+Kamyar Ghasemipour, Shixiang~Shane Gu, and Ofir Nachum.
+\newblock Why so pessimistic? estimating uncertainties for offline rl through ensembles, and why their independence matters.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 18267--18281, 2022.
+
+\bibitem[Gu et~al.(2022)Gu, Yang, Du, Chen, Walter, Wang, Yang, and Knoll]{gu2022review}
+Shangding Gu, Long Yang, Yali Du, Guang Chen, Florian Walter, Jun Wang, Yaodong Yang, and Alois Knoll.
+\newblock A review of safe reinforcement learning: Methods, theory and applications.
+\newblock \emph{arXiv preprint arXiv:2205.10330}, 2022.
+
+\bibitem[Gupta et~al.(2018)Gupta, Mendonca, Liu, Abbeel, and Levine]{gupta2018meta}
+Abhishek Gupta, Russell Mendonca, YuXuan Liu, Pieter Abbeel, and Sergey Levine.
+\newblock Meta-reinforcement learning of structured exploration strategies.
+\newblock \emph{Advances in neural information processing systems}, 31, 2018.
+
+\bibitem[Gupta et~al.(2020)Gupta, Chaudhari, Mukherjee, Joshi, and Ya{\u{g}}an]{gupta2020unified}
+Samarth Gupta, Shreyas Chaudhari, Subhojyoti Mukherjee, Gauri Joshi, and Osman Ya{\u{g}}an.
+\newblock A unified approach to translate classical bandit algorithms to the structured bandit setting.
+\newblock \emph{IEEE Journal on Selected Areas in Information Theory}, 1\penalty0 (3):\penalty0 840--853, 2020.
+
+\bibitem[Harper \& Konstan(2015)Harper and Konstan]{harper2015movielens}
+F~Maxwell Harper and Joseph~A Konstan.
+\newblock The movielens datasets: History and context.
+\newblock \emph{Acm transactions on interactive intelligent systems (tiis)}, 5\penalty0 (4):\penalty0 1--19, 2015.
+
+\bibitem[Hong et~al.(2020)Hong, Kveton, Zaheer, Chow, Ahmed, and Boutilier]{hong2020latent}
+Joey Hong, Branislav Kveton, Manzil Zaheer, Yinlam Chow, Amr Ahmed, and Craig Boutilier.
+\newblock Latent bandits revisited.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 13423--13433, 2020.
+
+\bibitem[Hong et~al.(2022{\natexlab{a}})Hong, Kveton, Katariya, Zaheer, and Ghavamzadeh]{hong2022deep}
+Joey Hong, Branislav Kveton, Sumeet Katariya, Manzil Zaheer, and Mohammad Ghavamzadeh.
+\newblock Deep hierarchy in bandits.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  8833--8851. PMLR, 2022{\natexlab{a}}.
+
+\bibitem[Hong et~al.(2022{\natexlab{b}})Hong, Kveton, Zaheer, and Ghavamzadeh]{hong2022hierarchical}
+Joey Hong, Branislav Kveton, Manzil Zaheer, and Mohammad Ghavamzadeh.
+\newblock Hierarchical bayesian bandits.
+\newblock In \emph{International Conference on Artificial Intelligence and Statistics}, pp.\  7724--7741. PMLR, 2022{\natexlab{b}}.
+
+\bibitem[Hong et~al.(2023)Hong, Kveton, Zaheer, Katariya, and Ghavamzadeh]{hong2023multi}
+Joey Hong, Branislav Kveton, Manzil Zaheer, Sumeet Katariya, and Mohammad Ghavamzadeh.
+\newblock Multi-task off-policy learning from bandit feedback.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  13157--13173. PMLR, 2023.
+
+\bibitem[Janner et~al.(2021)Janner, Li, and Levine]{janner2021offline}
+Michael Janner, Qiyang Li, and Sergey Levine.
+\newblock Offline reinforcement learning as one big sequence modeling problem.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 1273--1286, 2021.
+
+\bibitem[Jiang et~al.(2022)Jiang, Liu, Eysenbach, Kolter, and Finn]{jiang2022learning}
+Yiding Jiang, Evan Liu, Benjamin Eysenbach, J~Zico Kolter, and Chelsea Finn.
+\newblock Learning options via compression.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 21184--21199, 2022.
+
+\bibitem[Johnson et~al.(2002)Johnson, Wichern, et~al.]{johnson2002applied}
+Richard~Arnold Johnson, Dean~W Wichern, et~al.
+\newblock Applied multivariate statistical analysis.
+\newblock 2002.
+
+\bibitem[Jun et~al.(2019)Jun, Willett, Wright, and Nowak]{jun2019bilinear}
+Kwang-Sung Jun, Rebecca Willett, Stephen Wright, and Robert Nowak.
+\newblock Bilinear bandits with low-rank structure.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  3163--3172. PMLR, 2019.
+
+\bibitem[Justus et~al.(2018)Justus, Brennan, Bonner, and McGough]{justus2018predicting}
+Daniel Justus, John Brennan, Stephen Bonner, and Andrew~Stephen McGough.
+\newblock Predicting the computational cost of deep learning models.
+\newblock In \emph{2018 IEEE international conference on big data (Big Data)}, pp.\  3873--3882. IEEE, 2018.
+
+\bibitem[Kang et~al.(2022)Kang, Hsieh, and Lee]{kang2022efficient}
+Yue Kang, Cho-Jui Hsieh, and Thomas Chun~Man Lee.
+\newblock Efficient frameworks for generalized low-rank matrix bandit problems.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 19971--19983, 2022.
+
+\bibitem[Keles et~al.(2023)Keles, Wijewardena, and Hegde]{keles2023computational}
+Feyza~Duman Keles, Pruthuvi~Mahesakya Wijewardena, and Chinmay Hegde.
+\newblock On the computational complexity of self-attention.
+\newblock In \emph{International Conference on Algorithmic Learning Theory}, pp.\  597--619. PMLR, 2023.
+
+\bibitem[Kumar et~al.(2019)Kumar, Fu, Soh, Tucker, and Levine]{kumar2019stabilizing}
+Aviral Kumar, Justin Fu, Matthew Soh, George Tucker, and Sergey Levine.
+\newblock Stabilizing off-policy q-learning via bootstrapping error reduction.
+\newblock \emph{Advances in Neural Information Processing Systems}, 32, 2019.
+
+\bibitem[Kumar et~al.(2020)Kumar, Zhou, Tucker, and Levine]{kumar2020conservative}
+Aviral Kumar, Aurick Zhou, George Tucker, and Sergey Levine.
+\newblock Conservative q-learning for offline reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 1179--1191, 2020.
+
+\bibitem[Kveton et~al.(2017)Kveton, Szepesv{\'a}ri, Rao, Wen, Abbasi-Yadkori, and Muthukrishnan]{kveton2017stochastic}
+Branislav Kveton, Csaba Szepesv{\'a}ri, Anup Rao, Zheng Wen, Yasin Abbasi-Yadkori, and S~Muthukrishnan.
+\newblock Stochastic low-rank bandits.
+\newblock \emph{arXiv preprint arXiv:1712.04644}, 2017.
+
+\bibitem[Kwon et~al.(2022)Kwon, Efroni, Caramanis, and Mannor]{kwon2022tractable}
+Jeongyeol Kwon, Yonathan Efroni, Constantine Caramanis, and Shie Mannor.
+\newblock Tractable optimality in episodic latent mabs.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 23634--23645, 2022.
+
+\bibitem[Landolfi et~al.(2019)Landolfi, Thomas, and Ma]{landolfi2019model}
+Nicholas~C Landolfi, Garrett Thomas, and Tengyu Ma.
+\newblock A model-based approach for sample-efficient multi-task reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1907.04964}, 2019.
+
+\bibitem[Laskin et~al.(2022)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald, Strouse, Hansen, Filos, Brooks, et~al.]{laskin2022context}
+Michael Laskin, Luyu Wang, Junhyuk Oh, Emilio Parisotto, Stephen Spencer, Richie Steigerwald, DJ~Strouse, Steven Hansen, Angelos Filos, Ethan Brooks, et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock \emph{arXiv preprint arXiv:2210.14215}, 2022.
+
+\bibitem[Lattimore \& Szepesv{\'a}ri(2019)Lattimore and Szepesv{\'a}ri]{lattimore2019information}
+Tor Lattimore and Csaba Szepesv{\'a}ri.
+\newblock An information-theoretic approach to minimax regret in partial monitoring.
+\newblock In \emph{Conference on Learning Theory}, pp.\  2111--2139. PMLR, 2019.
+
+\bibitem[Lattimore \& Szepesv{\'a}ri(2020)Lattimore and Szepesv{\'a}ri]{lattimore2020bandit}
+Tor Lattimore and Csaba Szepesv{\'a}ri.
+\newblock \emph{Bandit algorithms}.
+\newblock Cambridge University Press, 2020.
+
+\bibitem[Lee et~al.(2023)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and Brunskill]{lee2023supervised}
+Jonathan~N Lee, Annie Xie, Aldo Pacchiano, Yash Chandak, Chelsea Finn, Ofir Nachum, and Emma Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2306.14892}, 2023.
+
+\bibitem[Lee et~al.(2022)Lee, Nachum, Yang, Lee, Freeman, Guadarrama, Fischer, Xu, Jang, Michalewski, et~al.]{lee2022multi}
+Kuang-Huei Lee, Ofir Nachum, Mengjiao~Sherry Yang, Lisa Lee, Daniel Freeman, Sergio Guadarrama, Ian Fischer, Winnie Xu, Eric Jang, Henryk Michalewski, et~al.
+\newblock Multi-game decision transformers.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 27921--27936, 2022.
+
+\bibitem[Li et~al.(2020)Li, Yang, and Luo]{li2020focal}
+Lanqing Li, Rui Yang, and Dijun Luo.
+\newblock Focal: Efficient fully-offline meta-reinforcement learning via distance metric learning and behavior regularization.
+\newblock \emph{arXiv preprint arXiv:2010.01112}, 2020.
+
+\bibitem[Li et~al.(2010)Li, Chu, Langford, and Schapire]{li2010contextual}
+Lihong Li, Wei Chu, John Langford, and Robert~E Schapire.
+\newblock A contextual-bandit approach to personalized news article recommendation.
+\newblock In \emph{Proceedings of the 19th international conference on World wide web}, pp.\  661--670, 2010.
+
+\bibitem[Li et~al.(2017)Li, Lu, and Zhou]{li2017provably}
+Lihong Li, Yu~Lu, and Dengyong Zhou.
+\newblock Provably optimal algorithms for generalized linear contextual bandits.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  2071--2080. PMLR, 2017.
+
+\bibitem[Li et~al.(2023)Li, Ildiz, Papailiopoulos, and Oymak]{li2023transformers}
+Yingcong Li, Muhammed~Emrullah Ildiz, Dimitris Papailiopoulos, and Samet Oymak.
+\newblock Transformers as algorithms: Generalization and stability in in-context learning.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  19565--19594. PMLR, 2023.
+
+\bibitem[Lin et~al.(2023)Lin, Bai, and Mei]{lin2023transformers}
+Licong Lin, Yu~Bai, and Song Mei.
+\newblock Transformers as decision makers: Provable in-context reinforcement learning via supervised pretraining.
+\newblock \emph{arXiv preprint arXiv:2310.08566}, 2023.
+
+\bibitem[Liu et~al.(2021)Liu, Raghunathan, Liang, and Finn]{liu2021decoupling}
+Evan~Z Liu, Aditi Raghunathan, Percy Liang, and Chelsea Finn.
+\newblock Decoupling exploration and exploitation for meta-reinforcement learning without sacrifices.
+\newblock In \emph{International conference on machine learning}, pp.\  6925--6935. PMLR, 2021.
+
+\bibitem[Liu et~al.(2023{\natexlab{a}})Liu, Jiao, and Zhang]{liu2023self}
+Xiaoqian Liu, Jianbin Jiao, and Junge Zhang.
+\newblock Self-supervised pretraining for decision foundation model: Formulation, pipeline and challenges.
+\newblock \emph{arXiv preprint arXiv:2401.00031}, 2023{\natexlab{a}}.
+
+\bibitem[Liu et~al.(2023{\natexlab{b}})Liu, McDuff, Kovacs, Galatzer-Levy, Sunshine, Zhan, Poh, Liao, Di~Achille, and Patel]{liu2023large}
+Xin Liu, Daniel McDuff, Geza Kovacs, Isaac Galatzer-Levy, Jacob Sunshine, Jiening Zhan, Ming-Zher Poh, Shun Liao, Paolo Di~Achille, and Shwetak Patel.
+\newblock Large language models are few-shot health learners.
+\newblock \emph{arXiv preprint arXiv:2305.15525}, 2023{\natexlab{b}}.
+
+\bibitem[Liu et~al.(2019)Liu, Swaminathan, Agarwal, and Brunskill]{liu2019off}
+Yao Liu, Adith Swaminathan, Alekh Agarwal, and Emma Brunskill.
+\newblock Off-policy policy gradient with state distribution correction.
+\newblock \emph{arXiv preprint arXiv:1904.08473}, 2019.
+
+\bibitem[Liu et~al.(2020)Liu, Swaminathan, Agarwal, and Brunskill]{liu2020provably}
+Yao Liu, Adith Swaminathan, Alekh Agarwal, and Emma Brunskill.
+\newblock Provably good batch off-policy reinforcement learning without great exploration.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 1264--1274, 2020.
+
+\bibitem[Liu et~al.(2023{\natexlab{c}})Liu, Hu, Zhang, Guo, Ke, Liu, and Wang]{liu2023reason}
+Zhihan Liu, Hao Hu, Shenao Zhang, Hongyi Guo, Shuqi Ke, Boyi Liu, and Zhaoran Wang.
+\newblock Reason for future, act for now: A principled framework for autonomous llm agents with provable sample efficiency.
+\newblock \emph{arXiv preprint arXiv:2309.17382}, 2023{\natexlab{c}}.
+
+\bibitem[Lu et~al.(2023)Lu, Schroecker, Gu, Parisotto, Foerster, Singh, and Behbahani]{lu2023structured}
+Chris Lu, Yannick Schroecker, Albert Gu, Emilio Parisotto, Jakob Foerster, Satinder Singh, and Feryal Behbahani.
+\newblock Structured state space models for in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2303.03982}, 2023.
+
+\bibitem[Lu et~al.(2021)Lu, Meisami, and Tewari]{lu2021low}
+Yangyi Lu, Amirhossein Meisami, and Ambuj Tewari.
+\newblock Low-rank generalized linear bandit problems.
+\newblock In \emph{International Conference on Artificial Intelligence and Statistics}, pp.\  460--468. PMLR, 2021.
+
+\bibitem[Ma et~al.(2023)Ma, Xiao, Liang, and Hao]{ma2023rethinking}
+Yi~Ma, Chenjun Xiao, Hebin Liang, and Jianye Hao.
+\newblock Rethinking decision transformer via hierarchical reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2311.00267}, 2023.
+
+\bibitem[Madotto et~al.(2021)Madotto, Lin, Winata, and Fung]{madotto2021few}
+Andrea Madotto, Zhaojiang Lin, Genta~Indra Winata, and Pascale Fung.
+\newblock Few-shot bot: Prompt-based learning for dialogue systems.
+\newblock \emph{arXiv preprint arXiv:2110.08118}, 2021.
+
+\bibitem[Magureanu et~al.(2014)Magureanu, Combes, and Proutiere]{magureanu2014lipschitz}
+Stefan Magureanu, Richard Combes, and Alexandre Proutiere.
+\newblock Lipschitz bandits: Regret lower bound and optimal algorithms.
+\newblock In \emph{Conference on Learning Theory}, pp.\  975--999. PMLR, 2014.
+
+\bibitem[Maillard \& Mannor(2014)Maillard and Mannor]{maillard2014latent}
+Odalric-Ambrym Maillard and Shie Mannor.
+\newblock Latent bandits.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  136--144. PMLR, 2014.
+
+\bibitem[Min et~al.(2022)Min, Lyu, Holtzman, Artetxe, Lewis, Hajishirzi, and Zettlemoyer]{min2022rethinking}
+Sewon Min, Xinxi Lyu, Ari Holtzman, Mikel Artetxe, Mike Lewis, Hannaneh Hajishirzi, and Luke Zettlemoyer.
+\newblock Rethinking the role of demonstrations: What makes in-context learning work?
+\newblock \emph{arXiv preprint arXiv:2202.12837}, 2022.
+
+\bibitem[Mirchandani et~al.(2023)Mirchandani, Xia, Florence, Ichter, Driess, Arenas, Rao, Sadigh, and Zeng]{mirchandani2023large}
+Suvir Mirchandani, Fei Xia, Pete Florence, Brian Ichter, Danny Driess, Montserrat~Gonzalez Arenas, Kanishka Rao, Dorsa Sadigh, and Andy Zeng.
+\newblock Large language models as general pattern machines.
+\newblock \emph{arXiv preprint arXiv:2307.04721}, 2023.
+
+\bibitem[Mishra et~al.(2017)Mishra, Rohaninejad, Chen, and Abbeel]{mishra2017simple}
+Nikhil Mishra, Mostafa Rohaninejad, Xi~Chen, and Pieter Abbeel.
+\newblock A simple neural attentive meta-learner.
+\newblock \emph{arXiv preprint arXiv:1707.03141}, 2017.
+
+\bibitem[Mitchell et~al.(2021)Mitchell, Rafailov, Peng, Levine, and Finn]{mitchell2021offline}
+Eric Mitchell, Rafael Rafailov, Xue~Bin Peng, Sergey Levine, and Chelsea Finn.
+\newblock Offline meta-reinforcement learning with advantage weighting.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  7780--7791. PMLR, 2021.
+
+\bibitem[Mnih et~al.(2013)Mnih, Kavukcuoglu, Silver, Graves, Antonoglou, Wierstra, and Riedmiller]{mnih2013playing}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, and Martin Riedmiller.
+\newblock Playing atari with deep reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1312.5602}, 2013.
+
+\bibitem[Mukherjee et~al.(2023)Mukherjee, Xie, Hanna, and Nowak]{mukherjee2023multi}
+Subhojyoti Mukherjee, Qiaomin Xie, Josiah~P Hanna, and Robert Nowak.
+\newblock Multi-task representation learning for pure exploration in bilinear bandits.
+\newblock \emph{arXiv preprint arXiv:2311.00327}, 2023.
+
+\bibitem[M{\"u}ller et~al.(2021)M{\"u}ller, Hollmann, Arango, Grabocka, and Hutter]{muller2021transformers}
+Samuel M{\"u}ller, Noah Hollmann, Sebastian~Pineda Arango, Josif Grabocka, and Frank Hutter.
+\newblock Transformers can do bayesian inference.
+\newblock \emph{arXiv preprint arXiv:2112.10510}, 2021.
+
+\bibitem[Nagabandi et~al.(2018)Nagabandi, Clavera, Liu, Fearing, Abbeel, Levine, and Finn]{nagabandi2018learning}
+Anusha Nagabandi, Ignasi Clavera, Simin Liu, Ronald~S Fearing, Pieter Abbeel, Sergey Levine, and Chelsea Finn.
+\newblock Learning to adapt in dynamic, real-world environments through meta-reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1803.11347}, 2018.
+
+\bibitem[Neyshabur et~al.(2017)Neyshabur, Tomioka, Salakhutdinov, and Srebro]{neyshabur2017geometry}
+Behnam Neyshabur, Ryota Tomioka, Ruslan Salakhutdinov, and Nathan Srebro.
+\newblock Geometry of optimization and implicit regularization in deep learning.
+\newblock \emph{arXiv preprint arXiv:1705.03071}, 2017.
+
+\bibitem[Pal et~al.(2023)Pal, Suggala, Shanmugam, and Jain]{pal2023optimal}
+Soumyabrata Pal, Arun~Sai Suggala, Karthikeyan Shanmugam, and Prateek Jain.
+\newblock Optimal algorithms for latent bandits with cluster structure.
+\newblock In \emph{International Conference on Artificial Intelligence and Statistics}, pp.\  7540--7577. PMLR, 2023.
+
+\bibitem[Perkins \& Precup(1999)Perkins and Precup]{perkins1999using}
+Theodore~J Perkins and Doina Precup.
+\newblock Using options for knowledge transfer in reinforcement learning title2, 1999.
+
+\bibitem[Pong et~al.(2022)Pong, Nair, Smith, Huang, and Levine]{pong2022offline}
+Vitchyr~H Pong, Ashvin~V Nair, Laura~M Smith, Catherine Huang, and Sergey Levine.
+\newblock Offline meta-reinforcement learning with online self-supervision.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  17811--17829. PMLR, 2022.
+
+\bibitem[Pukelsheim(2006)]{pukelsheim2006optimal}
+Friedrich Pukelsheim.
+\newblock \emph{Optimal design of experiments}.
+\newblock SIAM, 2006.
+
+\bibitem[Rakelly et~al.(2019)Rakelly, Zhou, Finn, Levine, and Quillen]{rakelly2019efficient}
+Kate Rakelly, Aurick Zhou, Chelsea Finn, Sergey Levine, and Deirdre Quillen.
+\newblock Efficient off-policy meta-reinforcement learning via probabilistic context variables.
+\newblock In \emph{International conference on machine learning}, pp.\  5331--5340. PMLR, 2019.
+
+\bibitem[Reed et~al.(2022)Reed, Zolna, Parisotto, Colmenarejo, Novikov, Barth-Maron, Gimenez, Sulsky, Kay, Springenberg, et~al.]{reed2022generalist}
+Scott Reed, Konrad Zolna, Emilio Parisotto, Sergio~Gomez Colmenarejo, Alexander Novikov, Gabriel Barth-Maron, Mai Gimenez, Yury Sulsky, Jackie Kay, Jost~Tobias Springenberg, et~al.
+\newblock A generalist agent.
+\newblock \emph{arXiv preprint arXiv:2205.06175}, 2022.
+
+\bibitem[Riquelme et~al.(2018)Riquelme, Tucker, and Snoek]{riquelme2018deep}
+Carlos Riquelme, George Tucker, and Jasper Snoek.
+\newblock Deep bayesian bandits showdown: An empirical comparison of bayesian deep networks for thompson sampling.
+\newblock \emph{arXiv preprint arXiv:1802.09127}, 2018.
+
+\bibitem[Roberts et~al.(2019)Roberts, Raffel, Lee, Matena, Shazeer, Liu, Narang, Li, and Zhou]{roberts2019exploring}
+Adam Roberts, Colin Raffel, Katherine Lee, Michael Matena, Noam Shazeer, Peter~J Liu, Sharan Narang, Wei Li, and Yanqi Zhou.
+\newblock Exploring the limits of transfer learning with a unified text-to-text transformer.
+\newblock 2019.
+
+\bibitem[Rothfuss et~al.(2018)Rothfuss, Lee, Clavera, Asfour, and Abbeel]{rothfuss2018promp}
+Jonas Rothfuss, Dennis Lee, Ignasi Clavera, Tamim Asfour, and Pieter Abbeel.
+\newblock Promp: Proximal meta-policy search.
+\newblock \emph{arXiv preprint arXiv:1810.06784}, 2018.
+
+\bibitem[Russo et~al.(2018)Russo, Van~Roy, Kazerouni, Osband, Wen, et~al.]{russo2018tutorial}
+Daniel~J Russo, Benjamin Van~Roy, Abbas Kazerouni, Ian Osband, Zheng Wen, et~al.
+\newblock A tutorial on thompson sampling.
+\newblock \emph{Foundations and Trends{\textregistered} in Machine Learning}, 11\penalty0 (1):\penalty0 1--96, 2018.
+
+\bibitem[Schaul \& Schmidhuber(2010)Schaul and Schmidhuber]{schaul2010metalearning}
+Tom Schaul and J{\"u}rgen Schmidhuber.
+\newblock Metalearning.
+\newblock \emph{Scholarpedia}, 5\penalty0 (6):\penalty0 4650, 2010.
+
+\bibitem[Semnani et~al.(2023)Semnani, Yao, Zhang, and Lam]{semnani2023wikichat}
+Sina Semnani, Violet Yao, Heidi Zhang, and Monica Lam.
+\newblock Wikichat: Stopping the hallucination of large language model chatbots by few-shot grounding on wikipedia.
+\newblock In \emph{Findings of the Association for Computational Linguistics: EMNLP 2023}, pp.\  2387--2413, 2023.
+
+\bibitem[Shafiullah et~al.(2022)Shafiullah, Cui, Altanzaya, and Pinto]{shafiullah2022behavior}
+Nur~Muhammad Shafiullah, Zichen Cui, Ariuntuya~Arty Altanzaya, and Lerrel Pinto.
+\newblock Behavior transformers: Cloning $ k $ modes with one stone.
+\newblock \emph{Advances in neural information processing systems}, 35:\penalty0 22955--22968, 2022.
+
+\bibitem[Siegel et~al.(2020)Siegel, Springenberg, Berkenkamp, Abdolmaleki, Neunert, Lampe, Hafner, Heess, and Riedmiller]{siegel2020keep}
+Noah~Y Siegel, Jost~Tobias Springenberg, Felix Berkenkamp, Abbas Abdolmaleki, Michael Neunert, Thomas Lampe, Roland Hafner, Nicolas Heess, and Martin Riedmiller.
+\newblock Keep doing what worked: Behavioral modelling priors for offline reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2002.08396}, 2020.
+
+\bibitem[Sinii et~al.(2023)Sinii, Nikulin, Kurenkov, Zisman, and Kolesnikov]{sinii2023context}
+Viacheslav Sinii, Alexander Nikulin, Vladislav Kurenkov, Ilya Zisman, and Sergey Kolesnikov.
+\newblock In-context reinforcement learning for variable action spaces.
+\newblock \emph{arXiv preprint arXiv:2312.13327}, 2023.
+
+\bibitem[Soudry et~al.(2018)Soudry, Hoffer, Nacson, Gunasekar, and Srebro]{soudry2018implicit}
+Daniel Soudry, Elad Hoffer, Mor~Shpigel Nacson, Suriya Gunasekar, and Nathan Srebro.
+\newblock The implicit bias of gradient descent on separable data.
+\newblock \emph{Journal of Machine Learning Research}, 19\penalty0 (70):\penalty0 1--57, 2018.
+
+\bibitem[Sutton \& Barto(2018)Sutton and Barto]{sutton2018reinforcement}
+Richard~S Sutton and Andrew~G Barto.
+\newblock \emph{Reinforcement learning: An introduction}.
+\newblock MIT press, 2018.
+
+\bibitem[Thompson(1933)]{thompson1933likelihood}
+William~R Thompson.
+\newblock On the likelihood that one unknown probability exceeds another in view of the evidence of two samples.
+\newblock \emph{Biometrika}, 25\penalty0 (3-4):\penalty0 285--294, 1933.
+
+\bibitem[Tomkins et~al.(2020)Tomkins, Liao, Klasnja, Yeung, and Murphy]{tomkins2020rapidly}
+Sabina Tomkins, Peng Liao, Predrag Klasnja, Serena Yeung, and Susan Murphy.
+\newblock Rapidly personalizing mobile health treatment policies with limited data.
+\newblock \emph{arXiv preprint arXiv:2002.09971}, 2020.
+
+\bibitem[Valko et~al.(2013)Valko, Korda, Munos, Flaounas, and Cristianini]{valko2013finite}
+Michal Valko, Nathaniel Korda, R{\'e}mi Munos, Ilias Flaounas, and Nelo Cristianini.
+\newblock Finite-time analysis of kernelised contextual bandits.
+\newblock \emph{arXiv preprint arXiv:1309.6869}, 2013.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan~N Gomez, {L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock \emph{Advances in neural information processing systems}, 30, 2017.
+
+\bibitem[Wang et~al.(2016)Wang, Kurth-Nelson, Tirumala, Soyer, Leibo, Munos, Blundell, Kumaran, and Botvinick]{wang2016learning}
+Jane~X Wang, Zeb Kurth-Nelson, Dhruva Tirumala, Hubert Soyer, Joel~Z Leibo, Remi Munos, Charles Blundell, Dharshan Kumaran, and Matt Botvinick.
+\newblock Learning to reinforcement learn.
+\newblock \emph{arXiv preprint arXiv:1611.05763}, 2016.
+
+\bibitem[Wu et~al.(2019)Wu, Tucker, and Nachum]{wu2019behavior}
+Yifan Wu, George Tucker, and Ofir Nachum.
+\newblock Behavior regularized offline reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1911.11361}, 2019.
+
+\bibitem[Xie et~al.(2021)Xie, Raghunathan, Liang, and Ma]{xie2021explanation}
+Sang~Michael Xie, Aditi Raghunathan, Percy Liang, and Tengyu Ma.
+\newblock An explanation of in-context learning as implicit bayesian inference.
+\newblock \emph{arXiv preprint arXiv:2111.02080}, 2021.
+
+\bibitem[Yang et~al.(2023)Yang, Robeyns, Wang, and Aitchison]{yang2023bayesian}
+Adam~X Yang, Maxime Robeyns, Xi~Wang, and Laurence Aitchison.
+\newblock Bayesian low-rank adaptation for large language models.
+\newblock \emph{arXiv preprint arXiv:2308.13111}, 2023.
+
+\bibitem[Yang et~al.(2020)Yang, Hu, Lee, and Du]{yang2020impact}
+Jiaqi Yang, Wei Hu, Jason~D Lee, and Simon~S Du.
+\newblock Impact of representation learning in linear bandits.
+\newblock \emph{arXiv preprint arXiv:2010.06531}, 2020.
+
+\bibitem[Yang et~al.(2021)Yang, Hu, Lee, and Du]{yang2021impact}
+Jiaqi Yang, Wei Hu, Jason~D Lee, and Simon~Shaolei Du.
+\newblock Impact of representation learning in linear bandits.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+
+\bibitem[Yang et~al.(2022{\natexlab{a}})Yang, Lei, Lee, and Du]{yang2022nearly}
+Jiaqi Yang, Qi~Lei, Jason~D Lee, and Simon~S Du.
+\newblock Nearly minimax algorithms for linear bandits with shared representation.
+\newblock \emph{arXiv preprint arXiv:2203.15664}, 2022{\natexlab{a}}.
+
+\bibitem[Yang \& Wang(2020)Yang and Wang]{yang2020reinforcement}
+Lin Yang and Mengdi Wang.
+\newblock Reinforcement learning in feature space: Matrix bandit, kernels, and regret bound.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  10746--10756. PMLR, 2020.
+
+\bibitem[Yang et~al.(2022{\natexlab{b}})Yang, Schuurmans, Abbeel, and Nachum]{yang2022dichotomy}
+Mengjiao Yang, Dale Schuurmans, Pieter Abbeel, and Ofir Nachum.
+\newblock Dichotomy of control: Separating what you can control from what you cannot.
+\newblock \emph{arXiv preprint arXiv:2210.13435}, 2022{\natexlab{b}}.
+
+\bibitem[Yu et~al.(2021)Yu, Kumar, Rafailov, Rajeswaran, Levine, and Finn]{yu2021combo}
+Tianhe Yu, Aviral Kumar, Rafael Rafailov, Aravind Rajeswaran, Sergey Levine, and Chelsea Finn.
+\newblock Combo: Conservative offline model-based policy optimization.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 28954--28967, 2021.
+
+\bibitem[Zambaldi et~al.(2018)Zambaldi, Raposo, Santoro, Bapst, Li, Babuschkin, Tuyls, Reichert, Lillicrap, Lockhart, et~al.]{zambaldi2018relational}
+Vinicius Zambaldi, David Raposo, Adam Santoro, Victor Bapst, Yujia Li, Igor Babuschkin, Karl Tuyls, David Reichert, Timothy Lillicrap, Edward Lockhart, et~al.
+\newblock Relational deep reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1806.01830}, 2018.
+
+\bibitem[Zhao et~al.(2023)Zhao, Huang, Xu, Lin, Liu, and Huang]{zhao2023expel}
+Andrew Zhao, Daniel Huang, Quentin Xu, Matthieu Lin, Yong-Jin Liu, and Gao Huang.
+\newblock Expel: Llm agents are experiential learners.
+\newblock \emph{arXiv preprint arXiv:2308.10144}, 2023.
+
+\bibitem[Zhou et~al.(2020)Zhou, Li, and Gu]{zhou2020neural}
+Dongruo Zhou, Lihong Li, and Quanquan Gu.
+\newblock Neural contextual bandits with ucb-based exploration.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  11492--11502. PMLR, 2020.
+
+\bibitem[Zhu \& Tan(2020)Zhu and Tan]{zhu2020thompson}
+Qiuyu Zhu and Vincent Tan.
+\newblock Thompson sampling algorithms for mean-variance bandits.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  11599--11608. PMLR, 2020.
+
+\bibitem[Zintgraf et~al.(2019)Zintgraf, Shiarlis, Igl, Schulze, Gal, Hofmann, and Whiteson]{zintgraf2019varibad}
+Luisa Zintgraf, Kyriacos Shiarlis, Maximilian Igl, Sebastian Schulze, Yarin Gal, Katja Hofmann, and Shimon Whiteson.
+\newblock Varibad: A very good method for bayes-adaptive deep rl via meta-learning.
+\newblock \emph{arXiv preprint arXiv:1910.08348}, 2019.
+
+\end{thebibliography}

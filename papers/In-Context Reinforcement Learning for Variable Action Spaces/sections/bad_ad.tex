@@ -1,0 +1,11 @@
+\section{Algorithm Distillation Struggles with Novel Action Spaces}
+\label{section:ad_struggles}
+
+Algorithm Distillation (AD) \citep{laskin2022context} is a transformer model trained to autoregressively predict the next action given the history of previous environment interactions and a current state. Formally, the history is defined as:
+\[
+h_t = \left(o_0, a_0, r_0, \dots, o_t, a_t, r_t\right),
+\]
+where $o$ are the observations, $a$ are the actions and $r$ are the rewards. The probabilities of each action are given by a model $P_\theta(A=a^{(n)}_t|h_{t-1}, o_t)$, where $n$ is the action index, $t$ is a timestamp and $\theta$ are the model weights. 
+AD is pretrained on data logged by a training agent, and the context size should be sufficiently large to span multiple episodes in order to capture policy improvement. This way, AD learns an improvement operator that increases performance entirely in-context when applied to novel tasks.
+
+The model output is a probability distribution across the action set, derived from a linear projection and a softmax function. As highlighted in \Cref{fig:bad_ad}, this structure causes a fundamental limitation in AD's adaptability to new action spaces, as the output dimension is predetermined. To accommodate an action set of a different size than the one used during training, the model's final layer must be redefined and the model retrained. Moreover, even with a constant action space size, the model's efficacy diminishes if the action semantics are altered. The reason for this is the classifier nature of the model, which associates each dimension with a particular meaning of an action. Since augmenting the dataset with permuted action sets does not lead to improvement, it signifies that action set invariance should be enforced from a model design standpoint.

@@ -1,0 +1,1713 @@
+\documentclass[11pt, logo]{googledeepmind}
+\usepackage[authoryear, sort&compress, round]{natbib}
+\bibliographystyle{abbrvnat}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=blue
+}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{soul}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{RGB}{245,248,250}
+\definecolor{emph}{RGB}{166,88,53}
+\definecolor{nightblue}{RGB}{9,49,105}
+\definecolor{keywords}{RGB}{207,33,46}
+\definecolor{lightpurple}{RGB}{130,81,223}
+\definecolor{skyblue}{RGB}{86,168,245}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{keywords},
+    stringstyle=\color{nightblue},
+    basicstyle=\fontsize{7}{8}\ttfamily,
+    breakatwhitespace=true,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numberstyle=\tiny\color{codegray},
+    numbersep=2pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    emph={bundle,@trace,trace,backward, instruction, code, documentation, variables, constraints,inputs,others,outputs,feedback,actual_problem_instance,variable1_name,variable2_name,variable1_value1,variable1_value2,variable2_value1,variable2_value2,feedback_1,feedback_2,node,@trace_class},
+    emphstyle={\color{codepurple}},
+    linewidth=1\columnwidth,
+    frame=tb,
+    xrightmargin=0pt,
+    xleftmargin=0.23cm,
+    numbers=left,
+    aboveskip=0.2cm,
+    belowskip=0.1cm,
+}
+\lstset{style=mystyle}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\mathtoolsset{showonlyrefs}
+\newtheorem{defn}{Definition}[]
+\newtheorem{thm}{Theorem}[]
+\newtheorem{claim}{Claim}[]
+\newtheorem{lemma}{Lemma}[]
+\newtheorem{prop}{Property}[]
+\newtheorem{ass}{Assumption}[]
+\newtheorem{cor}{Corollary}[]
+\newtheorem{rem}{Remark}[]
+\newtheorem{assumpA}{Assumption}
+\renewcommand\theassumpA{A\arabic{assumpA}}
+\usepackage{courier}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{hyperref}
+\usepackage{theoremref}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\definecolor{dark-red}{rgb}{0.4,0.15,0.15}
+\definecolor{dark-blue}{rgb}{0,0,0.7}
+\hypersetup{
+    colorlinks, linkcolor={dark-blue},
+    citecolor={dark-blue}, urlcolor={dark-blue}
+}
+\newcommand{\emma}[1]{\textcolor{purple}{[Emma: #1]}}
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\yash}[1]{\todo[color=blue!40]{Yash: #1}}
+\newcommand{\red}[1]{\textcolor{red}{[#1]}}
+\newcommand{\blue}[1]{\textcolor{blue}{[#1]}}
+\let\oldnl\nl
+\newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{nicefrac}
+\usepackage[parfill]{parskip}
+\DeclareMathOperator*{\ind}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\notind}{\not\!\perp\!\!\!\perp}
+\DeclareMathOperator*{\cov}{\texttt{Cov}}
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\pibopt}{\pi_{b^\star}}
+\newcommand{\pib}{{\pi_b}}
+\newcommand{\pitheta}{{\pi_\btheta}}
+\newcommand{\deltheta}{{\frac{\partial}{\partial \btheta}}}
+\newcommand{\delthetatwo}{{\frac{\partial^2}{\partial^2 \btheta}}}
+\newcommand{\pieval}{{\pi_e}}
+\newcommand{\btheta}{{\boldsymbol\theta}}
+\newcommand{\ope}{{\operatorname{OPE}}}
+\newcommand{\pe}{{\operatorname{PE}}}
+\newcommand{\variance}{{\operatorname{Var}}}
+\newcommand{\bias}{{\operatorname{Bias}}}
+\newcommand{\mse}{{\operatorname{MSE}}}
+\newcommand{\loss}{{\mathcal{L}}}
+\newcommand{\horizon}{{l}}
+\DeclarePairedDelimiter\autobracket{(}{)}
+\newcommand{\br}[1]{\autobracket*{#1}}
+\DeclarePairedDelimiter\autobrackett{[}{]}
+\newcommand{\brr}[1]{\autobrackett*{#1}}
+\DeclarePairedDelimiter\autobrackettt{\{}{\}}
+\newcommand{\brrr}[1]{\autobrackettt*{#1}}
+\usepackage{amsmath,amsfonts,bm}
+\newcommand{\figleft}{{\em (Left)}}
+\newcommand{\figcenter}{{\em (Center)}}
+\newcommand{\figright}{{\em (Right)}}
+\newcommand{\figtop}{{\em (Top)}}
+\newcommand{\figbottom}{{\em (Bottom)}}
+\newcommand{\captiona}{{\em (a)}}
+\newcommand{\captionb}{{\em (b)}}
+\newcommand{\captionc}{{\em (c)}}
+\newcommand{\captiond}{{\em (d)}}
+\newcommand{\newterm}[1]{{\bf #1}}
+\def\figref#1{figure~\ref{#1}}
+\def\Figref#1{Figure~\ref{#1}}
+\def\twofigref#1#2{figures \ref{#1} and \ref{#2}}
+\def\quadfigref#1#2#3#4{figures \ref{#1}, \ref{#2}, \ref{#3} and \ref{#4}}
+\def\secref#1{section~\ref{#1}}
+\def\Secref#1{Section~\ref{#1}}
+\def\twosecrefs#1#2{sections \ref{#1} and \ref{#2}}
+\def\secrefs#1#2#3{sections \ref{#1}, \ref{#2} and \ref{#3}}
+\def\eqref#1{equation~\ref{#1}}
+\def\Eqref#1{Equation~\ref{#1}}
+\def\plaineqref#1{\ref{#1}}
+\def\chapref#1{chapter~\ref{#1}}
+\def\Chapref#1{Chapter~\ref{#1}}
+\def\rangechapref#1#2{chapters\ref{#1}--\ref{#2}}
+\def\algref#1{algorithm~\ref{#1}}
+\def\Algref#1{Algorithm~\ref{#1}}
+\def\twoalgref#1#2{algorithms \ref{#1} and \ref{#2}}
+\def\Twoalgref#1#2{Algorithms \ref{#1} and \ref{#2}}
+\def\partref#1{part~\ref{#1}}
+\def\Partref#1{Part~\ref{#1}}
+\def\twopartref#1#2{parts \ref{#1} and \ref{#2}}
+\def\ceil#1{\lceil #1 \rceil}
+\def\floor#1{\lfloor #1 \rfloor}
+\def\1{\bm{1}}
+\newcommand{\data}{\mathcal{D}}
+\newcommand{\train}{\mathcal{D_{\mathrm{train}}}}
+\newcommand{\valid}{\mathcal{D_{\mathrm{valid}}}}
+\newcommand{\test}{\mathcal{D_{\mathrm{test}}}}
+\def\reta{{\textnormal{$\eta$}}}
+\def\ra{{\textnormal{a}}}
+\def\rb{{\textnormal{b}}}
+\def\rc{{\textnormal{c}}}
+\def\rd{{\textnormal{d}}}
+\def\re{{\textnormal{e}}}
+\def\rf{{\textnormal{f}}}
+\def\rg{{\textnormal{g}}}
+\def\rh{{\textnormal{h}}}
+\def\ri{{\textnormal{i}}}
+\def\rj{{\textnormal{j}}}
+\def\rk{{\textnormal{k}}}
+\def\rl{{\textnormal{l}}}
+\def\rn{{\textnormal{n}}}
+\def\ro{{\textnormal{o}}}
+\def\rp{{\textnormal{p}}}
+\def\rq{{\textnormal{q}}}
+\def\rr{{\textnormal{r}}}
+\def\rs{{\textnormal{s}}}
+\def\rt{{\textnormal{t}}}
+\def\ru{{\textnormal{u}}}
+\def\rv{{\textnormal{v}}}
+\def\rw{{\textnormal{w}}}
+\def\rx{{\textnormal{x}}}
+\def\ry{{\textnormal{y}}}
+\def\rz{{\textnormal{z}}}
+\def\rvepsilon{{\mathbf{\epsilon}}}
+\def\rvtheta{{\mathbf{\theta}}}
+\def\rva{{\mathbf{a}}}
+\def\rvb{{\mathbf{b}}}
+\def\rvc{{\mathbf{c}}}
+\def\rvd{{\mathbf{d}}}
+\def\rve{{\mathbf{e}}}
+\def\rvf{{\mathbf{f}}}
+\def\rvg{{\mathbf{g}}}
+\def\rvh{{\mathbf{h}}}
+\def\rvu{{\mathbf{i}}}
+\def\rvj{{\mathbf{j}}}
+\def\rvk{{\mathbf{k}}}
+\def\rvl{{\mathbf{l}}}
+\def\rvm{{\mathbf{m}}}
+\def\rvn{{\mathbf{n}}}
+\def\rvo{{\mathbf{o}}}
+\def\rvp{{\mathbf{p}}}
+\def\rvq{{\mathbf{q}}}
+\def\rvr{{\mathbf{r}}}
+\def\rvs{{\mathbf{s}}}
+\def\rvt{{\mathbf{t}}}
+\def\rvu{{\mathbf{u}}}
+\def\rvv{{\mathbf{v}}}
+\def\rvw{{\mathbf{w}}}
+\def\rvx{{\mathbf{x}}}
+\def\rvy{{\mathbf{y}}}
+\def\rvz{{\mathbf{z}}}
+\def\erva{{\textnormal{a}}}
+\def\ervb{{\textnormal{b}}}
+\def\ervc{{\textnormal{c}}}
+\def\ervd{{\textnormal{d}}}
+\def\erve{{\textnormal{e}}}
+\def\ervf{{\textnormal{f}}}
+\def\ervg{{\textnormal{g}}}
+\def\ervh{{\textnormal{h}}}
+\def\ervi{{\textnormal{i}}}
+\def\ervj{{\textnormal{j}}}
+\def\ervk{{\textnormal{k}}}
+\def\ervl{{\textnormal{l}}}
+\def\ervm{{\textnormal{m}}}
+\def\ervn{{\textnormal{n}}}
+\def\ervo{{\textnormal{o}}}
+\def\ervp{{\textnormal{p}}}
+\def\ervq{{\textnormal{q}}}
+\def\ervr{{\textnormal{r}}}
+\def\ervs{{\textnormal{s}}}
+\def\ervt{{\textnormal{t}}}
+\def\ervu{{\textnormal{u}}}
+\def\ervv{{\textnormal{v}}}
+\def\ervw{{\textnormal{w}}}
+\def\ervx{{\textnormal{x}}}
+\def\ervy{{\textnormal{y}}}
+\def\ervz{{\textnormal{z}}}
+\def\rmA{{\mathbf{A}}}
+\def\rmB{{\mathbf{B}}}
+\def\rmC{{\mathbf{C}}}
+\def\rmD{{\mathbf{D}}}
+\def\rmE{{\mathbf{E}}}
+\def\rmF{{\mathbf{F}}}
+\def\rmG{{\mathbf{G}}}
+\def\rmH{{\mathbf{H}}}
+\def\rmI{{\mathbf{I}}}
+\def\rmJ{{\mathbf{J}}}
+\def\rmK{{\mathbf{K}}}
+\def\rmL{{\mathbf{L}}}
+\def\rmM{{\mathbf{M}}}
+\def\rmN{{\mathbf{N}}}
+\def\rmO{{\mathbf{O}}}
+\def\rmP{{\mathbf{P}}}
+\def\rmQ{{\mathbf{Q}}}
+\def\rmR{{\mathbf{R}}}
+\def\rmS{{\mathbf{S}}}
+\def\rmT{{\mathbf{T}}}
+\def\rmU{{\mathbf{U}}}
+\def\rmV{{\mathbf{V}}}
+\def\rmW{{\mathbf{W}}}
+\def\rmX{{\mathbf{X}}}
+\def\rmY{{\mathbf{Y}}}
+\def\rmZ{{\mathbf{Z}}}
+\def\ermA{{\textnormal{A}}}
+\def\ermB{{\textnormal{B}}}
+\def\ermC{{\textnormal{C}}}
+\def\ermD{{\textnormal{D}}}
+\def\ermE{{\textnormal{E}}}
+\def\ermF{{\textnormal{F}}}
+\def\ermG{{\textnormal{G}}}
+\def\ermH{{\textnormal{H}}}
+\def\ermI{{\textnormal{I}}}
+\def\ermJ{{\textnormal{J}}}
+\def\ermK{{\textnormal{K}}}
+\def\ermL{{\textnormal{L}}}
+\def\ermM{{\textnormal{M}}}
+\def\ermN{{\textnormal{N}}}
+\def\ermO{{\textnormal{O}}}
+\def\ermP{{\textnormal{P}}}
+\def\ermQ{{\textnormal{Q}}}
+\def\ermR{{\textnormal{R}}}
+\def\ermS{{\textnormal{S}}}
+\def\ermT{{\textnormal{T}}}
+\def\ermU{{\textnormal{U}}}
+\def\ermV{{\textnormal{V}}}
+\def\ermW{{\textnormal{W}}}
+\def\ermX{{\textnormal{X}}}
+\def\ermY{{\textnormal{Y}}}
+\def\ermZ{{\textnormal{Z}}}
+\def\vzero{{\bm{0}}}
+\def\vone{{\bm{1}}}
+\def\vmu{{\bm{\mu}}}
+\def\vtheta{{\bm{\theta}}}
+\def\va{{\bm{a}}}
+\def\vb{{\bm{b}}}
+\def\vc{{\bm{c}}}
+\def\vd{{\bm{d}}}
+\def\ve{{\bm{e}}}
+\def\vf{{\bm{f}}}
+\def\vg{{\bm{g}}}
+\def\vh{{\bm{h}}}
+\def\vi{{\bm{i}}}
+\def\vj{{\bm{j}}}
+\def\vk{{\bm{k}}}
+\def\vl{{\bm{l}}}
+\def\vm{{\bm{m}}}
+\def\vn{{\bm{n}}}
+\def\vo{{\bm{o}}}
+\def\vp{{\bm{p}}}
+\def\vq{{\bm{q}}}
+\def\vr{{\bm{r}}}
+\def\vs{{\bm{s}}}
+\def\vt{{\bm{t}}}
+\def\vu{{\bm{u}}}
+\def\vv{{\bm{v}}}
+\def\vw{{\bm{w}}}
+\def\vx{{\bm{x}}}
+\def\vy{{\bm{y}}}
+\def\vz{{\bm{z}}}
+\def\evalpha{{\alpha}}
+\def\evbeta{{\beta}}
+\def\evepsilon{{\epsilon}}
+\def\evlambda{{\lambda}}
+\def\evomega{{\omega}}
+\def\evmu{{\mu}}
+\def\evpsi{{\psi}}
+\def\evsigma{{\sigma}}
+\def\evtheta{{\theta}}
+\def\eva{{a}}
+\def\evb{{b}}
+\def\evc{{c}}
+\def\evd{{d}}
+\def\eve{{e}}
+\def\evf{{f}}
+\def\evg{{g}}
+\def\evh{{h}}
+\def\evi{{i}}
+\def\evj{{j}}
+\def\evk{{k}}
+\def\evl{{l}}
+\def\evm{{m}}
+\def\evn{{n}}
+\def\evo{{o}}
+\def\evp{{p}}
+\def\evq{{q}}
+\def\evr{{r}}
+\def\evs{{s}}
+\def\evt{{t}}
+\def\evu{{u}}
+\def\evv{{v}}
+\def\evw{{w}}
+\def\evx{{x}}
+\def\evy{{y}}
+\def\evz{{z}}
+\def\mA{{\bm{A}}}
+\def\mB{{\bm{B}}}
+\def\mC{{\bm{C}}}
+\def\mD{{\bm{D}}}
+\def\mE{{\bm{E}}}
+\def\mF{{\bm{F}}}
+\def\mG{{\bm{G}}}
+\def\mH{{\bm{H}}}
+\def\mI{{\bm{I}}}
+\def\mJ{{\bm{J}}}
+\def\mK{{\bm{K}}}
+\def\mL{{\bm{L}}}
+\def\mM{{\bm{M}}}
+\def\mN{{\bm{N}}}
+\def\mO{{\bm{O}}}
+\def\mP{{\bm{P}}}
+\def\mQ{{\bm{Q}}}
+\def\mR{{\bm{R}}}
+\def\mS{{\bm{S}}}
+\def\mT{{\bm{T}}}
+\def\mU{{\bm{U}}}
+\def\mV{{\bm{V}}}
+\def\mW{{\bm{W}}}
+\def\mX{{\bm{X}}}
+\def\mY{{\bm{Y}}}
+\def\mZ{{\bm{Z}}}
+\def\mBeta{{\bm{\beta}}}
+\def\mPhi{{\bm{\Phi}}}
+\def\mLambda{{\bm{\Lambda}}}
+\def\mSigma{{\bm{\Sigma}}}
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{sl}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+\def\tA{{\tens{A}}}
+\def\tB{{\tens{B}}}
+\def\tC{{\tens{C}}}
+\def\tD{{\tens{D}}}
+\def\tE{{\tens{E}}}
+\def\tF{{\tens{F}}}
+\def\tG{{\tens{G}}}
+\def\tH{{\tens{H}}}
+\def\tI{{\tens{I}}}
+\def\tJ{{\tens{J}}}
+\def\tK{{\tens{K}}}
+\def\tL{{\tens{L}}}
+\def\tM{{\tens{M}}}
+\def\tN{{\tens{N}}}
+\def\tO{{\tens{O}}}
+\def\tP{{\tens{P}}}
+\def\tQ{{\tens{Q}}}
+\def\tR{{\tens{R}}}
+\def\tS{{\tens{S}}}
+\def\tT{{\tens{T}}}
+\def\tU{{\tens{U}}}
+\def\tV{{\tens{V}}}
+\def\tW{{\tens{W}}}
+\def\tX{{\tens{X}}}
+\def\tY{{\tens{Y}}}
+\def\tZ{{\tens{Z}}}
+\def\gA{{\mathcal{A}}}
+\def\gB{{\mathcal{B}}}
+\def\gC{{\mathcal{C}}}
+\def\gD{{\mathcal{D}}}
+\def\gE{{\mathcal{E}}}
+\def\gF{{\mathcal{F}}}
+\def\gG{{\mathcal{G}}}
+\def\gH{{\mathcal{H}}}
+\def\gI{{\mathcal{I}}}
+\def\gJ{{\mathcal{J}}}
+\def\gK{{\mathcal{K}}}
+\def\gL{{\mathcal{L}}}
+\def\gM{{\mathcal{M}}}
+\def\gN{{\mathcal{N}}}
+\def\gO{{\mathcal{O}}}
+\def\gP{{\mathcal{P}}}
+\def\gQ{{\mathcal{Q}}}
+\def\gR{{\mathcal{R}}}
+\def\gS{{\mathcal{S}}}
+\def\gT{{\mathcal{T}}}
+\def\gU{{\mathcal{U}}}
+\def\gV{{\mathcal{V}}}
+\def\gW{{\mathcal{W}}}
+\def\gX{{\mathcal{X}}}
+\def\gY{{\mathcal{Y}}}
+\def\gZ{{\mathcal{Z}}}
+\def\sA{{\mathbb{A}}}
+\def\sB{{\mathbb{B}}}
+\def\sC{{\mathbb{C}}}
+\def\sD{{\mathbb{D}}}
+\def\sF{{\mathbb{F}}}
+\def\sG{{\mathbb{G}}}
+\def\sH{{\mathbb{H}}}
+\def\sI{{\mathbb{I}}}
+\def\sJ{{\mathbb{J}}}
+\def\sK{{\mathbb{K}}}
+\def\sL{{\mathbb{L}}}
+\def\sM{{\mathbb{M}}}
+\def\sN{{\mathbb{N}}}
+\def\sO{{\mathbb{O}}}
+\def\sP{{\mathbb{P}}}
+\def\sQ{{\mathbb{Q}}}
+\def\sR{{\mathbb{R}}}
+\def\sS{{\mathbb{S}}}
+\def\sT{{\mathbb{T}}}
+\def\sU{{\mathbb{U}}}
+\def\sV{{\mathbb{V}}}
+\def\sW{{\mathbb{W}}}
+\def\sX{{\mathbb{X}}}
+\def\sY{{\mathbb{Y}}}
+\def\sZ{{\mathbb{Z}}}
+\def\emLambda{{\Lambda}}
+\def\emA{{A}}
+\def\emB{{B}}
+\def\emC{{C}}
+\def\emD{{D}}
+\def\emE{{E}}
+\def\emF{{F}}
+\def\emG{{G}}
+\def\emH{{H}}
+\def\emI{{I}}
+\def\emJ{{J}}
+\def\emK{{K}}
+\def\emL{{L}}
+\def\emM{{M}}
+\def\emN{{N}}
+\def\emO{{O}}
+\def\emP{{P}}
+\def\emQ{{Q}}
+\def\emR{{R}}
+\def\emS{{S}}
+\def\emT{{T}}
+\def\emU{{U}}
+\def\emV{{V}}
+\def\emW{{W}}
+\def\emX{{X}}
+\def\emY{{Y}}
+\def\emZ{{Z}}
+\def\emSigma{{\Sigma}}
+\newcommand{\etens}[1]{\mathsfit{#1}}
+\def\etLambda{{\etens{\Lambda}}}
+\def\etA{{\etens{A}}}
+\def\etB{{\etens{B}}}
+\def\etC{{\etens{C}}}
+\def\etD{{\etens{D}}}
+\def\etE{{\etens{E}}}
+\def\etF{{\etens{F}}}
+\def\etG{{\etens{G}}}
+\def\etH{{\etens{H}}}
+\def\etI{{\etens{I}}}
+\def\etJ{{\etens{J}}}
+\def\etK{{\etens{K}}}
+\def\etL{{\etens{L}}}
+\def\etM{{\etens{M}}}
+\def\etN{{\etens{N}}}
+\def\etO{{\etens{O}}}
+\def\etP{{\etens{P}}}
+\def\etQ{{\etens{Q}}}
+\def\etR{{\etens{R}}}
+\def\etS{{\etens{S}}}
+\def\etT{{\etens{T}}}
+\def\etU{{\etens{U}}}
+\def\etV{{\etens{V}}}
+\def\etW{{\etens{W}}}
+\def\etX{{\etens{X}}}
+\def\etY{{\etens{Y}}}
+\def\etZ{{\etens{Z}}}
+\newcommand{\pdata}{p_{\rm{data}}}
+\newcommand{\ptrain}{\hat{p}_{\rm{data}}}
+\newcommand{\Ptrain}{\hat{P}_{\rm{data}}}
+\newcommand{\pmodel}{p_{\rm{model}}}
+\newcommand{\Pmodel}{P_{\rm{model}}}
+\newcommand{\ptildemodel}{\tilde{p}_{\rm{model}}}
+\newcommand{\pencode}{p_{\rm{encoder}}}
+\newcommand{\pdecode}{p_{\rm{decoder}}}
+\newcommand{\precons}{p_{\rm{reconstruct}}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Ls}{\mathcal{L}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\emp}{\tilde{p}}
+\newcommand{\lr}{\alpha}
+\newcommand{\reg}{\lambda}
+\newcommand{\rect}{\mathrm{rectifier}}
+\newcommand{\softmax}{\mathrm{softmax}}
+\newcommand{\sigmoid}{\sigma}
+\newcommand{\softplus}{\zeta}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\standarderror}{\mathrm{SE}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\normlzero}{L^0}
+\newcommand{\normlone}{L^1}
+\newcommand{\normltwo}{L^2}
+\newcommand{\normlp}{L^p}
+\newcommand{\normmax}{L^\infty}
+\newcommand{\parents}{Pa}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Tr}{Tr}
+\let\ab\allowbreak
+\usepackage{inconsolata}
+\usepackage[capitalise]{cleveref}
+\newcommand{\ys}[1]{\textcolor{purple}{[YS: #1]}}
+\newcommand{\bo}[1]{\textcolor{magenta}{[Bo: #1]}}
+\newcommand{\anie}[1]{\textcolor{blue}{[AN: #1]}}
+\newcommand{\lee}[1]{\textcolor{red}{[JL: #1]}}
+\newcommand{\mc}[1]{\textcolor{brown}{[MC: #1]}}
+\definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}
+\definecolor{azure(web)(azuremist)}{rgb}{0.84,0.98,0.92}
+\definecolor{lavender}{rgb}{0.92,0.84,0.98}
+\newcommand{\ICE}{ICE\xspace}
+\newcommand{\SH}{\textbf{SH}\xspace}
+\newcommand{\RH}{\textbf{RH}\xspace}
+\newcommand{\AG}{\textbf{AG}\xspace}
+\newcommand{\OFT}{OFT\xspace}
+\newcommand{\FSD}{Few-Shot\xspace}
+\newcommand{\AWR}{Overall Win-Rate\xspace}
+\newcommand{\ice}{\emph{in-context exploration}\xspace}
+\newcommand{\ag}{Algorithm-Guided Support\xspace}
+\newcommand{\rah}{Raw History\xspace}
+\newcommand{\sh}{Summarized History\xspace}
+\newcommand{\oft}{Oracle Behavior Fine-Tuning\xspace}
+\newcommand{\fsd}{In-Context Few-Shot Demonstration\xspace}
+\newcommand{\awr}{overall win-rate\xspace}
+\newcommand{\ad}{algorithm distillation\xspace}
+\newcommand{\mred}[1]{\textcolor{red}{#1}}
+\newcommand{\mblue}[1]{\textcolor{blue}{#1}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{assumption}{Assumption}
+\newtheorem{axiom}{Axiom}
+\title{EVOLvE:~\textbf{Ev}aluating and \textbf{O}ptimizing \textbf{L}LMs For \textbf{E}xploration}
+\correspondingauthor{anie@cs.stanford.edu, \{yisumtv, bochang, minminc\}@google.com}
+\reportnumber{001}
+\renewcommand{\today}{2024-10-08}
+\author[$\blacklozenge$*,1]{Allen Nie}
+\author[*,2]{Yi Su}
+\author[*,2]{Bo Chang}
+\author[2]{Jonathan N. Lee}
+\author[2]{Ed H. Chi}
+\author[2]{Quoc V. Le}
+\author[2]{Minmin Chen}
+\affil[*]{Equal contributions}
+\affil[1]{Stanford University}
+\affil[2]{Google DeepMind}
+\affil[$\blacklozenge$]{Work done during an internship at Google DeepMind}
+\begin{abstract}
+Despite their success in many domains, large language models (LLMs) remain under-studied in scenarios requiring optimal decision-making under uncertainty.
+This is crucial as many real-world applications, ranging from personalized recommendations to healthcare interventions, demand that LLMs not only predict but also actively learn to make optimal decisions through \emph{exploration}.
+In this work, we measure LLMs' (in)ability to make optimal decisions in bandits, a state-less reinforcement learning setting relevant to many applications. We develop a comprehensive suite of environments, including both context-free and contextual bandits with varying task difficulties, to benchmark LLMs' performance.
+Motivated by the existence of optimal exploration algorithms, we propose efficient ways to integrate this algorithmic knowledge into LLMs: by providing explicit \emph{algorithm-guided support} during inference; and through \emph{algorithm distillation} via in-context demonstrations and fine-tuning, using synthetic data generated from these algorithms.
+Impressively, these techniques allow us to achieve superior exploration performance with smaller models, surpassing larger models on various tasks. We conducted an extensive ablation study to shed light on various factors, such as task difficulty and data representation, that influence the efficiency of LLM exploration.
+Additionally, we conduct a rigorous analysis of the LLM's exploration efficiency using the concept of regret, linking its ability to explore to the model size and underlying algorithm. The code is available at \url{https://github.com/allenanie/EVOLvE}.
+\end{abstract}
+\begin{document}
+\maketitle
+\section{Introduction}
+The rapid advance of LLMs has positioned them as valuable tools for a wide range of decision-making tasks, including but not limited to personal assistants~\citep{liu2024dellma}, recommendation systems~\citep{li2023large}, game-playing~\citep{wang2023voyager, wang2023describe}, education~\citep{nie2024gpt, he2024evaluating}, and healthcare~\citep{singhal2023large}.
+In these tasks, LLMs function as agents that engage with users or the environment in a dynamic interaction process. For example, at each time step, the LLM suggests a pedagogical strategy or make a recommendation to a specific user, then receives feedback - either explicit or implicit - in the form of rewards. Based on this feedback, the agent updates its beliefs about the environment, e.g., underlying reward distributions, and adapts its strategies to maximize the cumulative reward.
+These tasks differ fundamentally from classic prediction tasks where LLM is used to predict a target. A decision making LLM only receives partial feedback, i.e., the reward for its own actions, but not for others. Thus, it requires the LLM to effectively interact with the environment and \emph{explore} to discover the optimal action. Meanwhile, exploring an unknown action that turns out to have lower reward than the known ones incurs an opportunity cost. The agent, therefore, needs to strike a balance between exploration and exploitation.
+While the exploration-exploitation tradeoff has been extensively studied in the pre-LLM era, particularly in the fields of bandits~\citep{li2010contextual, slivkins2019introduction} and reinforcement learning~\citep{mnih2013playing,osband2013more,sutton2018reinforcement}, it remains unclear how LLMs approach this tradeoff when faced with uncertainty.
+We study LLMs' \emph{in-context exploration} capabilities under the simplified framework of bandits — a stateless form of reinforcement learning that is highly applicable to many domains.
+We set up the LLM to interact with the environment over $T$ rounds. In each round, it receives the full history of its past interactions, the current state (if provided), and a set of actions, and it is tasked with selecting an action to maximize the cumulative reward.
+Ideally, the LLM should adaptively choose an action in each round to learn the reward distributions of different actions and eventually converge to consistently selecting the optimal one.
+We study LLM's ability to do so \emph{in-context}, without the need to re-train, which we dubbed as  \emph{in-context exploration}. Unlike using LLM for reward-free or curiosity-driven exploration, \ice is in-context self-improvement, where the LLM builds up context through interactions to solve a task.
+We introduce \emph{BanditBench}\footnote{Install the library: \texttt{pip install banditbench}}, a comprehensive suite of multi-armed bandit (MAB)~\citep{slivkins2019introduction} and contextual bandit (CB)~\citep{li2010contextual} environments \emph{in natural language} to rigorously evaluate the decision-making capabilities of LLMs. Building on the pioneering work of \citet{krishnamurthy2024can}, we significantly expand the benchmark by incorporating a broader range of tasks with varying complexities, including variations in the number of arms, reward distributions, exploration difficulty, and textual descriptions of environments. Additionally, we extend it to CB environments, where rewards across arms depend on contextual features, to assess generalization in LLM exploration.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/sft_fewshot.pdf}
+    \caption{\footnotesize{The best achieved performance within each category of method in both MAB and CB. Note that we took the $\max$ over different methodology setups within each category. For contextual bandit, \OFT enabled a small fine-tuned model (Gemini-1.5 Flash) to approach the performance of the optimal classical algorithm (UCB).}}
+    \label{fig:fewshot_sft_result}
+\end{figure}
+To enhance LLMs for in-context exploration, we leverage known bandit algorithms such as Upper-Confidence Bound (UCB) algorithm, which have been proven "optimal" under mild conditions. We investigate two approaches: (1) \emph{inference-time algorithm-guided support}, where summary statistics on interaction history, along with descriptions of bandit algorithms, are provided in context for LLMs to choose actions, and (2) \emph{algorithm distillation via optimal demonstration data}, where ``oracle'' trajectories from optimal bandit algorithms are provided as either \emph{in-context few-shot demonstrations} or \emph{optimal behavior fine-tuning}. We benchmark off-the-shelf LLMs of different sizes - both open-sourced and proprietary - and those enhanced by our approaches on \emph{BanditBench}.
+Both approaches demonstrate promising improvements over baseline methods that rely solely on raw interaction histories presented as sequences of (action, reward) tuples.
+Furthermore, our results show that fine-tuning to distill optimal exploration behavior leads to strong generalization across domains, enabling smaller models to achieve superior exploration performance compared to larger models.
+We also perform extensive ablation studies that reveal how training task difficulty, textual representation and \ag impact model performance.
+To gain deeper insights into the exploration efficiency of different methods, we fit a parametric function to the observed regret patterns, allowing for a more rigorous interpretation of the exploration efficiencies of various LLMs and our proposed approaches.
+Our contributions are threefold. First, we introduce BanditBench, a benchmark designed to evaluate LLMs' performance in both MAB and CB settings. Second, we propose methods to enhance LLMs' decision-making capabilities by \emph{leveraging optimal algorithms}, including algorithm-guided inference-time support and \ad approach. Finally, we benchmark existing LLMs and those improved by our approaches on BanditBench, shedding light on the exploration efficiency of the different algorithms.
+\section{In-Context Exploration}
+\label{sec: icdm}
+In this section, we define the problem of In-Context Exploration (\ICE), following the setup in~\cite{krishnamurthy2024can}. An agent interacts with an environment by observing state information, selecting actions, and collecting feedback. The goal of the agent is to maximize its cumulative reward through multiple rounds of interactions.
+Specifically for \ICE, the agent is an LLM that keeps a history of observations and interactions with the environment in its context. The agent determines its actions based on this context, rather than by updating its weights or executing hand-designed exploration strategies.
+\paragraph{Notation and Definitions.}
+\label{sec:notations}
+We primarily consider \textit{bandits}, a simple class of environments that still incorporates many fundamental challenges in decision-making. Here, we describe a framework that encompasses both \textit{multi-armed bandits (MAB)} and \textit{contextual bandits (CB)}. A bandit environment $\gT$ is defined as $\gT=(\gX, \gA, R)$, where $\gA$ defines a set of valid actions. $\gX$ is the set of state information (if any), and $R$ represents the underlying reward distributions of actions, which are unknown to the agent.
+MAB and CB tasks differ in whether the context $x$ is provided and used: in MAB, the reward depends solely on the action, whereas in CB it depends on both the action and the context.
+The interaction between the agent and the environment occurs over $T \in \mathbb{N}$ steps. At each time step $t \in [T]$, the environment reveals a new observation\footnote{In CB, context $x$ is exogenous and independently sampled from a stationary distribution; it is not affected by action $a$, as in the full RL setting.} $x_t \in \gX$, the agent selects an action $a_t \in \mathcal{A}$ following its policy $\pi$, and then a reward $r_t^{a_t} \sim R^{a_t}(x_t)$ is revealed.
+Given an LLM agent with policy $\pi$, it determines its action $a_t \sim \pi(H^\pi_t)$, where $H^\pi_t = (x_1, a_1, r_1^{a_1}, \ldots, x_t)$ stores the historical actions taken by the agent and the corresponding environment feedback, which is sent as input context to the LLM.
+Over $T$ rounds, we measure the performance of an agent $\pi$ on task $\mathcal{T} $as its expected cumulative reward, given by $J_{\mathcal{T}}(\pi) = \E_{\mathcal{T}, \pi} \left[\sum_{t =1}^T r_t^{a_t}\right]$. The optimal policy $\pi^*$ represents the agent that selects the action with the highest average reward, defined as $\pi^*(x) = \argmax_a \E_{\mathcal T}\left[r^a \ | \ x \right]$.
+A commonly used metric to measure the performance of an agent or algorithm is regret.
+\begin{defn}[Cumulative Regret]
+The expected regret of a policy $\pi$ under task $\mathcal{T}$ is: $\text{REG}(\pi) = \E_{\mathcal{T}, \pi} \left[\sum_{t=1}^T (r_t^{a^*_t} - r_t^{a_t})  \right] = J_{\mathcal{T}}(\pi^*) - J_\mathcal{T}(\pi)$, where $a^*_t = \pi^*(x_t)$.
+\end{defn}
+We expect \emph{good} agents to have \textit{average} regret that converges to zero (i.e. $\frac{1}{T}\text{REG} \stackrel{T}{\rightarrow} 0$), demonstrating that they eventually learn to perform as good as the optimal policy. UCB and Thompson Sampling are two such examples with sublinear regret. Examples of cumulative regret curves are shown in Figure~\ref{fig:ucb_cum_curve}.
+\paragraph{Representing Histories In-Context.}
+Developing an LLM agent suited for in-context decision-making tasks also requires designing a robust textualization function $\phi$ that translates histories $H^\pi_t$ for the LLM to consume.
+The obvious baseline for $\phi$ is to simply record the \textbf{Raw History} (\RH) from the environments as a list of (context, action, reward) tuples directly as the context. In this representation, the context length of $\phi(H_t^{\pi})$ grows linearly with $t$, and \RH contains all information. While \RH is a general textualization function applicable to any task $\gT$, more advanced task-specific textualization functions may exist and yield better performance. For example, \cite{krishnamurthy2024can} proposed a \textbf{Summarized History} function (\SH)
+that compresses the history while still containing sufficient information for a given task $\gT$.
+\textbf{RH} and \textbf{SH} differ in how past interaction histories are represented to the LLM agent, as shown in Figure~\ref{fig:prompt}. At time step $t$, \textbf{RH} provides a complete list of past interactions as (Time $t'$, Action Name $a_{t'}$, Reward $r_{t'}$) for $t'=0\cdots t$. In contrast, $\textbf{SH}$ provides sufficient statistics of the past interactions. Specifically, under MAB, \textbf{SH} utilizes the empirical mean over each arm (i.e., $\hat\E[r^{a}], \forall a \in \gA$), the number of times each arm has been pulled up to time $t$, $N_t(a)$, and the current horizon $t$.
+In this paper, we consider good textualizations to be those that satisfy ``sufficiency'', which we express using the following definition.
+\begin{defn}[Sufficient Textualization]
+Given a policy class $\Pi$, let $\Pi^\phi \subset \Pi$ and $\Pi^\text{raw} \subset \Pi$ be the sets of policies that take a history representation $\phi(H_t)$ using the textualization function $\phi$ and the raw history $H_t$, respectively. Then the textualization function $\phi$ is sufficient if
+$$
+\lim_{T \to \infty} \left[ \inf_{\pi^\phi \in \Pi^\phi} \frac{1}{T} REG(\pi^\phi) - \inf_{\pi^\text{raw} \in \Pi^\text{raw}} \frac{1}{T} REG(\pi^\text{raw})\right] = 0.
+$$
+\label{def:sufficient}
+\end{defn}
+In other words, the best agent that uses the history representation can asymptotically achieve the same average regret as one with the full raw history, meaning that the textualization preserves all the essential information needed for effective decision-making.
+\section{BanditBench}
+\label{subsec: banditbench}
+We present BanditBench, an extensive suite of MAB~\citep{slivkins2019introduction} and CB~\citep{li2010contextual} environments in \emph{natural language} to benchmark the in-context exploration capabilities of LLMs. We show two examples in Figure~\ref{fig:mab_cb_prompt}.
+\paragraph{Multi-Armed Bandit}
+In (stochastic) multi-armed bandit problems, we vary our environment configurations primarily along two key dimensions:
+1) \emph{action space}, where we change the number of actions $K$ and the textual descriptions associated with each action; 2) \emph{reward distributions}, where we change the parametric distribution of the reward, i.e., the types of reward distributions, and the exploration difficulty, characterized by the gap between the best-performing arm and the second-best arm. A smaller gap makes it harder for the agent to distinguish between optimal and sub-optimal actions, thereby increasing the exploration difficulty.
+In contrast to the setup in \citet{krishnamurthy2024can}, which focuses solely on MAB instances with Bernoulli reward distribution, our expanded setup allows us to systematically analyze LLMs' performance across diverse environments with different action spaces and reward structures.
+The detailed configurations are shown in Appendix~\ref{app_subsec: mab}.
+For the action space, we explore two different sizes: $K=5$ for a small action space and $K=20$ for a large action space. We also differentiate between two types of action descriptions: \emph{Videos}, represented as arbitrary two-letter combinations with no semantic meaning such as ``Video AA'', and \emph{Clothes},  described using semantically meaningful phrases, such as ``Supreme Sylvan Sandals''. Regarding reward distributions, we evaluate two types: \emph{Bernoulli} and \emph{Gaussian} Bandit.
+For Bernoulli, the reward $r \in \{0, 1\}$ is binary with $r^{a_k} \sim \text{Bernoulli}(p_k)$, where $p_k$ is the mean for the $k$-th action. Following ~\citet{krishnamurthy2024can}, the best-performing arm has $p_k:=0.5 + \Delta_{\min}/2$, while the remaining arms have $p_k = 0.5 - \Delta_{\min}/2$. The parameter $\Delta_{\min}$ captures the exploration difficulty, with a larger gap ($\Delta_{\min}=0.5$) indicating easy tasks and smaller gap ($\Delta_{\min}=0.2$) representing hard tasks. For the Gaussian bandit, the rewards are continuous with $r^{a_k} \sim \gN(\mu_k, \sigma)$. Here $\mu_k \sim \gN(0, \sigma)$ represents the mean for each action, and the variance $\sigma$ captures the difficulty of exploration. Following \citet{sutton2018reinforcement}, we study both $\sigma=1$ and $\sigma=3$.
+\begin{figure}[h]
+\noindent
+\small
+    \centering
+  \begin{minipage}[t]{0.37\textwidth}
+  \footnotesize
+    \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title=Multi-Armed Bandit (Clothes)]
+        You are an AI fashion assistant for an online boutique powered by a bandit algorithm that offers a variety of clothing options from different brands.  \newline
+        [More Instructions] \newline
+        There are 5 unique clothing items you can recommend, named: \newline
+        \sethlcolor{antiquewhite}~\hl{Midnight Mirage Mittens}, \hl{Opulent Oasis Overcoat}, \hl{Infinite Impeccable Jacket}, \hl{Alluring Apex Apron}, \hl{Bejeweled Bloom Blazer}. \newline
+        So far you have interacted \sethlcolor{lavender}~\hl{6 times} with the following choices and rewards: \newline
+        \sethlcolor{antiquewhite}~\hl{Midnight Mirage Mittens}, \sethlcolor{lavender}~\hl{reward 0} \newline
+         \sethlcolor{antiquewhite}~\hl{Opulent Oasis Overcoat}, \sethlcolor{lavender}~\hl{reward 1} \newline
+         \sethlcolor{antiquewhite}~\hl{Bejeweled Bloom Blazer}, \sethlcolor{lavender}~\hl{reward 0} \newline
+         \sethlcolor{antiquewhite}~\hl{Opulent Oasis Overcoat}, \sethlcolor{lavender}~\hl{reward 0} \newline
+         \sethlcolor{antiquewhite}~\hl{Infinite Impeccable Jacket}, \sethlcolor{lavender}~\hl{reward 1} \newline
+         \sethlcolor{antiquewhite}~\hl{Alluring Apex Apron}, \sethlcolor{lavender}~\hl{reward 0} \newline
+        \sethlcolor{lavender}~\hl{...} \newline
+        Which item will you choose next?
+    \end{tcolorbox}
+\end{minipage}
+~
+\begin{minipage}[t]{0.63\textwidth}
+\footnotesize
+    \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title=Contextual Bandit (Movies)]
+  You are an AI movie recommendation assistant for a streaming platform powered by a bandit algorithm that offers a wide variety of films from different studios and genres. \newline
+    [More Instructions] \newline
+  There are 10 unique movies you can recommend, named \newline
+     \sethlcolor{antiquewhite}~\hl{Saving Private Ryan (1998) (Action|Drama|War)} \newline
+     \sethlcolor{antiquewhite}~\hl{Jurassic Park (1993) (Action|Adventure|Sci-Fi)} \newline
+     \sethlcolor{antiquewhite}~\hl{The Matrix (1999) (Action|Sci-Fi|Thriller)} \newline
+     \sethlcolor{antiquewhite}~\hl{The Silence of the Lambs (1991) (Drama|Thriller)} \newline
+      \sethlcolor{antiquewhite}~\hl{...} \newline
+    So far you have interacted \sethlcolor{lavender}~\hl{4 times} with the following choices and rewards: \newline
+    Context: \sethlcolor{azure(web)(azuremist)}~\hl{a person who is a 18-year-old man who is a college/grad student and live in Pulaski county, AR. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.011, 0.027, -0.020, -0.002, -0.003].} \newline
+    Action: \sethlcolor{antiquewhite}~\hl{Saving Private Ryan (1998)} \newline
+    Reward: \sethlcolor{lavender}~\hl{4.74 out of 5} \newline
+    \sethlcolor{lavender}~\hl{...} \newline
+    You have a new user: \newline
+    Context: \sethlcolor{azure(web)(azuremist)}~\hl{This person is a 35-year-old man, working as a lawyer...}\newline
+    Action:
+    \end{tcolorbox}
+\end{minipage}
+    \caption{\footnotesize{The problem representation of in-context exploration is represented in text. Detailed prompts for both MAB and CB are provided in Appendix~\ref{app_subsec: prompt}.}}
+    \label{fig:mab_cb_prompt}
+\end{figure}
+\paragraph{Contextual Bandit}
+For contextual bandit, at each round $t\in[T]$, the agent is presented with some contextual feature $x$ (which may consist of both textual descriptions and numeric values) describing the state (and action). The LLM agent $\pi$ chooses an action $a \in \gA$, and then a reward $r(x, a)$ is received, which depends on both the context and the chosen action.
+We design the semi-synthetic contextual bandit task based on the MovieLens dataset~\citep{harper2015movielens}, which consists of approximately 10,000 real users' movie ratings.
+The goal of the agent is to recommend a personalized movie that a specific user is likely to enjoy.
+In particular, the observations $x$ include user-specific features such as age, gender, occupation, and geographical location (county and state), as well as features of the movies. The action space is limited to the top-$K$ most-watched movies in the dataset, with $K=10$ for the easy setting and $K=30$ for the more challenging setting. To construct the ground-truth reward distribution, we perform low-rank approximation~\citep{koren2009matrix} on the user-movie rating matrix $P \in \mathbb{R}^{N \times K}$, where $N$ is the number of users.
+This is done by approximating $P$ with $\tilde{P} = U \Sigma V^T$ using singular value decomposition (SVD), yielding a user embedding matrix $U \in \mathbb{R}^{N \times d}$, a movie embedding matrix $V \in \mathbb{R}^{K \times d}$, and a diagonal matrix $\Sigma \in \mathbb{R}^{d \times d}$ of the top singular values. In our case, we set $d=5$ to be the dimension of the embeddings. The ground-truth reward for user $i$ and movie $j$ is then computed as $r_{i,j} = u_i^T \Sigma v_j$.
+At each time step, we provide textual contextual features alongside a 5-dimensional user preference vector $u_i$.
+The task can easily be scaled up to include more movies, i.e., a larger $K$.
+Further details about the setup can be found in Appendix~\ref{app_subsec: cb_detail}.
+\section{Learning Optimal Exploration Behaviors}
+Motivated by the existence of optimal algorithms for bandits, we aim to leverage these algorithms to improve LLMs for exploration by:  1) incorporating algorithmic guidance during inference (Section~\ref{subsec: guided_support}),
+2) teaching optimal exploration through \ad (Section~\ref{subsec: learning_optimal_behavior}). We show that smaller models trained using \ad can even outperform larger models, offering a promising way to efficiently explore with lower inference costs.
+Numerous algorithms have been developed to enable efficient exploration in both MAB~\citep{auer2002finite} and CB~\citep{langford2007epoch,li2010contextual} settings. Among these, the Upper Confidence Bound (UCB) algorithm—also known as optimism in the face of uncertainty—stands out for its simplicity and theoretical guarantees\footnote{UCB calculation is the bedrock for many other algorithms, such as Monte-Carlo Tree Search (MCTS), which is often used to improve LLM performance at inference-time~\citep{snell2024scaling}.}.
+We focus on UCB as our optimal exploration algorithm for both MAB and CB. Its clear and interpretable representation of uncertainty and exploration strategy also makes it well-suited for integration with existing LLMs. Our method can, however, generalize to different algorithms easily.
+\paragraph{UCB for Multi-Armed Bandit}
+For MAB, at time step $t$, given the history $\{a_{t'}, r_{t'}\}_{t'=1}^t$, we define $N_t(a)$ as the number of times that action $a$ has been selected up to time $t$. The empirical mean reward of arm $a$ up to time $t$, denoted as $\hat{\mu}_t(a):=\sum_{t'=1}^t \frac{\mathbf{1}_{\{a_{t'}=a\}}r_{t'}}{N_t(a)}$, represents the exploitation value $V^{\text{exploit}}(a,t)$. The high-probability confidence interval, also known as the exploration bonus, is given by $V^{\text{explore}}(a,t):=\alpha\sqrt{\frac{\log(t)}{N_t(a)}}$ , where $\alpha$ is the hyperparameter controlling the exploration-exploitation trade-off. At each time step, UCB selects the arm that maximizes the sum of the exploitation value and the exploration bonus, thereby choosing the arm with the highest upper confidence bound.
+\paragraph{UCB for Contextual Bandit}
+In CB, we consider the case of linear payoffs~\citep{li2010contextual,chu2011contextual}, where the expected reward $\mathbb{E}[r^a_t]$ is assumed to be linear w.r.t a $d$-dimensional feature vector $x^a_{t}$, with some unknown coefficient vector
+$\theta^{*}$, i.e., $\mathbb{E}[r^a_t|x^a_t]=(x^a_t)^T\theta^{*}$. At each time step, for any arm $a$, the algorithm maintains the design matrix $D_a\in\mathbb{R}^{N_t(a)\times d}$, which represents the feature data for arm $a$ up to time $t$, as well as the corresponding reward vector $r^a\in\mathbb{R}^{N_t(a)}$. It then estimates $\hat{\theta}$ using ridge regression. Moreover, the high-probability confidence interval of the reward estimate $(x^a_t)^T\hat{\theta}$ is given by $\alpha\sqrt{(x^a_t)^T(D^T_aD_a+\lambda I_d)^{-1}x^a_t}$, with $I_d$ being the identity matrix.
+Following MAB, the exploitation value is the reward estimate, and the exploration bonus is the confidence bound around it.
+\subsection{Inference-time \ag}
+\label{subsec: guided_support}
+In this section, we explore how to leverage UCB-type algorithms as inference-time support to improve LLM's in-context exploration performance.
+\paragraph{\ag (AG)} As discussed above, UCB-type algorithms operate by explicitly calculating the exploitation value $V^\text{Exploit}$ along with the exploration bonus $V^\text{Explore}$ for each arm, and by selecting the arm that maximizes the sum of the two. These components, $V^\text{Exploit}$ and $V^\text{Explore}$, therefore provide the sufficient textualization needed for LLMs to make optimal decisions.
+Specifically, in the MAB setup, during inference time at time step $t$, we provide the LLM with a list of tuples $\big(V^{\text{exploit}}(a,t), V^{\text{explore}}(a,t)\big)$ for each arm $a\in[K]$. This representation is provided alongside  other essential information, such as scenario descriptions, instructions, and the action set.
+For CB, during inference-time, we explicitly maintain the design matrix $D_a$ and response vector $r^a$ for each arm, incorporating past interactions from the LLM up to that time $t$, using this to obtain the exploitation value and exploration bonus. We then provide the LLM with a list of exploitation values and exploration bonus for each arm $a$ at current context $x$, similar to the MAB setup. Additionally, we record the action features $x^a_t$ as well as the reward $r_t$ selected by the LLM, which will be used for the next round of parameter updates.
+Compared with \textbf{SH}, which only provides the empirical mean and the number of times each arm has been pulled, \textbf{AG} directly supplies semantically understandable exploitation values and exploration bonuses. This explicit representation enables the LLM to effectively balance exploitation and exploration.  Theoretically, the LLM only needs to perform addition and argmax, rather than manipulating raw histories to discern the underlying reward distribution (or parameter $\theta$ in CB). Another advantage is that \textbf{AG} is a type of inference-time support that works seamlessly for both MAB and CB, while \textbf{SH} only works on MAB setup\footnote{If we were to perform a similar analysis with LinUCB, \textbf{RH} would correspond to retaining all (context, action, reward) information to estimate the parameter and calculate the uncertainty, while one possibility to realize \textbf{SH} would be to construct the sufficient statistics using running mean and running covariance matrix in LinUCB. However, these statistics are much less interpretable for language models; thus, we do not investigate it.}.
+\subsection{Algorithm Distillation via Demonstration and Fine-tuning}
+\label{subsec: learning_optimal_behavior}
+We further investigate the possibility of enhancing LLM exploration by leveraging a set of trajectories generated by an oracle exploration algorithm in the BanditBench environment.
+This approach, called \emph{\ad}, aims to distill the optimal exploration behavior from the oracle algorithm to the LLM.
+In particular, we consider two approaches: \emph{in-context few-shot demonstration} and \emph{oracle behavior fine-tuning}, both utilizing expert trajectories generated by the oracle algorithm.
+Compared with \ag (\textbf{AG}), these approaches do not require an understanding of the oracle algorithms, nor do they require generating sufficient statistics based on oracle algorithms; thus, they can also be applied to black-box algorithms.
+\paragraph{Oracle Trajectory Generation}
+We use UCB as the oracle algorithm to generate the trajectories.
+Following the notations defined in Section~\ref{sec: icdm}, the trajectories are in the form of tuples of $( \phi(H^{\text{UCB}}_t), a^{\text{UCB}}_t)$, where each tuple pairs the transformed representation of the history at time $t$ and the action $a^{\text{UCB}}_t$ from UCB.
+For MAB, we create trajectories from reward distributions that \textit{differ} from those used in evaluation. This assesses the LLM's ability to generalize across different bandit instances with the same underlying scenario but varying \textit{action descriptions} and \textit{action-reward mappings}.
+We further control the data generation process by varying: (1). \emph{Action Description}: trajectories are generated from either "Video" or "Clothes" action descriptions;
+(2). \emph{Difficulty}: we control the reward gap in the Bernoulli bandit to create "easy" or "hard" instances;
+(3). \emph{Trajectory Textualization}: trajectories are represented either as \RH or \AG.
+For CB, we use a fixed dataset and evaluate the LLM's performance on a held-out set of users. While these users are unseen during training, their profiles and preferences remain within the distribution of the training data. This evaluates the LLM's ability to leverage prior knowledge for effective exploration.  In CB, we only vary the trajectory representation (\RH or \AG).
+In both MAB and CB, each trajectory consists of a sequence of exploration steps: 300 steps for MAB with $K=5$ arms, 1000 steps for MAB with $K=20$ arms, and 200 steps for CB.
+We generate 50 trajectories for 2 MAB domain configurations (the easiest and the hardest configuration) with 2 trajectory textualizations, and 200 trajectories for CB with 2 trajectory textualization . This results in 4 \ad datasets for MAB and 2 datasets for CB.
+\paragraph{In-Context Few-Shot Demonstration}
+We first study whether demonstrating oracle exploration trajectories from UCB as few-shot examples can improve the LLM's ability to perform robust exploration in bandit tasks.
+A key challenge in applying few-shot learning to decision-making tasks like MAB is the increasing context length. Unlike supervised learning, where context is typically fixed, bandit actions depend on the entire past history or condensed history, which either grows linearly with $T$ (steps) or $K$ (actions). This poses a challenge for LLMs, as their ability to effectively utilize information can degrade with longer contexts.
+We sample 5 oracle trajectories from UCB into the LLM context window as demonstrations. Our goal is to see whether the optimal exploration demonstrations can lead to improved exploration performance. Detailed demonstrations are provided in Appendix~\ref{app_subsec: few_shot}.
+\paragraph{\oft (OFT)}
+While in-context few-shot demonstrations offers an inference-time approach to guide the LLM's exploration strategy, fine-tuning allows us to directly optimize the model's parameters for the task. In this approach, we utilize the UCB-generated trajectories as training data to adjust the LLM's internal representations and decision-making mechanisms.
+Specifically, we fine-tune the LLM by framing the exploration problem as a language modeling task, where the goal is to predict the next action in the sequence. This is achieved by maximizing the log-likelihood of the UCB actions given the history of interactions:
+\begin{equation}
+    \loss_{\text{OFT}}(\pi) = -\E_{( \phi(H^{\text{UCB}}_t), a^{\text{UCB}}_t) \sim \data_{\text{OFT}}}
+    [
+    \log \pi(a^{\text{UCB}}_t|\phi(H^{\text{UCB}}_t))
+    ],
+\end{equation}
+where $\pi$ represents the LLM's policy that we aim to optimize.
+This formulation encourages the LLM to learn the underlying patterns and decision-making logic embedded within the UCB trajectories. By predicting the next action in the sequence, the LLM effectively internalizes the optimal exploration strategy demonstrated by the UCB algorithm.
+Optimal Behavior Fine-tuning (OFT) and Behavior Cloning (BC)~\citep{pomerleau1991efficient} share many similarities. However, they are not the same. Although both approaches rely on maximum-likelihood learning, their objectives are different: OFT seeks to encode a dynamic, iterative refinement process, while BC focuses on replicating static behavior. OFT is designed for algorithm distillation, focusing on capturing a sequence of self-improvement behaviors, and generalization across any new test domains. In contrast, BC aims to learn a policy by mimicking a static policy, with no iterative improvement between trajectories.
+This difference becomes very clear when we work through this example. Given a policy $\pi$, if our goal is to learn a policy $\hat \pi$ that perfectly mimics the behavior of $\pi$, then we will create a behavior cloning dataset $\gD_{\text{BC}}$, by collecting this policy $\pi$'s interaction with the environment. In this dataset, for the same state $s$, the policy remains unchanged, which the means $\pi(a|s)$ remains the same in the entire dataset given the same state $s$. However, if our goal is to learn to mimic the \textit{improvement} of this policy $\pi$ as it interacts with the environment -- note that the policy improves after a policy improvement operation (e.g., policy gradient update, or q-value update), we are constructing a dataset $\gD_{\text{OFT}}$ from a set of policies: $\{\pi_1, \pi_2, ..., \pi_{*}\}$. This means, given the same state $s$, the action to take will change: $\pi_i(a|s)$, depending on whether this is an early or a late trajectory of this dataset. In order to encode the policy change $i$, the prediction target is $a$ given the current state $s$ and all the previous experiences that were used to improve this policy.
+\subsection{Empirical Evaluations}
+\label{subsec: eval_and_baselines}
+In this section, we empirically evaluate LLMs' in-context exploration capabilities, using BanditBench. We begin with introducing the setup, baselines and metrics in Section~\ref{subsubsec: setup}. Following this, in Section~\ref{subsubsec: results}, we analyze the performance of inference-time guided support, in-context few-shot demonstration and oracle behavior fine-tuning across various experimental settings, as well as models of different sizes. Additionally, we perform extensive ablation studies on the impact of task difficulty, textual representation of the oracle trajectories, and inference-training representation alignment.
+\subsubsection{Setup and Baselines}
+\label{subsubsec: setup}
+\paragraph{Setup} We evaluate the in-context exploration capabilities of various LLMs, including Gemma-2B, Gemma-9B~\citep{team2024gemma}, Gemini 1.5 Flash, and Gemini 1.5 Pro~\citep{reid2024gemini}, on 16 MAB tasks (Table~\ref{tab:mab_config}) and 2 CB tasks.
+For MAB tasks, the interaction horizon ($T$) differs based on the size of the action space ($K$): we use $T=1000$ for $K=30$ and $T=200$ for $K=10$.
+All CB tasks use a constant horizon of $T = 200$ steps.
+To ensure statistical significance of the results, we conduct 30 independent runs for each experimental setup.
+\paragraph{Baselines} We consider two baselines: Raw History (\textbf{RH}) and Summarized History (\textbf{SH}), as suggested in~\citet{krishnamurthy2024can}.
+For CB, as we discussed before, there is no trivial analogue of \textbf{SH}; thus, we focus solely on \textbf{RH} for CB tasks in this study as the baseline.
+\paragraph{Metrics}
+We report the relative performance of each model, aggregated across all environment configurations. Simply averaging cumulative rewards across environments of different reward distributions and horizons however, obscures the comparison. We instead use the \emph{pairwise} win-rate to compare the performances. We have 16 configurations for MAB and evaluate 32 models (4 LLMs crossed with different methods), and 2 configurations for CB with 14 models (2 LLMs crossed with different methods).  The list of all the models is provided in Appendix~\ref{sec:app:model_full_list}. For each configuration, we compute the cumulative reward over
+$T$ steps and collect a distribution of cumulative rewards from 30 independent trials. We then calculate the pairwise win-rate by applying a Student's $t$-test on the reward distributions of any pair of configurations to determine if they are statistically significantly different, with a significance level of $p<0.05$. If one model has a significantly higher reward than the other, we consider it a win. If the difference is not statistically significant, the result is deemed inconclusive and not counted as a win.
+For each model, we calculate its win rate against every other model across all configurations. The \emph{\awr} for a specific model is then the percentage of superior performance over all models, crossed with methods and configurations.
+\subsubsection{Results and Ablation studies}
+\label{subsubsec: results}
+\paragraph{Overall Performance Comparison}
+Figure~\ref{fig:fewshot_sft_result} presents a comparative overview of in-context few-shot demonstration, oracle behavior fine-tuning, and inference-time algorithmic guidance performance across various model sizes and training configurations. Detailed numbers are reported in Table~\ref{tab:inference_time_algs} and~\ref{tab:training_time_algs}.
+Few-shot demonstrations exhibited contrasting effects on Gemini-1.5 Flash and Pro. While few-shot learning boosts the performance of Flash beyond the best history contextualization setup, it hurts Pro's performance in both MAB and CB. Aligned with the observations in~\citet{zheng2024natural,guo2025deepseek}, our hypothesis is that few-shot examples we manually crafted could disrupt the CoT structure in larger models, which requires the few-shot examples to be carefully tuned in order to be helpful.
+Further analysis reveals the remarkable effectiveness of oracle behavior fine-tuning. It significantly outperforms both few-shot and baseline approaches in both MAB and CB across all model sizes, even larger ones.
+This robust improvement highlights the effectiveness of directly optimizing model parameters for the exploration task. Notably, the best fine-tuned Gemini-1.5 Flash model surpasses even the Gemini-1.5 Pro model, highlighting its potential as a key technique for enhancing LLM exploration capabilities.
+\begin{table}[]
+\small
+\centering
+\begin{tabular}{@{}lcccc|cc@{}}
+\toprule
+\multirow{2}{*}{Inference-Time Support}  & \multicolumn{4}{c}{\textbf{Multi-Armed Bandit}} & \multicolumn{2}{c}{\textbf{Contextual Bandit}} \\ \cmidrule(l){2-7}
+                 & Gemma-2B & Gemma-9B      & Flash   & Pro  & Flash   & Pro   \\ \midrule
+\rah (\RH)          & 7.6 & 10.5       & 27.7              & 45.5           & 0.0                 & 7.1            \\
+\sh (\SH)  & 10.5 & 5.3         & 34.8              & 60.0           & --                 & --               \\
+\ag (\AG)  & 4.9 &  4.1         & 32.2              & 59.6           & 46.4              & 64.3            \\ \midrule
+UCB / LinUCB & \multicolumn{4}{c|}{90.6} & \multicolumn{2}{c}{96.4}  \\
+\bottomrule
+\end{tabular}
+\caption{\footnotesize{\AWR (\%) of different inference-time support. Flash and Pro refer to Gemini-1.5 Flash and Pro respectively. Unlike \SH, \AG can work for both MAB and CB. Refer to Section~\ref{subsec: guided_support} for details.}}
+\label{tab:inference_time_algs}
+\vspace{-0.2cm}
+\end{table}
+\begin{table}[]
+\small
+\centering
+\begin{tabular}{@{}lcc|cc@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{Multi-Armed Bandit}} & \multicolumn{2}{c}{\textbf{Contextual Bandit}} \\ \cmidrule(l){2-5}
+ Few-shot Demonstrations                         & Flash   & Pro  & Flash   & Pro   \\ \midrule
+\rah (\RH)                & 27.5              & 39.1           & 3.6                 & 7.1            \\
+\ag (\AG)         & 50.2              & 56.4           & 60.7              & 25.0           \\ \midrule
+\oft  \\  \midrule
+\rah (\RH) & \textbf{65.6} & --- & 28.6 & --- \\
+\ag (\AG) & 28.3 & --- & \textbf{89.3} & --- \\ \midrule
+UCB / LinUCB & \multicolumn{2}{c|}{90.6} & \multicolumn{2}{c}{96.4}  \\
+\bottomrule
+\end{tabular}
+\caption{\footnotesize{\AWR (\%) of different \ad methods. Flash and Pro refer to Gemini-1.5 Flash and Pro respectively. Best achieved performances are highlighted. In this table, the history textualization used in oracle trajectory and inference-time support are the same. We conduct a few ablations in Figure~\ref{fig:cb_ablations}.}}
+\label{tab:training_time_algs}
+\end{table}
+\begin{table}[h]
+\small
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+     & Flash (\RH) & Flash (\AG) & Pro (\RH) & Pro (\AG) \\ \midrule
+MAB, K=5  & \textbf{33.6}     & 26.6     & 48.0   & \textbf{67.6}   \\
+MAB, K=20 & 21.9     & \textbf{37.9}     & 43.0   & \textbf{51.6}   \\ \midrule
+CB, K=10 & 0.0 & \textbf{35.7} & 7.1 & \textbf{57.1} \\
+CB, K=30 & 0.0 & \textbf{57.1} & 7.1 & \textbf{71.4} \\
+\bottomrule
+\end{tabular}
+\caption{\footnotesize{Situations where \ag significantly outperforms \rah during inference.}}
+\label{tab:ag_helped}
+\vspace{-0.5cm}
+\end{table}
+\paragraph{\ag Helps on Complex Environments}
+We observe consistent improvements when transitioning from \RH to \AG in two scenarios: (1) larger models like Flash and Pro, and (2) more complex scenarios, such as contextual bandits. Table~\ref{tab:ag_helped} shows that \AG provided consistent help when the number of actions is large for both Flash and Pro models. We hypothesize that providing \AG is crucial when the action space is large or when decision scenarios are complex.
+\paragraph{Impact of Task Difficulty}
+We examine whether the choice of oracle trajectories used in both few-shot demonstration and oracle behavior fine-tuning affects the model's performance during inference. To investigate this, we select trajectories from two extreme setups. The easiest setup involves \emph{(Bernoulli, Video, Large $\Delta_{min}$, $K=5$)}, denoted as $D_{\text{easy}}$, with \AG. Conversely, the hardest setup, denoted as $D_{\text{hard}}$ utilizes \emph{(Bernoulli, Clothes, Small $\Delta_{min}$, $K=20$)}, with \RH.
+Figure~\ref{fig:mab_domains_sft_fewshot} illustrates that the choice of oracle trajectories significantly impacts the model's performance, with a surprising contrast between the two \ad methods.
+Few-shot demonstration achieves a higher win-rate when using $D_{\text{easy}}$ as demonstration (50.2) compared to when using $D_{\text{hard}}$ (43.0). This suggests that the limited examples provided in the demonstrations may be insufficient for the model to effectively utilize them under the higher complexity and subtle reward signals of the harder task.
+Conversely, fine-tuning exhibits the opposite trend, with a higher win-rate when trained on $D_{\text{hard}}$ (65.6) compared to $D_{\text{easy}}$ (54.5).
+This implies that fine-tuning, with its extensive training data, might be overfitting to the specific nuances of the training distribution, leading to poor generalization when faced with a different task structure.
+\paragraph{Impact of Contextualization}
+We further investigate the effect of contextualization in oracle trajectories. We consider two representations in MAB: \RH and \SH.
+Results in Figure~\ref{fig:mab_text_rep_sft_fewshot} reveal a  clear contrast in how these representations affect the two \ad methods. For few-shot demonstration, \SH leads to significantly better performance (50.2\% win-rate) compared to \RH (27.5\% win-rate).  This suggests that providing concise, informative summaries of optimal exploration behavior is more effective for few-shot learning than presenting the complete raw history.
+On the other hand, fine-tuning exhibits the opposite trend. \RH has a substantially higher win-rate (65.6) compared to \SH (28.3). This indicates that fine-tuning benefits from the richer information present in complete action-reward sequences, allowing it to learn more nuanced patterns of the optimal exploration strategy.
+These contrasting preferences for textual representation in oracle trajectories highlight the nuanced ways in which fine-tuning and few-shot learning interact with different types of information.
+Furthermore, in CB, we observe a significant impact of incorporating \AG information into the oracle trajectories for fine-tuning, leading a dramatic improvement in win-rate, rising from 28.6 to 89.3 (Figure~\ref{fig:cb_fewshot_sft_ablations}).
+This suggests that providing LLMs with explicit insights, in addition to the complete action-reward sequence, enhances its ability to learn and generalize the optimal exploration strategy in the CB environment.
+\begin{figure*}
+\centering
+\begin{subfigure}[t]{0.3\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/domains_sft_fewshot.pdf}
+\caption{Task Difficulty (MAB).}
+\label{fig:mab_domains_sft_fewshot}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.3\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/mab_text_rep_sft_fewshot.pdf}
+\caption{History Context Representation, \RH vs \SH (MAB).}
+\label{fig:mab_text_rep_sft_fewshot}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.3\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/cb_text_rep_sft_fewshot.pdf}
+\caption{History Context Representation with and without \AG (CB).}
+\label{fig:cb_fewshot_sft_ablations}
+\end{subfigure}
+\caption{\footnotesize{\textbf{Impact of task difficulty and textual representation on \ad.} This figure examines how different factors, such as task difficulty and textual representation of oracle trajectories, influence the effectiveness of \ad on the LLM's exploration capabilities. All results are based on Gemini-1.5 Flash model.}}
+\label{fig:fewshot_sft_ablations}
+\vspace{-4mm}
+\end{figure*}
+\paragraph{Algorithm Distillation Generalizes}
+We also conducted experiments to evaluate the distillation algorithm's ability to generalize from smaller to larger action spaces (i.e., easy-to-hard domain generalization).  This analysis offers insights into the scalability and adaptability of our approach to more complex domains, such as real-world recommendation systems and other complex decision-making problems. We report this in Table~\ref{tab:ad_generalizes}. Using few-shot demonstrations or doing oracle behavior fine-tuning from
+simple-domain trajectories collected (Bernoulli, Easy, K=5) can indeed learn exploration strategies that generalize to a harder domain (Bernoulli, Hard, K=20).
+\begin{table}[h]
+\small
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\begin{tabular}[c]{@{}c@{}}MAB\\Hard\end{tabular} & \begin{tabular}[c]{@{}c@{}}Flash \\(\SH)\end{tabular}  & \begin{tabular}[c]{@{}c@{}}Flash + Few-Shot (\SH) \\ ($\data_\text{easy}$ on K=5)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Flash + OFT (\RH) \\ ($\data_{\text{easy}}$ on K=5)\end{tabular} \\ \midrule
+K=20 & 34.0\% & 43.0\%                            & 48.4\%                       \\ \bottomrule
+\end{tabular}
+\caption{\footnotesize{\textbf{Easy-to-Hard Generalization}: We collect distillation data from easy bandit tasks to learn the exploration behavior and evaluate on hard bandit tasks. History representation during evaluation is in parentheses.}}
+\label{tab:ad_generalizes}
+\end{table}
+\begin{figure*}
+\centering
+\begin{subfigure}[t]{0.4\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/few_shot_inference_time.pdf}
+\caption{In-Context Few-Shot Demonstration}
+\label{fig:few_shot_inference_time}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.4\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/trained_inference_time.pdf}
+\caption{Oracle Behavior Fine-Tuning}
+\label{fig:trained_inference_time}
+\end{subfigure}
+\caption{\footnotesize{\textbf{The Impact of Context Representation in In-Context Examples and Fine-Tuning Data at Inference Time.}} We vary the context representation during ``learning'' (in-context and weight fine-tuning) and provide or withhold information during inference. Providing \AG during inference will always increase the model's performance. Providing it during learning allows the model to maximally leverage such infomation.}
+\label{fig:cb_ablations}
+\vspace{-4mm}
+\end{figure*}
+\paragraph{Impact of Training and Inference-time Representation Alignment}
+Our experiments also reveal an interesting interplay between the presence of algorithm-guided information (\AG) in both the oracle \emph{trajectories} and \emph{inference}. In the CB setting, providing \AG during inference consistently boosts performance, regardless of whether \AG was used in oracle trajectories. This is clearly demonstrated in Figure~\ref{fig:cb_ablations}, where the right column (with \AG at inference time) exhibits higher win-rates than the corresponding left column across all training conditions. This suggests that the LLM can effectively leverage this information even if it wasn't explicitly trained on it, highlighting the inherent value of structured guidance for decision-making.
+Furthermore, we observe that incorporating \AG into few-shot demonstrations improves exploration even when \AG is absent during inference (e.g., Fewshot, \RH 3.6 to \RH+\AG 10.7). This indicates that exposing the LLM to \AG in oracle trajectories, even in a limited capacity, can enhance its ability to extract relevant patterns from \RH.  We hypothesize that \AG helps the LLM learn to focus on the most informative aspects of the history, which generalizes even when \AG is not provided during inference.
+\paragraph{Optimality Analysis of Exploration}
+We use two metrics to capture high-level exploration behaviors: (1) \textbf{MinFrac}, proposed by \citet{krishnamurthy2024can}, captures the fraction of pulls allocated to the least-selected arm. An ideal algorithm should exhibit high \textbf{MinFrac} during early exploration and gets lower as $t$ increases, indicating effective exploration; (2) \textbf{OptFrac}, tracks the percentage of times the optimal arm is pulled. Ideally, this percentage should increase as the process progresses, indicating the model's ability to self-improve. Using Flash model and Bernoulli bandit configurations as an example in Table~\ref{tab:exploration_optimality}, we see that with \AG, the Flash model on average explores more compared to \SH and have higher success at identifying the best arm.
+\begin{table}[h]
+\small
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{MinFrac} / $t$ Step         & 100-th   & 250-th   & 500-th   & 750-th   & 1000-th                                 \\ \midrule
+UCB & 82.3\% & 48.6\% & 27.8\% & 19.6\% & 15.3\% \\
+Flash (\SH)  & 10.2\% & 4.2\% & 2.1\% & 1.4\% & 1.1\%  \\
+Flash (\AG)  & 11.3\% & 4.5\% & 2.3\% & 1.5\% & 1.1\% \\ \midrule
+\textbf{OptFrac} \\ \midrule
+UCB & 32.7\% & 49.4\% & 58.7\% & 62.6\% & 65.0\% \\
+Flash (\SH) & 9.3\% & 10.1\% & 10.4\% & 10.6\% & 10.7\% \\
+Flash (\AG) & 14.4\% & 15.6\% & 16.3\% & 16.6\% & 16.8\% \\
+\bottomrule
+\end{tabular}
+\caption{\footnotesize{\textbf{Optimality of Exploration}: We show the measures on the $t$-th step along the progression of exploration, averaged across Bernoulli MAB configurations. Full version with more models in Table~\ref{tab:full_optimality_minfrac} and \ref{tab:full_optimality_optfrac}.}}
+\label{tab:exploration_optimality}
+\vspace{-5mm}
+\end{table}
+While a model might achieve high performance by chance—e.g., consistently selecting the optimal arm without deliberate exploration—we examine its behavior more closely using two metrics. \textbf{OptFrac} measures how often the optimal arm is chosen, revealing whether the model increasingly favors the best option. As shown in Table~\ref{tab:exploration_optimality}, UCB's OptFrac steadily rises over time (32.7\% $\rightarrow$ 65.0\%), while Gemini-1.5 Flash remains nearly flat (9.3\% $\rightarrow$ 10.7\%), suggesting limited adaptation. To assess directed exploration, we use \textbf{MinFrac}, the fraction of pulls allocated to the least-selected arm. UCB shows a desirable decline (82.3\% $\rightarrow$ 15.3\%), indicating early broad exploration followed by exploitation. In contrast, Gemini-1.5 Flash starts low and drops quickly (11.3\% $\rightarrow$ 1.1\%), implying minimal directed exploration throughout. Together, these metrics demonstrate that Gemini's performance is not driven by meaningful exploration. More discussion in Appendix~\ref{app:sec:optimality}.
+\section{Functional Interpretation of LLM Exploration Behavior}
+\begin{figure*}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+\centering
+\caption{\textbf{MAB} in Easy ($K$=5, $\Delta_{\min}$=0.5).}
+\includegraphics[width=\textwidth]{figures/mab_easy_domain_exp_multi.pdf}
+\label{fig:exp_analysis_easy}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{\textwidth}
+\centering
+\caption{\textbf{MAB} in Hard ($K$=20, $\Delta_{\min}$=0.2).}
+\includegraphics[width=\linewidth]{figures/mab_hard_domain_exp_multi.pdf}
+\label{fig:exp_analysis_hard}
+\end{subfigure}
+\centering
+\caption{\footnotesize{We plot the estimated parameters $\alpha$ and $\beta$. Smaller $\alpha$ and $\beta$ indicate more efficient exploration to find the best arm. Algorithms with strong in-context exploration should have $\alpha$ as small as possible and have $\beta$=0. We can see for MAB Hard setup, lesser models achieved sublinear regret.}}
+\label{fig:exp_analysis}
+\vspace{-4mm}
+\end{figure*}
+In this section, we aim to conduct a more rigorous analysis of the LLM's exploration efficiency using the concept of regret, $REG(\pi)$. Most bandit algorithms are evaluated by the behavior of $REG(\pi)$ as a function of $T$ (i.e., the number of interactions), either theoretically or empirically.
+Motivated by this, our goal is to understand the exploration behaviors of various LLMs by characterizing their regret as a function of $T$. To achieve this, we adopt the following functional form to analyze the regret:
+\begin{align}
+ f(T) = \frac{\lambda \log(T)^{\alpha}}{\Delta_{\min}} + \beta T + \lambda_2
+\end{align}
+The three parameters $\alpha, \beta, \lambda_1$ in the equation are all positive real numbers. $\lambda_2$ is unconstrained. $\Delta_{\min}$ captures the gap between the best and second best arm.
+This functional form provides intuitive interpretations for the underlying parameters. Specifically, $\log(T)$ represents sublinear scaling of the regret, which is known to be achieved by only the best bandit algorithms (e.g. UCB and Thompson Sampling). The $T$ scaling describes a linear growth or the inability of an agent to match the optimal policy $\pi^*$. This means a strong algorithm should have $\alpha$ as small as possible, and have $\beta=0$. This functional form also allows us to see some growth behaviors in-between with both positive $\alpha$ and $\beta$.
+We use the curve fit function in Scikit-learn~\citep{pedregosa2011scikit} to fit the cumulative regret curve of UCB and LLMs coupled with different methods (i.e., inference-time algorithm-guided support, in-context demonstration, and optimal behavior fine-tuning).
+The results of the fitted $\alpha$ and $\beta$ values are presented in Figure~\ref{fig:exp_analysis}.
+For the largest Pro models, applying effective inference-time support, such as \textbf{AG} and \textbf{SH} can achieve nearly sub-linear regret. More intriguingly, for Flash models, fine-tuning for optimal behavior significantly boosts performance, enabling them to attain sub-linear regret with a lower $\alpha$. In contrast, weaker models such as Gemma 2B and 9B appear to remain in the linear regret regime across nearly all methods.
+\section{Related Work}
+Several prior works have investigated the use of LLMs for decision-making. In one category, numerous studies have deployed LLMs directly as agents in decision-making problems such as games~\citep{yao2023react,brooks2024large,shinn2024reflexion,wang2023voyager,xi2023rise}. However, fewer works have systematically evaluated LLMs' capabilities in general decision-making setup, especially in relation to classical concepts in decision-making like exploration. Our work extends the research of \citet{krishnamurthy2024can}, who examined LLMs' exploration capabilities in small-scale MAB tasks. Their findings, which showed positive results only with substantial intervention, are consistent with our broader analysis across both MAB and CB tasks at various scales. \citet{mirchandani2023large,rahn2024controlling,felicioni2024importance} also evaluated the ability of LLMs to learn in-context and solve bandit-like decision-making problems.
+Another relevant line of research focuses on in-context learning for decision-making and reinforcement learning (RL) with domain-specific transformers. \citet{laskin2022context} distilled demonstrations from RL algorithms into a transformer and showed that it learns to imitate the RL process to solve new RL tasks. Similarly, \citet{lee2024supervised} trained transformers with optimal action labels, showing that the model learns to execute posterior sampling for RL~\citep{osband2013more} in-context. This area has been further studied by~\citet{raparthy2023generalization,lin2023transformers,bai2023transformers}. However, these studies focus on domain-specific decision-making, whereas our paper examines general-purpose decision-making capabilities in language models.
+Our inference-time algorithm-guided support shares a similar conceptual framework with recent efforts to align LLMs at inference time. These include employing explicit value functions as prefix scorers~\citep{mudgal2023controlled}, and leveraging both implicit and explicit value functions to guide decoding~\citep{liu2024inference}.
+In the realm of algorithm distillation, much of the research on LLMs has concentrated on chain-of-thought (CoT) reasoning~\citep{wang2023scott, li2023symbolic}, while \cite{gandhi2024stream} focused on search and backtracking. Our work focuses on distilling a more complex class of algorithms that involve uncertainty estimation and linear regression.
+Our inference-time algorithm-guided support shares a similar conceptual framework with recent efforts to align LLMs at inference time. These include employing explicit value functions as prefix scorers that trained via KL-regularized RL~\citep{mudgal2023controlled}, and leveraging both implicit and explicit value functions to guide decoding at the token and chunk levels at inference time~\citep{liu2024inference}.
+In the realm of algorithm distillation, much of the research on LLMs has concentrated on chain-of-thought (CoT) reasoning~\citep{wang2023scott, li2023symbolic}, while \cite{gandhi2024stream} focused on search and backtracking. Most methods involve distilling outputs from a "teacher" model—either a larger model or a slower, system-2 variant of the same model that employs various inference-time techniques, such as search and self-consistency—into a student model~\citep{yu2024distilling}. Instead, our approach leverages diverse optimal trajectories directly from classical algorithms, allowing for the efficient generation of abundant training data.
+The motivation of our work is also inspired by the cognitive science literature on human. Prior studies have found that humans balance exploration and exploitation through a mix of directed and random exploration~\citep{wilson2014humans}, and that these behaviors are supported by distinct neural mechanisms~\citep{daw2006cortical}. \citet{gershman2018deconstructing} further decomposes human exploration into algorithmic components. These works provide future directions for evaluating LLM's behavior in addition to reward~\cite{pan2025large}. Additionally, efficient exploration also benefits other areas of RL, such as multi-agent collboration~\citep{qu2024choices} and preference optimization~\citep{bai2025online}.
+\section{Conclusion}
+In this work, we explored the in-context exploration capabilities of LLMs in bandit environments, introducing BanditBench, a comprehensive benchmark designed to rigorously evaluate LLM's performance. Our evaluation reveals that LLMs struggle with in-context exploration when relying solely on raw interaction history, while inference-time support significantly improves performance. Motivated by the presence of optimal algorithms in this domain, we investigated methods to integrate these algorithms into LLMs through both algorithm-guided support and algorithm distillation via synthesized demonstration data. Notably, these approaches enable smaller models to outperform larger ones in decision-making tasks. However, an optimality gap remains between LLMs and classical optimal algorithms, highlighting the need for further research to bridge this gap.
+\section*{Software and Data}
+BanditBench and the inference code have been provided in this GitHub repo and will be updated/monitored regularly: \url{https://github.com/allenanie/EVOLvE}. You can install the code with: \texttt{pip install banditbench}.
+\section*{Acknowledgements}
+We thank Yaqing Wang for helping some infra on data processing and storage, Aviral Kumar, Yifeng Lu, Haokai Lu, Ice Pasupat, Kefan Dong, Ollie Liu, Deqing Fu for valuable discussions on the project. We thank Ruijie Zheng for feedback on the code base.
+\bibliography{main}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\appendix
+\newpage
+\section{Appendix}
+\begin{figure}[h]
+\noindent
+\small
+    \centering
+  \begin{minipage}[t]{0.42\textwidth}
+    \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title=Raw History]
+        [Scenario Description] \newline
+        [Instructions] \newline
+        [List of Actions] \newline
+        Past Raw History: \newline
+        \sethlcolor{lightgray}~\hl{Time 1, Action Name, reward $r_1$} \newline
+        \sethlcolor{lightgray}~\hl{Time 2, Action Name, reward $r_2$} \newline
+        \sethlcolor{lightgray}~\hl{Time 3, Action Name, reward $r_3$} \newline
+        \sethlcolor{lightgray}~\hl{Time 4, Action Name, reward $r_4$} \newline
+        ... \newline
+        Which [Action] will you choose next?
+    \end{tcolorbox}
+\end{minipage}
+~
+\begin{minipage}[t]{0.56\textwidth}
+\small
+    \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title=Summarized History with \ag]
+  [Scenario Description] \newline
+  [Instructions] \newline
+    [List of Actions] \newline
+    Summarized History: \newline
+    \sethlcolor{lightgray}
+    \parbox{\linewidth}{\hl{Action 1 Name, chosen $n$ times, average reward $\hat \mu^{1}$},\sethlcolor{pink}~\hl{ exploration bonus $v_1$},\sethlcolor{yellow}~\hl{exploitation bonus $e_1$}.} \newline
+     \hl{Action 2 Name, chosen $n$ times, average reward $\hat \mu^{2}$},\sethlcolor{pink}~\hl{ exploration bonus $v_2$},\sethlcolor{yellow}~\hl{exploitation bonus $e_2$}.. \newline
+    ... \newline
+    Which [Action] will you choose next?
+    \end{tcolorbox}
+\end{minipage}
+    \caption{\footnotesize{The problem representation of in-context exploration in text. For Summarized History (\SH), the text in gray is presented. For \ag (\AG), the text in pink and yellow are presented along with the text in gray. This schema works for any \textit{general} algorithm that explicitly compute exploration and exploitation bonus. For UCB, $e_1 = \hat\mu^1$. Detailed prompts for both MAB and CB are provided in Appendix~\ref{app_subsec: prompt}.}}
+    \label{fig:prompt}
+\end{figure}
+\subsection{Details on Multi-Armed Bandit Task}
+\label{app_subsec: mab}
+We have 16 configurations for the multi-armed bandit domain, shown in Table~\ref{tab:mab_config}.
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}l|cc@{}}
+\toprule
+                        & \multicolumn{2}{c}{Parameters}                                    \\ \midrule
+Reward Type             & \multicolumn{1}{c|}{Bernoulli}              & Gaussian            \\ \midrule
+Exploration Difficulty  & \multicolumn{1}{c|}{Easy ($\Delta_{\min}$=0.5), Hard ($\Delta_{\min}$=0.2)} & Easy ($\sigma=1$), Hard ($\sigma=3$) \\ \midrule
+Number of Items/Actions & \multicolumn{2}{c}{Small ($k=5$), Large ($k=20$)}                         \\ \midrule
+Action Description & \multicolumn{2}{c}{Videos, Clothes}                               \\ \bottomrule
+\end{tabular}
+\vspace{2mm}
+\caption{Configuration of the MAB setup. }
+\label{tab:mab_config}
+\end{table}
+\subsection{Details on Contextual Bandit Task}
+\label{app_subsec: cb_detail}
+We use the MovieLens-1M dataset~\citep{harper2015movielens} to build the contextual bandit task. It contains 1,000,209 anonymous ratings of approximately 3,900 movies
+made by 6,040 MovieLens users who joined MovieLens in 2000. For each user, we have the basic demographic information such as age, gender, occupation, and zip code. We further convert zip code to the actual name of the county and state and add these into the user profile description text. Each movie has a title and associated genres. We present these information in the prompt as well.
+LinUCB assumes a linear reward model $\E[r|x, a] = \theta_a^T x$, where $\theta \in \R^d$~\citep{chu2011contextual}. Since we are trying to use tasks to measure the performance of LLM against a theoretically optimal algorithm, we have to build the contextual bandit task in a way that satisfies the LinUCB assumption. An additional issue is that the context window of an LLM is still limited, and we want to restrict the number of movies for the LLM to 10 or 30. So, we first calculate the popular movies by tracking how often users rate each. We sort the list and select the top $K$ movies.
+Then, we build a user preference matrix $P \in \R^{N \times K}$, where $N$ is the number of users and $K$ is the number of movies.
+To construct the ground-truth reward distribution, we perform low-rank approximation on $P$.
+This is done by approximating $P$ with $\tilde{P} = U \Sigma V^T$ using singular value decomposition (SVD), yielding a user embedding matrix $U \in \mathbb{R}^{N \times d}$, a movie embedding matrix $V \in \mathbb{R}^{K \times d}$, and a diagonal matrix $\Sigma \in \mathbb{R}^{d \times d}$ of the top singular values. In our case, we set $d=5$ as the dimension of the embeddings. The ground-truth reward for user $i$ and movie $j$ is then computed as $r_{i,j} = u_i^T \Sigma v_j$.
+In order to present the full information that was provided to LinUCB to LLM as well, we include the user preference vector in the prompt space, represented by a list of 5 floating point numbers. We additionally add descriptions to indicate that this is a user preference vector. We show our full prompt in Figure~\ref{fig:cb_movie_10_rh}.
+\subsection{UCB and LinUCB}
+In Table~\ref{tab:mab_cb_eq}, we provide a detailed comparison between the exploitation values and exploration bonus used in both UCB and LinUCB.
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}r|c|c@{}}
+\toprule
+Algorithm & Task & Value of Arm \\ \midrule
+UCB       & MAB  &     $V_t(a) = \underbrace{\hat\mu_t(a) \vphantom{\alpha\log(t)/N_t(a)}}_{\mred{V^\text{Exploit}}} + \underbrace{\alpha\sqrt{\log(t)/N_t(a)}}_{\mblue{V^\text{Explore}}}$         \\ \midrule
+LinUCB    & CB   &       $V_t(a, x) = \underbrace{x_{t,a}^T\hat\theta_a}_{\mred{V^\text{Exploit}}} + \underbrace{\alpha\sqrt{x^T_{t,a}(D^T_aD_a+I_d)^{-1}x_{t,a}}}_{\mblue{V^\text{Explore}}}$ \\ \bottomrule
+\end{tabular}
+\caption{Calculation for the value of each arm/item. The decision rule is $a^* = \argmax_a V_t (a, x)$.}
+\label{tab:mab_cb_eq}
+\end{table}
+\subsection{Example of Win-Rate Calculation}
+\label{sec:app:win-rate-example}
+In each configuration, we compute one model's win-rate against all other models. For MAB, we have 16 configurations and 34 models. For CB, we have 2 configurations and 16 models. Finally, the model's \emph{overall win-rate} is then determined by averaging its win-rates across all models. For example, in MAB, if we only have 3 models: Gemma-2B, Gemini-1.5 Flash, and Pro. Gemini-1.5 Flash have higher expected cumulative reward than Gemma-2B in 12 out of 16 configurations (12/16), but only higher than Gemini-1.5 Pro in 4 out of 16 configurations (4/16), Gemini-Flash 1.5 will have an overall win-rate, on average, 8/16=0.5.
+\subsection{Benchmark Evaluation Cost}
+We calculate and report the inference time cost for evaluating 30 trials for one agent with the longest contextual representation (which incurs the highest cost). This means, for MAB tasks, we evaluate using \rah (\RH) and for CB tasks, we evaluate using \ag (\AG). The total cost for MAB Full (over 16 configurations and 32 models) is \$15897.6 for Gemini-1.5 Flash and for CB (2 configurations and 14 models) is \$14491.12 for Gemini-1.5 Flash. We will release all logged experiment data of all models for public analysis and comparison. We also recommend using a subset of our configurations for MAB (HardCore and HardCore+) to reduce evaluation cost. The cost was calculated around 02/2025.
+\begin{table}[]
+\centering
+\small
+\begin{tabular}{@{}llllll@{}}
+\toprule
+                      & Core         & HardCore     & HardCore+    & Full          & MovieBench   \\ \midrule
+Gemini-1.5 Flash       & \$31.05  & \$14.91  & \$39.18  & \$83.44   & \$31.05  \\
+gpt-4o-mini-2024-07-18     & \$62.10      & \$29.83      & \$78.36      & \$166.88      & \$62.10      \\
+claude-3-5-haiku-20241022  & \$414.33     & \$198.97     & \$522.64     & \$1113.18     & \$414.33     \\
+Gemini-1.5 Pro         & \$517.54 & \$248.55 & \$652.98 & \$1390.69 & \$517.54 \\ \midrule
+GPT-4o          & \$1035.07    & \$497.11     & \$1305.96    & \$2781.38     & \$1035.07    \\
+Claude-3.5-sonnet & \$1243.00    & \$596.91     & \$1567.91    & \$3339.53     & \$1243.00    \\
+ \bottomrule
+\end{tabular}
+\caption{Maximal inference cost for a single agent/task configuration over 30 trials. Price calculated on 1/30/2025. Core, HardCore and HardCore+ refer to specific subset of the MAB configurations. The exact details are in the code included in the supplementary material. In this paper, we used Full (MAB) and MovieBench (CB) of the benchmark.}
+\end{table}
+\subsection{Details on Exploration Optimality Analysis}
+\label{app:sec:optimality}
+There are two types of failures one can expect in a bandit problem:
+\begin{enumerate}
+    \item \textbf{Over-exploration on suboptimal choices which results in lower exploration efficiency}: over-exploration happens when the algorithm spends too much time exploring suboptimal choices, reducing overall efficiency. This behavior can be quantified using the \textbf{MinFrac} metric~\citep{krishnamurthy2024can}, which measures the fraction of pulls allocated to the least-selected arm. An ideal algorithm should exhibit high \textbf{MinFrac} during early exploration (when $T$ is small) and low \textbf{MinFrac} as $T$ increases (indicating effective exploitation).
+    \item \textbf{Failure to identify the optimal arm}: this occurs when the algorithm struggles to converge on the best option over time. To capture this, we compute the percentage of times an optimal arm is pulled at different time steps (\textbf{OptFrac}). Ideally, this percentage should increase as the process progresses, indicating the model's ability to self-improve.
+\end{enumerate}
+We report these metrics at specific time steps over a total of T time steps. For convenience in visualizing the results in a table, we select the 10\%, 25\%, 50\%, 75\%, and 100\% (final) time steps. There are 1000 steps for the Bernoulli  The reported numbers are from Bernoulli Bandit, the metrics are averaged across different configurations.
+\begin{table}[h]
+\small
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+MinFrac (\%) / $t$ Step         & 100-th   & 250-th   & 500-th   & 750-th   & 1000-th                                 \\ \midrule
+UCB & 82.3 & 48.6 & 27.8 & 19.6 & 15.3 \\ \midrule
+Gemma-2B (\SH) & 0.0 & 1.0 & 0.5 & 0.4 & 0.3 \\
+Gemma-2B (\AG) & 0.0 & 0.6 & 1.1 & 1.9 & 2.7 \\ \midrule
+Gemma-9B (\SH) & 6.9 & 11.2 & 16.9 & 15.4 & 16.5 \\
+Gemma-9B (\AG) & 5.8 & 11.8 & 17.3 & 19.6 & 22.9 \\ \midrule
+Gemini-1.5 Flash (\SH)  & 10.2 & 4.2 & 2.1 & 1.4 & 1.1  \\
+Gemini-1.5 Flash (\AG)  & 11.3 & 4.5 & 2.3 & 1.5 & 1.1 \\ \midrule
+Gemini-1.5 Pro (\SH) &79.0 & 40.0 &20.6 &13.9&10.5 \\
+Gemini-1.5 Pro (\AG) &73.8&37.1&18.9&12.7&9.5 \\
+\bottomrule
+\end{tabular}
+\caption{\footnotesize{\textbf{Over-exploration Rate (MinFrac)}: MinFrac measures the fraction of pulls allocated to the least-selected arm. We show the measures on the $t$-th step along the progression of exploration.}}
+\label{tab:full_optimality_minfrac}
+\end{table}
+\begin{table}[h]
+\small
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+OptFrac (\%) / $t$ Step         & 100-th   & 250-th   & 500-th   & 750-th   & 1000-th                                 \\ \midrule
+UCB & 32.7 & 49.4 & 58.7 & 62.6 & 65.0 \\ \midrule
+Gemma-2B (\SH)& 10.1&10.3&10.2&10.1&10.1\\
+Gemma-2B (\AG)& 12.8&12.3&12.4&12.2&12.2 \\ \midrule
+Gemma-9B (\SH)& 5.8&6.7&7.4&7.8&8.0 \\
+Gemma-9B (\AG)& 6.6&7.3&6.7&6.6&6.6 \\ \midrule
+Gemini-1.5 Flash (\SH) & 9.3 & 10.1 & 10.4 & 10.6 & 10.7 \\
+Gemini-1.5 Flash (\AG) & 14.4 & 15.6 & 16.3 & 16.6 & 16.8 \\ \midrule
+Gemini-1.5 Pro (\SH)& 15.1&19.1&21.8&22.9&23.5 \\
+Gemini-1.5 Pro (\AG)& 11.9&17.7&21.6&23.1&23.9 \\
+\bottomrule
+\end{tabular}
+\caption{\footnotesize{\textbf{Fraction of Pulls on the Optimal Arm (OptFrac)}: OptFrac measures the fraction of pulls overall on the optimal arm over. We show the measures on the $t$-th step along the progression of exploration.}}
+\label{tab:full_optimality_optfrac}
+\end{table}
+A model could, in theory, achieve high performance by consistently choosing the optimal arm—even if it rarely explores—by chance. To address this, we include an analysis of the model's exploration behavior using a metric called \textbf{OptFrac}, which measures how often the optimal arms are selected. As shown in Table~\ref{tab:full_optimality_optfrac}, UCB steadily increases its OptFrac over time (32.7\% $\rightarrow$ 49.4\% $\rightarrow$ 58.7\% $\rightarrow$ 62.6\% $\rightarrow$ 65.0\% over 1000 steps), indicating a growing focus on the optimal arm. In contrast, Gemini-1.5 Flash remains largely flat (9.3\% $\rightarrow$ 10.1\% $\rightarrow$ 10.4\% $\rightarrow$ 10.6\% $\rightarrow$ 10.7\%), suggesting that it does not significantly shift its behavior toward the optimal arm. This supports our claim that the model does not accidentally achieve optimal performance by randomly selecting the best arm without meaningful exploration.
+We then analyze exploration dynamics in more detail, such as whether the model engages in random or directed exploration. In our analysis, we include a metric called MinFrac, which measures the fraction of pulls allocated to the least-selected arm. This captures the extent to which the model explores less-visited options, which can be understood as a form of “directed exploration.” Ideally, this value should be high early on (indicating strong directed exploration), and then decrease as the model gains experience and focuses on better-performing arms.
+As shown in Table~\ref{tab:full_optimality_minfrac}, UCB exhibits this expected trend, with MinFrac values decreasing over time: 82.3\% $\rightarrow$ 48.6\% $\rightarrow$ 27.8\% $\rightarrow$ 19.6\% $\rightarrow$ 15.3\%. In contrast, Gemini-1.5 Flash starts with a much lower MinFrac and declines rapidly (11.3\% $\rightarrow$ 4.5\% $\rightarrow$ 2.3\% $\rightarrow$ 1.5\% $\rightarrow$ 1.1\%), suggesting it lacks meaningful directed exploration from the outset.
+\subsection{Details on Fitting Regret Function}
+We perform the same analysis with the cumulative regret function on MAB in the Hard Difficulty setting. We can see that in Figure~\ref{fig:exp_analysis_hard}, a lot fewer LLM models achieved $\beta=0$, which means achieving the desirable logarithmic sublinear regret that algorithms like UCB and Thompson Sampling have.
+In the MAB-Hard setting, we can see that more models are having non-zero $\beta$, meaning these models have linear cumulative regret, which indicates lack of in-context self-improvement, because the model is not selecting the optimal arm more and more frequently as $T$ increases. However, we can see that generally Optimal Behavior Fine-Tuned models are doing better.
+To verify that our functional form fits the data (empirical cumulative regret curve) well, we show a few figures of our fitted curve and actual data. In Figure~\ref{fig:fitted_regret_curves},
+we show how the learned function $f(T)$ fit the actual empirical cumulative regret curve.
+\begin{figure*}[h]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/gemma2b_rh_easy_domain_curve.pdf}
+\caption{Example of Linear Cumulative Regret}
+\label{fig:gemma2b_cum_curve}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/gemini15pro_rh_easy_domain_curve.pdf}
+    \caption{Example of Sublinear Cumulative Regret}
+    \label{fig:gemini15_cum_curve}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/ucb_easy_domain_curve.pdf}
+    \caption{Example of Sublinear Cumulative Regret}
+    \label{fig:ucb_cum_curve}
+\end{subfigure}
+\caption{Examples of how our function fits different empirical cumulative regret curves. $T$ indicates number of times the agent interacted with the task.}
+\label{fig:fitted_regret_curves}
+\vspace{-4mm}
+\end{figure*}
+In Figure~\ref{fig:fitted_regret_curves}, it is interesting to see that the function we choose exhibit the behavior of pushing either $\alpha$ or $\beta$ to 0, if either of the two describes the trend better. We note that although the fit is not perfect, the MSE is relatively small compared to the data we are trying to fit. For a cumulative regret as large as 100 at some time step $T$, our fitted function ccan still maintain an MSE of 0.22.
+\begin{figure*}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+\centering
+\caption{\textbf{Gaussian MAB} in Easy ($K$=5, $\sigma$=1 and $\sigma$=3, $\Delta_{\min}$=0.391).}
+\includegraphics[width=\textwidth]{figures/mab_gaussian_easy_domain_exp_multi.pdf}
+\label{fig:exp_gaussian_analysis_easy}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{\textwidth}
+\centering
+\caption{\textbf{Gaussian MAB} in Hard ($K$=20, $\sigma$=1 and $\sigma$=3, $\Delta_{\min}$=0.005).}
+\includegraphics[width=\linewidth]{figures/mab_gaussian_hard_domain_exp_multi.pdf}
+\label{fig:exp_gaussian_analysis_hard}
+\end{subfigure}
+\centering
+\caption{\footnotesize{We plot the estimated parameters $\alpha$ and $\beta$. The difficulty level is determined by $\Delta_{\min}$.}}
+\label{fig:exp_gaussian_analysis}
+\vspace{-4mm}
+\end{figure*}
+We additionally add the analysis for the MAB Gaussian bandit. The instance optimality gap $\Delta_{\min}$ is characterized by the KL-divergence of the Gaussian reward distribution between the best arm and the second best arm. We show the result in Figure~\ref{fig:exp_gaussian_analysis}. The trend is somewhat similar to Bernoulli bandits, where smaller models perform much worse than larger models.
+\subsection{Evaluation Implementation Details}
+We run each model under each configuration for 30 trials. We set the random seed to be the same as trial id, starting from 0 to 29. This random seed determines the reward distribution for MAB and the sequence of users the algorithm encounters in CB. For the LLM calls, we use standard API calls and set the sampling temperature to 1.0.
+\subsection{Full List of Models}
+\label{sec:app:model_full_list}
+We provide a full list of models evaluated for MAB and CB. The model is represented using A $\implies$ B with A being the model, with B being the inference-time technique.
+\textbf{MAB Models}
+\begin{enumerate}
+    \item \FSD Gemma-9B, (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \RH \hfill 0.029
+    \item \FSD Gemma-2B, (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \RH \hfill 0.029
+    \item Gemma-9B $\implies$ \AG \hfill 0.041
+    \item Fewshot Gemma-2B with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \SH \hfill 0.043
+    \item Fewshot Gemma-2B with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \SH \hfill 0.045
+    \item Fewshot Gemma-2B with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \RH \hfill 0.047
+    \item Gemma-2B $\implies$ \AG \hfill 0.049
+    \item Gemma-9B $\implies$ \SH \hfill 0.053
+    \item Fewshot Gemma-9B with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \RH \hfill 0.072
+    \item Gemma-2B $\implies$ \RH \hfill 0.076
+    \item Fewshot Gemma-9B with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \SH \hfill 0.088
+    \item Fewshot Gemma-9B with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \SH \hfill 0.092
+    \item \OFT Flash with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) \AG $\implies$ \AG \hfill 0.104
+    \item Gemma-2B $\implies$ \SH \hfill 0.105
+    \item Gemma-9B $\implies$ \RH \hfill 0.105
+    \item Fewshot Flash with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \RH \hfill 0.152
+    \item Fewshot Flash with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \RH \hfill 0.275
+    \item Gemini-1.5 Flash $\implies$ \RH \hfill 0.277
+    \item \OFT Flash with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) \AG $\implies$ \AG \hfill 0.283
+    \item Gemini-1.5 Flash $\implies$ \AG \hfill 0.322
+    \item Gemini-1.5 Flash $\implies$ \SH \hfill 0.348
+    \item Fewshot Pro with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \RH \hfill 0.381
+    \item Fewshot Pro with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \RH \hfill 0.391
+    \item Fewshot Flash with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \SH \hfill 0.430
+    \item Gemini-1.5 Pro $\implies$ \RH \hfill 0.455
+    \item Fewshot Flash with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \SH \hfill 0.502
+    \item Fewshot Pro with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) $\implies$ \SH \hfill 0.525
+    \item \OFT Flash with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) \RH $\implies$ \RH \hfill 0.545
+    \item Fewshot Pro with (Bernoulli, Video, $K=5$, Large $\Delta_{\min}$) $\implies$ \SH \hfill 0.564
+    \item Gemini-1.5 Pro $\implies$ \AG \hfill 0.596
+    \item Gemini-1.5 Pro $\implies$ \SH \hfill 0.600
+    \item \OFT Flash with  (Bernoulli, Clothes, $K=20$, Small $\Delta_{min}$) \RH $\implies$ \RH \hfill 0.656
+    \item UCB \hfill 0.906
+\end{enumerate}
+\textbf{CB Models}
+\begin{enumerate}
+    \item Gemini-1.5 Flash $\implies$ \RH \hfill 0.000
+    \item Fewshot Flash with \RH $\implies$ \RH \hfill 0.036
+    \item Fewshot Pro with \RH $\implies$ \RH \hfill 0.071
+    \item Gemini-1.5 Pro $\implies$ \RH \hfill 0.071
+    \item Fewshot Flash with \RH $\implies$ \RH \hfill 0.107
+    \item Fewshot Pro with \RH $\implies$ \AG \hfill 0.250
+    \item \OFT trained with \RH $\implies$ \RH \hfill 0.286
+    \item \OFT trained with \AG $\implies$ \RH \hfill 0.286
+    \item Fewshot Flash with \RH $\implies$ \AG \hfill 0.429
+    \item Gemini-1.5 Flash $\implies$ \AG \hfill 0.464
+    \item Fewshot Flash with \AG $\implies$ \AG \hfill 0.607
+    \item \OFT trained with \RH $\implies$ \AG \hfill 0.643
+    \item Gemini-1.5 Pro $\implies$ \AG \hfill  0.643
+    \item \OFT trained with \AG $\implies$ \AG \hfill  0.893
+    \item LinUCB \hfill 0.964
+\end{enumerate}
+\subsection{Scenario Prompts}
+\label{app_subsec: prompt}
+We provide a set of prompts that are used in each scenario. For Multi-Arm Bandit, we include the following prompts:
+\begin{enumerate}
+    \item MAB, Bernoulli Bandit, $K=5$, Raw History (\textbf{RH}), Video Action Description (Figure~\ref{fig:video_k5_rh}), Clothes Action Description (Figure~\ref{fig:clothing_k5_rh})
+    \item MAB, Bernoulli Bandit, $K=5$, \ag (\textbf{AG}), Clothes Action Description (Figure~\ref{fig:clothing_k5_sh_ag}), Video Action Description (Figure~\ref{fig:video_k5_sh_ag})
+    \item MAB, Gaussian Bandit, $K=5$, Raw History (\textbf{RH}), Video Action Description (Figure~\ref{fig:video_gaussian_k5_rh}), Clothes Action Description (Figure~\ref{fig:clothes_gaussian_k5_rh})
+\end{enumerate}
+For Contextual Bandit, we include the following prompts:
+\begin{enumerate}
+    \item CB, $K=10$, Raw History (\textbf{RH}) (Figure~\ref{fig:cb_movie_10_rh})
+    \item CB, $K=10$, Raw History (\textbf{RH}) with \ag (\textbf{AG}) (Prompt Part 1 Figure~\ref{fig:cb_movie_10_rh_ag_part1}, Prompt Part 2 Figure~\ref{fig:cb_movie_10_rh_ag_part2}).
+\end{enumerate}
+For \textbf{OFT}, we use the same prompt as shown in the figures above. The LLM generates the next action token conditioned on the entire prompt, and we compute the negative log-likelihood loss over the action tokens, with the action chosen by UCB/LinUCB algorithm.
+\subsection{Examples of few-shot demonstrations}
+\label{app_subsec: few_shot}
+We provide examples of how few-shot prompt being used. We include few-shot demonstrations from optimal exploration trajectories before past interaction history (without the task description and instruction). We show two examples to illustrate that how few-shot demonstrations domain match with the evaluation domain:
+\begin{enumerate}
+    \item MAB, Benoulli Bandit, Video Action Description, $K=5$, Raw History (\textbf{RH}), with Few-shot Demonstrations from Video Action Description, $K=5$, Raw History (\textbf{RH}) (Figure~\ref{fig:fewshot_vid5_easy_rh_inf_rh})
+    \item MAB, Benoulli Bandit, Video Action Description, $K=5$, Raw History (\textbf{RH}), ith Few-shot Demonstrations from Clothes Action Description, $K=5$, Raw History (\textbf{RH}) (Figure~\ref{fig:fewshot_clothes5_easy_rh_inf_rh})
+\end{enumerate}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform.
+    There are 5 videos available in your library, titled [A, B, AI, BS, E].
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences.
+    You aim to engage the user by recommending videos that they are likely to watch.
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions,
+    enhancing user satisfaction and platform engagement.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, AI, BS, E AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Video Action Description, $K=5$, Raw History.}
+    \label{fig:video_k5_rh}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are an AI fashion assistant for an online boutique powered by a bandit algorithm that offers a variety of clothing options from different brands.
+    There are 5 unique clothing items you can recommend, named [Midnight Mirage Trousers, Opulent Oasis Overcoat, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer].
+    When a customer visits the online store, you assess their style preferences and shopping history to choose an item to suggest.
+    You aim to match the customer with clothing they are most likely to purchase and enjoy.
+    Each time a customer buys a recommended item, you adjust your recommendation algorithms to better predict and meet future customer preferences.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the clothing brands and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 6 times with the following choices and rewards:
+    Midnight Mirage Trousers item, reward 0
+    Opulent Oasis Overcoat item, reward 1
+    Infinite Impeccable Jacket item, reward 1
+    Supreme Spectrum Slippers item, reward 0
+    Bejeweled Bloom Blazer item, reward 0
+    Opulent Oasis Overcoat item, reward 1
+    Which item will you choose next? PLEASE RESPOND ONLY WITH Midnight Mirage Trousers, Opulent Oasis Overcoat, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Clothing Action Description, $K=5$, Raw History.}
+    \label{fig:clothing_k5_rh}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are an AI fashion assistant for an online boutique that offers a variety of clothing options from different brands.
+    There are 5 unique clothing items you can recommend, named
+    Stellar Sheen Shawl,
+    Faithful Fantasy Frock,
+    Supreme Sylvan Sandals,
+    Bespoke Bliss Blouse item,
+    Silk Spectrum Slip
+    When a customer visits the online store, you assess their style preferences and shopping history to choose an item to suggest.
+    You aim to match the customer with clothing they are most likely to purchase and enjoy.
+    Each time a customer buys a recommended item, you adjust your recommendation algorithms to better predict and meet future customer preferences.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the clothing brands and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 4 times with the following choices and rewards:
+    Stellar Sheen Shawl item, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Faithful Fantasy Frock item, 1 time, avg reward 1, exploration bonus 1.00, exploitation value 1.00
+    Supreme Sylvan Sandals item, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Bespoke Bliss Blouse item, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Silk Spectrum Slip item, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Which clothes item will you choose next?
+    Action:
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Clothing Action Description, $K=5$, Algorithmic Guide.}
+    \label{fig:clothing_k5_sh_ag}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform.
+    There are 5 videos available in your library, titled
+    AA
+    BS
+    BW
+    CQ
+    CP
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences.
+    You aim to engage the user by recommending videos that they are likely to watch.
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions, enhancing user satisfaction and platform engagement.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 4 times with the following choices and rewards:
+    AA video, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    BS video, 1 time, avg reward 1, exploration bonus 1.00, exploitation value 1.00
+    BW video, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    CQ video, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    CP video, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Which video will you choose next?
+    Action:
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Beroulli, Video Action Description, $K=5$, Algorithmic Guide.}
+    \label{fig:video_k5_sh_ag}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform.
+    There are 5 videos available in your library, titled [A, CX, AF, AQ, S].
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences.
+    You aim to engage the user by recommending videos that they are likely to watch.
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions,
+    enhancing user satisfaction and platform engagement.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 2.0205556227286694
+    CX video, reward 5.046038662976072
+    AF video, reward -4.043037070451992
+    AQ video, reward 5.937910707405409
+    S video, reward -4.856036829535051
+    AQ video, reward 6.2468398842187405
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, CX, AF, AQ, S AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Gaussian, Video Action Description, $K=5$, Raw History.}
+    \label{fig:video_gaussian_k5_rh}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are an AI fashion assistant for an online boutique powered by a bandit algorithm that offers a variety of clothing options from different brands.
+    There are 5 unique clothing items you can recommend, named [Midnight Mirage Trousers, Dapper Dreams Denim, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer].
+    When a customer visits the online store, you assess their style preferences and shopping history to choose an item to suggest.
+    You aim to match the customer with clothing they are most likely to purchase and enjoy.
+    Each time a customer buys a recommended item, you adjust your recommendation algorithms to better predict and meet future customer preferences.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the clothing brands and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 6 times with the following choices and rewards:
+    Midnight Mirage Trousers item, reward -3.701605707528312
+    Dapper Dreams Denim item, reward 1.4965799995904072
+    Infinite Impeccable Jacket item, reward 4.576557137862691
+    Supreme Spectrum Slippers item, reward -0.32883145604929176
+    Bejeweled Bloom Blazer item, reward 1.5907554114707747
+    Infinite Impeccable Jacket item, reward 6.534020380965033
+    Which item will you choose next? PLEASE RESPOND ONLY WITH Midnight Mirage Trousers, Dapper Dreams Denim, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Gaussian, Clothes Action Description, $K=5$, Raw History.}
+    \label{fig:clothes_gaussian_k5_rh}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+You are an AI movie recommendation assistant for a streaming platform powered by a bandit algorithm that offers a wide variety of films from different studios and genres.
+There are 10 unique movies you can recommend, named
+American Beauty (1999) (Comedy|Drama),
+Star Wars: Episode IV - A New Hope (1977) (Action|Adventure|Fantasy|Sci-Fi),
+Star Wars: Episode V - The Empire Strikes Back (1980) (Action|Adventure|Drama|Sci-Fi|War),
+Star Wars: Episode VI - Return of the Jedi (1983) (Action|Adventure|Romance|Sci-Fi|War),
+Jurassic Park (1993) (Action|Adventure|Sci-Fi),
+Saving Private Ryan (1998) (Action|Drama|War),
+Terminator 2: Judgment Day (1991) (Action|Sci-Fi|Thriller),
+The Matrix (1999) (Action|Sci-Fi|Thriller),
+Back to the Future (1985) (Comedy|Sci-Fi),
+The Silence of the Lambs (1991) (Drama|Thriller)
+When a user visits the streaming platform, you assess their demographic description to choose a movie to suggest.
+You aim to match the user with movies they are most likely to watch and enjoy.
+Each time a user watches a recommended movie, you adjust your recommendation algorithms to better predict and meet future user preferences.
+Your goal is to enhance the user's viewing experience by providing personalized and engaging movie suggestions.
+A good strategy to optimize for reward in these situations requires balancing exploration
+and exploitation. You need to explore to try out different movies and find those
+with high rewards, but you also have to exploit the information that you have to
+accumulate rewards.
+So far you have interacted 4 times with the most recent following choices and rewards:
+Context: a person who is a 18-year-old man with an occupation of college/grad student and live in Pulaski county, AR. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.011492758058011532, 0.027099572122097015, -0.020118921995162964, -0.002230832353234291, -0.003236030228435993].
+Action: Saving Private Ryan (1998)
+Reward: 4.735634 out of 5
+Context: a person who is a 25-year-old man with an occupation of sales/marketing and live in Solano county, CA. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.00312434253282845, 0.0017211971571668983, 0.0015880014980211854, 0.012064018286764622, 0.009061760269105434].
+Action: Jurassic Park (1993)
+Reward: 0 out of 5
+Context: a person who is a 56-year-old man with an occupation of sales/marketing and live in Jefferson county, KY. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009686884470283985, 0.028794225305318832, -0.011435767635703087, 0.006439171731472015, -0.010343835689127445].
+Action: Saving Private Ryan (1998)
+Reward: 5 out of 5
+Context: a person who is a 25-year-old man with an occupation of executive/managerial and live in Washington county, DC. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.010095382109284401, 0.010144174098968506, -0.01811344549059868, -0.009553882293403149, -0.012143188156187534].
+Action: Saving Private Ryan (1998)
+Reward: 3.953174 out of 5
+You have a new user: PLEASE RESPOND ONLY WITH A CHOICE of MOVIES LISTED ABOVE AND NO TEXT EXPLANATION.
+Context: This person is a 35-year-old man, working as a lawyer and live in Camden county, NJ. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009149148128926754, -0.00417252816259861, 0.011747784912586212, -0.012008273974061012, -0.006486567202955484].
+Action:
+    \end{lstlisting}
+    \caption{Contextual Bandit: Movie Recommendation for movies, Raw History.}
+    \label{fig:cb_movie_10_rh}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+You are an AI movie recommendation assistant for a streaming platform powered by a bandit algorithm that offers a wide variety of films from different studios and genres.
+There are 10 unique movies you can recommend, named
+American Beauty (1999) (Comedy|Drama),
+Star Wars: Episode IV - A New Hope (1977) (Action|Adventure|Fantasy|Sci-Fi),
+Star Wars: Episode V - The Empire Strikes Back (1980) (Action|Adventure|Drama|Sci-Fi|War),
+Star Wars: Episode VI - Return of the Jedi (1983) (Action|Adventure|Romance|Sci-Fi|War),
+Jurassic Park (1993) (Action|Adventure|Sci-Fi),
+Saving Private Ryan (1998) (Action|Drama|War),
+Terminator 2: Judgment Day (1991) (Action|Sci-Fi|Thriller),
+The Matrix (1999) (Action|Sci-Fi|Thriller),
+Back to the Future (1985) (Comedy|Sci-Fi),
+The Silence of the Lambs (1991) (Drama|Thriller)
+When a user visits the streaming platform, you assess their demographic description to choose a movie to suggest.
+You aim to match the user with movies they are most likely to watch and enjoy.
+Each time a user watches a recommended movie, you adjust your recommendation algorithms to better predict and meet future user preferences.
+Your goal is to enhance the user's viewing experience by providing personalized and engaging movie suggestions.
+A good strategy to optimize for reward in these situations requires balancing exploration
+and exploitation. You need to explore to try out different movies and find those
+with high rewards, but you also have to exploit the information that you have to
+accumulate rewards.
+So far you have interacted 2 times with the most recent following choices and rewards:
+Context: a person who is a 18-year-old man with an occupation of college/grad student and live in Pulaski county, AR. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.011492758058011532, 0.027099572122097015, -0.020118921995162964, -0.002230832353234291, -0.003236030228435993].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+Action: The Silence of the Lambs (1991)
+Reward: 4.121133 out of 5
+Context: a person who is a 25-year-old man with an occupation of sales/marketing and live in Solano county, CA. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.00312434253282845, 0.0017211971571668983, 0.0015880014980211854, 0.012064018286764622, 0.009061760269105434].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.008}, {"exploitation value":-0.000}}
+Action: American Beauty (1999)
+Reward: 0 out of 5
+    \end{lstlisting}
+    \caption{Contextual Bandit: Movie Recommendation for 10 movies, with \ag (Part 1)}
+    \label{fig:cb_movie_10_rh_ag_part1}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+Context: a person who is a 56-year-old man with an occupation of sales/marketing and live in Jefferson county, KY. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009686884470283985, 0.028794225305318832, -0.011435767635703087, 0.006439171731472015, -0.010343835689127445].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.017}, {"exploitation value":-0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.017}, {"exploitation value":0.005}}
+Action: The Silence of the Lambs (1991)
+Reward: 3.9708314 out of 5
+Context: a person who is a 25-year-old man with an occupation of executive/managerial and live in Washington county, DC. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.010095382109284401, 0.010144174098968506, -0.01811344549059868, -0.009553882293403149, -0.012143188156187534].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.014}, {"exploitation value":0.006}}
+Action: The Silence of the Lambs (1991)
+Reward: 1.0985798 out of 5
+You have a new user: PLEASE RESPOND ONLY WITH A CHOICE of MOVIES LISTED ABOVE AND NO TEXT EXPLANATION.
+Context: This person is a 35-year-old man, working as a lawyer and live in Camden county, NJ. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009149148128926754, -0.00417252816259861, 0.011747784912586212, -0.012008273974061012, -0.006486567202955484].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.010}, {"exploitation value":-0.001}}
+Action:
+    \end{lstlisting}
+    \caption{Contextual Bandit: Movie Recommendation for 10 movies, with \ag (Part 2)}
+    \label{fig:cb_movie_10_rh_ag_part2}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform.
+    There are 5 videos available in your library, titled [A, B, AI, BS, E].
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences.
+    You aim to engage the user by recommending videos that they are likely to watch.
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions,
+    enhancing user satisfaction and platform engagement.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    Here are some examples of optimal actions under different scenarios. Use them as hints to help you come up with better actions.
+    ========================
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    B
+    ========================
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    B video, reward 0
+    AI video, reward 1
+    AI video, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    AI
+    ========================
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, AI, BS, E AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Video Action Description, $K=5$, Raw History, with In-context Few-shot Demonstrations from Bernoulli, Video Action Description, $K=5$, Raw History.}
+    \label{fig:fewshot_vid5_easy_rh_inf_rh}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform.
+    There are 5 videos available in your library, titled [A, B, AI, BS, E].
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences.
+    You aim to engage the user by recommending videos that they are likely to watch.
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions,
+    enhancing user satisfaction and platform engagement.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    Here are some examples of optimal actions under different scenarios. Use them as hints to help you come up with better actions.
+    ========================
+    Midnight Mirage Trousers item, reward 1
+    Titanic Tempest Tunic item, reward 0
+    Infinite Impeccable Jacket item, reward 1
+    Supreme Spectrum Slippers item, reward 0
+    Bejeweled Bloom Blazer item, reward 0
+    Midnight Mirage Trousers item, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    Infinite Impeccable Jacket
+    ========================
+    Midnight Mirage Trousers item, reward 1
+    Titanic Tempest Tunic item, reward 0
+    Infinite Impeccable Jacket item, reward 1
+    Supreme Spectrum Slippers item, reward 0
+    Bejeweled Bloom Blazer item, reward 0
+    Midnight Mirage Trousers item, reward 0
+    Infinite Impeccable Jacket item, reward 0
+    Midnight Mirage Trousers item, reward 0
+    Infinite Impeccable Jacket item, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    Titanic Tempest Tunic
+    ========================
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, AI, BS, E AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli,  Video Action Description, $K=5$, Raw History, with Few-shot Demonstrations from Bernoulli, Clothes Action Description, $K=5$, Raw History}
+    \label{fig:fewshot_clothes5_easy_rh_inf_rh}
+\end{figure}
+\end{document}

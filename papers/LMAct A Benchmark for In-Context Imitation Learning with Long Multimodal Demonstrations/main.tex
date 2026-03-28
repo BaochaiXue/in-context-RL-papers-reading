@@ -1,0 +1,81 @@
+\newif\ificlr\iclrfalse
+
+\documentclass{article}
+
+\input{abbreviations}
+\input{headers}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% If accepted, instead use the following line for the camera-ready submission:
+\usepackage[accepted]{icml2025}
+
+\usemintedstyle{borland}
+
+\icmltitlerunning{LMAct: A Benchmark for In-Context Imitation Learning with Long Multimodal Demonstrations}
+
+\begin{document}
+
+    \twocolumn[
+        \icmltitle{LMAct: A Benchmark for In-Context Imitation Learning\\with Long Multimodal Demonstrations}
+        
+        \begin{icmlauthorlist}
+            \icmlauthor{Anian Ruoss}{gdm}
+            \icmlauthor{Fabio Pardo}{gdm}
+            \icmlauthor{Harris Chan}{gdm}
+            \icmlauthor{Bonnie Li}{gdm}
+            \icmlauthor{Volodymyr Mnih}{gdm}
+            \icmlauthor{Tim Genewein}{gdm}
+        \end{icmlauthorlist}
+        
+        \icmlaffiliation{gdm}{Google DeepMind}
+        
+        \icmlcorrespondingauthor{Anian Ruoss}{anianr@google.com}
+        \icmlcorrespondingauthor{Tim Genewein}{timgen@google.com}
+        
+        \vskip 0.3in
+    ]
+    
+    % this must go after the closing bracket ] following \twocolumn[ ...
+    
+    % This command actually creates the footnote in the first column
+    % listing the affiliations and the copyright notice.
+    % The command takes one argument, which is text to display at the start of the footnote.
+    % The \icmlEqualContribution command is standard text for equal contribution.
+    % Remove it (just {}) if you do not need this facility.
+    
+    \printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+    % \printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+
+    \begin{abstract}
+        \input{00_abstract}
+    \end{abstract}
+    
+    \input{01_introduction}
+    \input{02_methods}
+    \input{03_results}
+    \input{04_discussion}
+    \input{05_conclusion}
+    \input{06_impact_statement}
+    \input{07_acknowledgments}
+ 
+    \bibliography{references}
+    \bibliographystyle{icml2025}
+    
+    \clearpage
+    
+    \appendix
+    \onecolumn
+    
+    \setcounter{figure}{0}
+    \renewcommand{\thefigure}{A\arabic{figure}}
+    \setcounter{table}{0}
+    \renewcommand{\thetable}{A\arabic{table}}
+    
+    \input{A0_related_work}
+    \input{A1_experimental_details}
+    \input{A2_additional_results}
+ 
+\end{document}
+

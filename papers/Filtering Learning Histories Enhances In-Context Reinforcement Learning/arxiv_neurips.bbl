@@ -1,0 +1,189 @@
+\begin{thebibliography}{10}
+
+\bibitem{mnih2013playing}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, and Martin Riedmiller.
+\newblock Playing atari with deep reinforcement learning.
+\newblock {\em arXiv preprint arXiv:1312.5602}, 2013.
+
+\bibitem{mnih2015human}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A Rusu, Joel Veness, Marc~G Bellemare, Alex Graves, Martin Riedmiller, Andreas~K Fidjeland, Georg Ostrovski, et~al.
+\newblock Human-level control through deep reinforcement learning.
+\newblock {\em nature}, 518(7540):529--533, 2015.
+
+\bibitem{levine2016end}
+Sergey Levine, Chelsea Finn, Trevor Darrell, and Pieter Abbeel.
+\newblock End-to-end training of deep visuomotor policies.
+\newblock {\em The Journal of Machine Learning Research}, 17(1):1334--1373, 2016.
+
+\bibitem{duan2016benchmarking}
+Yan Duan, Xi~Chen, Rein Houthooft, John Schulman, and Pieter Abbeel.
+\newblock Benchmarking deep reinforcement learning for continuous control.
+\newblock In {\em International conference on machine learning}, pages 1329--1338. PMLR, 2016.
+
+\bibitem{afsar2022reinforcement}
+M~Mehdi Afsar, Trafford Crump, and Behrouz Far.
+\newblock Reinforcement learning based recommender systems: A survey.
+\newblock {\em ACM Computing Surveys}, 55(7):1--38, 2022.
+
+\bibitem{lin2023survey}
+Yuanguo Lin, Yong Liu, Fan Lin, Lixin Zou, Pengcheng Wu, Wenhua Zeng, Huanhuan Chen, and Chunyan Miao.
+\newblock A survey on reinforcement learning for recommender systems.
+\newblock {\em IEEE Transactions on Neural Networks and Learning Systems}, 2023.
+
+\bibitem{sutton2018reinforcement}
+Richard~S Sutton.
+\newblock Reinforcement learning: An introduction.
+\newblock {\em A Bradford Book}, 2018.
+
+\bibitem{beck2023survey}
+Jacob Beck, Risto Vuorio, Evan~Zheran Liu, Zheng Xiong, Luisa Zintgraf, Chelsea Finn, and Shimon Whiteson.
+\newblock A survey of meta-reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2301.08028}, 2023.
+
+\bibitem{dong2022survey}
+Qingxiu Dong, Lei Li, Damai Dai, Ce~Zheng, Zhiyong Wu, Baobao Chang, Xu~Sun, Jingjing Xu, and Zhifang Sui.
+\newblock A survey on in-context learning.
+\newblock {\em arXiv preprint arXiv:2301.00234}, 2022.
+
+\bibitem{li2023transformers}
+Yingcong Li, Muhammed~Emrullah Ildiz, Dimitris Papailiopoulos, and Samet Oymak.
+\newblock Transformers as algorithms: Generalization and stability in in-context learning.
+\newblock In {\em International Conference on Machine Learning}, pages 19565--19594. PMLR, 2023.
+
+\bibitem{wei2023larger}
+Jerry Wei, Jason Wei, Yi~Tay, Dustin Tran, Albert Webson, Yifeng Lu, Xinyun Chen, Hanxiao Liu, Da~Huang, Denny Zhou, et~al.
+\newblock Larger language models do in-context learning differently.
+\newblock {\em arXiv preprint arXiv:2303.03846}, 2023.
+
+\bibitem{wies2024learnability}
+Noam Wies, Yoav Levine, and Amnon Shashua.
+\newblock The learnability of in-context learning.
+\newblock {\em Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem{laskin2022context}
+Michael Laskin, Luyu Wang, Junhyuk Oh, Emilio Parisotto, Stephen Spencer, Richie Steigerwald, DJ~Strouse, Steven Hansen, Angelos Filos, Ethan Brooks, et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock {\em arXiv preprint arXiv:2210.14215}, 2022.
+
+\bibitem{lin2023transformers}
+Licong Lin, Yu~Bai, and Song Mei.
+\newblock Transformers as decision makers: Provable in-context reinforcement learning via supervised pretraining.
+\newblock {\em arXiv preprint arXiv:2310.08566}, 2023.
+
+\bibitem{sinii2023context}
+Viacheslav Sinii, Alexander Nikulin, Vladislav Kurenkov, Ilya Zisman, and Sergey Kolesnikov.
+\newblock In-context reinforcement learning for variable action spaces.
+\newblock {\em arXiv preprint arXiv:2312.13327}, 2023.
+
+\bibitem{zisman2023emergence}
+Ilya Zisman, Vladislav Kurenkov, Alexander Nikulin, Viacheslav Sinii, and Sergey Kolesnikov.
+\newblock Emergence of in-context reinforcement learning from noise distillation.
+\newblock {\em arXiv preprint arXiv:2312.12275}, 2023.
+
+\bibitem{lee2024supervised}
+Jonathan Lee, Annie Xie, Aldo Pacchiano, Yash Chandak, Chelsea Finn, Ofir Nachum, and Emma Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock {\em Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem{schulman2017proximal}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock {\em arXiv preprint arXiv:1707.06347}, 2017.
+
+\bibitem{son2025distilling}
+Jaehyeon Son, Soochan Lee, and Gunhee Kim.
+\newblock Distilling reinforcement learning algorithms for in-context model-based planning.
+\newblock In {\em The Thirteenth International Conference on Learning Representations}, 2025.
+
+\bibitem{vaswani2017attention}
+A~Vaswani.
+\newblock Attention is all you need.
+\newblock {\em Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem{chen2021decision}
+Lili Chen, Kevin Lu, Aravind Rajeswaran, Kimin Lee, Aditya Grover, Misha Laskin, Pieter Abbeel, Aravind Srinivas, and Igor Mordatch.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock {\em Advances in neural information processing systems}, 34:15084--15097, 2021.
+
+\bibitem{janner2021offline}
+Michael Janner, Qiyang Li, and Sergey Levine.
+\newblock Offline reinforcement learning as one big sequence modeling problem.
+\newblock {\em Advances in neural information processing systems}, 34:1273--1286, 2021.
+
+\bibitem{lee2022multi}
+Kuang-Huei Lee, Ofir Nachum, Mengjiao~Sherry Yang, Lisa Lee, Daniel Freeman, Sergio Guadarrama, Ian Fischer, Winnie Xu, Eric Jang, Henryk Michalewski, et~al.
+\newblock Multi-game decision transformers.
+\newblock {\em Advances in Neural Information Processing Systems}, 35:27921--27936, 2022.
+
+\bibitem{reed2022generalist}
+Scott Reed, Konrad Zolna, Emilio Parisotto, Sergio~Gomez Colmenarejo, Alexander Novikov, Gabriel Barth-Maron, Mai Gimenez, Yury Sulsky, Jackie Kay, Jost~Tobias Springenberg, et~al.
+\newblock A generalist agent.
+\newblock {\em arXiv preprint arXiv:2205.06175}, 2022.
+
+\bibitem{zisman2024emergence}
+Ilya Zisman, Vladislav Kurenkov, Alexander Nikulin, Viacheslav Sinii, and Sergey Kolesnikov.
+\newblock Emergence of in-context reinforcement learning from noise distillation.
+\newblock In {\em Forty-first International Conference on Machine Learning}, 2024.
+
+\bibitem{dong2024context}
+Juncheng Dong, Moyang Guo, Ethan~X Fang, Zhuoran Yang, and Vahid Tarokh.
+\newblock In-context reinforcement learning without optimal action labels.
+\newblock In {\em ICML 2024 Workshop on In-Context Learning}, 2024.
+
+\bibitem{chen2025random}
+Weiqin Chen and Santiago Paternain.
+\newblock Random policy enables in-context reinforcement learning within trust horizons.
+\newblock {\em Transactions on Machine Learning Research}, 2025.
+\newblock Featured Certification.
+
+\bibitem{bartlett2005local}
+Peter~L Bartlett, Olivier Bousquet, and Shahar Mendelson.
+\newblock Local rademacher complexities.
+\newblock {\em The Annals of Statistics}, 2005.
+
+\bibitem{massart2006risk}
+Pascal Massart and {\'E}lodie N{\'e}d{\'e}lec.
+\newblock Risk bounds for statistical learning.
+\newblock {\em The Annals of Statistics}, 2006.
+
+\bibitem{zhang2025reweighting}
+Yikai Zhang, Jiahe Lin, Fengpei Li, Songzhu Zheng, Anant Raj, Anderson Schneider, and Yuriy Nevmyvaka.
+\newblock Reweighting improves conditional risk bounds.
+\newblock {\em Transactions on Machine Learning Research}, 2025.
+
+\bibitem{sohn2018hierarchical}
+Sungryull Sohn, Junhyuk Oh, and Honglak Lee.
+\newblock Hierarchical reinforcement learning for zero-shot generalization with subtask dependencies.
+\newblock {\em Advances in neural information processing systems}, 31, 2018.
+
+\bibitem{mazoure2022improving}
+Bogdan Mazoure, Ilya Kostrikov, Ofir Nachum, and Jonathan~J Tompson.
+\newblock Improving zero-shot generalization in offline reinforcement learning using generalized similarity functions.
+\newblock {\em Advances in Neural Information Processing Systems}, 35:25088--25101, 2022.
+
+\bibitem{zisselman2023explore}
+Ev~Zisselman, Itai Lavie, Daniel Soudry, and Aviv Tamar.
+\newblock Explore to generalize in zero-shot rl.
+\newblock {\em Advances in Neural Information Processing Systems}, 36:63174--63196, 2023.
+
+\bibitem{kirk2023survey}
+Robert Kirk, Amy Zhang, Edward Grefenstette, and Tim Rockt{\"a}schel.
+\newblock A survey of zero-shot generalisation in deep reinforcement learning.
+\newblock {\em Journal of Artificial Intelligence Research}, 76:201--264, 2023.
+
+\bibitem{zhang2024tinyllama}
+Peiyuan Zhang, Guangtao Zeng, Tianduo Wang, and Wei Lu.
+\newblock Tinyllama: An open-source small language model.
+\newblock {\em arXiv preprint arXiv:2401.02385}, 2024.
+
+\bibitem{haarnoja2018soft}
+Tuomas Haarnoja, Aurick Zhou, Kristian Hartikainen, George Tucker, Sehoon Ha, Jie Tan, Vikash Kumar, Henry Zhu, Abhishek Gupta, Pieter Abbeel, et~al.
+\newblock Soft actor-critic algorithms and applications.
+\newblock {\em arXiv preprint arXiv:1812.05905}, 2018.
+
+\bibitem{yu2020meta}
+Tianhe Yu, Deirdre Quillen, Zhanpeng He, Ryan Julian, Karol Hausman, Chelsea Finn, and Sergey Levine.
+\newblock Meta-world: A benchmark and evaluation for multi-task and meta reinforcement learning.
+\newblock In {\em Conference on robot learning}, pages 1094--1100. PMLR, 2020.
+
+\end{thebibliography}

@@ -1,0 +1,1275 @@
+Meta-Reinforcement Learning Robust to Distributional Shift Via
+Performing Lifelong In-Context Learning
+
+Tengye Xu 1 Zihao Li 1 Qinyuan Ren 1
+
+Abstract
+
+imize expected returns across any task sampled from the
+task distribution. However, most meta-RL methods evaluate
+their performance on tasks drawn from the same distribution, leaving the generalization capability, particularly with
+frozen parameters, in Out-of-Distribution (OOD) tasks less
+studied. This aspect is crucial for real-world applications,
+as obtaining a comprehensive prior of all possible situations
+an RL agent might encounter is challenging (Beck et al.,
+2023).
+
+A key challenge in Meta-Reinforcement Learning (meta-RL) is the task distribution shift, since
+the generalization ability of most current metaRL methods is limited to tasks sampled from the
+training distribution. In this paper, we propose
+Posterior Sampling Bayesian Lifelong In-Context
+Reinforcement Learning (PSBL), which is robust
+to task distribution shift. PSBL meta-trains a variant of transformer to directly perform amortized
+inference about the Predictive Posterior Distribution (PPD) of the optimal policy. Once trained, the
+network can infer the PPD online with frozen parameters. The agent then samples actions from the
+approximate PPD to perform online exploration,
+which progressively reduces uncertainty and enhances performance in the interaction with the environment. This property is known as in-context
+learning. Experimental results demonstrate that
+PSBL significantly outperforms standard Meta
+RL methods both in tasks with sparse rewards and
+dense rewards when the test task distribution is
+strictly shifted from the training distribution.
+
+A popular approach in meta-RL is to meta-learn a good initialization of the network across tasks, requiring only a few
+policy gradient steps for adaptation in test tasks (Finn et al.,
+2017; Stadie et al., 2018; Zintgraf et al., 2019a). However,
+when a task distribution shift occurs, these methods struggle
+to provide a robust initialization for OOD tasks. Meanwhile,
+the meta-RL algorithm degrades into a conventional RL algorithm, forcing the agent to start almost from scratch and
+rely on policy gradients to tackle unseen tasks (Beck et al.,
+2023). This process can necessitate millions of interactions
+at test time, which is costly in real-world applications.
+Another promising meta-RL approach involves metatraining a memory-augmented network to infer the task
+distribution and a policy network conditioned on this distribution to maximize expected returns (Humplik et al., 2019;
+Zintgraf et al., 2019b; Liu et al., 2021). Once trained, the
+memory-augmented network can function as if performing online inference, achieving high data efficiency when
+adapting new tasks sampled from the training distribution.
+However, these methods often struggle to generalize to OOD
+tasks. This is because the policy network, typically a simple feedforward network, lacks the capability to perform
+approximate inference online, making it difficult to map
+unseen task distributions to optimal actions.
+
+1. Introduction
+Overfitting and lack of generalization are considered as
+the two of the main challenges for Deep Reinforcement
+Learning (RL), which hinder the wide range of application
+in the Real world (Rajeswaran et al., 2017; Zhang et al.,
+2018; Cobbe et al., 2019; Fakoor et al., 2019; Song et al.,
+2019; Mendonca et al., 2020). Recently, a growing number
+of Meta-Reinforcement Learning (meta-RL) methods have
+been proposed to tackle these issues by meta-learning policies that quickly adapt to unseen but similar tasks. Given a
+task distribution, these meta-RL agents are trained to max-
+
+To tackle these generalization challenges, we propose training a transformer-based network to directly perform amortized inference about the Predictive Posterior Distribution
+(PPD) of the optimal policy. This can be accomplished
+within an end-to-end posterior sampling framework in Reinforcement Learning. Once trained, the network can infer
+the PPD online with frozen parameters. The agent then samples actions from the approximate PPD to perform online
+exploration, thereby progressively reducing uncertainty and
+
+1
+
+College of Control Science and Engineering, Zhejiang University, 38 Zheda Road, Hangzhou, Zhejiang, China.. Correspondence
+to: Qinyuan Ren <renqinyuan@zju.edu.cn>.
+Proceedings of the 41 st International Conference on Machine
+Learning, Vienna, Austria. PMLR 235, 2024. Copyright 2024 by
+the author(s).
+
+1
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+improving its performance in the interaction with the environment. This process give rise to an inherent characteristic
+within the network, namely Lifelong In-context Learning,
+an extended version of In-context Learning (Von Oswald
+et al., 2023). Lifelong In-context Learning is defined as the
+capability of a pretrained network with frozen parameters
+to continuously improve its policy in context over an extended horizon until convergence. Consequently, through
+performing lifelong in-context learning at meta-test time,
+the pretrained network can quickly adapt to OOD tasks.
+
+removed from PSBL, PSBL method reduces to this setting.
+The main difference is that by minimizing the SL loss and
+actor loss, the network trained in PSBL can perform approximate Bayesian Inference online. Then our agent can sample
+from the approximate distribution to do online exploration,
+progressively improving its performance.
+Task Inference methods can be considered as a subset of
+black box methods (Humplik et al., 2019; Zintgraf et al.,
+2019b; 2021). Utilizing networks with memory, Task Inference methods meta-train a memory-augmented network
+to infer the task distribution and a policy network conditioned on the task distribution to maximize the expected
+returns. The The networks in Task Inference method can be
+trained with privileged information (Humplik et al., 2019),
+with contrastive learning loss (Fu et al., 2021), or with selfsupervised learning loss (Zhang et al., 2021). Once trained,
+the network with memory can perform approximate inference about the task distribution online. Similarly, the network trained in PSBL also performs approximate inference
+online. However, instead of inferring the task distribution,
+the proposed method PSBL directly infers the distribution
+of the Bayes-optimal policy, demonstrating superior generalization in OOD tasks.
+
+The primary contribution in this work is proposing a metaRL method called Posterior Sampling Bayesian Lifelong
+in-context Reinforcement Learning (PSBL). The proposed
+method is robust to task distribution shift by performing lifelong in-context learning. PSBL is evaluated on the discrete
+navigation tasks and continuous control tasks, where the
+test task distribution is strictly different from the training
+distribution. The experimental results demonstrate that the
+trained network in PSBL can perform Lifelong in-context
+Learning across episodes in tasks with sparse rewards and
+within episodes in tasks with dense rewards. Therefore,
+through performing Lifelong in-context Learning, PSBL
+significantly outperforms standard meta RL methods especially in OOD tasks. The open-source implementation can
+be found at https://github.com/xu-ye/PSBL-MetaRL.
+
+Memory-based Meta learning Prior studies have demonstrated practically that a parametric memory-based network
+can be trained to behave as if performing Bayesian inference
+(Ritchie et al., 2016; Genewein et al., 2023). Recent studies
+(Ortega et al., 2019; Mikulik et al., 2020) have theoretically
+proven that Memory-based Meta learning methods can metatrain a fixed-parametric memory-based network to perform
+amortized Bayesian inference online by minimizing sequential prediction errors over a task distribution. Leveraging
+this property, we construct an in-context learner capable of
+performing amortized Bayesian inference by minimizing
+prediction errors.
+
+2. Related Work
+Meta-Reinforcement Learning Meta-Reinforcement
+Learning (Meta-RL) primarily focuses on few-shot
+adaptation to new tasks by leveraging knowledge learned
+during meta-training Recent approaches mainly include
+Policy Gradient (PPG) methods, Black-Box methods, and
+Task Inference methods. PPG methods typically meta-learn
+a good initialization of the network, requiring only a few
+policy gradient steps for adaptation to test tasks (Finn et al.,
+2017; Stadie et al., 2018; Zintgraf et al., 2019a). However,
+when a task distribution shift occurs, these methods struggle
+to provide a robust initialization for OOD tasks. Meanwhile,
+these meta-RL algorithms degrades into a conventional RL
+algorithm, forcing the agent to start almost from scratch and
+rely on policy gradients to tackle unseen tasks (Beck et al.,
+2023). This process can necessitate millions of interactions
+at test time, which is costly in real-world applications.
+
+In-Context Learning In-context Learning is an approach
+where pre-trained models improve their policies by utilizing
+the context provided during inference, without the need for
+gradient updates. An increasing number of works focus
+on studying this phenomenon and try to provide theoretical explanations (Akyürek et al., 2022; Von Oswald et al.,
+2023). In-context Learning has initially emerged from large
+language models and now is being extended to decisionmaking (Laskin et al., 2022) and other domains. Recently,
+Grigsby (2023) has proposed AMAGO, an in-context learning method designed to address meta-RL tasks and longhorizon RL tasks. However, the experimental results in
+Section 5 demonstrate that PSBL outperforms AMAGO
+both in asymptotic performance and training data efficiency.
+
+In contrast to PPG methods, black-box methods utilize recurrent neural networks to learn history-dependent policies
+for fast adaptation to new tasks (Duan et al., 2016; Wang
+et al., 2016; Fakoor et al., 2019). Recently, many blackbox methods have shifted from recurrent networks to other
+memory-augmented networks, such as those incorporating
+attention mechanisms (Mishra et al., 2017) and transformers
+(Melo, 2022). If the Supervised Learning (SL) loss, the
+Posterior Sampling setting and the dynamic window are
+
+Posterior Sampling in Reinforcement Learning Posterior
+Sampling in Reinforcement Learning refers to a set of methods (Osband et al., 2013; Rakelly et al., 2019) where the
+2
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+agent samples a MDP from its posterior distribution and
+taking optimal actions based on the sampled MDP. As the
+agent observes new data, this distribution of MDPs is updated, allowing it to make decisions that balance exploration
+and exploitation based on the uncertainty in its knowledge.
+These methods (Osband et al., 2013; Rakelly et al., 2019)
+have demonstrated high data efficiency with performance
+comparable to state-of-the-art RL methods. However, because exploration is guided by a single sampled MDP rather
+than the full distribution, these traditional Posterior Sampling methods can lead to suboptimal exploration (Beck
+et al., 2023). Therefore, instead of sampling an MDP from
+its distribution, PSBL directly sample a near-optimal action
+from the posterior distribution of the optimal policy.
+
+tributional shift, we propose training a transformer-based
+network to directly perform amortized Bayesian inference
+online within an Posterior Sampling framework for MetaReinforcement Learning.
+3.2. Posterior Sampling for Meta-Reinforcement
+Learning
+In the formulation of Posterior Sampling for MetaReinforcement Learning, it is assumed that each MDP
+M is attached with an optimal policy. Thus, we can define the world model of each task by a transition model
+P (ot+1 |θ, τt ), a reward model P (rt |θ, τt ) and an optimal
+policy P (at+1 |θ, τt ), where the θ is the parameters of the
+world model and τt = {o0 , a0 , r0 , o1 , a1 , r1 , . . . , ot , at } is
+the interaction sequences from time step 0 to time step t.
+The distribution over interaction sequences under the optimal policy of MDP M is defined as follows:
+
+3. BACKGROUND
+A standard Markov decision process can be defined by a
+tuple M = (O, A, R, T , γ, H). O is a set of observations,
+A stands for a set of actions. R represents a reward function and T is the transition function. γ is the discount
+factor and H represents the horizon. The objective of the
+agent is to maximize
+discounted accumulated return
+P the
+defined by G =
+λt R(st , at ). In this work, a metareinforcement learning setting is considered for training
+a lifelong in-context learner that is robust to distributional
+shift.
+
+P (τT |θ) =
+
+T
+Y
+
+P (rt−1 |θ, τt−1 )P (ot |θ, τt−1 )P (at |θ, τt−1 ).
+
+t
+
+(1)
+When the MDP is unknown, the distribution over interaction
+sequences can inferred as follows,
+Z
+P (τT ) = P (τT |θ)P (θ).
+(2)
+Posterior Sampling can be characterized as directly sampling predicted optimal action, observation and reward from
+the Posterior Predictive Distribution of these variables in
+the world model,
+Z
+at+1 ∼ P (at+1 |τt ) = P (at+1 |θ, τt )P (θ|τt ), (3)
+
+3.1. Training Setup
+In the standard meta-reinforcement learning setting, there is
+a distribution P (M ) over MDPs representing various tasks
+that differ in rewards and transition functions but share a
+similar structure. The training horizon extends to H + , encompassing N episodes H + = N H. At meta-training time,
+batches of MDPs are repeatedly sampled from the distribution M ∼ P (M ), and the agent is trained to maximize
+the accumulated returns across these tasks. At meta-test
+time, the meta-RL agent is evaluated on its ability to adapt
+quickly to new tasks sampled from the same distribution
+P (M ) used during training.
+
+Z
+ot+1 ∼ P (ot+1 |τt ) =
+
+P (ot+1 |θ, τt )P (θ|τt ),
+
+(4)
+
+P (rt |θ, τt )P (θ|τt ).
+
+(5)
+
+Z
+rt ∼ P (rt |τt ) =
+
+The objective of Posterior Sampling is to minimize the cross
+entropy between the PPD and its approximation,
+
+The standard meta-reinforcement learning setting is modified in this work to promote training a lifelong in-context
+learner that is robust to distributional shift. The evaluation
+horizon at meta-test time is extended from H + to L , a
+significantly longer period than the training horizon. This
+extended horizon allows the agent to continuously improve
+its performance through interaction with the environment
+until convergence. Moreover, the tasks at meta-test time are
+set to be drawn from a distribution strictly different from the
+training distribution, enabling the evaluation of robustness
+to distributional shifts.
+
+J (qδ ) = Eτt ∼P (τt ) [H (P (· | τt ), qϕ (· | τt ))]
+
+(6)
+
+where q is the memory-augmented network to be trained in
+Posterior Sampling with parameters ϕ. By minimizing the
+prediction error, the network can directly perform amortized
+inference about the PPD of the optimal policy, as theoretically proven in (Ortega et al., 2019; Mikulik et al., 2020).
+Furthermore, the PPD of the optimal policy captures both
+the predictive optimal actions and their associated uncertainties. By repeatedly sampling actions from the approximate
+PPD, the agent can efficiently explore online and adapt to
+new tasks with high data efficiency.
+
+To train a lifelong in-context learner that is robust to dis3
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Posterior Sampling is powerful for training a network to perform amortized inference of the PPD about the optimal policy. However, applying the Posterior Sampling framework
+in meta-reinforcement learning, particularly for training a
+lifelong in-context learner, can be nearly intractable. The
+main challenges are as follows:
+
+A more desirable approach is to directly sample action from
+the approximated PPD of the optimal policy rather than first
+sampling a MDP from the approximate PPD of MDPs and
+then sampling actions from a policy based on the sampled
+MDP. The desirable approach is as follows,
+Z
+at+1 ∼ P (at+1 |τt ) = P (at+1 |θ, τt )P (θ|τt ). (9)
+
+• The true optimal policy for each MDP is unknown,
+Considering a prior work (Muller et al., 2021) has proved
+that Transformers can perform Bayesian Inference, a variant of the transformer network, named Lifelong In-context
+Learning Transformer (LILTrans), is used in this work to
+directly approximate the PPD of the optimal policy. The
+LILTrans, parameterized by qϕ , functions as follows,
+
+• Computation of the PPD is often intractable, and
+• Even with an accurate PPD, Posterior Sampling methods can only train agent in a fixed horizon whereas
+lifelong in-context learning requires an almost infinite
+evaluation horizon.
+
+rt , ot+1 , at+1 = qϕ (τt ).
+
+4. Posterior Sampling Bayesian Lifelong
+In-context Reinforcement Learning
+
+To train the network in terms of cross entropy, we proposed
+a Supervised Learning (SL) loss for the predicted rewards
+and observations, whose true values are accessible in the
+next time step. The SL loss is defined as follows,
+
+In this section, a new meta-reinforcement learning method
+called Posterior Sampling Bayesian Lifelong In-context Reinforcement Learning (PSBL) is proposed to address the
+aforementioned challenges. This section starts by explaining how to approximate the PPD using a memory-based
+network. This section then details a method to obtain a
+Bayes-optimal policy for supervisory signals and presents
+an approach to enable lifelong in-context learning over an
+extended evaluation horizon. Finally, this section describes
+an specially designed Transformer-based network and integrates all these components to summarize the new approach
+PSBL.
+
+ℓs = Eτt ∼P (τt ) [− log qϕ (ot+1 , rt |τt )],
+
+It is proved in Appendix A that minimizing the SL loss ℓs
+and the optimal policy loss ℓa can lead to an approximation
+of the PPD in terms of cross-entropy.
+4.1.
+
+Computing the Predictive Posterior Distribution in closed
+form is almost intractable for most cases, since the true
+model of the current MDP is unknown and marginalising
+over MDPs is computationally infeasible. Consequently,
+the PPD can only be approximated for most cases. Classic
+Posterior Sampling methods, such as PSRL (Osband et al.,
+2013), PSDRL (Sasso et al., 2023), PEARL (Rakelly et al.,
+2019), typically approximate the posterior distribution of
+MDPs P (θ|τt ) first, then sample one MDP θ1 from the
+posterior distribution,
+P (θ)P (τt | θ)
+.
+P (θ′ ) P (τt | θ′ ) dθ′
+
+4.2. Meta Learning an Bayes-Optimal Policy
+The optimal policy loss (18) requires expert-provided optimal actions as supervisory signals. However, expert policies
+are not available for most cases except for toy tasks. Thus,
+a meta reinforcement learning method is used in this work
+to obtain a Bayes-Optimal Policy.
+The Bay-Optimal policy can be characterized as maximizing
+the expected accumulated returns. The training objective is
+as follows,
+ +
+
+H
+X
+J + (π) = Eτ,π 
+γ t R (τt , ot+1 , at+1 ) .
+(13)
+
+(7)
+
+Based on the sampled MDP, these methods compute and
+follow its optimal policy in the following episode,
+at+1 ∼ P (at+1 | θ1 , τt ).
+
+(11)
+
+Assuming an optimal policy exists for each MDP, the optimal policy loss is defined as follows,
+h
+
+i
+ℓa =Eτt DKL qϕ (at+1 | τt ) P (at+1 | τt ) .
+(12)
+
+4.1. End to End PPD Approximation With LILTrans
+
+θ1 ∼ P (θ | τt ) = R
+
+(10)
+
+t=0
+
+(8)
+Since the optimal policy in unknown, during training we
+only have access to interaction sequences generated by a
+current policy π. Therefore, the distribution over interaction
+sequences under the current policy is as follows,
+
+As shown in (7)(8), the policy used for exploration heavily
+relies on the sampled MDP rather than the full distribution
+of MDPs. This process can result in sub-optimal exploration.
+4
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Algorithm 1 PSBL Meta-Training
+Require: Batch of training MDPs sampled from P (M ),
+dynamic window capacity b
+Initialize replay buffer D
+while not done do
+for each sampled MDP M do
+Initialize interaction sequences τ
+for k = 1, . . . , N do
+for l = 1, . . . , H do
+At time step t = kH + l
+Sample at+1 ∼ qϕ (at+1 | τ )
+Gather data ot+1 , rt from the MDP
+Update τ with {rt , t + 1, dt+1 , ot+1 , at+1 , }
+end for
+Update the replay buffer D with τ
+if k > b then
+Discard the earliest k − b episode from τ
+end if
+end for
+end for
+for step in training steps do
+for batches of τ sampled from D do
+Compute the PPD from qϕ (o, r | τ )
+Ls ← Ls + ℓs (qϕ (o, r | τ ), τ )
+Sample a ∼ qϕ (a | τ )
+Lc ← Lc + ℓc (a, τ )
+La ← La + ℓa (a, τ )
+end for
+ϕ ← ϕ − α ▽ϕ (λs Ls + λa La + λc Lc )
+end for
+end while
+
+Algorithm 2 PSBL Meta-Testing
+Require: test MDPs M sampled from P (M ) or out of
+the P (M ), network qϕ , evaluation horizon L
+Initialize interaction sequences τ
+for k = 1, . . . , L do
+for l = 1, . . . , H do
+At time step t = kH + l
+Sample at+1 ∼ qϕ (at+1 | τ )
+Roll out action at+1 and collect data ot+1 , rt
+Update τ with {rt , t + 1, dt+1 , ot+1 , at+1 , }
+end for
+if k > b then
+Discard the earliest k − b episode from τ
+end if
+end for
+function ℓc based on the TD error as follows,
+i2
+h
+π
+ℓc = Eπ Qπ (at+1 , τt ) − (rt+1 + λQ (at+2 , τt+1 )) ,
+(16)
+where at+2 ∼ π(at+2 | τt+1 ) samples from the current
+policy π, Q is the target Q network.
+To regress the policy network to the true optimal policy,
+we use simulated annealing (Ortega et al., 2019). It can
+gradually converge to the optimal policy. The Bayes-optimal
+policy can be computed as
+
+exp α1 Q(at+1 , τt )
+P (at+1 | τt ) ≈ π(at+1 | τt ) =
+.
+Z(τt )
+(17)
+
+P
+where Z(τt ) = a′ exp α1 Q(a′t+1 | τt ) .
+t+1
+
+P π (τt ) =
+
+Z
+P (θ)
+θ
+
+T
+Y
+
+According to (11) (17), we can get the final optimal policy
+loss ℓa as follows,
+"
+ !#
+exp α1 Q(at+1 , τt )
+ℓa =Eτt DKL qϕ (at+1 | τt )
+.
+Z(τt )
+(18)
+Therefore, the overall training objective is to maximize,
+
+P (rt−1 | θ, τt−1 )P (ot | θ, τt−1 )
+
+t
+
+π(at | τt−1 ).
+(14)
+Furthermore, we define a state-action function Qπ (at+1 , τt )
+for the policy π as the expected accumulated discounted
+rewards given a past interaction sequence. The state-action
+function is defined as
+Qπ (at+1 , τt ) = Eπ
+
+h H
+X
+
+L = λs ℓs + λa ℓa + λc ℓc ,
+
+(19)
+
+where the λs , λa , λc are the weighted coefficients of SL
+loss ℓs , optimal policy loss ℓa , critic loss ℓc , individually.
+
+i
+λ(k−t) R(τk , ak+1 , ok+1 ) τt , at+1 ,
+
+k=t
+
+4.3. Meta-train an Lifelong In-context Learner
+With the overall training objective (19), PSBL meta-trains
+the LILTrans network to perform in-context learning within
+a fixed horizon H + when adapting to an unseen task. However, if the test task distribution differs significantly from the
+training distribution, the fixed horizon H + may be insufficient for the agent to continuously improve its performance
+until convergence. Therefore, a dynamic window and time
+
+(15)
+where Eπ := Eτt ∼P π (τt ) denotes an expectation w.r.t. the
+distribution P π (τt ). Thus, an optimal policy is one that
+maximizes this function at any time step for any MDP.
+The state-action function can be approximated by a Q network parameterized by ϕ. We define an instantaneous loss
+5
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+(a)
+
+(b)
+
+Meta-test
+p(a𝑡𝑡+1 |𝜏𝜏𝑡𝑡 )
+p(𝑜𝑜𝑡𝑡+1 |𝜏𝜏𝑡𝑡 )
+p( 𝑟𝑟𝑡𝑡 |𝜏𝜏𝑡𝑡 )
+
+𝑎𝑎𝑡𝑡+𝐵𝐵+1 ~𝑃𝑃 (𝑎𝑎𝑡𝑡+𝐵𝐵+1 |𝜏𝜏𝑡𝑡+𝐵𝐵 )
+
+p(a𝑡𝑡+B+1 |𝜏𝜏𝑡𝑡+𝐿𝐿 )
+p(𝑜𝑜𝑡𝑡+𝐵𝐵+1 |𝜏𝜏𝑡𝑡+𝐿𝐿 )
+p( 𝑟𝑟𝑡𝑡+𝐵𝐵 |𝜏𝜏𝑡𝑡+𝐿𝐿 )
+
+……
+……
+
+……
+……
+
+Feed
+Forward
+
+Transformer
+Encoders with
+𝜎𝜎Reparam
+
+𝑜𝑜𝑡𝑡+𝐵𝐵+1
+′
+𝑟𝑟𝑡𝑡+𝐵𝐵+1
+𝑑𝑑𝑡𝑡+𝐵𝐵+1
+𝑡𝑡𝑡𝑡+𝐵𝐵+1
+
+Transformers can do Lifelong In-context Learning
+
+𝑜𝑜𝑡𝑡 , 𝑎𝑎𝑡𝑡 , 𝑟𝑟𝑡𝑡′ , 𝑑𝑑𝑡𝑡 , 𝑡𝑡𝑡𝑡
+
+Feed
+Forward
+
+p(a𝑡𝑡+1 |𝜏𝜏𝑡𝑡 )
+
+Z
+
+LILTrans
+
+𝑜𝑜0 , 𝑎𝑎0 , 𝑟𝑟0′ , 𝑑𝑑0 , 𝑡𝑡0 …
+
+𝑀𝑀
+
+p(𝑜𝑜𝑡𝑡+1 |𝜏𝜏𝑡𝑡 )
+p( 𝑟𝑟𝑡𝑡 |𝜏𝜏𝑡𝑡 )
+
+′
+𝑜𝑜𝑡𝑡+B , 𝑎𝑎𝑡𝑡+𝐵𝐵 , 𝑟𝑟𝑡𝑡+𝐵𝐵
+, 𝑑𝑑𝑡𝑡+𝐵𝐵 , 𝑡𝑡𝑡𝑡+𝐵𝐵
+
+…
+
+Time Embedding
+
+𝑜𝑜𝑡𝑡 , 𝑎𝑎𝑡𝑡 , 𝑟𝑟𝑡𝑡′ , 𝑑𝑑𝑡𝑡 , 𝑡𝑡𝑡𝑡
+
+Figure 1. (a) Meta-Testing Procedure: The LILTrans uses the interaction sequences τ to infer the posterior distribution of the Bayesoptimal policy, reward and next observation. Then the action is directly sampled from the approximate PPD of the Bayes-optimal policy.
+After executing the action, the data, including the next observation and reward, is collected to form the next interaction sequences τ .
+The dynamic window rolls forward, prompting LILTrans to carry out the next round of amortized Bayesian inference. This process
+allows the agent to progressively reduce uncertainty about the optimal action and improve its performance. In essence, LILTrans is
+performing lifelong in-context learning during the meta-test phase. (b) LILTrans Network Architecture: Once trained, LILTrans is
+robust to distributional shift by performing lifelong in-context learning.
+
+where k is the episode index and l indicates the time index
+within an episode. t = kH + l denotes the current time step,
+t0 = max[(k − b + 1)H, 0] represents the start time step of
+the dynamic window.
+
+embedding are specially designed in this work to enable an
+almost infinite evaluation horizon.
+The Dynamic Window includes only the most recent b
+episodes, allowing the transformer-based network to process interaction sequences within this window. Thus, a
+transformer-based network trained on a fixed horizon can
+be applied to lifelong interactions by continuously rolling
+the dynamic window forward.
+
+Therefore, we summarize our training procedure in Algorithm 1 and describe Meta-testing procedure in Figure 2 and
+Algorithm 2.
+4.4. Adapting Transformers for Lifelong In-context
+Learning
+
+However, a dynamic window alone is insufficient for training a lifelong in-context learner. When the MDP is unknown,
+the agent’s behavior should vary across different episodes.
+For instance, the agent might focus on exploration during
+the first b episodes and shift to exploitation in subsequent
+episodes. To distinguish these interaction sequences, we
+add time embedding to the interaction sequences τ . The
+updated interaction sequence is defined as follows:
+
+In this work, a variant of transformer network is specifically proposed for tackling the Lifelong In-Context Learning
+problem, called LILTrans. Essentially, LILTrans functions
+as a state machine, making it well-suited for online learning.
+The LILTrans, visualized in Figure 2a, is based on Transformer encoders with a time Embedding network and two
+feedforward networks. To prevent performance collapse during training, we adopt several existing techniques to modify
+the original structure from (Vaswani et al., 2017). Details
+can be found in Appendix B.1.
+
+τt0 :t1 = {t̂0 , dt0 , ot0 , at0 , rt0 , . . . , t̂1 , dt1 , ot1 , at1 } (20)
+where t̂0 = Ht0+ represents the relative time step, and dt
+denotes whether the episode is reset at time step.
+At meta-training time, the dynamic window rolls forward
+N − b times, enabling the agent to learn to balance exploration and exploitation across different episodes. Consequently, the training objective for the Bayes-optimal policy
+is redefined as follows:
+"N H
+#
+XX
+t
++
+J (π) = Eτ,π
+γ R (τt0 :t , ot+1 , at+1 ) , (21)
+
+At time step t, the time Embedding network ft first embeds the interaction sequences τ . The transformer Encoders
+then process the embedding and output two latent variables
+z1 , z2 ,
+z1 , z2 = Encoders(ft (τ )).
+(22)
+The latent variables Z = [z1 , z2 ] provide a compact repre-
+
+k=0 l=0
+
+6
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Figure 2. Average test performance in both ID and strictly OOD tasks in 64 parallel environments (using 3 seeds). PSBL enables the
+trained network to perform lifelong in-context learning across episodes with sparse rewards. Furthermore, PSBL significantly outperforms
+other methods in OOD tasks.
+
+sentation of the interaction sequences τ , which are utilized
+in the state-action network Qπ (at+1 , Z).
+
+tasks with dense rewards, are conducted to evaluated the performance of PSBL. The experimental results demonstrate
+that the trained network in PSBL can perform Lifelong
+in-context Learning across episodes in tasks with sparse rewards and within episodes in tasks with dense rewards. Furthermore, PSBL significantly outperforms standard meta RL
+methods especially in OOD tasks. Finally, several ablation
+studies are conducted to to better understand the proposed
+method PSBL.
+
+Finally, the two latent variables are individually fed into two
+feedforward networks, f1 and f2 . These networks return the
+approximate PPD of the optimal policy, rewards, and next
+observations. Therefore, the proposed LILTrans network
+can compute two functions gϕ and hϕ with the paramaters
+ϕ as follows,
+et+1 = hϕ (at , (ot , rt−1 ), τt−1 )
+a
+(e
+ot+1 , ret ) = gϕ (at , (ot , rt−1 ), τt−1 )
+
+(23)
+
+5.1. Discrete Navigation Meta-RL Tasks
+We consider environments that requires task inference and
+online exploration. The first is Gridworld, a discrete navigation environment where the agent needs to infer the optimal
+route to an unknown goal position. The agent receives a
+reward of +1 upon reaching the goal and −1 otherwise. The
+second is Dark-Key-to-Door, a more complex navigation
+environment where the agent needs to find a key first and
+then use the key to open the door. The start, key and door
+position are unknown to the agent. The agent receives a
+reward of +1 both in finding the key and opening the door.
+
+that map the input current action, previous state-reward pair
+and previous interaction sequence (at , (ot , rt−1 ), τt−1 ) to
+the next action e
+at+1 and the next state-reward pair (e
+ot+1 , ret ),
+respectively. Here, hϕ is the output function and gϕ is the
+state transition function. Therefore, equation (23) defines
+a state machine that is well-suited for online learning or
+in-context learning.
+
+5. Experiments
+In this section, various experiments, including discrete navigation tasks with sparse rewards and continuous control
+
+To evaluate the performance of PSBL in environments with
+
+7
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Figure 3. Average test performance in both ID and strictly OOD tasks in 64 parallel environments (using 3 seeds). PSBL enables the
+trained network to perform lifelong in-context learning within one or two episodes with dense rewards. Furthermore, PSBL significantly
+outperforms other methods in OOD tasks.
+
+sparse rewards, we compare PSBL with state-of-the-art incontext RL methods and context-based Meta RL methods,
+including AMAGO (Grigsby et al., 2023), VariBAD (Zintgraf et al., 2019b), RL2 (Duan et al., 2016). Detailed introductions of these methods are provided in Appendix B.2.
+
+line methods. It can be seen that at meta-test time, the
+trained network in PSBL progressively improve its performance until convergence both in ID and OOD test tasks
+through interactions with the environments. Furthermore,
+when the evaluation time step exceeds the learning horizon,
+PSBL continues to demonstrate improvement until convergence, whereas the performance of other baseline methods
+declines. These phenomenon indicates the emergence of
+Lifelong In-context Learning across episodes within the
+trained network in PSBL.
+
+All of these methods are trained from scratch in the default
+environment setting. The detailed environmental setting are
+in Appendix B.3. Hyperparameters of PSBL during training
+are provided in Appendix B.4. The learning curves of all
+these algorithms, shown in the Appendix B.5, show that
+PSBL is much sample efficient than baselines. Once trained,
+we evaluate the trained networks both in in-distribution (ID)
+and out-of-distribution (OOD) tasks. Specifically speaking,
+in gridworld environments, we evaluate the networks trained
+on 5x5 grid worlds by navigating 5x5, 6x6, 7x7 and 8x8 grid
+worlds with randomly sampled goal positions. In Dark-Keyto-Door environments, we evaluate networks trained on 9x9
+rooms worlds by navigating 9x9, 10x10, 11x11 and 12x12
+rooms with randomly sampled start, key and door positions.
+For fair comparison, each method is evaluated in 64 parallel
+randomly sampled environments using 3 seeds, and the
+averaged returns are used to compare their test performance.
+
+Through performing lifelong in-context learning, PSBL significantly outperform other methods in OOD tasks. Although the VariBAD method adapts more quickly to ID
+tasks than PSBL, its test performance declines dramatically
+when the task distribution shifts. This is because VariBAD’s
+base policy network, being a simple feedforward network
+without online inference capability, struggles to map the
+unseen task distribution to a near-optimal policy.
+Overall, the experimental results confirm that the PSBLtrained network can perform lifelong in-context learning
+across episodes in tasks with sparse rewards, significantly
+outperforming other methods in OOD tasks.
+
+Figure 2 shows the evaluation results of PSBL and the base8
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+5.2. Mujoco Continuous Control Meta-RL Tasks
+
+ 2 2 '   * U L G Z R U O G    [ 
+
+  
+
+We demonstrate that PSBL can scale to continuous control tasks with dense rewards by evaluating it in Mujoco
+environments, which are commonly used as benchmarks
+(Zintgraf et al., 2019b; Rakelly et al., 2019). These locomotion tasks require online inference and fast adaptation across
+the reward functions (randomly generated target velocity
+for HalfCheetah-Vel) and the transition functions (randomly
+sampled environment properties for Walker-2D-Param).
+
+ D O J R
+
+ 3 6 % / B 0   B +  
+ 3 6 % / B 0   B +  
+ 3 6 % / B 0  B +  
+
+ $ Y H U D J H  5 H W X U Q V
+
+ 
+
+To evaluate the performance of PSBL in continuous tasks
+with dense rewards, we compare the PSBL to four methods, including AMAGO, VariBAD, RL2 , PEARL (Rakelly
+et al., 2019). Detailed introductions of these methods are
+provided in Appendix B.2. All methods are trained from
+scratch in the default environment settings, detailed in Appendix B.3. Learning curves for all algorithms, shown in
+Appendix B.5, indicate that PSBL achieves comparable data
+efficiency to PEARL and is more sample-efficient than the
+other baselines.
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+  
+
+  
+
+ ( S L V R G H
+
+  
+
+  
+
+  
+
+Figure 4. Ablation Experiment Results: We compare PSBL to two
+variants with different horizon and memory lengths.
+
+Length) while the training horizon contains 20 episodes
+(Horizon Length). We consider two other configurations for
+the dynamic window:
+
+Once trained, we evaluate the trained networks both in ID
+tasks and OOD tasks. Specifically speaking, in the benchmark of Half-Cheetah-Vel, we evaluate the networks trained
+at velocity of 0 ∼ 3m/s by following the new target velocities sampled from 0 ∼ 3, 3 ∼ 3.5, 3.5 ∼ 4 and 4 ∼ 4.5 m/s
+. In the benchmark of Walker-2D-Param, we evaluate the
+networks trained in environments with parameters random
+scale at 3 by controlling the walker to walk forward with
+parameters random at 3, 4, 5 and 6. For fair comparison,
+these methods are evaluated in 64 parallel randomly sampled environments using 3 seeds, and the averaged returns
+are used to compare their test performance.
+
+• PSBL method with a horizon length of 20 and a memory length of 20.
+• PSBL method with a horizon length of 12 and a memory length of 6.
+The test performance of these variants is evaluated in the
+OOD task Grid-World 6x6. The results, shown in Figure
+4, demonstrate that PSBL with a horizon length of 20 and
+a memory length of 10 outperforms PSBL with a horizon
+length of 20 and a memory length of 20, as the dynamic
+window in the latter does not progress forward. Furthermore, the results show that PSBL with a horizon length of
+20 and a memory length of 10 outperforms PSBL with a
+horizon length of 12 and a memory length of 6. Hence, a
+longer memory length and horizon length prove beneficial
+for retaining the past interaction sequence and improving
+policy in the context
+
+Figure 4 presents the experimental results in continuous control tasks. We can observe that PSBL adapts to OOD tasks
+almost within the first or second episodes, achieving significantly higher average returns than other methods especially
+in OOD tasks. That is because PSBL quickly reduces the uncertainty of near-optimal policy in tasks with dense rewards,
+allowing the uncertainty to converge to a rough point mass
+within one or two episodes. Consequently, PSBL enables
+lifelong in-context learning within episodes for these tasks.
+Moreover, PSBL significantly outperforms other methods in
+OOD tasks, and its superiority becomes more pronounced
+as the distance between test and training task distributions
+increases.
+
+6. Conclusion
+In this work, we propose PSBL, a new Meta-RL method
+robust to distribution shifts through lifelong in-context learning. PSBL is evaluated on discrete navigation tasks and
+continuous control tasks, where test task distributions differ significantly from training distributions. Experimental
+results demonstrate that PSBL enables lifelong in-context
+learning across episodes for tasks with sparse rewards and
+within episodes for tasks with dense rewards. Consequently,
+through performing Lifelong in-context Learning, PSBL
+significantly outperforms standard Meta-RL methods, especially in OOD tasks.
+
+5.3. Ablations
+In this section, we ablate our approach to better understand
+its key features. Several ablation experiments are conducted
+to evaluate the importance of the dynamic window and
+its hyperparameters. In the grid-world tasks, the dynamic
+window in PSBL is set to contain 10 episodes (Memory
+9
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Impact Statement
+
+Humplik, J., Galashov, A., Hasenclever, L., Ortega, P. A.,
+Teh, Y. W., and Heess, N. Meta reinforcement learning as
+task inference. arXiv preprint arXiv:1905.06424, 2019.
+
+This paper presents work whose goal is to advance the field
+of Machine Learning. There are many potential societal
+consequences of our work, none which we feel must be
+specifically highlighted here.
+
+Langley, P. Crafting papers on machine learning. In Langley,
+P. (ed.), Proceedings of the 17th International Conference
+on Machine Learning (ICML 2000), pp. 1207–1216, Stanford, CA, 2000. Morgan Kaufmann.
+
+Acknowledgements
+
+Laskin, M., Wang, L., Oh, J., Parisotto, E., Spencer, S.,
+Steigerwald, R., Strouse, D., Hansen, S., Filos, A.,
+Brooks, E., et al. In-context reinforcement learning with
+algorithm distillation. arXiv preprint arXiv:2210.14215,
+2022.
+
+This work was supported by the National Natural Science
+Foundation, China (No.62173300)
+
+References
+Akyürek, E., Schuurmans, D., Andreas, J., Ma, T., and
+Zhou, D. What learning algorithm is in-context learning? investigations with linear models. arXiv preprint
+arXiv:2211.15661, 2022.
+
+Liu, E. Z., Raghunathan, A., Liang, P., and Finn, C. Decoupling exploration and exploitation for meta-reinforcement
+learning without sacrifices. In International conference
+on machine learning, pp. 6925–6935. PMLR, 2021.
+
+Beck, J., Vuorio, R., Liu, E. Z., Xiong, Z., Zintgraf, L., Finn,
+C., and Whiteson, S. A survey of meta-reinforcement
+learning. arXiv preprint arXiv:2301.08028, 2023.
+
+Melo, L. C. Transformers are meta-reinforcement learners. In international conference on machine learning, pp.
+15340–15359. PMLR, 2022.
+
+Cobbe, K., Klimov, O., Hesse, C., Kim, T., and Schulman,
+J. Quantifying generalization in reinforcement learning.
+In International Conference on Machine Learning, pp.
+1282–1289. PMLR, 2019.
+
+Mendonca, R., Geng, X., Finn, C., and Levine, S. Metareinforcement learning robust to distributional shift via
+model identification and experience relabeling. arXiv
+preprint arXiv:2006.07178, 2020.
+
+Duan, Y., Schulman, J., Chen, X., Bartlett, P. L., Sutskever,
+I., and Abbeel, P. Rl ˆ2: Fast reinforcement learning via slow reinforcement learning. arXiv preprint
+arXiv:1611.02779, 2016.
+
+Mikulik, V., Delétang, G., McGrath, T., Genewein, T., Martic, M., Legg, S., and Ortega, P. Meta-trained agents
+implement bayes-optimal agents. Advances in neural
+information processing systems, 33:18691–18703, 2020.
+
+Fakoor, R., Chaudhari, P., Soatto, S., and Smola, A. J. Metaq-learning. arXiv preprint arXiv:1910.00125, 2019.
+
+Mishra, N., Rohaninejad, M., Chen, X., and Abbeel, P.
+A simple neural attentive meta-learner. arXiv preprint
+arXiv:1707.03141, 2017.
+
+Finn, C., Abbeel, P., and Levine, S. Model-agnostic metalearning for fast adaptation of deep networks. In International conference on machine learning, pp. 1126–1135.
+PMLR, 2017.
+
+Muller, S., Hollmann, N., Arango, S. P., Grabocka, J.,
+and Hutter, F. Transformers can do bayesian inference. ArXiv, abs/2112.10510, 2021. URL https:
+//api.semanticscholar.org/CorpusID:
+245334722.
+
+Fu, H., Tang, H., Hao, J., Chen, C., Feng, X., Li, D., and
+Liu, W. Towards effective context for meta-reinforcement
+learning: an approach based on contrastive learning. In
+Proceedings of the AAAI Conference on Artificial Intelligence, volume 35, pp. 7457–7465, 2021.
+
+Ortega, P. A., Wang, J. X., Rowland, M., Genewein, T.,
+Kurth-Nelson, Z., Pascanu, R., Heess, N., Veness, J.,
+Pritzel, A., Sprechmann, P., et al. Meta-learning of sequential strategies. arXiv preprint arXiv:1905.03030,
+2019.
+
+Genewein, T., Delétang, G., Ruoss, A., Wenliang, L. K.,
+Catt, E., Dutordoir, V., Grau-Moya, J., Orseau, L., Hutter,
+M., and Veness, J. Memory-based meta-learning on nonstationary distributions. arXiv preprint arXiv:2302.03067,
+2023.
+
+Osband, I., Russo, D., and Van Roy, B. (more) efficient
+reinforcement learning via posterior sampling. Advances
+in Neural Information Processing Systems, 26, 2013.
+Rajeswaran, A., Lowrey, K., Todorov, E. V., and Kakade,
+S. M. Towards generalization and simplicity in continuous control. Advances in Neural Information Processing
+Systems, 30, 2017.
+
+Grigsby, J., Fan, L., and Zhu, Y. Amago: Scalable in-context
+reinforcement learning for adaptive agents. arXiv preprint
+arXiv:2310.09971, 2023.
+10
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Rakelly, K., Zhou, A., Finn, C., Levine, S., and Quillen, D.
+Efficient off-policy meta-reinforcement learning via probabilistic context variables. In International conference on
+machine learning, pp. 5331–5340. PMLR, 2019.
+
+Zintgraf, L., Shiarli, K., Kurin, V., Hofmann, K., and Whiteson, S. Fast context adaptation via meta-learning. In
+International Conference on Machine Learning, pp. 7693–
+7702. PMLR, 2019a.
+
+Ritchie, D., Horsfall, P., and Goodman, N. D. Deep amortized inference for probabilistic programs. arXiv preprint
+arXiv:1610.05735, 2016.
+
+Zintgraf, L., Shiarlis, K., Igl, M., Schulze, S., Gal, Y., Hofmann, K., and Whiteson, S. Varibad: A very good method
+for bayes-adaptive deep rl via meta-learning. arXiv
+preprint arXiv:1910.08348, 2019b.
+
+Sasso, R., Conserva, M., and Rauber, P. Posterior sampling for deep reinforcement learning. arXiv preprint
+arXiv:2305.00477, 2023.
+
+Zintgraf, L. M., Feng, L., Lu, C., Igl, M., Hartikainen, K.,
+Hofmann, K., and Whiteson, S. Exploration in approximate hyper-state space for meta reinforcement learning.
+In International Conference on Machine Learning, pp.
+12991–13001. PMLR, 2021.
+
+Shleifer, S., Weston, J., and Ott, M. Normformer: Improved
+transformer pretraining with extra normalization. arXiv
+preprint arXiv:2110.09456, 2021.
+Song, X., Jiang, Y., Tu, S., Du, Y., and Neyshabur, B. Observational overfitting in reinforcement learning. arXiv
+preprint arXiv:1912.02975, 2019.
+Stadie, B. C., Yang, G., Houthooft, R., Chen, X., Duan, Y.,
+Wu, Y., Abbeel, P., and Sutskever, I. Some considerations
+on learning to explore via meta-reinforcement learning.
+arXiv preprint arXiv:1803.01118, 2018.
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,
+L., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. Attention is all you need. Advances in neural information
+processing systems, 30, 2017.
+Von Oswald, J., Niklasson, E., Randazzo, E., Sacramento,
+J., Mordvintsev, A., Zhmoginov, A., and Vladymyrov,
+M. Transformers learn in-context by gradient descent.
+In International Conference on Machine Learning, pp.
+35151–35174. PMLR, 2023.
+Wang, J. X., Kurth-Nelson, Z., Tirumala, D., Soyer, H.,
+Leibo, J. Z., Munos, R., Blundell, C., Kumaran, D., and
+Botvinick, M. Learning to reinforcement learn. arXiv
+preprint arXiv:1611.05763, 2016.
+Zhai, S., Likhomanenko, T., Littwin, E., Busbridge, D.,
+Ramapuram, J., Zhang, Y., Gu, J., and Susskind, J. M.
+Stabilizing transformer training by preventing attention
+entropy collapse. In International Conference on Machine
+Learning, pp. 40770–40803. PMLR, 2023.
+Zhang, C., Vinyals, O., Munos, R., and Bengio, S. A
+study on overfitting in deep reinforcement learning. arXiv
+preprint arXiv:1804.06893, 2018.
+Zhang, J., Wang, J., Hu, H., Chen, T., Chen, Y., Fan, C., and
+Zhang, C. Metacure: Meta reinforcement learning with
+empowerment-driven exploration. In International Conference on Machine Learning, pp. 12600–12610. PMLR,
+2021.
+11
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+A. End to End PPD Approximation Guarantee
+A.1. Supervised Learning Loss
+Insight 1. The proposed SL loss ℓs is equal to the expectation of the cross-entropy between the PPD and its approximation
+qϕ : ℓs = E ∗ τt [H (P (· | τt ), q ∗ δ(· | τt ))]
+Proof.
+Z
+Z
+Z
+ℓs = −
+p(ot+1 , rt , τt ) log qϕ (ot+1 , rt | τt ) = −
+p(τt )
+p(ot+1 , rt | τt ) log qϕ (ot+1 , rt | τt )
+ot+1 ,rt ,τt
+τt
+ot+1 ,rt
+Z
+=
+p(τt )H (p(· | τt ), qϕ (· | τt )) = E ∗ τt ∼ p(τt ) [H (p(· | τt ), q ∗ ϕ(· | τt ))]
+
+(24)
+
+τt
+
+A.2. Actor Loss
+Insight 2. The proposed actor loss ℓa is equal to the expectation of the cross-entropy between the PPD and its approximation,
+up to an additive constant: qϕ : ℓa = E ∗ τt [H (P (· | τt ), q ∗ δ(· | τt ))] + C
+Proof.
+h
+
+i
+E ∗ τt D ∗ KL qϕ (at+1 | τt ) P (at+1 | τt )
+Z
+
+qδ (at+1 | τt )
+= −E ∗ τt
+∗at+1 P (at+1 | τt ) log
+P (at+1 | τt )
+Z
+
+Z
+
+= −E ∗ τt
+∗at+1 P (at+1 | τt ) log qδ (at+1 | τt ) + E ∗ τt
+∗at+1 P (at+1 | τt ) log P (at+1 | τt )
+
+(25)
+
+= E ∗ τt [H (P (· | τt ), q ∗ δ(· | τt ))] − E ∗ τt [H (P (· | τt ))]
+= E ∗ τt [H (P (· | τt ), qδ (· | τt ))] + C
+
+B. Implementation Details
+B.1. LILTrans Network Architecture
+To prevent performance collapse during training, particularly during long-horizon meta training, we incorporate three
+existing methods: extra LayerNorms from Normformer (Shleifer et al., 2021), α− Reparam from (Zhai et al., 2023), and the
+use of Leaky ReLU from AMAGO (Grigsby et al., 2023).
+B.2. Baselines
+• AMAGO (Grigsby et al., 2023). A Transformers-based In-context Reinforcement Learning method which specializes
+in meta-learning, generalization and long-term memory. We use the open-source reference implementation of AMAGO
+at https://github.com/ut-austin-rpl/amago. We keep all hyperparameters of AMAGO as the Default.
+• VariBAD (Zintgraf et al., 2019b). A variational Bayes-Adaptive Deep RL which can online infer the task distribution
+and incorporate task uncertainty during action selection. We use the open-source reference implementation of variBAD
+at https://github.com/lmzintgraf/varibad to report the results of variBAD method. We keep all hyperparameters of
+VariBAD as the Default.
+• PEARL (Rakelly et al., 2019). A Probabilistic Context Variables based Meta RL method, which infer latent task
+variables online and Posterior samples from the inferred distribution. We use the open-source reference implementation
+of PEARL at https://github.com/ut-austin-rpl/amago. We keep all hyperparameters of PEARL as the Default.
+12
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+• RL2 . (Duan et al., 2016) A classic context-based RL which utilize a recurrent neural network to quickly adapt to the
+new task.We use the open-source reference implementation of RL2 at https://github.com/katerakelly/oysterto report the
+results of RL2 method. We keep all hyperparameters of RL2 as the Default.
+B.3. Environments Setting
+• Gridworld. The horizon is set to the default value of 15, as described in VarBAD (Zintgraf et al., 2019b). The
+gridworld is configured as a 5x5 grid. During training, the goal position is randomly sampled from any of the 25 grids
+except (0,0), (0,1), (1,0), and (1,1). During meta-testing, the goal position is randomly selected from the 5x5 grid in ID
+tasks and from 6x6, 7x7, and 8x8 grids in OOD tasks.
+• Dark-Key-To-Door Consistent with AMAGO (Grigsby et al., 2023), the horizon is set to the default value of 50.
+The training environment is a 9x9 room, with the start, key, and door positions randomly sampled from all possible
+locations within the room. During meta-testing, these positions are randomly sampled from the 9x9 room in ID tasks,
+and from 10x10, 11x11, and 12x12 rooms in OOD tasks.
+• HalfCheetah-Vel Similar to VarBAD (Zintgraf et al., 2019b), the horizon is set to the default value of 200. The target
+speed during training is randomly sampled from the range . During meta-testing, the target is totally randomly sampled
+from the 0 ∼ 3 in ID tasks and from 3 ∼ 3.5, 3.5 ∼ 4 and 4 ∼ 4.5 in OOD tasks .
+• Walker-2D-Param As in VarBAD (Zintgraf et al., 2019b), the horizon is set to the default value of 200. During
+training, the environment parameters, including body mass, degree of freedom (dof) damping, body inertia, and geom
+friction, are randomly altered by a factor of 3 at the beginning of each episode. During evaluation, the random scaling
+factor for these parameters is set to 3 for ID tasks, and to 4, 5, and 6 for OOD tasks.
+B.4. Hyperparameters
+The network architecture details of PSBL for all test environments are listed in Table 1. The training hyperparameters for
+PSBL across all test environments are provided in Table 2.
+Table 1. PSBL Network Architecture Details For All Test Environments.
+T RANSFORMER E NCODERS
+MODEL D IM
+FF D IM
+H EADS
+L AYERS
+
+256
+1024
+8
+3
+
+OTHER NETWORKS
+T IME E MBEDDING
+CRITIC
+F EEDFORWARD NETWORK
+
+(128,128,64)
+(256,256)
+(128,128)
+
+B.5. Learning Curves in Experiments
+Figure 5 shows the learning curves for all environments presented in Section 5 for all methods. Since the open-source
+reference implementation of PEARL can only address continuous tasks, the PEARL method is evaluated exclusively on
+continuous tasks, including HalfCheetah-Vel and Walker-2D-Param.
+It is evident that our method, PSBL, demonstrates higher sample efficiency than other methods in discrete tasks. However,
+in continuous tasks, PEARL is slightly more sample-efficient in training than PSBL. This difference is attributed to the
+memory-augmented network in PSBL, which is based on transformers and naturally requires more training data than
+recurrent networks. In the Dark-Key-To-Door tasks, PSBL achieves significantly higher average returns than AMAGO,
+VariBAD, and RL2 . Despite extensive hyperparameter tuning and more than 20 trials, the VariBAD method only converges
+to suboptimal performance with average returns near 1 in the Dark-Key-To-Door tasks
+
+13
+
+Meta-Reinforcement Learning Robust to Distributional Shift Via Performing Lifelong In-Context Learning
+
+Table 2. PSBL Trainning Hyperparameters
+
+L EARNING R ATE
+L2 P ENALTY
+BATCH S IZE
+M AX B UFFER S IZE
+G RADIENT U PDATES P ER E POCH
+TARGET U PDATE τ
+G RADIENT C LIP (N ORM )
+ACTOR L OSS W EIGHT
+C RITIC L OSS W EIGHT
+SL L OSS W EIGHT
+PARALLEL ACTORS
+M EMORY LENGTH ( EPISODES )
+HORIZON LENGTH ( EPISODES )
+E XPLORATION M AX ϵAT E P. S TART
+E XPLORATION M AX ϵ AT E P. E ND
+
+G RIDWORLD
+
+DARK -K EY-D OOR
+
+H ALFCHEEH -V EL
+
+WALKER -2D-PARAM
+
+5 E -5
+1 E -4
+24
+20000
+2000
+0.03
+1
+1
+10
+0.5
+24
+10
+20
+0.8
+0.05
+
+5 E -5
+1 E -4
+32
+20000
+2000
+0.03
+1
+1
+10
+0.8
+24
+8
+10
+0.8
+0.05
+
+3 E -4
+1 E -4
+24
+20000
+2000
+0.03
+1
+1
+10
+0.5
+24
+2
+4
+0.8
+0.05
+
+5 E -4
+1 E -4
+24
+20000
+2000
+0.03
+1
+1
+10
+0.5
+24
+3
+5
+0.8
+0.05
+
+Figure 5. The learning curves for results presented in Section 5. Each figure shows the average returns per episodes for these methods.
+
+14
+
+

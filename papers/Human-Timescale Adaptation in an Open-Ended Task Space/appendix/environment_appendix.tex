@@ -1,0 +1,70 @@
+\subsection{XLand 2.0}
+\label{app:xland_changes}
+
+In this section we describe the differences between XLand 2.0 and the original XLand environment of \cite{xland}. We modify the configuration space as follows:
+
+\begin{itemize}
+    \item We introduce a new relation \texttt{touching(a,b)}. It is satisfied if objects \texttt{a} and \texttt{b} are in contact, as determined by Unity's collision detection with a distance threshold of 1 millimeter.
+    \item We exclude all relations that refer to floors. As a more flexible alternative we introduce the option of spawning objects in a permanently frozen state, rendering them immobile. Frozen objects can be used as anchor points in the environment which require players to navigate to them by including them in goals or production rules.
+    \item We only use predicates consisting of a single relation or its negation, excluding conjunctions or disjunctions of multiple relations. Note that production rules (Section~\ref{sec:methods_xverse}) allow us to specify tasks which require the player to sequentially satisfy predicates, or to give them multiple ways to reach a desired state.
+\end{itemize}
+
+For the reader's convenience, Tables \ref{tab:objects} and \ref{tab:colors} respectively list all shapes and colours we used for objects in XLand. Table \ref{tab:predicates} lists all predicates we used for goals and production rules.
+
+\begin{longtable}{|p{0.25\linewidth}|p{0.1\linewidth}p{0.52\linewidth}}
+    \caption{Shapes used for objects.}
+    \label{tab:objects}
+    \\ \hline
+      \textbf{Shape name}\\
+      \hline
+      Wall \\
+      \hline
+      Cube \\
+      \hline
+      Sphere \\
+      \hline
+      Pyramid \\
+      \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.25\linewidth}|p{0.1\linewidth}|p{0.52\linewidth}}
+    \caption{Colours used for objects.}
+    \label{tab:colors}
+    \\ \hline
+      \textbf{Colour name} \\
+      \hline
+      Black \\
+      \hline
+      Purple \\
+      \hline
+      Yellow \\
+      \hline
+\end{longtable}
+
+\begin{longtable}{>{\raggedright}p{0.25\linewidth}|p{0.62\linewidth}}
+    \caption{Predicates used for goals and production rules.}
+    \label{tab:predicates}
+    \\ \hline
+      \textbf{Predicate name} & \textbf{Meaning} \\
+      \hline
+      \texttt{touching(a,b)} & Whether \texttt{a} and \texttt{b} are in contact. \\
+      \hline
+      \texttt{near(a,b)} & Whether \texttt{a} and \texttt{b} are at most 1m apart.\\
+      \hline
+      \texttt{hold(a,b)} & Whether player \texttt{a} holds \texttt{b}.\\
+      \hline
+      \texttt{see(a,b)} & If \texttt{a} is a player, whether it can see \texttt{b}. If not, whether the line connecting the centres of mass of \texttt{a} and \texttt{b} is not obstructed by another object.\\
+      \hline
+      \texttt{not(p)} & Whether predicate \texttt{p} is not satisfied. \\
+      \hline
+\end{longtable}
+
+\subsection{Pre-sampling tasks for training} \label{app:presample_tasks}
+
+The space of goals and production rules can generate at least $10^{40}$ distinct tasks, even given quite restrictive bounds on the number of objects and rules.\footnote{This is an order of magnitude lower-bound estimate, assuming $4$ shapes, $3$, colours, $7$ predicates, a maximum of $5$ production rules with a maximum of $3$ objects on the right-hand side, $7$ blanking options, and a maximum of $20$ objects in the scene.} For convenience, we pre-sample a subset of this space using the method described below. In Section \ref{sec:results_task_scaling} we evaluate the effect of the size of the sampled set. For each task we sample a world using the procedure outlined in \citet{xland} and combine it with a game and production rules as follows.
+
+\paragraph{Single-player tasks.} We start by uniformly sampling a player's goal, consisting of a predicate with optional negation and two objects. Then, for a fixed number of steps (which we sample uniformly between 1 and 4), we add new production rules, such that they need to be triggered in sequence to get the objects present in the goal. We initialise the world to contain the objects present in the condition of the first production rule, together with up to $10$ \textit{distractor} objects, not present in any production rule from this chain (nor in the goal).
+
+Next, we introduce {\it dead-end} production rules. We sample them such that their condition contains either distractor objects or ones that are ultimately necessary for satisfaction of the goal, yet the spawns are always distractors. As such, triggering a dead end may put the game in an unsolvable state. Including them in the training games creates pressure on the agent to avoid indiscriminately triggering all production rules. Finally, we sample a hiding mask, specifying which part of the production rules will be visible or hidden from the player. The sampling of both the mechanism for hiding (described in Section~\ref{sec:methods_xverse}) and the actual parts to hide is uniform random.
+
+\paragraph{Multi-player tasks.} For this work we restrict our multi-player games to fully cooperative two-player games. Such games are known to be particularly challenging, as they have multiple equilibria, and thus feature an equilibrium selection problem \citep{DBLP:journals/corr/abs-2012-08630}. To sample such a game, we start by sampling a single-player game as outlined above and randomly replace references to the first player in the goal or production rules with references to player two. We copy the goal and sample a new production rule hiding mask for player two, resulting in a fully cooperative two-player game with potentially asymmetric information provided about the task's production rules.

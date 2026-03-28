@@ -1,0 +1,22 @@
+Curricular Data
+
+Model Training with
+
+Cross-Episodic Attention
+
+Policy improvement on single environments:
+
+Learning progress on a series of progressively
+
+Context Window
+
+τ
+Ongoing Episode
+
+harder environments:
+
+Increase of demonstrator’s proficiency:
+
+τ
+
+

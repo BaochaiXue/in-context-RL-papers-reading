@@ -1,0 +1,259 @@
+\documentclass[sigconf]{acmart}
+% \documentclass[dvipsnames,format=sigconf,anonymous=true,review=true]{acmart} % Use this line and uncomment the above line for anonymous submission
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[bb=dsserif]{mathalpha}
+\usepackage{bm}
+\usepackage{float}
+
+\usepackage{xcolor}
+\usepackage{booktabs}    % For formal tables
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{amsmath,bm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+% For subcaption
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+% Copyright
+%\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+\newcommand{\evosax}{\href{https://github.com/RobertTLange/evosax}{\texttt{evosax}} }
+\newcommand{\yujin}[1]{\textcolor{blue}{\textbf{Yujin:} #1}}
+\newcommand{\yingtao}[1]{\textcolor{purple}{\textbf{Yingtao:} #1}}
+
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}%
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\usepackage{color, colortbl}
+\usepackage[first=0,last=9]{lcg}
+\newcommand{\ra}{\rand0.\arabic{rand}}
+\definecolor{LightYellow}{rgb}{0.99, 0.99, 0.59}
+\definecolor{LightRed}{rgb}{0.97, 0.51, 0.47}
+\definecolor{LightBlue}{rgb}{0.99, 0.59, 0.99}
+\definecolor{LightGreen}{rgb}{0.59, 0.99, 0.99}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+%\definecolor{emphcolor}{rgb}{}
+
+\definecolor{backcolour}{RGB}{245,248,250}
+\definecolor{emph}{RGB}{166,88,53}
+\definecolor{nightblue}{RGB}{9,49,105}
+\definecolor{keywords}{RGB}{207,33,46}
+\definecolor{lightpurple}{RGB}{130,81,223}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{keywords},
+    stringstyle=\color{nightblue},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    %numberstyle=\tiny\color{codegray},
+    %numbers=none,                    
+    %numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=shadowbox,
+    emph={AutoTokenizer,AutoModelForSequenceClassification,Explainer},
+    emphstyle={\color{emph}},
+    emph={[2]from_pretrained,compute_table},
+    emphstyle={[2]\color{lightpurple}},
+    linewidth=8.0cm
+}
+
+\lstset{style=mystyle}
+
+\usepackage{amsmath}
+\usepackage{empheq}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+
+\newtcbox{\mymath}[1][]{%
+    nobeforeafter, math upper, tcbox raise base,
+    enhanced, colframe=blue!30!black,
+    colback=blue!10, boxrule=1pt,
+    #1}
+    
+\newtcbox{\mymathbox}[1][]{%
+    nobeforeafter, math upper, tcbox raise base,
+    enhanced, colframe=red!30!black,
+    colback=red!10, boxrule=1pt,
+    #1}
+
+\newtcbox{\mymathgreen}[1][]{%
+    nobeforeafter, math upper, tcbox raise base,
+    enhanced, colframe=green!30!black,
+    colback=green!10, boxrule=1pt,
+    #1}
+
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Fix information below when submititng the camara-ready
+\copyrightyear{2024} 
+\acmYear{2024} 
+\setcopyright{rightsretained} 
+% \acmConference[GECCO '24 Companion]{Genetic and Evolutionary Computation Conference Companion}{July 14--18, 2024}{Melbourne, Austrilia}
+% \acmBooktitle{Genetic and Evolutionary Computation Conference Companion (GECCO '24 Companion), July 14--18, 2024, Melbourne, Austrilia}
+% \acmDOI{????}
+% \acmISBN{????}
+
+
+% These commands are optional
+% \acmBooktitle{Genetic and Evolutionary Computation Conference Companion (GECCO '20 Companion), July 8--12, 2020, Cancún, Mexico}
+
+\begin{document}
+
+\title{Large Language Models As Evolution Strategies}
+
+
+% Authors
+\author{Robert Tjarko Lange}
+% \orcid{0000-0000-0000-0000}
+\affiliation{%
+    \institution{TU Berlin, Google DeepMind}
+    \country{Germany, Japan}
+ }
+\email{robert.t.lange@tu-berlin.de}
+
+\author{Yingtao Tian}
+% \orcid{0000-0000-0000-0000}
+\affiliation{%
+    \institution{Google DeepMind}
+    \country{Japan}
+ }
+\email{alantian@google.com}
+
+\author{Yujin Tang}
+% \orcid{0000-0000-0000-0000}
+\affiliation{%
+    \institution{Google DeepMind}
+    \country{Japan}
+ }
+\email{yujintang@google.com}
+
+
+% \author{Anonymous Authors}
+% % \orcid{0000-0000-0000-0000}
+% \affiliation{%
+%     \institution{Anonynomous Institution}
+%     \country{Anonynomous Contry}
+%  }
+% \email{Anonynomous Email}
+
+
+% The default list of authors is too long for headers.
+\renewcommand{\shortauthors}{Lange et al.}
+% \renewcommand{\shortauthors}{Anonymous et al.}
+
+
+\begin{abstract}
+% \yujin{Great job! I have made modifications and put down comments in the text in blue. In general, I think this is a solid paper. We may need a bit more work on organizaing Sec 4 though, improved flow and illustration will make a reader easier to follow. Note: for those comments, they are not me saying ``Do this!'', but are rather suggestions and discussions.}
+Large Transformer models are capable of implementing a plethora of so-called in-context learning algorithms.
+%
+These include gradient descent, classification, sequence completion, transformation, and improvement. 
+%
+In this work, we investigate whether large language models (LLMs), which never explicitly encountered the task of black-box optimization, are in principle capable of implementing evolutionary optimization algorithms.
+%
+While previous works have solely focused on language-based task specification, we move forward and focus on the zero-shot application of LLMs to black-box optimization. We introduce a novel prompting strategy, consisting of least-to-most sorting of discretized population members and querying the LLM to propose an improvement to the mean statistic, i.e. perform a type of black-box recombination operation.
+%
+Empirically, we find that our setup allows the user to obtain an LLM-based evolution strategy, which we call `EvoLLM', that robustly outperforms baseline algorithms such as random search and Gaussian Hill Climbing on synthetic BBOB functions as well as small neuroevolution tasks.
+%
+Hence, LLMs can act as `plug-in' in-context recombination operators.
+%
+We provide several comparative studies of the LLM's model size, prompt strategy, and context construction.
+%
+Finally, we show that one can flexibly improve EvoLLM's performance by providing teacher algorithm information via instruction fine-tuning on previously collected teacher optimization trajectories.
+\end{abstract}
+
+
+%
+% The code below should be generated by the tool at http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below.
+%
+\begin{CCSXML}
+<ccs2012>
+    <concept>
+        <concept_id>10010147.10010257.10010293.10011809.10011812</concept_id>
+        <concept_desc>Computing methodologies~Evolutionary Robotics</concept_desc>
+        <concept_significance>500</concept_significance>
+    </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Evolutionary Robotics}
+
+\keywords{evolution strategies, machine learning}
+
+\begin{teaserfigure}
+  \centering
+  \includegraphics[width=0.995\textwidth]{figures/f1_evollm_conceptual.png}
+ % \begin{subfigure}[b]{0.3\textwidth}
+ %     \centering
+ %     \includegraphics[width=\textwidth]{figures/sketch/sketch1.png}
+ %     \caption{\yingtao{A horrible sketch illustrate my idea...}}
+ %     \label{fig:y equals x}
+ % \end{subfigure}
+  \caption{Left. Overview of EvoLLM procedure. An LLM proposes an ES search distribution update using a discretized search space \& solutions sorted by their performance (least-to-most). To combat the context length growth in the number of dimensions, we can split the search dimensions into blocks and perform LLM batch queries. Right: Aggregated results across 8 BBOB \citep{hansen2010real} settings, and 3 neuroevolution control problems. The results are averaged over ten and five independent runs, respectively. LLM-based Evolution Strategies (green) outperform traditional baselines (blue). % Weight fine-tuning (T) based on teacher trajectories can improve the downstream EvoLLM performance.
+  % \yingtao{The purpose of the first header figure is giving the reader a grasp of how our system works. However currently the left Sub-figure seems to be too vague and too descriptive. If possible, I would suggest make it (left and right) smaller and make a room for a new sub-figure, showing example walk-through plus what the optimization trajectory looks like on a 2D toy problem,  using data in appendix A. I added a horrible sketch for illustration in subfigure a  }
+  }
+  \label{fig:conceptual}
+\end{teaserfigure}
+
+\maketitle
+
+
+\input{body}
+
+\newpage
+
+\bibliographystyle{ACM-Reference-Format}
+% \bibliographystyle{ieeetr}
+\renewcommand*{\bibfont}{\tiny}
+\bibliography{bibliography}
+
+% \begin{acks}
+% This work is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy - EXC 2002/1 “Science of Intelligence” - project number 390523135.
+% \end{acks}
+
+\appendix
+
+\input{supps}
+
+\end{document}
+
+

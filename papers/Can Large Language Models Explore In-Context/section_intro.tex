@@ -1,0 +1,118 @@
+
+\emph{In-context learning} is an important emergent capability of Large Language Models (LLMs) that enables one to use a pre-trained LLM to solve a problem by specifying the problem description and relevant data entirely \emph{in-context}, \ie within the LLM prompt, with no updates to the LLM parameters \citep{gpt3-neurips20}.
+For example, one can prompt an LLM with numeric covariate vectors and scalar targets and subsequently obtain regression-style predictions from the model by including new covariate vectors in the prompt~\citep{garg2022can}.
+Perhaps surprisingly, LLMs are not explicitly trained for this behavior; instead
+the underlying algorithms employed for in-context learning are extracted from the training corpus and \emph{emerge} at scale.
+
+Since its discovery in the \textsc{Gpt-3} model~\citep{gpt3-neurips20}, in-context learning has been the subject of a growing body of research.
+  These works include theoretical investigations into the underlying mechanisms~\citep[e.g.,][]{xie2021explanation,akyurek2022learning}, empirical probes~\citep[e.g.,][]{garg2022can,kirsch2022general}, and works leveraging in-context learning in applications~\citep[e.g.,][]{xu2022prompting,som2023demonstrations,edwards2023synergpt}.
+This literature predominantly studies in-context learning for prediction or supervised learning tasks,
+and while theoretical progress is in its infancy, our understanding of how to use \emph{in-context supervised learning} (ICSL) in practice is rapidly taking shape.\loose
+
+
+
+Although supervised learning is an important capability, many applications demand the use of ML models for downstream \emph{decision making}.
+Thus, \emph{in-context reinforcement learning} (ICRL) and sequential decision making is a natural next frontier. %
+LLMs are already being used as decision making agents in applications ranging from experimental design in the natural sciences~\citep{lee2023ai} to game playing~\citep{shinn2023reflexion,wang2023voyager}, but our understanding---theoretically and operationally---of ICRL is far less developed than for ICSL.
+To date, we lack a systematic understanding as to whether LLMs can be
+considered general-purpose decision making agents.
+
+
+Decision making agents must possess three core capabilities: \emph{generalization} (required for supervised learning), \emph{exploration} (making decisions that may be suboptimal in the short term for the sake of gathering more information) and \emph{planning} (to account for long-term consequences of decisions).
+In this paper, we focus on exploration, the capability to deliberately gather information in order to evaluate alternatives and reduce uncertainty.
+A recent series of papers~\citep{laskin2022context,lee2023supervised,raparthy2023generalization} demonstrates in-context reinforcement learning behavior (including exploration) in transformer models when they are \emph{explicitly trained} to produce this behavior using data from reinforcement learning agents or expert demonstrations on related tasks.
+Such training tends to be laborious, expensive, and possibly task-specific.
+In particular, these findings do not shed light into whether exploratory behavior manifests in general-purpose LLMs obtained via standard training methods, which suggests the following basic question:
+
+\begin{quote}
+\begin{center}
+  \emph{Do contemporary LLMs exhibit the capability to explore in-context?}
+\end{center}
+\end{quote}
+
+
+\xhdr{Contributions.}
+We investigate this question by deploying
+LLMs as agents in simple synthetic reinforcement learning problems, namely \emph{multi-armed bandits (MABs)}~\citep{slivkins-MABbook,LS19bandit-book}, specifying the environment description and interaction history entirely within the LLM prompt.
+Multi-armed bandits are a classical and well-studied type of RL problem that isolates the tradeoff between exploration and \emph{exploitation}, \ie making the best decision given the available data.
+They are also a fundamental building block toward general sequential decision making; the ability to solve MABs is a prerequisite for more challenging reinforcement learning tasks.
+Their simplicity, centrality to RL, and focus on exploration versus exploitation make MABs a natural choice for systematically studying the in-context exploration abilities of LLMs.
+
+We evaluate the in-context exploration behavior of \gptthree \citep{gpt3-neurips20}, \gptfour \citep{achiam2023gpt}, and \llama \citep{touvron2023llama} in MAB environments, using a variety of prompt designs.  %
+In our experiments, we find that only a single configuration (i.e., a prompt design and LLM pair) results in satisfactory exploratory behavior.
+All other configurations exhibit
+exploration failures, failing to converge to the best decision (\emph{arm}) with significant probability.
+We find that typically this happens due to \emph{suffix failures}, where the LLM fails to select the best arm even once after some initial rounds (i.e., in some ``time suffix").
+This scenario is reflected in
+\pref{fig:long}(a): in particular, \gptfour with our basic prompt design experiences a suffix failure
+in $>60\%$ of the replicates.
+An alternative failure mode we identify is where the LLM behaves ``uniformly'', selecting all arms near-equally often and failing to narrow down to the better ones.
+
+The single configuration thato succeeds in our experiments involves a
+combination of \gptfour and an ``enhanced'' prompt that (a) provides a
+suggestive hint to explore, (b) externally summarizes the history of
+interaction into per-arm averages,
+and (c) asks the LLM to use
+zero-shot chain-of-thought reasoning~\citep{wei2022chain,kojima2022large}. This configuration is visualized in
+\pref{fig:long}(b).  One can interpret this finding
+positively: state-of-the-art LLMs \emph{do} possess the capability to
+robustly explore, provided that the prompt is carefully designed to
+elicit this behavior. On the other hand, we find that the same
+configuration without external summarization fails, which leads to a
+negative interpretation: LLMs may fail to explore in more
+complex environments, where externally summarizing the history is a non-trivial algorithm design problem.%
+\footnote{\label{fn:summarization} \Eg if there are many arms, or if we are considering contextual bandits with many contexts, then we may only play each arm (context-arm pair) a few times, so averaging reward separately for each---as we do in our experiments---does not provide much summarization. (See~\pref{sec:discussion} for further discussion.)}
+
+
+We conclude that while the current generation of LLMs can perhaps explore in simple RL environments with appropriate prompt engineering,
+training
+interventions---in the spirit
+of~\citet{lee2023supervised,raparthy2023generalization}---may be
+required to endow LLMs with %
+more sophisticated exploration capabilities required for more complex settings.
+
+\xhdr{Methodology.}  An underlying technical challenge in assessing LLM
+capabilities and limitations is that one must search a combinatorially large space of
+prompt designs while obtaining statistically meaningful results, all
+while meeting the financial and computational constraints associated with
+LLMs. Assessing in-context bandit learning
+is even more challenging because (a) stochasticity in the environment
+demands a high degree of replication for statistical significance and
+(b) the sample complexity of learning/exploration demands that even a
+single experiment involve hundreds or thousands of LLM queries to obtain meaningful
+effect sizes (i.e., separation between successful and failing methods).
+To address these issues, our core technical contribution is to
+identify \emph{surrogate statistics} as diagnostics for long-term exploration failure. The surrogate statistics we consider characterize long-term exploration failure, yet can be
+measured at moderate scale with few replicates and short learning
+horizons, even when
+the standard performance measure (namely,
+reward) 
+is too noisy to be useful.
+
+
+\renewcommand{\topfraction}{.95}
+\begin{figure}[t]
+  \hspace{-0.35cm}\includegraphics[width=1.05\textwidth]{./figs/fig1.pdf}
+  \vspace{-8mm}
+  \caption{\textbf{Representative experiments:} Two prompt configurations for \gptfour on a $5$-armed bandit problem, demonstrating exploration failure (top) and success (bottom).
+  The baselines are two standard bandit algorithms with performance guarantees, Upper Confidence Bound (\ucb) and Thompson Sampling (\ts), as well as the \greedy algorithm, which always chooses an arm with the best average reward so far and is known to perform poorly. Visualizations are: (Left) histogram over replicates of the number of times the best arm is chosen, (Center) for each $t$, we plot the \emph{suffix failure frequency}, the fraction of replicates for which the best arm is never chosen after time-step $t$, and (Right) cumulative time-averaged rewards, averaged over replicates.
+  \capItem{(a) Top row.} \gptfour with our basic prompt design with zero temperature. The experiment runs for $T=500$ rounds, and is replicated $N=20$ times, varying environment randomness.
+  This configuration exhibits highly bimodal behavior: a large ($>60\%$) fraction of replicates choose the best arm only a handful of times and exhibit suffix failures, similar to \greedy, and very unlike \ucb and \ts. This is suggestive of a long term failure to explore and, indeed, this configuration underperforms substantially in terms of reward.
+  \capItem{(b) Bottom row.} \gptfour with a suggestive framing, summarized history, and chain-of-thought with zero temperature. The experiment runs for $T=200$ rounds and is replicated $N=40$ times.
+  This configuration exhibits a unimodal distribution of plays of the best arm, very few suffix failures, and reward that is comparable to \ts.
+    }
+  \label{fig:long}
+\end{figure}
+\renewcommand{\topfraction}{.85}
+
+
+
+
+
+
+
+
+
+
+
+

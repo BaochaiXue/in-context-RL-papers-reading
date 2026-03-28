@@ -1,0 +1,179 @@
+##### ARITHMETIC ERROR: INCORRECT HIGHEST PROPORTION #####
+[Debug]../results/buttons_neu_raw_uni_cot_K=5_T=100_delta=0.2/gpt4_t=0_7.pkl Running
+[USER] So far you have played 17 times with the following choices and rewards:
+blue button, reward 1
+green button, reward 1
+red button, reward 1
+yellow button, reward 1
+purple button, reward 1
+blue button, reward 0
+green button, reward 0
+red button, reward 1
+red button, reward 1
+red button, reward 0
+red button, reward 1
+red button, reward 1
+red button, reward 0
+red button, reward 1
+red button, reward 0
+red button, reward 0
+blue button, reward 1
+
+Which button will you choose next? Remember, YOU MUST provide your final answer within the tags <Answer> COLOR </Answer> where COLOR is one of blue, green, red, yellow, purple.
+[PRED] Based on the past choices and rewards, the red button seems to have the highest frequency of being chosen, but its reward is inconsistent, with 5 rewards of 1 and 4 rewards of 0. The blue button has been chosen 3 times with 2 rewards of 1 and 1 reward of 0. The green, yellow, and purple buttons have only been chosen once each, all with a reward of 1.
+
+Given this information, it's difficult to definitively determine which button has the highest mean reward. However, the blue button has the highest proportion of rewards of 1 (2 out of 3 times), so it might be a good choice for the next button press.
+
+<Answer> blue </Answer>
+
+##### CORRECT UCB CALCULATION #####
+[Debug]../results/buttons_sug_sum_uni_cot_K=5_T=100_delta=0.2/gpt4_t=1_7.pkl Running
+[USER] So far you have played 65 times with your past choices and rewards summarized as follows:
+blue button: pressed 36 times with average reward 0.39
+green button: pressed 5 times with average reward 0.20
+red button: pressed 8 times with average reward 0.38
+yellow button: pressed 3 times with average reward 0.33
+purple button: pressed 13 times with average reward 0.38
+
+Which button will you choose next? Remember, YOU MUST provide your final answer within the tags <Answer> COLOR </Answer> where COLOR is one of blue, green, red, yellow, purple.
+[PRED] We can use the Upper Confidence Bound (UCB) algorithm to solve the multi-armed bandit problem. This algorithm considers both reward and uncertainty to strike a balance between exploration and exploitation:
+- **Exploration**: Try other options in order to find potentially better options.
+- **Exploitation**: Choose the option that has performed best so far.
+
+To take uncertainty into account, I will add a confidence term to the averages. With the total number of plays T=65 and a confidence level of 95%, the UCB formula is:
+
+UCB(a) = Average(a) + sqrt((2*log(T)) / N(a))
+
+where
+- UCB(a) is the Upper Confidence Bound for arm a
+- Average(a) is the average reward we have got from arm a
+- N(a) is the number of times we have tried arm a
+- sqrt is the square root function
+- log is the natural logarithm function
+
+Let's calculate the UCB for each button:
+
+UCB(blue) = 0.39 + sqrt((2*log(65)) / 36) = 0.39 + sqrt((2*4.1744) / 36) = 0.39 + sqrt(0.232) ≈ 0.39 + 0.482 = 0.872
+UCB(green) = 0.20 + sqrt((2*log(65)) / 5) = 0.20 + sqrt((2*4.1744) / 5) = 0.20 + sqrt(1.6698) ≈ 0.20 + 1.29 = 1.49
+UCB(red) = 0.38 + sqrt((2*log(65)) / 8) = 0.38 + sqrt((2*4.1744) / 8) = 0.38 + sqrt(1.0436) ≈ 0.38 + 1.02 = 1.40
+UCB(yellow) = 0.33 + sqrt((2*log(65)) / 3) = 0.33 + sqrt((2*4.1744) / 3) = 0.33 + sqrt(2.7829) ≈ 0.33 + 1.67 = 2.00
+UCB(purple) = 0.38 + sqrt((2*log(65)) / 13) = 0.38 + sqrt((2*4.1744) / 13) = 0.38 + sqrt(0.6414) ≈ 0.38 + 0.80 = 1.18
+
+According to UCB, we should choose the button with the highest UCB, which is the yellow button.
+
+<Answer> yellow </Answer>
+
+#### RECALLS EXPLORATION BUT FAILS TO DO IT ####
+[Debug]../results/buttons_neu_raw_uni_cot_K=5_T=100_delta=0.2/gpt4_t=0_0.pkl Running
+[USER] So far you have played 52 times with the following choices and rewards:
+blue button, reward 0
+green button, reward 1
+red button, reward 0
+green button, reward 0
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 0
+purple button, reward 1
+yellow button, reward 0
+yellow button, reward 1
+purple button, reward 0
+purple button, reward 0
+purple button, reward 0
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 0
+yellow button, reward 0
+yellow button, reward 0
+yellow button, reward 1
+green button, reward 1
+green button, reward 1
+green button, reward 1
+green button, reward 0
+yellow button, reward 0
+green button, reward 0
+green button, reward 0
+yellow button, reward 0
+green button, reward 0
+green button, reward 1
+green button, reward 1
+green button, reward 0
+yellow button, reward 0
+yellow button, reward 1
+yellow button, reward 1
+yellow button, reward 1
+green button, reward 0
+green button, reward 1
+
+[PRED] Let's calculate the average reward for each button:
+
+Blue: 0/1 = 0
+Green: 7/14 = 0.5
+Red: 0/1 = 0
+Yellow: 14/30 = 0.47
+Purple: 1/4 = 0.25
+
+The green button has the highest average reward so far. However, we have only pressed the blue and red buttons once, and the purple button four times. This is not enough to reliably estimate their means.
+
+Given that we have 48 more steps, we should continue to explore the other buttons to ensure we are not missing out on a higher reward. However, since the green button has the highest average reward so far, we should choose it for now.
+
+<Answer> green </Answer>
+
+#### WEIRD DECISION MAKING: Second most played arm != UCB ####
+[Debug]../results/buttons_sug_sum_uni_cot_K=5_T=100_delta=0.2/gpt4_t=0_1.pkl Running
+[USER] So far you have played 67 times with your past choices and rewards summarized as follows:
+blue button: pressed 5 times with average reward 0.40
+green button: pressed 1 times with average reward 0.00
+red button: pressed 59 times with average reward 0.54
+yellow button: pressed 1 times with average reward 0.00
+purple button: pressed 1 times with average reward 0.00
+
+Which button will you choose next? Remember, YOU MUST provide your final answer within the tags <Answer> COLOR </Answer> where COLOR is one of blue, green, red, yellow, purple.
+[PRED] Based on the current information, the red button has the highest average reward. However, the other buttons have not been pressed enough times to have a reliable estimate of their rewards. To balance exploration and exploitation, I will choose the blue button next, as it has the second highest average reward and has been pressed fewer times than the red button.
+
+<Answer> blue </Answer>
+
+#### GREEDY CHOICE (NON-EXPLORATORY) ####
+[USER] So far you have played 23 times with the following choices and rewards:
+blue button, reward 0
+green button, reward 0
+red button, reward 0
+yellow button, reward 1
+purple button, reward 1
+yellow button, reward 0
+purple button, reward 1
+purple button, reward 0
+purple button, reward 0
+yellow button, reward 1
+yellow button, reward 0
+purple button, reward 1
+yellow button, reward 0
+purple button, reward 1
+purple button, reward 0
+purple button, reward 1
+purple button, reward 1
+purple button, reward 0
+green button, reward 0
+purple button, reward 1
+purple button, reward 1
+purple button, reward 1
+purple button, reward 0
+
+Which button will you choose next? Remember, YOU MUST provide your final answer within the tags <Answer> COLOR </Answer> where COLOR is one of blue, green, red, yellow, purple.
+[PRED] Based on the past choices and rewards, it seems that the purple button has the highest reward rate. Although it does not always give a reward, it has given a reward more often than not. The yellow button has also given rewards, but less frequently. The blue, green, and red buttons have not given any rewards so far. Therefore, it would be a good strategy to continue pressing the purple button to maximize the total reward.
+
+<Answer> purple </Answer>

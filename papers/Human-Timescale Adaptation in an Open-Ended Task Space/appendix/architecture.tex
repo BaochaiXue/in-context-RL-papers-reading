@@ -1,0 +1,17 @@
+\subsection{Agent Architecture}
+\label{app:agent-architecture}
+Here we provide an overview of the agent architecture, and provide important hyperparameters for the agent, noting that we performed minimal hyperparameter tuning in this work.
+
+\paragraph{Observation encoder.}
+The first-person view RGB observation (Table \ref{tab:observations}) is passed through a ResNet \citep{he2016resnet} with $[16, 32, 32]$ convolutional channels, each consisting of $2\times2$ blocks and a final output size of $256$. Max-pooling is used, in addition to scalar residual multipliers. \texttt{relu} activations are used throughout.
+
+The goal observation is passed through a goal embedder, which is the same in \citet{xland}. This maps each of the 6 goal elements (negation, predicate, shape of object 1, colour of object 1, shape of object 2, colour of object 2) in the goal representation to a dense embedding vector of size 8. These are concatenated together and passed through a 3-layer MLP of size $[8, 8, 8]$, resulting in a final goal embedding of size $8$.  
+
+Production rules are encoded in the same manner as the goal, but mapped through a larger final MLP of shape $[512, 256]$ resulting in a final production rule embedding vector of size $256$.
+
+The encoded RGB, goal, and production rules observations are concatenated together with all remaining scalar and vector observations (including previous reward, previous action, proprioception observations, and trial timing information) and passed though a final MLP. This results in an encoded observation vector of a size matching the hidden dimension of the Transformer memory. 
+
+\paragraph{Transformer memory.} We use a Transformer-XL with causal masking \citep{dai2019transformer}. For the actor step we use a context window of 1, and in the learner step we use a rollout context window of 80. The Transformer-XL memory uses 300 previous cached activations (1800 effective timesteps) of memory in all experiments unless otherwise stated. We apply layer normalisation before attention operations as in \citet{parisotto2020stabilizing}, use gating in the feedforward component as in \citet{shazeer2020glu}, and apply relative positional embeddings as in \citet{dai2019transformer}. As is common with Transformers, we use the \texttt{gelu} activation function throughout \citep{hendrycks2016GaussianEL}.
+
+\paragraph{Muesli sequence model and prediction heads.} 
+Next, we take the Transformer-XL output embedding, and use two MLPs of width $1000$ to produce the hidden and cell values for the initial state of the Muesli model LSTM. On top of the hidden value, we apply MLP heads of width $1000$ for the policy and value respectively. The policy MLP is followed by 6 linear softmaxed outputs corresponding to 6 action groups in a decomposed action space for the policy (as in \citet{xland}). The value MLP is followed by a 601-unit binned logit prediction as in \citet{hessel2021muesli}. Finally, the Muesli sequence model is unrolled for a further 4 steps, starting from the LSTM state embedding and producing a 1000-dimensional output vector on each LSTM step. This feeds into a further 1000-dimensional MLP followed by a 601-unit binned reward prediction. 

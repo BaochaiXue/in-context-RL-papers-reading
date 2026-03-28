@@ -1,0 +1,5 @@
+\subsection{Architecture influences performance} \label{sec:results_architecture}
+
+We now dive deeper into understanding which components of our method are critical, via a series of ablation studies. In these studies we use a single initialisation seed, because we see low variance across seeds when training AdA (see Appendix \ref{app:seed-variation}). All ablations are in the single-agent setting, unless stated otherwise.
+
+First, we empirically contrast different choices of architectures: Transformer-XL, RNN, and RNN with Attention. To implement the RNN, we use a GRU \citep{cho2014properties}. To facilitate comparison, we match the total network size for all architectures. Table \ref{tab:arch_exp} shows details on the experimental setup. Figure \ref{fig:architecture_comparison} shows that while the Transformer-XL is the best performing architecture in this comparison, incorporating a multi-head attention module into an RNN recovers most of the performance of the Transformer, highlighting the effectiveness of attention modules.

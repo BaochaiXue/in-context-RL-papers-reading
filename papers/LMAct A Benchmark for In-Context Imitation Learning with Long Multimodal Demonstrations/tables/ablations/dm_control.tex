@@ -1,0 +1,45 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                                                      & \textbf{Observation}              & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{4}{*}{\shortstack{Claude 3.5 Sonnet\\\\(2024-10-22)}}  & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & 4.70 \\
+                                                                        &                                   &                           & True                      & 3.53 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & \textbf{10.20} \\
+                                                                        &                                   &                           & True                      & 1.33 \\
+    \midrule
+    \multirow[c]{4}{*}{Gemini 1.5 Flash}                                & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{3.93} \\
+                                                                        &                                   &                           & True                      & 1.89 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.39 \\
+                                                                        &                                   &                           & True                      & 2.31 \\
+    \midrule                            
+    \multirow[c]{4}{*}{Gemini 1.5 Pro}                                  & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{18.00} \\
+                                                                        &                                   &                           & True                      & 1.26 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 7.69 \\
+                                                                        &                                   &                           & True                      & 2.44 \\
+    \midrule
+    \multirow[c]{4}{*}{Gemini 2.0 Flash Exp.}                           & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{15.96} \\
+                                                                        &                                   &                           & True                      & 1.91  \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 13.53 \\
+                                                                        &                                   &                           & True                      & 1.85  \\
+    \midrule                                
+    \multirow[c]{4}{*}{GPT-4o}                                          & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{11.03} \\
+                                                                        &                                   &                           & True                      & 0.72 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 1.00 \\
+                                                                        &                                   &                           & True                      & 0.92 \\
+    \midrule                                        
+    \multirow[c]{4}{*}{o1-mini}                                         & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{0.80} \\
+                                                                        &                                   &                           & True                      & 0.46 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.78 \\
+                                                                        &                                   &                           & True                      & 0.44 \\
+    \midrule                                
+    \multirow[c]{4}{*}{o1-preview}                                      & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & 3.16 \\
+                                                                        &                                   &                           & True                      & 1.04 \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & \textbf{4.08} \\
+                                                                        &                                   &                           & True                      & 1.88 \\
+    \midrule                                
+    \multirow[c]{4}{*}{o1}                                              & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & 2.08 \\
+                                                                        &                                   &                           & True                      & \textbf{2.14} \\
+                                                                        &                                   & \multirow[c]{2}{*}{True}  & False                     & 2.06 \\
+                                                                        &                                   &                           & True                      & 1.84 \\
+   \bottomrule
+\end{tabular}

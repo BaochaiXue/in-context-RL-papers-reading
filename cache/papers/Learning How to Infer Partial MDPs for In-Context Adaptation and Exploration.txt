@@ -1,0 +1,6 @@
+Edge (transition)
+probability
+Vertices (stones)
+Reward location
+
+

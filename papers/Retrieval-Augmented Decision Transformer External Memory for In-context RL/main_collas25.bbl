@@ -1,0 +1,883 @@
+\begin{thebibliography}{111}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Agarwal et~al.(2021)Agarwal, Schwarzer, Castro, Courville, and
+  Bellemare]{Agarwal:21}
+Rishabh Agarwal, Max Schwarzer, Pablo~Samuel Castro, Aaron~C Courville, and
+  Marc Bellemare.
+\newblock Deep reinforcement learning at the edge of the statistical precipice.
+\newblock \emph{Advances in neural information processing systems},
+  34:\penalty0 29304--29320, 2021.
+
+\bibitem[Agarwal et~al.(2024)Agarwal, Singh, Zhang, Bohnet, Chan, Anand, Abbas,
+  Nova, Co-Reyes, Chu, et~al.]{Agarwal:24}
+Rishabh Agarwal, Avi Singh, Lei~M Zhang, Bernd Bohnet, Stephanie Chan, Ankesh
+  Anand, Zaheer Abbas, Azade Nova, John~D Co-Reyes, Eric Chu, et~al.
+\newblock Many-shot in-context learning.
+\newblock \emph{arXiv preprint arXiv:2404.11018}, 2024.
+
+\bibitem[Arjona{-}Medina et~al.(2019)Arjona{-}Medina, Gillhofer, Widrich,
+  Unterthiner, Brandstetter, and Hochreiter]{Medina:2019}
+Jose~A. Arjona{-}Medina, Michael Gillhofer, Michael Widrich, Thomas
+  Unterthiner, Johannes Brandstetter, and Sepp Hochreiter.
+\newblock {RUDDER:} return decomposition for delayed rewards.
+\newblock In Hanna~M. Wallach, Hugo Larochelle, Alina Beygelzimer, Florence
+  d'Alch{\'{e}}{-}Buc, Emily~B. Fox, and Roman Garnett (eds.), \emph{Advances
+  in Neural Information Processing Systems 32: Annual Conference on Neural
+  Information Processing Systems 2019, NeurIPS 2019, December 8-14, 2019,
+  Vancouver, BC, Canada}, pp.\  13544--13555, 2019.
+
+\bibitem[Beck et~al.(2024)Beck, P{\"o}ppel, Spanring, Auer, Prudnikova, Kopp,
+  Klambauer, Brandstetter, and Hochreiter]{beck2024xlstm}
+Maximilian Beck, Korbinian P{\"o}ppel, Markus Spanring, Andreas Auer,
+  Oleksandra Prudnikova, Michael Kopp, G{\"u}nter Klambauer, Johannes
+  Brandstetter, and Sepp Hochreiter.
+\newblock xlstm: Extended long short-term memory.
+\newblock \emph{arXiv preprint arXiv:2405.04517}, 2024.
+
+\bibitem[Blundell et~al.(2016)Blundell, Uria, Pritzel, Li, Ruderman, Leibo,
+  Rae, Wierstra, and Hassabis]{Blundell:2016}
+Charles Blundell, Benigno Uria, Alexander Pritzel, Yazhe Li, Avraham Ruderman,
+  Joel~Z. Leibo, Jack~W. Rae, Daan Wierstra, and Demis Hassabis.
+\newblock Model-free episodic control.
+\newblock \emph{CoRR}, abs/1606.04460, 2016.
+
+\bibitem[Borgeaud et~al.(2022)Borgeaud, Mensch, Hoffmann, Cai, Rutherford,
+  Millican, Van Den~Driessche, Lespiau, Damoc, Clark, et~al.]{Borgeaud:22}
+Sebastian Borgeaud, Arthur Mensch, Jordan Hoffmann, Trevor Cai, Eliza
+  Rutherford, Katie Millican, George~Bm Van Den~Driessche, Jean-Baptiste
+  Lespiau, Bogdan Damoc, Aidan Clark, et~al.
+\newblock Improving language models by retrieving from trillions of tokens.
+\newblock In \emph{International conference on machine learning}, pp.\
+  2206--2240. PMLR, 2022.
+
+\bibitem[Brohan et~al.(2022)Brohan, Brown, Carbajal, Chebotar, Dabis, Finn,
+  Gopalakrishnan, Hausman, Herzog, Hsu, et~al.]{Brohan:22}
+Anthony Brohan, Noah Brown, Justice Carbajal, Yevgen Chebotar, Joseph Dabis,
+  Chelsea Finn, Keerthana Gopalakrishnan, Karol Hausman, Alex Herzog, Jasmine
+  Hsu, et~al.
+\newblock Rt-1: Robotics transformer for real-world control at scale.
+\newblock \emph{arXiv preprint arXiv:2212.06817}, 2022.
+
+\bibitem[Brohan et~al.(2023)Brohan, Brown, Carbajal, Chebotar, Chen,
+  Choromanski, Ding, Driess, Dubey, Finn, et~al.]{Brohan:23}
+Anthony Brohan, Noah Brown, Justice Carbajal, Yevgen Chebotar, Xi~Chen,
+  Krzysztof Choromanski, Tianli Ding, Danny Driess, Avinava Dubey, Chelsea
+  Finn, et~al.
+\newblock Rt-2: Vision-language-action models transfer web knowledge to robotic
+  control.
+\newblock \emph{arXiv preprint arXiv:2307.15818}, 2023.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, et~al.]{Brown:20}
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared~D Kaplan, Prafulla
+  Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell,
+  et~al.
+\newblock Language models are few-shot learners.
+\newblock \emph{Advances in neural information processing systems},
+  33:\penalty0 1877--1901, 2020.
+
+\bibitem[Bruce et~al.(2024)Bruce, Dennis, Edwards, Parker-Holder, Shi, Hughes,
+  Lai, Mavalankar, Steigerwald, Apps, et~al.]{Bruce:24}
+Jake Bruce, Michael Dennis, Ashley Edwards, Jack Parker-Holder, Yuge Shi,
+  Edward Hughes, Matthew Lai, Aditi Mavalankar, Richie Steigerwald, Chris Apps,
+  et~al.
+\newblock Genie: Generative interactive environments.
+\newblock \emph{arXiv preprint arXiv:2402.15391}, 2024.
+
+\bibitem[Bulatov et~al.(2022)Bulatov, Kuratov, and
+  Burtsev]{bulatov2022recurrent}
+Aydar Bulatov, Yury Kuratov, and Mikhail Burtsev.
+\newblock Recurrent memory transformer.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  35:\penalty0 11079--11091, 2022.
+
+\bibitem[Chan et~al.(2022)Chan, Santoro, Lampinen, Wang, Singh, Richemond,
+  McClelland, and Hill]{Chan:22}
+Stephanie Chan, Adam Santoro, Andrew~K. Lampinen, Jane Wang, Aaditya Singh,
+  Pierre~H. Richemond, James~L. McClelland, and Felix Hill.
+\newblock Data distributional properties drive emergent in-context learning in
+  transformers.
+\newblock In Sanmi Koyejo, S.~Mohamed, A.~Agarwal, Danielle Belgrave, K.~Cho,
+  and A.~Oh (eds.), \emph{Advances in Neural Information Processing Systems 35:
+  Annual Conference on Neural Information Processing Systems 2022, NeurIPS
+  2022, New Orleans, LA, USA, November 28 - December 9, 2022}, 2022.
+
+\bibitem[Chen et~al.(2021)Chen, Lu, Rajeswaran, Lee, Grover, Laskin, Abbeel,
+  Srinivas, and Mordatch]{Chen:21}
+L.~Chen, K.~Lu, A.~Rajeswaran, K.~Lee, A.~Grover, M.~Laskin, P.~Abbeel,
+  A.~Srinivas, and I.~Mordatch.
+\newblock Decision transformer: Reinforcement learning via sequence modeling.
+\newblock \emph{Advances in neural information processing systems},
+  34:\penalty0 15084--15097, 2021.
+
+\bibitem[Cobbe et~al.(2020)Cobbe, Hesse, Hilton, and Schulman]{Cobbe:20}
+Karl Cobbe, Chris Hesse, Jacob Hilton, and John Schulman.
+\newblock Leveraging procedural generation to benchmark reinforcement learning.
+\newblock In \emph{International conference on machine learning}, pp.\
+  2048--2056. PMLR, 2020.
+
+\bibitem[Dao(2023)]{Dao:23}
+Tri Dao.
+\newblock Flashattention-2: Faster attention with better parallelism and work
+  partitioning.
+\newblock \emph{arXiv preprint arXiv:2307.08691}, 2023.
+
+\bibitem[Devlin et~al.(2019)Devlin, Chang, Lee, and Toutanova]{Devlin:18}
+Jacob Devlin, Ming{-}Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock {BERT:} pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In Jill Burstein, Christy Doran, and Thamar Solorio (eds.),
+  \emph{Proceedings of the 2019 Conference of the North American Chapter of the
+  Association for Computational Linguistics: Human Language Technologies,
+  {NAACL-HLT} 2019, Minneapolis, MN, USA, June 2-7, 2019, Volume 1 (Long and
+  Short Papers)}, pp.\  4171--4186. Association for Computational Linguistics,
+  2019.
+\newblock \doi{10.18653/v1/n19-1423}.
+
+\bibitem[Douze et~al.(2024)Douze, Guzhva, Deng, Johnson, Szilvasy, Mazaré,
+  Lomeli, Hosseini, and Jégou]{Douze:2024}
+Matthijs Douze, Alexandr Guzhva, Chengqi Deng, Jeff Johnson, Gergely Szilvasy,
+  Pierre-Emmanuel Mazaré, Maria Lomeli, Lucas Hosseini, and Hervé Jégou.
+\newblock The faiss library.
+\newblock 2024.
+
+\bibitem[Duan et~al.(2016)Duan, Schulman, Chen, Bartlett, Sutskever, and
+  Abbeel]{Duan:16}
+Yan Duan, John Schulman, Xi~Chen, Peter~L Bartlett, Ilya Sutskever, and Pieter
+  Abbeel.
+\newblock $\text{Rl}^2$: Fast reinforcement learning via slow reinforcement
+  learning.
+\newblock \emph{arXiv preprint arXiv:1611.02779}, 2016.
+
+\bibitem[D’Hooge \& De~Deyn(2001)D’Hooge and De~Deyn]{Hooge:01}
+Rudi D’Hooge and Peter~P De~Deyn.
+\newblock Applications of the morris water maze in the study of learning and
+  memory.
+\newblock \emph{Brain research reviews}, 36\penalty0 (1):\penalty0 60--90,
+  2001.
+
+\bibitem[Espeholt et~al.(2018)Espeholt, Soyer, Munos, Simonyan, Mnih, Ward,
+  Doron, Firoiu, Harley, Dunning, et~al.]{Espeholt:18}
+Lasse Espeholt, Hubert Soyer, Remi Munos, Karen Simonyan, Vlad Mnih, Tom Ward,
+  Yotam Doron, Vlad Firoiu, Tim Harley, Iain Dunning, et~al.
+\newblock Impala: Scalable distributed deep-rl with importance weighted
+  actor-learner architectures.
+\newblock In \emph{International conference on machine learning}, pp.\
+  1407--1416. PMLR, 2018.
+
+\bibitem[Finn et~al.(2017)Finn, Abbeel, and Levine]{Finn:17}
+Chelsea Finn, Pieter Abbeel, and Sergey Levine.
+\newblock Model-agnostic meta-learning for fast adaptation of deep networks.
+\newblock In \emph{International conference on machine learning}, pp.\
+  1126--1135. PMLR, 2017.
+
+\bibitem[Flennerhag et~al.(2019)Flennerhag, Rusu, Pascanu, Visin, Yin, and
+  Hadsell]{Flennerhag:19}
+Sebastian Flennerhag, Andrei~A Rusu, Razvan Pascanu, Francesco Visin, Hujun
+  Yin, and Raia Hadsell.
+\newblock Meta-learning with warped gradient descent.
+\newblock \emph{arXiv preprint arXiv:1909.00025}, 2019.
+
+\bibitem[Goyal et~al.(2022)Goyal, Friesen, Banino, Weber, Ke, Badia, Guez,
+  Mirza, Humphreys, Konyushova, et~al.]{Goyal:22}
+Anirudh Goyal, Abram Friesen, Andrea Banino, Theophane Weber, Nan~Rosemary Ke,
+  Adria~Puigdomenech Badia, Arthur Guez, Mehdi Mirza, Peter~C Humphreys, Ksenia
+  Konyushova, et~al.
+\newblock Retrieval-augmented reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  7740--7765. PMLR, 2022.
+
+\bibitem[Graves et~al.(2014)Graves, Wayne, and Danihelka]{Graves:2014}
+Alex Graves, Greg Wayne, and Ivo Danihelka.
+\newblock Neural turing machines.
+\newblock \emph{CoRR}, abs/1410.5401, 2014.
+
+\bibitem[Grigsby et~al.(2023)Grigsby, Fan, and Zhu]{Grigsby:23}
+Jake Grigsby, Linxi Fan, and Yuke Zhu.
+\newblock Amago: Scalable in-context reinforcement learning for adaptive
+  agents.
+\newblock \emph{arXiv preprint arXiv:2310.09971}, 2023.
+
+\bibitem[Gu \& Dao(2023)Gu and Dao]{gu2023mamba}
+Albert Gu and Tri Dao.
+\newblock Mamba: Linear-time sequence modeling with selective state spaces.
+\newblock \emph{arXiv preprint arXiv:2312.00752}, 2023.
+
+\bibitem[Guu et~al.(2020)Guu, Lee, Tung, Pasupat, and Chang]{Guu:20}
+Kelvin Guu, Kenton Lee, Zora Tung, Panupong Pasupat, and Mingwei Chang.
+\newblock Retrieval augmented language model pre-training.
+\newblock In \emph{International conference on machine learning}, pp.\
+  3929--3938. PMLR, 2020.
+
+\bibitem[Hafner et~al.(2019)Hafner, Lillicrap, Fischer, Villegas, Ha, Lee, and
+  Davidson]{Hafner:19}
+Danijar Hafner, Timothy Lillicrap, Ian Fischer, Ruben Villegas, David Ha,
+  Honglak Lee, and James Davidson.
+\newblock Learning latent dynamics for planning from pixels.
+\newblock In \emph{International conference on machine learning}, pp.\
+  2555--2565. PMLR, 2019.
+
+\bibitem[Hill et~al.(2021)Hill, Tieleman, von Glehn, Wong, Merzic, and
+  Clark]{Hill:2021}
+Felix Hill, Olivier Tieleman, Tamara von Glehn, Nathaniel Wong, Hamza Merzic,
+  and Stephen Clark.
+\newblock Grounded language learning fast and slow.
+\newblock In \emph{9th International Conference on Learning Representations,
+  {ICLR} 2021, Virtual Event, Austria, May 3-7, 2021}. OpenReview.net, 2021.
+
+\bibitem[Hochreiter \& Schmidhuber(1997)Hochreiter and
+  Schmidhuber]{Hochreiter:97}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock \emph{Neural computation}, 9\penalty0 (8):\penalty0 1735--1780, 1997.
+
+\bibitem[Hochreiter et~al.(2001)Hochreiter, Younger, and
+  Conwell]{Hochreiter:01}
+Sepp Hochreiter, A~Steven Younger, and Peter~R Conwell.
+\newblock Learning to learn using gradient descent.
+\newblock In \emph{Artificial Neural Networks—ICANN 2001: International
+  Conference Vienna, Austria, August 21--25, 2001 Proceedings 11}, pp.\
+  87--94. Springer, 2001.
+
+\bibitem[Hu et~al.(2023)Hu, Iscen, Sun, Wang, Chang, Sun, Schmid, Ross, and
+  Fathi]{hu_reveal_2023}
+Ziniu Hu, Ahmet Iscen, Chen Sun, Zirui Wang, Kai{-}Wei Chang, Yizhou Sun,
+  Cordelia Schmid, David~A. Ross, and Alireza Fathi.
+\newblock Reveal: Retrieval-augmented visual-language pre-training with
+  multi-source multimodal knowledge memory.
+\newblock In \emph{{IEEE/CVF} Conference on Computer Vision and Pattern
+  Recognition, {CVPR} 2023, Vancouver, BC, Canada, June 17-24, 2023}, pp.\
+  23369--23379. {IEEE}, 2023.
+\newblock \doi{10.1109/CVPR52729.2023.02238}.
+
+\bibitem[Huang et~al.(2024)Huang, Hu, Chen, Sun, and Yang]{huang2024context}
+Sili Huang, Jifeng Hu, Hechang Chen, Lichao Sun, and Bo~Yang.
+\newblock In-context decision transformer: Reinforcement learning via
+  hierarchical chain-of-thought.
+\newblock \emph{arXiv preprint arXiv:2405.20692}, 2024.
+
+\bibitem[Humphreys et~al.(2022)Humphreys, Guez, Tieleman, Sifre, Weber, and
+  Lillicrap]{Humphreys:22}
+Peter Humphreys, Arthur Guez, Olivier Tieleman, Laurent Sifre, Th{\'e}ophane
+  Weber, and Timothy Lillicrap.
+\newblock Large-scale retrieval for reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  35:\penalty0 20092--20104, 2022.
+
+\bibitem[Izacard et~al.(2022)Izacard, Lewis, Lomeli, Hosseini, Petroni, Schick,
+  Dwivedi-Yu, Joulin, Riedel, and Grave]{Izacard:22}
+Gautier Izacard, Patrick Lewis, Maria Lomeli, Lucas Hosseini, Fabio Petroni,
+  Timo Schick, Jane Dwivedi-Yu, Armand Joulin, Sebastian Riedel, and Edouard
+  Grave.
+\newblock Few-shot learning with retrieval augmented language models.
+\newblock \emph{arXiv preprint arXiv:2208.03299}, 2022.
+
+\bibitem[Janner et~al.(2021)Janner, Li, and Levine]{Janner:21}
+Michael Janner, Qiyang Li, and Sergey Levine.
+\newblock Offline reinforcement learning as one big sequence modeling problem.
+\newblock \emph{Advances in neural information processing systems},
+  34:\penalty0 1273--1286, 2021.
+
+\bibitem[Johnson et~al.(2019)Johnson, Douze, and J{\'e}gou]{Johnson:2019}
+Jeff Johnson, Matthijs Douze, and Herv{\'e} J{\'e}gou.
+\newblock Billion-scale similarity search with {GPUs}.
+\newblock \emph{IEEE Transactions on Big Data}, 7\penalty0 (3):\penalty0
+  535--547, 2019.
+
+\bibitem[Kaelbling et~al.(1998)Kaelbling, Littman, and
+  Cassandra]{Kaelbling:1998}
+Leslie~Pack Kaelbling, Michael~L. Littman, and Anthony~R. Cassandra.
+\newblock Planning and acting in partially observable stochastic domains.
+\newblock \emph{Artif. Intell.}, 101\penalty0 (1-2):\penalty0 99--134, 1998.
+\newblock \doi{10.1016/S0004-3702(98)00023-X}.
+
+\bibitem[Khandelwal et~al.(2019)Khandelwal, Levy, Jurafsky, Zettlemoyer, and
+  Lewis]{Khandelwal:19}
+Urvashi Khandelwal, Omer Levy, Dan Jurafsky, Luke Zettlemoyer, and Mike Lewis.
+\newblock Generalization through memorization: Nearest neighbor language
+  models.
+\newblock \emph{arXiv preprint arXiv:1911.00172}, 2019.
+
+\bibitem[Kirsch et~al.(2019)Kirsch, van Steenkiste, and Schmidhuber]{Kirsch:19}
+Louis Kirsch, Sjoerd van Steenkiste, and J{\"u}rgen Schmidhuber.
+\newblock Improving generalization in meta reinforcement learning using learned
+  objectives.
+\newblock \emph{arXiv preprint arXiv:1910.04098}, 2019.
+
+\bibitem[Kirsch et~al.(2022)Kirsch, Harrison, Sohl-Dickstein, and
+  Metz]{Kirsch:22}
+Louis Kirsch, James Harrison, Jascha Sohl-Dickstein, and Luke Metz.
+\newblock General-purpose in-context learning by meta-learning transformers.
+\newblock \emph{arXiv preprint arXiv:2212.04458}, 2022.
+
+\bibitem[Kirsch et~al.(2023)Kirsch, Harrison, Freeman, Sohl-Dickstein, and
+  Schmidhuber]{Kirsch:23}
+Louis Kirsch, James Harrison, C~Freeman, Jascha Sohl-Dickstein, and J{\"u}rgen
+  Schmidhuber.
+\newblock Towards general-purpose in-context learning agents.
+\newblock In \emph{NeurIPS 2023 Workshop on Generalization in Planning}, 2023.
+
+\bibitem[Kumar et~al.(2020)Kumar, Zhou, Tucker, and Levine]{Kumar:2020}
+Aviral Kumar, Aurick Zhou, George Tucker, and Sergey Levine.
+\newblock Conservative q-learning for offline reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  33:\penalty0 1179--1191, 2020.
+
+\bibitem[Kumaran et~al.(2016)Kumaran, Hassabis, and McClelland]{Kumaran:2016}
+Dharshan Kumaran, Demis Hassabis, and James~L. McClelland.
+\newblock What learning systems do intelligent agents need? complementary
+  learning systems theory updated.
+\newblock \emph{Trends in Cognitive Sciences}, 20:\penalty0 512--534, 2016.
+
+\bibitem[K{\"u}ttler et~al.(2020)K{\"u}ttler, Nardelli, Miller, Raileanu,
+  Selvatici, Grefenstette, and Rockt{\"a}schel]{kuttler2020nethack}
+Heinrich K{\"u}ttler, Nantas Nardelli, Alexander Miller, Roberta Raileanu,
+  Marco Selvatici, Edward Grefenstette, and Tim Rockt{\"a}schel.
+\newblock The nethack learning environment.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  33:\penalty0 7671--7684, 2020.
+
+\bibitem[Laskin et~al.(2022)Laskin, Wang, Oh, Parisotto, Spencer, Steigerwald,
+  Strouse, Hansen, Filos, Brooks, et~al.]{Laskin:22}
+Michael Laskin, Luyu Wang, Junhyuk Oh, Emilio Parisotto, Stephen Spencer,
+  Richie Steigerwald, DJ~Strouse, Steven Hansen, Angelos Filos, Ethan Brooks,
+  et~al.
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock \emph{arXiv preprint arXiv:2210.14215}, 2022.
+
+\bibitem[Lee et~al.(2023)Lee, Xie, Pacchiano, Chandak, Finn, Nachum, and
+  Brunskill]{Lee:23}
+Jonathan~N Lee, Annie Xie, Aldo Pacchiano, Yash Chandak, Chelsea Finn, Ofir
+  Nachum, and Emma Brunskill.
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2306.14892}, 2023.
+
+\bibitem[Lee et~al.(2022)Lee, Nachum, Yang, Lee, Freeman, Xu, Guadarrama,
+  Fischer, Jang, Michalewski, et~al.]{Lee:22}
+Kuang-Huei Lee, Ofir Nachum, Mengjiao Yang, Lisa Lee, Daniel Freeman, Winnie
+  Xu, Sergio Guadarrama, Ian Fischer, Eric Jang, Henryk Michalewski, et~al.
+\newblock Multi-game decision transformers.
+\newblock \emph{arXiv preprint arXiv:2205.15241}, 2022.
+
+\bibitem[Lewis et~al.(2020)Lewis, Perez, Piktus, Petroni, Karpukhin, Goyal,
+  K{\"u}ttler, Lewis, Yih, Rockt{\"a}schel, et~al.]{Lewis:20}
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
+  Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
+  Rockt{\"a}schel, et~al.
+\newblock Retrieval-augmented generation for knowledge-intensive nlp tasks.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  33:\penalty0 9459--9474, 2020.
+
+\bibitem[Lin et~al.(2023)Lin, Bai, and Mei]{Lin:23}
+Licong Lin, Yu~Bai, and Song Mei.
+\newblock Transformers as decision makers: Provable in-context reinforcement
+  learning via supervised pretraining.
+\newblock \emph{arXiv preprint arXiv:2310.08566}, 2023.
+
+\bibitem[Liu \& Abbeel(2023)Liu and Abbeel]{Liu:23}
+Hao Liu and Pieter Abbeel.
+\newblock Emergent agentic transformer from chain of hindsight experience.
+\newblock \emph{arXiv preprint arXiv:2305.16554}, 2023.
+
+\bibitem[Liu et~al.(2019)Liu, Ott, Goyal, Du, Joshi, Chen, Levy, Lewis,
+  Zettlemoyer, and Stoyanov]{Liu:19}
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
+  Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov.
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock \emph{arXiv preprint arXiv:1907.11692}, 2019.
+
+\bibitem[Loshchilov \& Hutter(2018)Loshchilov and Hutter]{Loshchilov:18}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock In \emph{International Conference on Learning Representations}, 2018.
+
+\bibitem[Lu et~al.(2024)Lu, Schroecker, Gu, Parisotto, Foerster, Singh, and
+  Behbahani]{Lu:24}
+Chris Lu, Yannick Schroecker, Albert Gu, Emilio Parisotto, Jakob Foerster,
+  Satinder Singh, and Feryal Behbahani.
+\newblock Structured state space models for in-context reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Mcclelland et~al.(1995)Mcclelland, Mcnaughton, and
+  O'Reilly]{Mcclelland:1995}
+James~L. Mcclelland, Bruce~L. Mcnaughton, and Randall~C. O'Reilly.
+\newblock Why there are complementary learning systems in the hippocampus and
+  neocortex: {I}nsights from the successes and failures of connectionist models
+  of learning and memory.
+\newblock \emph{Psychological Review}, 102:\penalty0 419--457, 1995.
+
+\bibitem[Melo(2022)]{Melo:22}
+Luckeciano~C. Melo.
+\newblock Transformers are meta-reinforcement learners.
+\newblock In Kamalika Chaudhuri, Stefanie Jegelka, Le~Song, Csaba
+  Szepesv{\'{a}}ri, Gang Niu, and Sivan Sabato (eds.), \emph{International
+  Conference on Machine Learning, {ICML} 2022, 17-23 July 2022, Baltimore,
+  Maryland, {USA}}, volume 162 of \emph{Proceedings of Machine Learning
+  Research}, pp.\  15340--15359. {PMLR}, 2022.
+
+\bibitem[Micikevicius et~al.(2017)Micikevicius, Narang, Alben, Diamos, Elsen,
+  Garcia, Ginsburg, Houston, Kuchaiev, Venkatesh,
+  et~al.]{micikevicius2017mixed}
+Paulius Micikevicius, Sharan Narang, Jonah Alben, Gregory Diamos, Erich Elsen,
+  David Garcia, Boris Ginsburg, Michael Houston, Oleksii Kuchaiev, Ganesh
+  Venkatesh, et~al.
+\newblock Mixed precision training.
+\newblock \emph{arXiv preprint arXiv:1710.03740}, 2017.
+
+\bibitem[Mishra et~al.(2018)Mishra, Rohaninejad, Chen, and Abbeel]{Mishra:18}
+Nikhil Mishra, Mostafa Rohaninejad, Xi~Chen, and Pieter Abbeel.
+\newblock A simple neural attentive meta-learner.
+\newblock In \emph{6th International Conference on Learning Representations,
+  {ICLR} 2018, Vancouver, BC, Canada, April 30 - May 3, 2018, Conference Track
+  Proceedings}. OpenReview.net, 2018.
+\newblock URL \url{https://openreview.net/forum?id=B1DmUzWAW}.
+
+\bibitem[Ni et~al.(2024)Ni, Ma, Eysenbach, and Bacon]{Ni:24}
+Tianwei Ni, Michel Ma, Benjamin Eysenbach, and Pierre-Luc Bacon.
+\newblock When do transformers shine in rl? decoupling memory from credit
+  assignment.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Nikulin et~al.(2023)Nikulin, Kurenkov, Zisman, Agarkov, Sinii, and
+  Kolesnikov]{nikulin2023xland}
+Alexander Nikulin, Vladislav Kurenkov, Ilya Zisman, Artem Agarkov, Viacheslav
+  Sinii, and Sergey Kolesnikov.
+\newblock Xland-minigrid: Scalable meta-reinforcement learning environments in
+  jax.
+\newblock \emph{arXiv preprint arXiv:2312.12044}, 2023.
+
+\bibitem[Nikulin et~al.(2024)Nikulin, Zisman, Zemtsov, Sinii, Kurenkov, and
+  Kolesnikov]{nikulin2024xland}
+Alexander Nikulin, Ilya Zisman, Alexey Zemtsov, Viacheslav Sinii, Vladislav
+  Kurenkov, and Sergey Kolesnikov.
+\newblock Xland-100b: A large-scale multi-task dataset for in-context
+  reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2406.08973}, 2024.
+
+\bibitem[Ortega et~al.(2019)Ortega, Wang, Rowland, Genewein, Kurth{-}Nelson,
+  Pascanu, Heess, Veness, Pritzel, Sprechmann, Jayakumar, McGrath, Miller,
+  Azar, Osband, Rabinowitz, Gy{\"{o}}rgy, Chiappa, Osindero, Teh, van Hasselt,
+  de~Freitas, Botvinick, and Legg]{Ortega:2019}
+Pedro~A. Ortega, Jane~X. Wang, Mark Rowland, Tim Genewein, Zeb Kurth{-}Nelson,
+  Razvan Pascanu, Nicolas Heess, Joel Veness, Alexander Pritzel, Pablo
+  Sprechmann, Siddhant~M. Jayakumar, Tom McGrath, Kevin~J. Miller,
+  Mohammad~Gheshlaghi Azar, Ian Osband, Neil~C. Rabinowitz, Andr{\'{a}}s
+  Gy{\"{o}}rgy, Silvia Chiappa, Simon Osindero, Yee~Whye Teh, Hado van Hasselt,
+  Nando de~Freitas, Matthew~M. Botvinick, and Shane Legg.
+\newblock Meta-learning of sequential strategies.
+\newblock \emph{CoRR}, abs/1905.03030, 2019.
+
+\bibitem[Ortega et~al.(2021)Ortega, Kunesch, Del{\'e}tang, Genewein, Grau-Moya,
+  Veness, Buchli, Degrave, Piot, Perolat, et~al.]{Ortega:21}
+Pedro~A Ortega, Markus Kunesch, Gr{\'e}goire Del{\'e}tang, Tim Genewein, Jordi
+  Grau-Moya, Joel Veness, Jonas Buchli, Jonas Degrave, Bilal Piot, Julien
+  Perolat, et~al.
+\newblock Shaking the foundations: delusions in sequence models for interaction
+  and control.
+\newblock \emph{arXiv preprint arXiv:2110.10819}, 2021.
+
+\bibitem[Paischer et~al.(2022)Paischer, Adler, Patil, Bitto-Nemling,
+  Holzleitner, Lehner, Eghbal-Zadeh, and Hochreiter]{Paischer:22}
+Fabian Paischer, Thomas Adler, Vihang Patil, Angela Bitto-Nemling, Markus
+  Holzleitner, Sebastian Lehner, Hamid Eghbal-Zadeh, and Sepp Hochreiter.
+\newblock History compression via language models in reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  17156--17185. PMLR, 2022.
+
+\bibitem[Paischer et~al.(2023)Paischer, Adler, Hofmarcher, and
+  Hochreiter]{Paischer:23}
+Fabian Paischer, Thomas Adler, Markus Hofmarcher, and Sepp Hochreiter.
+\newblock Semantic {HELM:} an interpretable memory for reinforcement learning.
+\newblock \emph{CoRR}, abs/2306.09312, 2023.
+\newblock \doi{10.48550/arXiv.2306.09312}.
+
+\bibitem[Park et~al.(2023)Park, O'Brien, Cai, Morris, Liang, and
+  Bernstein]{Park:23}
+Joon~Sung Park, Joseph O'Brien, Carrie~Jun Cai, Meredith~Ringel Morris, Percy
+  Liang, and Michael~S Bernstein.
+\newblock Generative agents: Interactive simulacra of human behavior.
+\newblock In \emph{Proceedings of the 36th Annual ACM Symposium on User
+  Interface Software and Technology}, pp.\  1--22, 2023.
+
+\bibitem[Pasukonis et~al.(2022)Pasukonis, Lillicrap, and Hafner]{Pasukonis:22}
+Jurgis Pasukonis, Timothy Lillicrap, and Danijar Hafner.
+\newblock Evaluating long-term memory in 3d mazes.
+\newblock \emph{arXiv preprint arXiv:2210.13383}, 2022.
+
+\bibitem[Paszke et~al.(2019)Paszke, Gross, Massa, Lerer, Bradbury, Chanan,
+  Killeen, Lin, Gimelshein, Antiga, et~al.]{Paszke:19}
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
+  Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, et~al.
+\newblock Pytorch: An imperative style, high-performance deep learning library.
+\newblock \emph{Advances in neural information processing systems}, 32, 2019.
+
+\bibitem[Patil et~al.(2022)Patil, Hofmarcher, Dinu, Dorfer, Blies,
+  Brandstetter, Arjona{-}Medina, and Hochreiter]{Patil:22}
+Vihang Patil, Markus Hofmarcher, Marius{-}Constantin Dinu, Matthias Dorfer,
+  Patrick~M. Blies, Johannes Brandstetter, Jos{\'{e}}~Antonio Arjona{-}Medina,
+  and Sepp Hochreiter.
+\newblock Align-rudder: Learning from few demonstrations by reward
+  redistribution.
+\newblock In Kamalika Chaudhuri, Stefanie Jegelka, Le~Song, Csaba
+  Szepesv{\'{a}}ri, Gang Niu, and Sivan Sabato (eds.), \emph{International
+  Conference on Machine Learning, {ICML} 2022, 17-23 July 2022, Baltimore,
+  Maryland, {USA}}, volume 162 of \emph{Proceedings of Machine Learning
+  Research}, pp.\  17531--17572. {PMLR}, 2022.
+
+\bibitem[Pritzel et~al.(2017)Pritzel, Uria, Srinivasan, Badia, Vinyals,
+  Hassabis, Wierstra, and Blundell]{Pritzel:2017}
+Alexander Pritzel, Benigno Uria, Sriram Srinivasan,
+  Adri{\`{a}}~Puigdom{\`{e}}nech Badia, Oriol Vinyals, Demis Hassabis, Daan
+  Wierstra, and Charles Blundell.
+\newblock Neural episodic control.
+\newblock In Doina Precup and Yee~Whye Teh (eds.), \emph{Proceedings of the
+  34th International Conference on Machine Learning, {ICML} 2017, Sydney, NSW,
+  Australia, 6-11 August 2017}, volume~70 of \emph{Proceedings of Machine
+  Learning Research}, pp.\  2827--2836. {PMLR}, 2017.
+
+\bibitem[Raad et~al.(2024)Raad, Ahuja, Barros, Besse, Bolt, Bolton, Brownfield,
+  Buttimore, Cant, Chakera, et~al.]{Raad:24}
+Maria~Abi Raad, Arun Ahuja, Catarina Barros, Frederic Besse, Andrew Bolt,
+  Adrian Bolton, Bethanie Brownfield, Gavin Buttimore, Max Cant, Sarah Chakera,
+  et~al.
+\newblock Scaling instructable agents across many simulated worlds.
+\newblock \emph{arXiv preprint arXiv:2404.10179}, 2024.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, Sutskever,
+  et~al.]{Radford:19}
+Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya
+  Sutskever, et~al.
+\newblock Language models are unsupervised multitask learners.
+\newblock \emph{OpenAI blog}, 1\penalty0 (8):\penalty0 9, 2019.
+
+\bibitem[Raffin et~al.(2021)Raffin, Hill, Gleave, Kanervisto, Ernestus, and
+  Dormann]{Raffin:21}
+Antonin Raffin, Ashley Hill, Adam Gleave, Anssi Kanervisto, Maximilian
+  Ernestus, and Noah Dormann.
+\newblock Stable-baselines3: Reliable reinforcement learning implementations.
+\newblock \emph{Journal of Machine Learning Research}, 22\penalty0
+  (268):\penalty0 1--8, 2021.
+
+\bibitem[Ram et~al.(2023)Ram, Levine, Dalmedigos, Muhlgay, Shashua,
+  Leyton-Brown, and Shoham]{Ram:23}
+Ori Ram, Yoav Levine, Itay Dalmedigos, Dor Muhlgay, Amnon Shashua, Kevin
+  Leyton-Brown, and Yoav Shoham.
+\newblock In-context retrieval-augmented language models.
+\newblock \emph{arXiv preprint arXiv:2302.00083}, 2023.
+
+\bibitem[Ramos et~al.(2022)Ramos, Martins, Elliott, and
+  Kementchedjhieva]{ramos_smallcap_2022}
+Rita Ramos, Bruno Martins, Desmond Elliott, and Yova Kementchedjhieva.
+\newblock Smallcap: Lightweight image captioning prompted with retrieval
+  augmentation.
+\newblock \emph{CoRR}, abs/2209.15323, 2022.
+\newblock \doi{10.48550/arXiv.2209.15323}.
+
+\bibitem[Raparthy et~al.(2023)Raparthy, Hambro, Kirk, Henaff, and
+  Raileanu]{Raparthy:23}
+Sharath~Chandra Raparthy, Eric Hambro, Robert Kirk, Mikael Henaff, and Roberta
+  Raileanu.
+\newblock Generalization to new sequential decision making tasks with
+  in-context learning, 2023.
+
+\bibitem[Reed et~al.(2022)Reed, Zolna, Parisotto, Colmenarejo, Novikov,
+  Barth{-}Maron, Gimenez, Sulsky, Kay, Springenberg, Eccles, Bruce, Razavi,
+  Edwards, Heess, Chen, Hadsell, Vinyals, Bordbar, and de~Freitas]{Reed:22}
+Scott~E. Reed, Konrad Zolna, Emilio Parisotto, Sergio~Gomez Colmenarejo,
+  Alexander Novikov, Gabriel Barth{-}Maron, Mai Gimenez, Yury Sulsky, Jackie
+  Kay, Jost~Tobias Springenberg, Tom Eccles, Jake Bruce, Ali Razavi, Ashley
+  Edwards, Nicolas Heess, Yutian Chen, Raia Hadsell, Oriol Vinyals, Mahyar
+  Bordbar, and Nando de~Freitas.
+\newblock A generalist agent.
+\newblock \emph{CoRR}, abs/2205.06175, 2022.
+\newblock \doi{10.48550/arXiv.2205.06175}.
+
+\bibitem[Samvelyan et~al.(2021)Samvelyan, Kirk, Kurin, Parker-Holder, Jiang,
+  Hambro, Petroni, Kuttler, Grefenstette, and Rockt{\"a}schel]{Samvelyan:2021}
+Mikayel Samvelyan, Robert Kirk, Vitaly Kurin, Jack Parker-Holder, Minqi Jiang,
+  Eric Hambro, Fabio Petroni, Heinrich Kuttler, Edward Grefenstette, and Tim
+  Rockt{\"a}schel.
+\newblock Minihack the planet: A sandbox for open-ended reinforcement learning
+  research.
+\newblock In \emph{Thirty-fifth Conference on Neural Information Processing
+  Systems Datasets and Benchmarks Track (Round 1)}, 2021.
+
+\bibitem[Sanh et~al.(2019)Sanh, Debut, Chaumond, and Wolf]{Sanh:19}
+Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf.
+\newblock Distilbert, a distilled version of bert: smaller, faster, cheaper and
+  lighter.
+\newblock \emph{arXiv preprint arXiv:1910.01108}, 2019.
+
+\bibitem[Santoro et~al.(2016)Santoro, Bartunov, Botvinick, Wierstra, and
+  Lillicrap]{Santoro:16}
+Adam Santoro, Sergey Bartunov, Matthew Botvinick, Daan Wierstra, and Timothy
+  Lillicrap.
+\newblock Meta-learning with memory-augmented neural networks.
+\newblock In \emph{International conference on machine learning}, pp.\
+  1842--1850. PMLR, 2016.
+
+\bibitem[Schmidhuber(2019)]{Schmidhuber:19}
+Juergen Schmidhuber.
+\newblock Reinforcement learning upside down: Don't predict rewards--just map
+  them to actions.
+\newblock \emph{arXiv preprint arXiv:1912.02875}, 2019.
+
+\bibitem[Schmidhuber(1987)]{Schmidhuber:87}
+Jurgen Schmidhuber.
+\newblock Evolutionary principles in self-referential learning. on learning now
+  to learn: The meta-meta-meta...-hook.
+\newblock Diploma thesis, Technische Universitat Munchen, Germany, 14 May 1987.
+
+\bibitem[Schmidt \& Schmied(2021)Schmidt and Schmied]{Schmidt:21}
+Dominik Schmidt and Thomas Schmied.
+\newblock Fast and data-efficient training of rainbow: an experimental study on
+  atari.
+\newblock \emph{arXiv preprint arXiv:2111.10247}, 2021.
+
+\bibitem[Schmied et~al.(2024)Schmied, Hofmarcher, Paischer, Pascanu, and
+  Hochreiter]{Schmied:23}
+Thomas Schmied, Markus Hofmarcher, Fabian Paischer, Razvan Pascanu, and Sepp
+  Hochreiter.
+\newblock Learning to modulate pre-trained models in rl.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
+  Klimov]{Schulman:2017}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock \emph{arXiv preprint arXiv:1707.06347}, 2017.
+
+\bibitem[Schwarzer et~al.(2023)Schwarzer, Ceron, Courville, Bellemare, Agarwal,
+  and Castro]{Schwarzer:23}
+Max Schwarzer, Johan Samir~Obando Ceron, Aaron Courville, Marc~G Bellemare,
+  Rishabh Agarwal, and Pablo~Samuel Castro.
+\newblock Bigger, better, faster: Human-level atari with human-level
+  efficiency.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  30365--30380. PMLR, 2023.
+
+\bibitem[Schweighofer et~al.(2022)Schweighofer, Dinu, Radler, Hofmarcher,
+  Patil, Bitto-Nemling, Eghbal-zadeh, and Hochreiter]{Schweighofer:22}
+Kajetan Schweighofer, Marius-constantin Dinu, Andreas Radler, Markus
+  Hofmarcher, Vihang~Prakash Patil, Angela Bitto-Nemling, Hamid Eghbal-zadeh,
+  and Sepp Hochreiter.
+\newblock A dataset perspective on offline reinforcement learning.
+\newblock In \emph{Conference on Lifelong Learning Agents}, pp.\  470--517.
+  PMLR, 2022.
+
+\bibitem[Seidl et~al.(2022)Seidl, Renz, Dyubankova, Neves, Verhoeven, Wegner,
+  Segler, Hochreiter, and Klambauer]{Seidl:22}
+Philipp Seidl, Philipp Renz, Natalia Dyubankova, Paulo Neves, Jonas Verhoeven,
+  Jorg~K Wegner, Marwin Segler, Sepp Hochreiter, and Gunter Klambauer.
+\newblock Improving few-and zero-shot reaction template prediction using modern
+  hopfield networks.
+\newblock \emph{Journal of chemical information and modeling}, 62\penalty0
+  (9):\penalty0 2111--2120, 2022.
+
+\bibitem[Shala et~al.(2024)Shala, Biedenkapp, and Grabocka]{Shala:24}
+Gresa Shala, Andr{\'{e}} Biedenkapp, and Josif Grabocka.
+\newblock Hierarchical transformers are efficient meta-reinforcement learners.
+\newblock \emph{CoRR}, abs/2402.06402, 2024.
+\newblock \doi{10.48550/ARXIV.2402.06402}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2402.06402}.
+
+\bibitem[Sinii et~al.(2023)Sinii, Nikulin, Kurenkov, Zisman, and
+  Kolesnikov]{Sinii:23}
+Viacheslav Sinii, Alexander Nikulin, Vladislav Kurenkov, Ilya Zisman, and
+  Sergey Kolesnikov.
+\newblock In-context reinforcement learning for variable action spaces.
+\newblock \emph{arXiv preprint arXiv:2312.13327}, 2023.
+
+\bibitem[Sprechmann et~al.(2018)Sprechmann, Jayakumar, Rae, Pritzel, Badia,
+  Uria, Vinyals, Hassabis, Pascanu, and Blundell]{Sprechmann:18}
+Pablo Sprechmann, Siddhant~M. Jayakumar, Jack~W. Rae, Alexander Pritzel,
+  Adri{\`{a}}~Puigdom{\`{e}}nech Badia, Benigno Uria, Oriol Vinyals, Demis
+  Hassabis, Razvan Pascanu, and Charles Blundell.
+\newblock Memory-based parameter adaptation.
+\newblock In \emph{6th International Conference on Learning Representations,
+  {ICLR} 2018, Vancouver, BC, Canada, April 30 - May 3, 2018, Conference Track
+  Proceedings}. OpenReview.net, 2018.
+
+\bibitem[Tassa et~al.(2018)Tassa, Doron, Muldal, Erez, Li, de~Las~Casas,
+  Budden, Abdolmaleki, Merel, Lefrancq, Lillicrap, and Riedmiller]{Tassa:18}
+Yuval Tassa, Yotam Doron, Alistair Muldal, Tom Erez, Yazhe Li, Diego
+  de~Las~Casas, David Budden, Abbas Abdolmaleki, Josh Merel, Andrew Lefrancq,
+  Timothy~P. Lillicrap, and Martin~A. Riedmiller.
+\newblock Deepmind control suite.
+\newblock \emph{CoRR}, abs/1801.00690, 2018.
+
+\bibitem[Team et~al.(2023)Team, Bauer, Baumli, Baveja, Behbahani, Bhoopchand,
+  Bradley-Schmieg, Chang, Clay, Collister, et~al.]{AdA:23}
+Adaptive~Agent Team, Jakob Bauer, Kate Baumli, Satinder Baveja, Feryal
+  Behbahani, Avishkar Bhoopchand, Nathalie Bradley-Schmieg, Michael Chang,
+  Natalie Clay, Adrian Collister, et~al.
+\newblock Human-timescale adaptation in an open-ended task space.
+\newblock \emph{arXiv preprint arXiv:2301.07608}, 2023.
+
+\bibitem[Todorov et~al.(2012)Todorov, Erez, and Tassa]{Todorov:12}
+Emanuel Todorov, Tom Erez, and Yuval Tassa.
+\newblock {{MuJoCo}}: {{A}} physics engine for model-based control.
+\newblock In \emph{2012 {{IEEE}}/{{RSJ International Conference}} on
+  {{Intelligent Robots}} and {{Systems}}}, pp.\  5026--5033, October 2012.
+\newblock \doi{10.1109/IROS.2012.6386109}.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{Vaswani:17}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {l}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock \emph{Advances in neural information processing systems}, 30, 2017.
+
+\bibitem[Wang et~al.(2016)Wang, Kurth-Nelson, Tirumala, Soyer, Leibo, Munos,
+  Blundell, Kumaran, and Botvinick]{Wang:16}
+Jane~X Wang, Zeb Kurth-Nelson, Dhruva Tirumala, Hubert Soyer, Joel~Z Leibo,
+  Remi Munos, Charles Blundell, Dharshan Kumaran, and Matt Botvinick.
+\newblock Learning to reinforcement learn.
+\newblock \emph{arXiv preprint arXiv:1611.05763}, 2016.
+
+\bibitem[Wayne et~al.(2018)Wayne, Hung, Amos, Mirza, Ahuja,
+  Grabska{-}Barwinska, Rae, Mirowski, Leibo, Santoro, Gemici, Reynolds, Harley,
+  Abramson, Mohamed, Rezende, Saxton, Cain, Hillier, Silver, Kavukcuoglu,
+  Botvinick, Hassabis, and Lillicrap]{Wayne:2018}
+Greg Wayne, Chia{-}Chun Hung, David Amos, Mehdi Mirza, Arun Ahuja, Agnieszka
+  Grabska{-}Barwinska, Jack~W. Rae, Piotr Mirowski, Joel~Z. Leibo, Adam
+  Santoro, Mevlana Gemici, Malcolm Reynolds, Tim Harley, Josh Abramson, Shakir
+  Mohamed, Danilo~Jimenez Rezende, David Saxton, Adam Cain, Chloe Hillier,
+  David Silver, Koray Kavukcuoglu, Matthew~M. Botvinick, Demis Hassabis, and
+  Timothy~P. Lillicrap.
+\newblock Unsupervised predictive memory in a goal-directed agent.
+\newblock \emph{CoRR}, abs/1803.10760, 2018.
+
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Xia, Chi, Le, Zhou,
+  et~al.]{Wei:22}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Fei Xia, Ed~Chi, Quoc~V
+  Le, Denny Zhou, et~al.
+\newblock Chain-of-thought prompting elicits reasoning in large language
+  models.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  35:\penalty0 24824--24837, 2022.
+
+\bibitem[Weston et~al.(2015)Weston, Chopra, and Bordes]{Weston:2015}
+Jason Weston, Sumit Chopra, and Antoine Bordes.
+\newblock Memory networks, 2015.
+
+\bibitem[Widrich et~al.(2021)Widrich, Hofmarcher, Patil, Bitto-Nemling, and
+  Hochreiter]{Widrich:21}
+Michael Widrich, Markus Hofmarcher, Vihang~Prakash Patil, Angela Bitto-Nemling,
+  and Sepp Hochreiter.
+\newblock Modern hopfield networks for return decomposition for delayed
+  rewards.
+\newblock In \emph{Deep RL Workshop NeurIPS 2021}, 2021.
+
+\bibitem[Wo{l}czyk et~al.(2021)Wo{l}czyk, Zaj{k{a}}c, Pascanu, Kuci{\'n}ski,
+  and Mi{l}o{\'s}]{Wolczyk:21}
+Maciej Wo{l}czyk, Micha{l} Zaj{k{a}}c, Razvan Pascanu, {L}ukasz Kuci{\'n}ski,
+  and Piotr Mi{l}o{\'s}.
+\newblock Continual world: A robotic benchmark for continual reinforcement
+  learning.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  34:\penalty0 28496--28510, 2021.
+
+\bibitem[Wolf et~al.(2020)Wolf, Debut, Sanh, Chaumond, Delangue, Moi, Cistac,
+  Rault, Louf, Funtowicz, Davison, Shleifer, von Platen, Ma, Jernite, Plu, Xu,
+  Scao, Gugger, Drame, Lhoest, and Rush]{Wolf:20}
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue,
+  Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, Joe
+  Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien
+  Plu, Canwen Xu, Teven~Le Scao, Sylvain Gugger, Mariama Drame, Quentin Lhoest,
+  and Alexander~M. Rush.
+\newblock Transformers: State-of-the-art natural language processing.
+\newblock In \emph{Proceedings of the 2020 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations}, pp.\  38--45, Online,
+  October 2020. Association for Computational Linguistics.
+
+\bibitem[Yang et~al.(2023)Yang, Ping, Liu, Korthikanti, Nie, Huang, Fan, Yu,
+  Lan, Li, Liu, Zhu, Shoeybi, Catanzaro, Xiao, and
+  Anandkumar]{yang_revilm_2023}
+Zhuolin Yang, Wei Ping, Zihan Liu, Vijay Korthikanti, Weili Nie, De{-}An Huang,
+  Linxi Fan, Zhiding Yu, Shiyi Lan, Bo~Li, Ming{-}Yu Liu, Yuke Zhu, Mohammad
+  Shoeybi, Bryan Catanzaro, Chaowei Xiao, and Anima Anandkumar.
+\newblock Re-vilm: Retrieval-augmented visual language model for zero and
+  few-shot image captioning.
+\newblock \emph{CoRR}, abs/2302.04858, 2023.
+\newblock \doi{10.48550/arXiv.2302.04858}.
+
+\bibitem[Yao et~al.(2024)Yao, Yu, Zhao, Shafran, Griffiths, Cao, and
+  Narasimhan]{Yao:24}
+Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Tom Griffiths, Yuan Cao, and
+  Karthik Narasimhan.
+\newblock Tree of thoughts: Deliberate problem solving with large language
+  models.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Yasunaga et~al.(2023)Yasunaga, Aghajanyan, Shi, James, Leskovec,
+  Liang, Lewis, Zettlemoyer, and Yih]{yasunaga_retrieval_2023}
+Michihiro Yasunaga, Armen Aghajanyan, Weijia Shi, Richard James, Jure Leskovec,
+  Percy Liang, Mike Lewis, Luke Zettlemoyer, and Wen{-}Tau Yih.
+\newblock Retrieval-augmented multimodal language modeling.
+\newblock In Andreas Krause, Emma Brunskill, Kyunghyun Cho, Barbara Engelhardt,
+  Sivan Sabato, and Jonathan Scarlett (eds.), \emph{International Conference on
+  Machine Learning, {ICML} 2023, 23-29 July 2023, Honolulu, Hawaii, {USA}},
+  volume 202 of \emph{Proceedings of Machine Learning Research}, pp.\
+  39755--39769. {PMLR}, 2023.
+
+\bibitem[Yu et~al.(2020{\natexlab{a}})Yu, Kumar, Gupta, Levine, Hausman, and
+  Finn]{Yu:20}
+Tianhe Yu, Saurabh Kumar, Abhishek Gupta, Sergey Levine, Karol Hausman, and
+  Chelsea Finn.
+\newblock Gradient surgery for multi-task learning.
+\newblock In Hugo Larochelle, Marc'Aurelio Ranzato, Raia Hadsell,
+  Maria{-}Florina Balcan, and Hsuan{-}Tien Lin (eds.), \emph{Advances in Neural
+  Information Processing Systems 33: Annual Conference on Neural Information
+  Processing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual},
+  2020{\natexlab{a}}.
+
+\bibitem[Yu et~al.(2020{\natexlab{b}})Yu, Quillen, He, Julian, Hausman, Finn,
+  and Levine]{Yu:22}
+Tianhe Yu, Deirdre Quillen, Zhanpeng He, Ryan Julian, Karol Hausman, Chelsea
+  Finn, and Sergey Levine.
+\newblock Meta-world: A benchmark and evaluation for multi-task and meta
+  reinforcement learning.
+\newblock In \emph{Conference on robot learning}, pp.\  1094--1100. PMLR,
+  2020{\natexlab{b}}.
+
+\bibitem[Zanette et~al.(2021)Zanette, Wainwright, and Brunskill]{Zanette:21}
+Andrea Zanette, Martin~J. Wainwright, and Emma Brunskill.
+\newblock Provable benefits of actor-critic methods for offline reinforcement
+  learning.
+\newblock In Marc'Aurelio Ranzato, Alina Beygelzimer, Yann~N. Dauphin, Percy
+  Liang, and Jennifer~Wortman Vaughan (eds.), \emph{Advances in Neural
+  Information Processing Systems 34: Annual Conference on Neural Information
+  Processing Systems 2021, NeurIPS 2021, December 6-14, 2021, virtual}, pp.\
+  13626--13640, 2021.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper/2021/hash/713fd63d76c8a57b16fc433fb4ae718a-Abstract.html}.
+
+\bibitem[Zaremba \& Sutskever(2015)Zaremba and Sutskever]{Zaremba:2015}
+Wojciech Zaremba and Ilya Sutskever.
+\newblock Reinforcement learning neural turing machines.
+\newblock \emph{CoRR}, abs/1505.00521, 2015.
+
+\bibitem[Zisman et~al.(2023)Zisman, Kurenkov, Nikulin, Sinii, and
+  Kolesnikov]{zisman2023emergence}
+Ilya Zisman, Vladislav Kurenkov, Alexander Nikulin, Viacheslav Sinii, and
+  Sergey Kolesnikov.
+\newblock Emergence of in-context reinforcement learning from noise
+  distillation.
+\newblock \emph{arXiv preprint arXiv:2312.12275}, 2023.
+
+\bibitem[Åström(1965)]{Astrom:1965}
+K.J Åström.
+\newblock Optimal control of markov processes with incomplete state
+  information.
+\newblock \emph{Journal of Mathematical Analysis and Applications}, 10\penalty0
+  (1):\penalty0 174--205, 1965.
+\newblock ISSN 0022-247X.
+\newblock \doi{https://doi.org/10.1016/0022-247X(65)90154-X}.
+
+\end{thebibliography}

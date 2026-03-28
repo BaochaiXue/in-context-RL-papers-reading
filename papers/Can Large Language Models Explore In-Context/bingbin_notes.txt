@@ -1,0 +1,10 @@
+DONE Clarify definition of f_a(t,R) to say that the fraction is over the interval [0,t]
+
+Future work: in the puzzles experiments it is natural to ask if the LLM can mimic the strategy used in the history, which is just few-shot prompting?
+
+minor writing notes:
+DONE the abstract mentions dataset curation as a potential intervention, but the rest of the paper doesn’t comment on this?
+DONE (super minor) Fig 1: OPT is a bit hard to notice; perhaps consider changing to dashed lines
+Perhaps Fig 4 could be made more readable by separating the 3 baselines & highlight the successful setup?
+perhaps it’s good to put arrows next to the row names to indicate whether higher/lower is better.
+the colormap is also a bit confusing (though I’m not sure how to improve it; perhaps make lighter mean better?)

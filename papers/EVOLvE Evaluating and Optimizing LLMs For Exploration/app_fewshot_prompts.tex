@@ -1,0 +1,110 @@
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform. 
+    There are 5 videos available in your library, titled [A, B, AI, BS, E]. 
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences. 
+    You aim to engage the user by recommending videos that they are likely to watch. 
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions, 
+    enhancing user satisfaction and platform engagement.
+    
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    
+    Here are some examples of optimal actions under different scenarios. Use them as hints to help you come up with better actions.
+    ========================
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    B
+    ========================
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    B video, reward 0
+    AI video, reward 1
+    AI video, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    AI
+    ========================
+
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, AI, BS, E AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Video Action Description, $K=5$, Raw History, with In-context Few-shot Demonstrations from Bernoulli, Video Action Description, $K=5$, Raw History.}
+    \label{fig:fewshot_vid5_easy_rh_inf_rh}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform. 
+    There are 5 videos available in your library, titled [A, B, AI, BS, E]. 
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences. 
+    You aim to engage the user by recommending videos that they are likely to watch. 
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions, 
+    enhancing user satisfaction and platform engagement.
+    
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    
+    Here are some examples of optimal actions under different scenarios. Use them as hints to help you come up with better actions.
+    ========================
+    Midnight Mirage Trousers item, reward 1
+    Titanic Tempest Tunic item, reward 0
+    Infinite Impeccable Jacket item, reward 1
+    Supreme Spectrum Slippers item, reward 0
+    Bejeweled Bloom Blazer item, reward 0
+    Midnight Mirage Trousers item, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    Infinite Impeccable Jacket
+    ========================
+    Midnight Mirage Trousers item, reward 1
+    Titanic Tempest Tunic item, reward 0
+    Infinite Impeccable Jacket item, reward 1
+    Supreme Spectrum Slippers item, reward 0
+    Bejeweled Bloom Blazer item, reward 0
+    Midnight Mirage Trousers item, reward 0
+    Infinite Impeccable Jacket item, reward 0
+    Midnight Mirage Trousers item, reward 0
+    Infinite Impeccable Jacket item, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, C, D, E AND NO TEXT EXPLANATION.
+    Titanic Tempest Tunic
+    ========================
+
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, AI, BS, E AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli,  Video Action Description, $K=5$, Raw History, with Few-shot Demonstrations from Bernoulli, Clothes Action Description, $K=5$, Raw History}
+    \label{fig:fewshot_clothes5_easy_rh_inf_rh}
+\end{figure}

@@ -1,0 +1,42 @@
+
+\section{Introduction}
+Large transformer models \cite{4} have achieved notable successes across a variety of domains, including text \cite{47}, image \cite{48}, and audio \cite{49}. 
+In the field of reinforcement learning (RL), large transformer models can treat RL tasks as a type of sequential prediction problem and have shown impressive results with offline training \cite{14,27}. However, these methods lack self-improvement when used in online environments, where online environments could differ from offline training. To overcome this, in-context RL has been proposed, which enables continued policy improvement \cite{8}.
+
+Recent works demonstrated that in-context RL methods can automatically improve online performance by providing prompt conditions called across-episodic contexts \cite{3}. The construction of the across-episodic context is flexible and easy to implement, such as multiple historical trajectories arranged in ascending order of returns \cite{1}. Although no gradient updates are required for self-improvement, current in-context RL still suffers from high computational costs on long-term tasks \cite{8}. This arises from (1) the quadratic complexity of the self-attention mechanism and (2) the multiplicative growth of the long-term sequence caused by across-episodic contexts.
+
+Facing the challenge of handling long-term sequences, a novel foundation model called Mamba has attracted widespread attention for its ability to capture long-term dependencies with linear computational costs \cite{10}. Mamba is a state space model-based framework with good potential in natural language processing and vision tasks \cite{11}. Motivated by the success of Mamba in language and vision modeling, it is appealing that we can also transfer this success to RL tasks. Therefore, a natural question arises:
+
+% mamba前边不要加the
+\vspace{-5pt}
+\begin{center}
+\emph{``Can Mamba boost in-context RL with both effectiveness and efficiency on long-term tasks?"}
+\end{center}
+%Can Mamba boost the performance and efficiency for in-context RL on long-term tasks?
+\vspace{-5pt}
+% 这一段要和in-context RL有联系
+Taking the famous in-context RL method Decision Transformer (DT) \cite{8} as an example, we replace its transformer backbone with a Mamba backbone. Regarding efficiency, there is no doubt that Mamba is superior to transformers as the task length increases because Mamba uses a data-dependent selection mechanism that computes independently on each input of sequences \cite{10}. Compared with the attention mechanism that computes input pairs, the data-dependent selection mechanism makes it easier for Mamba to handle long sequences but also introduces additional independence assumptions. In RL tasks, since there is a sequential relationship between states rather than independence, the attention mechanism may be intuitively more suitable for capturing the information between states, thereby outperforming Mamba in effectiveness.
+
+% There is no doubt that Mamba will be superior to the transformer in terms of computational efficiency as the task length increases. However, regarding effectiveness, it is counter-intuitive that Mamba performs better than the transformer. This is because there is a sequential relationship between states in the RL task, which the attention mechanism of the transformer can extract \cite{4}. On the contrary, Mamba uses a data-dependent selection mechanism to integrate the embedding of states, where the selection mechanism acts independently on each state. Unlike the attention mechanism acting on state pairs, Mamba is more efficient in recalling long-term memory but may lose relationship information between states.
+
+To this end, instead of implement a Decision Mamba (DM) that simply replaces the backbone of DT, we propose the Decision Mamba-Hybrid (DM-H) with the merits of transformers and Mamba in high-quality prediction and long-term memory. Specifically, the Mamba model first generates sub-goals, represented by a vector, based on long-term contexts. Then, we combine the sub-goal and short-term contexts as a prompt condition to the transformer. The setting of sub-goals enables DM-H to leverage Mamba's ability to efficiently recall long-term contexts while using the transformer to predict high-quality actions. However, it remains to be seen whether the transformer will benefit from sub-goals or ignore them and predict actions focused on short-term contexts. Therefore, we select high-value states from offline trajectories to form extra sub-goals and serve them as input conditions for the transformer. Then, the predicted actions will associate with these selected sub-goals and, in turn, encourage Mamba to generate high-value sub-goals. Our contributions are as follows: 
+
+\begin{itemize}[noitemsep,leftmargin=*]
+\setlist{nolistsep} 
+   
+    \item We investigate Mamba model compared to the transformer model in traditional RL tasks, D4RL, and find that Mamba model is more efficient but slightly inferior to the transformer model in terms of effectiveness.
+    \item We propose DM-H, an in-context RL method that connects Mamba and the transformer with high-value sub-goals. DM-H inherits the merits of Mamba and transformers, achieving both high effectiveness and efficiency in long-term tasks.
+    \item Our extensive experiments across Grid World, D4RL, and Tmaze reveal the superiority of DM-H over other baselines. In the online testing of long-term tasks, DM-H can be 28$\times$ times faster than baselines and more than double the effectiveness.
+    % Regarding both effectiveness and efficiency, DM-H consistently outperforms or matches the best results, underscoring its potential to advance the field of in-context RL.
+\end{itemize}
+
+% emerges with high-level trial-and-error ability. H2C can learn by directly combining sub-optimal data and efficiently improving itself through multiple trials at test time. 
+% (2) Compared to the contexts consisting of the smallest actions, H2C significantly shortens the evaluation time by \textbf{36$\bm\times$} times on the D4RL baselines \cite{13} and \textbf{27$\bm\times$} times on the Large Grid World environments \cite{14}. 
+% (3) H2C can achieve state-of-the-art results with less training costs, especially outstanding in long-horizon tasks. 
+
+
+% In-context learning is a promising approach for online policy learning of offline reinforcement learning (RL) methods, which can be achieved by providing task prompts \cite{9,43}. By constructing appropriate contexts, in-context RL has emerged with impressive capabilities to adapt to unseen environments or tasks quickly \cite{5,6,7}. For example, in an unseen task, in-context RL can automatically improve its performance from multiple historical trajectories \cite{8}. This continued policy improvement is critical for the online deployment of RL agents.
+
+% Recent works explored many in-context RL methods based on the transformer model and achieved notable successes \cite{2,3}. The transformer-based policy treats RL tasks as a type of sequential prediction problem that uses sole offline training \cite{14,27}. When online policy learning is required, an effective method is to build across-episodic contexts for the model by constructing multiple trajectories arranged in ascending order of returns \cite{1}. However, current methods are mostly limited to short-term tasks because of the quadratic complexity of the attention mechanism with the length of sequences \cite{8}. Such huge computational costs severely limit in-context RL's ability to apply continued policy improvement on traditional RL tasks, such as MuJoCo \cite{13} and Atari \cite{15}.
+
+% Facing the challenge of handling long-term sequences, a novel foundation model called Mamba has attracted widespread attention for its ability to capture long-term dependencies with linear computational costs \cite{10}. Mamba is a state space model-based framework with good potential in natural language processing \cite{10} and vision tasks \cite{11}. Motivated by the success of Mamba in language and vision modeling, it is appealing that we can also transfer this success to RL tasks. Therefore, a natural question arises:

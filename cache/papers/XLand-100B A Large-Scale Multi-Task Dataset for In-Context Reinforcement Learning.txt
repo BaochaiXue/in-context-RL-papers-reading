@@ -1,0 +1,52 @@
+Ruleset 60
+
+Task Tree
+NEAR(
+
+NearUp( ,
+
+,
+
+)
+
+)⇒
+NearLeft(
+
+NEAR(
+
+, )⇒
+
+AgentHold(
+
+,
+
+)⇒
+
+)⇒
+NearRight(
+
+,
+
+)⇒
+
+NearLeft(
+
+,
+
+Example Start Layout
+Distractor Rules
+AgentNearLeft(
+
+)⇒
+
+AgentNear(
+
+)⇒
+
+AgentNear(
+
+)⇒
+
+)⇒
+
+

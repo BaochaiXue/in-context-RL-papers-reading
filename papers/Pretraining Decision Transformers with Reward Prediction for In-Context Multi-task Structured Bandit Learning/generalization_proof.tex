@@ -1,0 +1,410 @@
+\subsection{Generalization Proof}
+\label{app:generalization}
+
+$\alg$ is the space of algorithms induced by the transformer $\T_{\bTheta}$. 
+
+% We use the same architecture as in \citet{lin2023transformers}.
+
+\begin{theorem}
+\label{thm:multi-task-risk-app}\textbf{(\pred\ risk)}
+    Suppose error stability \Cref{assm:stability-assumption} holds and assume loss function $\ell(\cdot,\cdot)$ is $C$-Lipschitz for all $r_t \in [0,B]$ and horizon $n\geq 1$. Let $\widehat{\T}$ be the empirical solution of (ERM) and $\mathcal{N}(\mathcal{A}, \rho, \epsilon)$ be the covering number of the algorithm space $\alg$ following Definition \ref{def:covering-number} and \ref{def:alg-dist}. Then with probability at least $1-2 \delta$, the excess Multi-task learning (MTL) risk of \predt\ is bounded by %\mathrm{\pred-\textcolor{green!60!black}{\tau}}
+    \begin{align*}
+        \cR^{}_{\mathrm{MTL}}(\widehat{\T}_{}) \leq 4 \tfrac{C}{\sqrt{nM}} +2(B+K \log n) \sqrt{\tfrac{\log (\N(\alg, \rho, \varepsilon) / \delta)}{c n M}}
+    \end{align*}
+    where, $\N(\alg, \rho, \varepsilon)$ is the covering number of transformer $\widehat{\T}_{}$. 
+    % We can use Lemma 16 of \citet{lin2023transformers} to show that $\log(\N(\alg, \rho, \varepsilon))\leq O(L^2D^2J)$ where $L$ is the number of layers, and $J, D$ denote the upper bound to the number of heads and hidden neurons in any layer respectively.
+\end{theorem}
+
+
+\begin{proof}
+We consider a meta-learning setting. Let $M$ source tasks are i.i.d. sampled from a task distribution $\cT$, and let $\widehat{\T}$ be the empirical Multitask (MTL) solution. 
+%
+Define $\H_{\text {all }}=\bigcup_{m=1}^M \H_m$. We drop the $\bTheta, \mathbf{r}$ from transformer notation $\rT_{\bTheta}$ as we keep the architecture fixed as in \citet{lin2023transformers}. 
+%
+Note that this transformer predicts a reward vector over the actions. To be more precise we denote the reward predicted by the transformer at round $t$ after observing history $\H_m^{t-1}$ and then sampling the action $a_{mt}$ as $\T\left(\wr_{m t}(a_{mt})|\H_m^{t-1}, a_{m t}\right)$.
+%
+%
+Define the  training risk $$\widehat{\L}_{\H_{\mathrm{all}}}(\T)=\frac{1}{n M} \sum_{m=1}^M \sum_{t=1}^n \ell\left(r_{m t}(a_{mt}), \T\left(\wr_{m t}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right)$$ and the test risk $$\L_{\mathrm{MTL}}(\T)=\mathbb{E}\left[\widehat{\L}_{\H_{\text {all }}}(\T)\right].$$ 
+%
+Define empirical risk minima $\widehat{\T}=\arg \min _{\T \in \alg} \widehat{\L}_{\H_{\text {all }}}(\T)$ and population minima 
+\begin{align*}
+    \T^{*}=\arg \min _{\T \in \alg} \L_{\mathrm{MTL}}(\T)
+\end{align*}
+In the following discussion, we drop the subscripts MTL and $\H_{\text {all. }}$ The excess MTL risk is decomposed as follows:
+\begin{align*}
+\cR_{\mathrm{MTL}}(\widehat{\T}) & =\L(\widehat{\T})-\L\left(\T^*\right) \\
+& =\underbrace{\L(\widehat{\T})-\widehat{\L}(\widehat{\T})}_a+\underbrace{\widehat{\L}(\widehat{\T})-\widehat{\L}\left(\T^*\right)}_b+\underbrace{\widehat{\L}\left(\T^*\right)-\L(\T^*}_c) .
+\end{align*}
+Since $\widehat{\T}$ is the minimizer of empirical risk, we have $b \leq 0$. 
+
+\textbf{Step 1: (Concentration bound $|\L(\T)-\widehat{\L}(\T)|$ for a fixed $\T \in \alg$)} Define the test/train risks of each task as follows:
+\begin{align*}
+& \widehat{\L}_m(\T):=\frac{1}{n} \sum_{t=1}^n \ell\left(r_{mt}(a_{mt}), \T\left(\wr_{mt}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right), \quad \text { and } \\
+& \L_m(\T):=\mathbb{E}_{\H_m}\left[\widehat{\L}_m(\T)\right]=\mathbb{E}_{\H_m}\left[\frac{1}{n} \sum_{t=1}^n \ell\left(r_{mt}(a_{mt}), \T\left(\wr_{mt}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right)\right], \quad \forall m \in[M] .
+\end{align*}
+Define the random variables $X_{m, t}=\mathbb{E}\left[\widehat{\L}_t(\T) \mid \H_m^t\right]$ for $t \in[n]$ and $m \in[M]$, that is, $X_{m, t}$ is the expectation over $\widehat{\L}_t(\T)$ given training sequence $\H_m^t=\left\{\left(a_{m t'}, r_{m t'}\right)\right\}_{t'=1}^t$ (which are the filtrations). With this, we have that $X_{m, n}=\mathbb{E}\left[\widehat{\L}_m(\T) \mid \H_m^n\right]=\widehat{\L}_m(\T)$ and $X_{m, 0}=\mathbb{E}\left[\widehat{\L}_m(\T)\right]=\L_m(\T)$. 
+%
+More generally, $\left(X_{m, 0}, X_{m, 1}, \ldots, X_{m, n}\right)$ is a martingale sequence since, for every $m \in [M]$, we have that $\mathbb{E}\left[X_{m, i} \mid \H_m^{t-1}\right]=X_{m, t-1}$.
+For notational simplicity, in the following discussion, we omit the subscript $m$ from $a, r$ and $\H$ as they will be clear from the left-hand-side variable $X_{m, t}$. We have that
+\begin{align*}
+X_{m, t} & =\mathbb{E}\left[\left.\frac{1}{n} \sum_{t=1}^n \ell\left(r_{t'}, \operatorname{TF}\left(\wr_{t'}|\H^{t'-1}, a_{t'}\right)\right) \right\rvert\, \H^t\right] \\
+& =\frac{1}{n} \sum_{t'=1}^t \ell\left(r_{t'}, \operatorname{TF}\left(\wr_{t'}|\H^{t'-1}, a_{t'}\right)\right)+\frac{1}{n} \sum_{t'=t+1}^n \mathbb{E}\left[\ell\left(r_{t'}, \operatorname{TF}\left(\wr_{t'}|\H^{t'-1}, a_{t'}\right)\right) \mid \H^t\right]
+\end{align*}
+Using the similar steps as in \citet{li2023transformers} we can show that
+\begin{align*}
+    \left|X_{m, t}-X_{m, t-1}\right| \overset{(a)}{\leq} \frac{B}{n}+\sum_{t'=t+1}^n \frac{K}{t' n} \leq \frac{B+K \log n}{n} .
+\end{align*}
+where, $(a)$ follows by using the fact that loss function $\ell(\cdot, \cdot)$ is bounded by $B$, and error stability assumption.
+
+Recall that $\left|\L_m(\T)-\widehat{\L}_m(\T)\right|=\left|X_{m, 0}-X_{m, n}\right|$ and for every $m \in[M]$, we have $\sum_{t=1}^n\left|X_{m, t}-X_{m, t-1}\right|^2 \leq \frac{(B+K \log n)^2}{n}$. As a result, applying Azuma-Hoeffding's inequality, we obtain
+\begin{align}
+    \Pb\left(\left|\L_m(\T)-\widehat{\L}_m(\T)\right| \geq \tau\right) \leq 2 e^{-\frac{n \tau^2}{2(B+K \log n)^2}}, \quad \forall m \in[M]  \label{eq:azuma}
+\end{align}
+% From \eqref{eq:azuma} we can show that for each task $m\in [M]$ we need to have $n \geq $
+Let us consider $Y_m:=\L_m(\T)-\widehat{\L}_m(\T)$ for $m \in[M]$. Then, $\left(Y_m\right)_{m=1}^M$ are i.i.d. zero mean sub-Gaussian random variables. There exists an absolute constant $c_1>0$ such that, the subgaussian norm, denoted by $\|\cdot\|_{\psi_2}$, obeys $\left\|Y_m\right\|_{\psi_2}^2<\frac{c_1(B+K \log n)^2}{n}$ via Proposition 2.5.2 of (Vershynin, 2018). Applying Hoeffding's inequality, we derive
+\begin{align*}
+    \Pb\left(\left|\frac{1}{M} \sum_{m=1}^M Y_t\right| \geq \tau\right) \leq 2 e^{-\frac{c n M \tau^2}{(B+K \log n)^2}} \Longrightarrow \Pb(|\widehat{\L}(\T)-\L(\T)| \geq \tau) \leq 2 e^{-\frac{c n M \tau^2}{(B+K \log n)^2}}
+\end{align*}
+where $c>0$ is an absolute constant. Therefore, we have that for any $\T \in \alg$, with probability at least $1-2 \delta$,
+\begin{align}
+    |\widehat{\L}(\T)-\L(\T)| \leq(B+K \log n) \sqrt{\frac{\log (1 / \delta)}{c n M}} \label{eq:conc-bound}
+\end{align}
+
+
+\textbf{Step 2: (Bound $\sup _{\T \in \alg}|\L(\T)-\widehat{\L}(\T)|$ where $\alg$ is assumed to be a continuous search space)}. Let 
+$$
+h(\T):=\L(\T)-\widehat{\L}(\T)$$ 
+and we aim to bound $\sup _{\T \in \alg}|h(\T)|$. Following \Cref{def:alg-dist}, for $\varepsilon>0$, let $\alg_{\varepsilon}$ be a minimal $\varepsilon$-cover of $\alg$ in terms of distance metric $\rho$. Therefore, $\alg_{\varepsilon}$ is a discrete set with cardinality $\left|\alg_{\varepsilon}\right|:=\mathcal{N}(\alg, \rho, \varepsilon)$. Then, we have
+\begin{align*}
+    \sup _{\T \in \alg}|\L(\T)-\widehat{\L}(\T)| \leq \sup _{\T \in \alg^{\prime}} \min _{\T \in \alg_{\varepsilon}}\left|h(\T)-h\left(\T{ }^{\prime}\right)\right|+\max _{\T \in \alg_{\varepsilon}}|h(\T)| .
+\end{align*}
+We will first bound the quantity $\sup _{\T \in \alg^{\prime}} \min _{\T \in \alg_{\varepsilon}}\left|h(\T)-h\left(\T{ }^{\prime}\right)\right|$.
+%
+We will utilize that loss function $\ell(\cdot, \cdot)$ is $C$-Lipschitz. For any $\T \in \alg$, let $\T \in \alg_{\varepsilon}$ be its neighbor following \Cref{def:alg-dist}. Then 
+% following the same steps as in \citet{li2023transformers} 
+we can show that
+\begin{align*}
+&\left|\widehat{\L}(\mathrm{TF})-\widehat{\L}\left(\mathrm{TF}^{\prime}\right)\right| \\
+%%%%%%%%%%%%%%%%%
+& =\left|\frac{1}{n M} \sum_{m=1}^M \sum_{t=1}^n\left(\ell\left(r_{mt}(a_{mt}), \T\left(\wr_{mt}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right)-\ell\left(r_{mt}(a_{mt}), \T'\left(\wr_{mt}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right)\right)\right| \\
+%%%%%%%%%%%%%%%%
+& \leq \frac{L}{n M} \sum_{m=1}^M \sum_{t=1}^n\left\|\T\left(\wr_{mt}(a_{mt})|\H_m^{t-1}, a_{m t}\right)-\T'\left(\wr_{mt}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right\|_{\ell_2} \\
+& \leq L \varepsilon .
+\end{align*}
+Note that the above bound applies to all data-sequences, we also obtain that for any $\T \in \alg$,
+$$
+\left|\L(\mathrm{TF})-\L\left(\mathrm{TF}^{\prime}\right)\right| \leq L \varepsilon .
+$$
+Therefore we can show that,
+\begin{align}
+    \sup _{\T \in \alg} &\min _{\T} \in \alg_{\varepsilon}\left|h(\T)-h\left(\T F^{\prime}\right)\right| \nonumber\\
+    %%%%%%%%%%%
+    &\leq \sup _{\T \in \alg} \min _{\T} \in \alg_{\varepsilon}\left|\widehat{\L}(\T)-\widehat{\L}\left(\T{ }^{\prime}\right)\right|+\left|\L(\T)-\L\left(\T^{\prime}\right)\right| \leq 2 L \varepsilon . \label{eq:perturbation-bound}
+\end{align}
+
+Next we bound the second term $\max _{\T \in \alg_{\varepsilon}}|h(\T)|$. Applying union bound directly on $\alg_{\varepsilon}$ and combining it with \eqref{eq:conc-bound}, then we will have that with probability at least $1-2 \delta$,
+\begin{align*}
+    \max _{\T \in \alg_{\varepsilon}}|h(\T)| \leq(B+K \log n) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c n M}}
+\end{align*}
+Combining the upper bound above with the perturbation bound \eqref{eq:perturbation-bound}, we obtain that
+\begin{align*}
+    \max _{\T \in \alg}|h(\T)| \leq 2 C \varepsilon+(B+K \log n) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c n M}}.
+\end{align*}
+It follows then that
+\begin{align*}
+    \cR_{\mathrm{MTL}}(\widehat{\T}) \leq 2 \sup _{\T \in \alg}|\L(\T)-\widehat{\L}(\T)| \leq 4 C \varepsilon+ 2(B+K \log n) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c n M}}
+\end{align*}
+Again by setting $\varepsilon = 1/\sqrt{n M}$
+\begin{align*}
+    \L(\widehat{\T})-\L\left(\T^*\right)\leq \dfrac{4 C}{\sqrt{n M}}+2(B+K \log n) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c n M}}
+\end{align*}
+The claim of the theorem follows.
+\end{proof}
+
+
+% \begin{assumption}
+% (Error stability (Bousquet \& Elisseeff, 2002)). Let $\H=\left(a_t, r_t\right)_{t=1}^n$ be a sequence in $[A] \times [0,1]$ with $n \geq 1$ and $\H^{\prime}$ be the sequence where the $t'$th sample of $\H$ is replaced by $\left(a_t^{\prime}, r_t^{\prime}\right)$. Error stability holds for a distribution $(a, r) \sim \mathcal{D}$ if there exists a $K>0$ such that for any $\mathcal{S},\left(x_j^{\prime}, y_j^{\prime}\right) \in(X \times \mathcal{Y}), j \leq m$, and $\T \in \alg$, we have
+% \begin{align*}
+% \left.\mid \mathbb{E}_{(x, y)}[\ell(y, \operatorname{TF}(\mathcal{S}, x)))-\ell\left(\boldsymbol{y}, \operatorname{TF}\left(\mathcal{S}^{\prime}, x\right)\right)\right] \left\lvert\, \leq \frac{K}{n} .\right.
+% \end{align*}
+
+% Let $\rho$ be a distance metric on $\alg$. Pairwise error stability holds if for all $\T, \T^{\prime} \in \alg$ we have
+% \begin{align*}
+% \begin{aligned}
+% & \mid \mathbb{E}_{(x, y)}\left[\ell(y, \operatorname{TF}(\mathcal{S}, x))-\ell\left(y, \T^{\prime}(\mathcal{S}, x)\right)\right. \\
+% & \left.-\ell\left(y, \operatorname{TF}\left(\mathcal{S}^{\prime}, x\right)\right)+\ell\left(y, \T^{\prime}\left(\mathcal{S}^{\prime}, x\right)\right)\right] \left\lvert\, \leq \frac{K \rho\left(\T, \T^{\prime}\right)}{m}\right.
+% \end{aligned}
+% \end{align*}
+% \end{assumption}
+
+\begin{definition}(Covering number)\label{def:covering-number}
+Let $Q$ be any hypothesis set and $d\left(q, q^{\prime}\right) \geq 0$ be a distance metric over $q, q^{\prime} \in \mathcal{Q}$. Then, $\bar{Q}=\left\{q_1, \ldots, q_N\right\}$ is an $\varepsilon$-cover of $Q$ with respect to $d(\cdot, \cdot)$ if for any $q \in \mathcal{Q}$, there exists $q_i \in \bar{Q}$ such that $d\left(q, q_i\right) \leq \varepsilon$. The $\varepsilon$-covering number $\mathcal{N}(Q, d, \varepsilon)$ is the cardinality of the minimal $\varepsilon$-cover.
+\end{definition}
+
+
+\begin{definition}(Algorithm distance). 
+\label{def:alg-dist}
+Let $\alg$ be an algorithm hypothesis set and $\H=\left(a_t, r_t\right)_{t=1}^n$ be a sequence that is admissible for some task $m \in[M]$. For any pair $\T, \T^{\prime} \in \alg$, define the distance metric $\rho\left(\T, \T^{\prime}\right):=$ $\sup_{\H} \frac{1}{n} \sum_{t=1}^n\left\|\T\left(\wr_t|\H^{t-1}, a_t\right)-\T^{\prime}\left(\wr_t|\H^{t-1}, a_t\right)\right\|_{\ell_2}$.
+\end{definition}
+
+\begin{remark}\textbf{(Stability Factor)} 
+\label{remark:stability}
+The work of \citet{li2023transformers} also characterizes the stability factor $K$ in \Cref{assm:stability-assumption} with respect to the transformer architecture. Assuming loss $\ell(\cdot, \cdot)$ is C-Lipschitz, the algorithm induced by $\T(\cdot)$ obeys the stability assumption with $K=2 C\left((1+\Gamma) e^{\Gamma}\right)^L$, where the norm of the transformer weights are upper bounded by $O(\Gamma)$ and there are $L$-layers of the transformer.
+\end{remark}
+
+\begin{remark}\textbf{(Covering Number)} 
+\label{remark:covering-number}
+From Lemma 16 of \citet{lin2023transformers} we have the following upper bound on the covering number of the transformer class $\T_{\bTheta}$ as 
+\begin{align*}
+    \log(\mathcal{N}(\alg, \rho, \varepsilon))\leq O(L^2D^2J)
+\end{align*}
+where $L$ is the total number of layers of the transformer and $J$ and, $D$ denote the upper bound to the number of heads and hidden neurons in all the layers respectively. Note that this covering number holds for the specific class of transformer architecture discussed in section $2$ of \citep{lin2023transformers}.
+%
+%
+% $\left\{\T_{\bTheta}^{}: \boldsymbol{\theta} \in \Theta_{D, L, J, D^{\prime}, B}\right\}$.
+% %
+% \begin{lemma}
+% For the space of transformers $\left\{\T_{\boldsymbol{\theta}}^{\mathbf{R}}: \boldsymbol{\theta} \in \bar{\Theta}_{D, L, M, D^{\prime}, B}\right\}$ with
+% $$
+% \bar{\Theta}_{D, L, J, D^{\prime}, B}:=\left\{\boldsymbol{\theta}=\left(\boldsymbol{\theta}_{\mathrm{attn}}^{[L]}, \boldsymbol{\theta}_{\mathrm{mlp}}^{[L]}\right): \max _{\ell \in[L]} J^{(\ell)} \leq J, \max _{\ell \in[L]} D^{(\ell)} \leq D^{\prime},\|\boldsymbol{\theta}\| \leq B\right\},
+% $$
+% where $J^{(\ell)}, D^{(\ell)}$ denote the number of heads and hidden neurons in the $\ell$-th layer respectively, the covering number of the set of induced algorithms $\left\{\operatorname{Alg}_{\boldsymbol{\theta}}, \boldsymbol{\theta} \in \bar{\Theta}_{D, L, J, D^{\prime}, B}\right\}$ satisfies
+% \begin{align*}
+%     \log \mathcal{N}_{\bar{\Theta}_{D, L, J, D^{\prime}, B}}(\alg, \rho, \epsilon) \leq c L^2 D\left(J D+D^{\prime}\right) \log \left(2+\frac{\max \{B, L\}}{\epsilon}\right)
+% \end{align*}
+% \end{lemma}
+\end{remark}
+
+\subsection{Generalization Error to New Task}
+\label{app:transfer}
+
+\begin{theorem}\textbf{(Transfer Risk)}
+Consider the setting of \Cref{thm:multi-task-risk} and assume the source tasks are independently drawn from task distribution $\cT$. Let $\widehat{\text { TF }}$ be the empirical solution of (ERM) and $g \sim \cT$. Then with probability at least $1-2 \delta$, the expected excess transfer learning risk is bounded by
+\begin{align*}
+\mathbb{E}_{g}\left[\mathcal{R}_{g}(\widehat{\T}_{})\right] \leq 4 \tfrac{C}{\sqrt{M}} +B \sqrt{\tfrac{2 \log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{M}}
+\end{align*}
+where, $\mathcal{N}(\alg, \rho, \varepsilon)$ is the covering number of transformer $\widehat{\T}_{}$. 
+% We can use Lemma 16 of \citet{lin2023transformers} to show that $\log(\mathcal{N}(\alg, \rho, \varepsilon))\leq O(L^2D^2J)$ where $L$ is the number of layers, and $J, D$ denote the upper bound to the number of heads and hidden neurons in any layer respectively.
+\end{theorem}
+
+
+\begin{proof}
+Let the target task $g$ be sampled from $\cT$, and the test set $\H_{g} = \{a_t, r_t\}_{t=1}^n$. Define empirical and population risks on $g$ as $\widehat{\L}_{g}(\T)=\frac{1}{n} \sum_{t=1}^n \ell\left(r_t(a_{mt}), \T\left(\wr_t(a_{mt})|\H_{g}^{t-1}, a_t\right)\right)$ and $\L_{g}(\T)=\mathbb{E}_{\H_{g}}\left[\widehat{\L}_{g}(\T)\right]$. Again we drop $\bTheta$ from the transformer notation. Then the expected excess transfer risk following (ERM) is defined as
+\begin{align}
+\mathbb{E}_{g}\left[\mathcal{R}_{g}(\widehat{\T})\right]=\mathbb{E}_{\H_{g}}\left[\L_{g}(\widehat{\T})\right]-\arg \min _{\T \in \alg} \mathbb{E}_{\H_{g}}\left[\L_{g}(\T)\right] . \label{eq:exces-transfer-risk}
+\end{align}
+where $\A$ is the set of all algorithms. The goal is to show a bound like this
+\begin{align*}
+\mathbb{E}_{g}\left[\mathcal{R}_{g}(\widehat{\T})\right] \leq \min _{\varepsilon \geq 0}\left\{4 C \varepsilon+B \sqrt{\frac{2 \log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{T}}\right\}
+\end{align*}
+where $\mathcal{N}(\alg, \rho, \varepsilon)$ is the covering number.
+
+\textbf{Step 1 (\textbf{(Decomposition)}:} Let $\T^*=\arg \min _{\T \in \alg} \mathbb{E}_{g}\left[\L_{g}(\T)\right]$. The expected transfer learning excess test risk of given algorithm $\widehat{\T} \in \alg$ is formulated as
+\begin{align*}
+& \widehat{\L}_m(\T):=\frac{1}{n} \sum_{t=1}^n \ell\left(r_{m t}(a_{mt}), \T\left(\widehat{r}_{m t}(a_{mt})| \mathcal{D}_m^{t-1}, a_{m t}\right)\right), \quad \text { and } \\
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+& \L_m(\T):=\mathbb{E}_{\H_m}\left[\widehat{\L}_t(\T)\right]=\mathbb{E}_{\H_m}\left[\frac{1}{n} \sum_{t=1}^n \ell\left(r_{m t}(a_{mt}), \T\left(\widehat{r}_{m t}(a_{mt})| \mathcal{D}_m^{t-1}, a_{m t}\right)\right)\right], \quad \forall m \in[M] .
+\end{align*}
+Then we can decompose the risk as 
+\begin{align*}
+\mathbb{E}_{g}\left[\mathcal{R}_{g}(\widehat{\T})\right] &=\mathbb{E}_{g}\left[\L_{g}(\widehat{\T})\right]-\mathbb{E}_{g}\left[\L_{g}\left(\T^*\right)\right]\\
+%%%%%%%%%%%%%%%%%%%%%%%%
+& = 
+\underbrace{\mathbb{E}_{g}\left[\L_{g}(\widehat{\T})\right]-\widehat{\L}_{\H_{\mathrm{all}}}(\widehat{\T})}_a + \underbrace{\widehat{\L}_{\H_{\text {all }}}(\widehat{\T})-\widehat{\L}_{\H_{\text {all }}}\left(\T^*\right)}_b +\underbrace{\widehat{\L}_{\H_{\text {all }}}\left(\T^*\right)-\mathbb{E}_{g}\left[\L_{g}\left(\T^*\right)\right]}_c .
+\end{align*}
+Here since $\widehat{\T}$ is the minimizer of training risk, $b<0$. Then we obtain
+\begin{align}
+\mathbb{E}_{g}\left[\mathcal{R}_{g}(\widehat{\T})\right] \leq 2 \sup _{\T \in \alg}\left|\mathbb{E}_{g}\left[\L_{g}(\T)\right]-\frac{1}{M} \sum_{m=1}^M \widehat{\L}_m(\T)\right| .\label{eq:bounding-decomp}
+\end{align}
+\textbf{Step 2 (Bounding \eqref{eq:bounding-decomp})}For any $\T \in \alg$, let $X_t=\widehat{\L}_t(\T)$ and we observe that
+\begin{align*}
+\mathbb{E}_{m \sim \cT}\left[X_t\right]=\mathbb{E}_{m \sim \cT}\left[\widehat{\L}_m(\T)\right]=\mathbb{E}_{m \sim \cT}\left[\L_m(\T)\right]=\mathbb{E}_{g}\left[\L_{g}(\T)\right]
+\end{align*}
+Since $X_m, m \in[M]$ are independent, and $0 \leq X_m \leq B$, applying Hoeffding's inequality obeys
+\begin{align*}
+\Pb\left(\left|\mathbb{E}_{g}\left[\L_{g}(\T)\right]-\frac{1}{M} \sum_{m=1}^M \widehat{\L}_m(\T)\right| \geq \tau\right) \leq 2 e^{-\frac{2 M \tau^2}{B^2}} .
+\end{align*}
+%
+Then with probability at least $1-2 \delta$, we have that for any $\T \in \alg$,
+\begin{align}
+\left|\mathbb{E}_{g}\left[\L_{g}(\T)\right]-\frac{1}{M} \sum_{m=1}^M \widehat{\L}_m(\T)\right| \leq B \sqrt{\frac{\log (1 / \delta)}{2 M}} . \label{eq:decomp-1}
+\end{align}
+
+
+Next, let $\alg_{\varepsilon}$ be the minimal $\varepsilon$-cover of $\alg$ following \Cref{def:covering-number}, which implies that for any task $g \sim \cT$, and any $\T \in \alg$, there exists $\T^{\prime} \in \alg_{\varepsilon}$
+\begin{align}
+\left|\L_{g}(\T)-\L_{g}\left(\T^{\prime}\right)\right|,\left|\widehat{\L}_{g}(\T)-\widehat{\L}_{g}\left(\T{ }^{\prime}\right)\right| \leq C \varepsilon . \label{eq:decomp-2}
+\end{align}
+
+Since the distance metric following Definition 3.4 is defined by the worst-case datasets, then there exists $\T^{\prime} \in \alg_{\varepsilon}$ such that
+\begin{align*}
+\left|\mathbb{E}_{g}\left[\L_{g}(\T)\right]-\frac{1}{M} \sum_{m=1}^M \widehat{\L}_m(\T)\right| \leq 2 C \varepsilon .
+\end{align*}
+
+
+Let $\mathcal{N}(\alg, \rho, \varepsilon)=\left|\alg_{\varepsilon}\right|$ be the $\varepsilon$-covering number. Combining the above inequalities (\eqref{eq:bounding-decomp}, \eqref{eq:decomp-1}, and \eqref{eq:decomp-2}), and applying union bound, we have that with probability at least $1-2 \delta$,
+\begin{align*}
+\mathbb{E}_{g}\left[\mathcal{R}_{g}(\widehat{\T})\right] \leq \min _{\varepsilon \geq 0}\left\{4 C \varepsilon+B \sqrt{\frac{2 \log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{M}}\right\}
+\end{align*}
+Again by setting $\varepsilon = 1/\sqrt{M}$
+\begin{align*}
+    \L(\widehat{\T})-\L\left(\T^*\right)\leq \dfrac{4 C}{\sqrt{M}}+ 2B \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c M}}
+\end{align*}
+The claim of the theorem follows.
+\end{proof}
+
+
+\begin{remark} (Dependence on $n$)
+\label{remark:target-risk}
+In this remark, we briefly discuss why the expected excess risk for target task $\cT$ does not depend on samples $n$. 
+%
+The work of \citet{li2023transformers} pointed out that the MTL pretraining process identifies a favorable algorithm that lies in the span of the $M$ source tasks.  
+% $\boldsymbol{\Theta}_{\mathrm{MTL}}=\left(\boldsymbol{\beta}_t\right)_{m=1}^M$. 
+% Specifically, the transformer model can potentially fit MTL tasks through a variety of algorithms which results in an 
+%
+This is termed as inductive bias (see section 4 of \citet{li2023transformers}) \citep{soudry2018implicit, neyshabur2017geometry}. 
+%
+% we speculate that the optimization process is implicitly biased to an algorithm $\operatorname{TF}\left(\boldsymbol{\Theta}_{\mathrm{MTL}}\right)$ (akin to (Soudry et al., 2018; Neyshabur et al., 2017)). 
+Such bias would explain the lack of dependence of the expected excess transfer risk on $n$ during transfer learning. 
+%
+% This is because if the transformer perfectly learns the MTL tasks it does not need $n=\Omega(d)$ samples to perform well on a new task drawn from the same task distribution. 
+%
+This is because given a target task $g\sim\cT$, the $\T$ can use the learnt favorable algorithm to conduct a discrete search over span of the $M$ source tasks and return the source task that best fits the new target task. Due to the discrete search space over the span of $M$ source tasks, it is not hard to see that, we need $n \propto \log (M)$ samples (which is guaranteed by the $M$ source tasks) rather than $n \propto d$ (for the linear setting).
+%
+% $\operatorname{dim}(\mathcal{A})$ dependence since $\mathrm{TF}\left(\boldsymbol{\Theta}_{\mathrm{MTL}}\right)$ solely depends on the source tasks. While we leave the theoretical exploration of the empirical $d^2 / T$ behavior to a future work, below we explain that $d^2 / T$ dependence is rather surprising.
+\end{remark}
+
+% \begin{align*}
+% R_n & =\sum_{t=1}^n \sum_a \Delta(a) \cdot \Pb\left(\widehat{\T}\left(a_t \mid \cdot\right)=a\right) \\
+% & =\sum_{t = 1}^n \sum_{a=1}^A \Delta(a)\left[ \Pb\left(\T^*(a_t \mid \cdot) =a\right) +\Pb\left(\widehat{\T}\left(a_t \mid \cdot\right)=a\right)-\Pb\left(\T^*\left(a_t \mid \cdot\right)=a\right)\right]\\
+% %%%%%%%%%%%%%%
+% &= n A \gamma + \sum_{t = 1}^n \sum_{a=1}^A \Delta(a)\left[\ell(\wr_t) - r_t \right]
+% \end{align*}
+
+
+% Final goal is this, in the linear bandit setting, if we train \pred, and then test it, what is the cumulative regret?
+
+% When the excess risk is low, we know that \pred\ predicts the reward vector well, given a task. So when test and train tasks are drawn from $\cT$, for a test task it should predict its reward vector well.
+% %
+% So it seems that the only way that \pred\ suffers a regret is by identifying what the test task is (or how the test task is similar to some train task).
+
+
+
+% Let there be $M$ tasks, and the datasets of these $M$ tasks be denoted by $\H^{\mathrm{Alg}_0}_{\mathrm{all}}$ where $\mathrm{Alg}_0$ is the demonstrator algorithm.
+% %
+% Let the empirical loss of the transformer $\T_{\bTheta}$ for the task $m$ for the observed dataset $\H_m$ be given by 
+% \begin{align*}
+%     \widehat{\L}_m(\T) &:=\frac{1}{T} \sum_{t=1}^T \ell\left(r_{mt}(a_{mt}), \T\left(\wr_{mt}(a_{mt})|\H_m^{t-1}\right)\right) \\
+%     %%%%%%%%%%%%%%%%%%
+%     \L_m(\T) & :=\mathbb{E}_{\H_m}\left[\widehat{\L}_m(\T)\right] 
+% \end{align*}
+% Define the algorithm induced by the transformer $\T$ trained on dataset $\H_m$ as $\mathrm{Alg}_{\T}$ such that at every round $t\in [n]$ and given a test task $m'$ it suggest action
+% \begin{align*}
+%     \mathrm{Alg}_{\T}(a_t | \H^{t-1}_{m'})
+% \end{align*}
+% based on the past observation history of the test task $m'$. Let $\mathbf{\widehat{r}}_{m't}$ be the predicted reward vector for the task $m'$ at round $t$. In our setting, we have that \pred\ is given by
+% \begin{align*}
+%     \mathrm{Alg}_{\widehat{\T}}(a_t | \H^{t-1}_{m'}), \text{ where } a_t = \mathrm{softmax}\left(\widehat{\T}(\mathbf{\widehat{r}}_{m't}| \H^{t-1}_{m'})\right)
+% \end{align*}
+% where, the empirical risk minima is $\widehat{\T}=\arg \min _{\T \in \alg} \widehat{\L}_{\H_{\text {all }}}(\T)$ and
+% \begin{align*}
+%     \widehat{\L}_{\H_{\mathrm{all}}}(\T)=\frac{1}{n M} \sum_{m=1}^M \sum_{t=1}^n \ell\left(r_{m t}(a_{mt}), \T\left(\wr_{m t}(a_{mt})|\H_m^{t-1}, a_{m t}\right)\right)
+% \end{align*}
+
+% Let the population minima be
+% $$
+% \T^*=\arg \min _{\T \in \alg} \L_{\mathrm{MTL}}(\T)
+% $$
+% and $\L_{\mathrm{MTL}}(\T)=\mathbb{E}\left[\widehat{\L}_{\H^{\mathrm{Alg}_0}_{\text {all }}}(\T)\right]$.
+% %
+% Note that the population minima depends on the collected dataset by $\mathrm{Alg}_0$. Let the algorithm induced by $\T^*$ on the test task $m'$ be denoted by 
+% \begin{align*}
+%     \mathrm{Alg}^E(\widehat{a}^*_{m',t} | \H^{t-1}_{m'}), \text{ where } \widehat{a}^*_{m',t} = \mathrm{softmax}\left(\T^*(\mathbf{\widehat{r}}_{m't}| \H^{t-1}_{m'})\right)
+% \end{align*}
+
+% From the previous theorem, we know that by setting $\varepsilon = 1/\sqrt{A T M}$
+% \begin{align*}
+%     \L(\widehat{\T})-\L\left(\T^*\right)\leq \dfrac{4 C}{\sqrt{A T M}}+2(B+K \log T) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c T M}}
+% \end{align*}
+
+% Let for a test task $m'\sim \cT$ the expert algorithm E samples the dataset $\{a^E_{m',t}, r^E_{m',t}\}_{t=1}^T$.
+% %
+% Then we have that
+% %
+% \begin{align*}
+%     \E_{\H}\frac{1}{T}&\sum_{t=1}^T\left(\widehat{\T}(\widehat{r}_{m', t}(a_{m,t})| \H^{t-1}_{m'}) - r^E_{m', t}(a_{m,t})\right)^2 - \E_{\H}\frac{1}{T}\sum_{t=1}^T\left(\T^*(\widehat{r}_{m', t}(a_{m,t})| \H^{t-1}_{m'}) - r^E_{m', t}(a_{m,t})\right)^2\\
+%     %%%%%%%%%%%%%
+%     &\leq \dfrac{4 C}{\sqrt{A T M}}+2(B+K \log T) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c T M}} \\
+%     %%%%%%%%%%%%%
+%     \implies & \frac{1}{T}\sum_{t=1}^T\left(\widehat{\T}(\widehat{r}_{m', t}(a_{m,t})| \H^{t-1}_{m'}) - r^E_{m', t}(a_{m,t})\right)^2 \leq \gamma + \dfrac{4 C}{\sqrt{A T M}}+2(B+K \log T) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c T M}}\\
+%     %%%%%%%%%%%%%%%%
+%     \implies & \sum_{t=1}^T\left(\widehat{\T}(\widehat{r}_{m', t}(a_{m',t})| \H^{t-1}_{m'}) - r^E_{m', t}(a_{m',t})\right)^2 \leq \gamma T + \dfrac{4 C \sqrt{T}}{\sqrt{A M}}+2(B+K \log T) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c M}}%\\
+%     %%%%%%%%%%%%%%%%
+%     %
+% \end{align*}
+% We also have that for any action $a_{m,t}$
+% \begin{align*}
+%     \log\mathrm{Alg}_{\widehat{\T}}\left(a_{m',t}\mid D^{t-1}_{m'}\right) \propto \widehat{\T}(\widehat{r}_{m', t}(a_{m,t})| \H^{t-1}_{m'}), \qquad \log\mathrm{Alg}^E\left(a_{m',t}\mid D^{t-1}_{m'}\right) \propto \mathrm{Alg}^E(\widehat{r}_{m', t}(a_{m',t})| \H^{t-1}_{m'})
+% \end{align*}
+% This implies that
+% \begin{align*}
+%     \sum_{m=1}^M\sum_{t=1}^T \log\mathrm{Alg}_{\widehat{\T}}\left(a_{m',t}\mid D^{t-1}_{m'}\right) - \log\mathrm{Alg}^E\left(a_{m',t}\mid D^{t-1}_{m'}\right) \leq \gamma T + \dfrac{4 C \sqrt{T}}{\sqrt{A M}}+2(B+K \log T) \sqrt{\frac{\log (\mathcal{N}(\alg, \rho, \varepsilon) / \delta)}{c M}}
+% \end{align*}
+
+
+% Therefore the sequence of actions till round $T$ for the test task $m'$ selected by $\mathrm{Alg}_{\widehat{\T}}(\cdot | \H^{T-1}_{m'})$ is given by $\{a_t\}_{t=1}^n$. Similarly, the sequence of actions selected by $\mathrm{Alg}^E(\cdot | \H^{T-1}_{m'})$ be given by $\{\widehat{a}^E_t\}_{t=1}^T$. Therefore the cumulative regret at the end of round $T$ for test task $m'$ is given by
+% \begin{align*}
+%     \cR_{m', T} = \sum_{t=1}^T \left(\mu^*_{m'} - \mu_{m', a_t}\right) = \sum_{t=1}^T \underbrace{\left(\mu^*_{m'} - \mu_{m',\widehat{a}^E_t}\right)}_{\textbf{Part A}} + \underbrace{\left(\mu_{m', \widehat{a}^E_t} -  \mu_{m', a_t}\right)}_{\textbf{Part B}}
+% \end{align*}
+
+
+% Definition 4 (Covering number). For a class of algorithms $\left\{\operatorname{Alg}_{\T}, \T \in \A\right\}$, we say $\A_0 \subseteq \A$ is an $\rho$-cover of $\A$, if $\A_0$ is a finite set such that for any $\T \in \A$, there exists $\T_0 \in \A_0$ such that
+% $$
+% \left\|\log \operatorname{Alg}_{\T_0}\left(\cdot \mid \H^{t-1}\right)-\log \operatorname{Alg}_\T\left(\cdot \mid D^{t-1}\right)\right\|_{\infty} \leq \rho, \quad \text { for all } \H^{t-1}, t \in[T]
+% $$
+
+
+% Proof of Eq. (13) Let $\A_0$ be a $1 /(n T)^2$-covering set of $\A$ with covering number $n_{\text {cov }}=\left|\A\right|$. For $k \in$ $\left[n_{\text {cov }}\right], t \in[T], i \in[n]$. 
+% % Let $\widehat{\T} = \T_k$. 
+% Define
+% $$
+% \ell_{m, t}=\log \frac{\mathrm{Alg}_{\mathrm{TF^E}}\left(\widehat{a}^*_{m,t}\mid D^{t-1}_m\right)}{\mathrm{Alg}_{\widehat{\T}}\left(\widehat{a}^*_{m,t}\mid D^{t-1}_m\right)},
+% $$
+% where $\left(D_{m,T}, \widehat{a}^*_{m,t}\right)$ are the trajectory and expert actions collected in the $m$-th instance. Using Lemma 14 with $X_s=-\ell_{k t}^s$ and a union bound over $(k, t)$, conditioned on the trajectories $\left(D_T^1, \ldots, D_T^n\right)$, we have
+% $$
+% \frac{1}{2} \sum_{m=1}^M \ell_{m, t}+\log \left(n_{\operatorname{cov}} T / \delta\right) \geq \sum_{i=1}^n-\log \mathbb{E}\left[\exp \left(-\frac{\ell_{m, t}}{2}\right)\right]
+% $$
+% for all $k \in\left[n_{\text {cov }}\right], t \in[T]$ with probability at least $1-\delta$. Note that
+% $$
+% \begin{aligned}
+% & \mathbb{E}\left[\left.\exp \left(-\frac{\ell_{m, t}}{2}\right) \right\rvert\, \H^{t-1}_m\right]=\mathbb{E}_{\mathbb{D}}\left[\left.\sqrt{\left.\frac{\mathrm{Alg}_{\T_k}\left(\widehat{a}^*_{m,t}\mid D^{t-1}_m\right)}{\mathrm{Alg}_{\mathrm{TF^E}}\left(\widehat{a}^*_{m,t}\mid D^{t-1}_m\right)} \right\rvert\,} \right\rvert\, \H^{t-1}_m\right] \\
+% & =\sum_{a \in [A]} \sqrt{\mathrm{Alg}_{\T_k}\left(a \mid \H^{t-1}_m\right) \overline{\mathrm{Alg}}_E\left(a \mid \H^{t-1}_m\right)}, \\
+% &
+% \end{aligned}
+% $$
+% where the last equality uses the assumption that the actions $\widehat{a}^*_{m,t}$ are generated using the expert $\mathrm{Alg}_{\mathrm{TF^E}}\left(\cdot \mid \H^{t-1}_m\right)$. Therefore, for any $\T \in \A$ covered by $\T_k$, we have
+
+% \begin{align*}
+% & -\log \mathbb{E}\left[\exp \left(-\frac{\ell_{m, t}}{2}\right)\right] \\
+% &\geq  1-\mathbb{E}_{D_m}\left[\sum_{a \in \mathcal{A}_t} \sqrt{\mathrm{Alg}_{\T_k}\left(a \mid \H^{t-1}_m\right) \mathrm{Alg}_{\mathrm{TF^E}}\left(a \mid \H^{t-1}_m\right)}\right] \\
+% & =  1-\mathbb{E}_{D_m}\left[\sum_{a \in \mathcal{A}_t} \sqrt{\mathrm{Alg}_\T\left(a \mid \H^{t-1}_m\right) \mathrm{Alg}_{\mathrm{TF^E}}\left(a \mid \H^{t-1}_m\right)}\right]\\
+%  & \quad-\mathbb{E}_{D_m}\left[\sum_{a \in \mathcal{A}_t} \sqrt{\operatorname{Alg}_E\left(a \mid \H^{t-1}_m\right)}\left(\sqrt{\mathrm{Alg}_{\T_k}\left(a \mid \H^{t-1}_m\right)}-\sqrt{\mathrm{Alg}_\T\left(a \mid \H^{t-1}_m\right)}\right)\right] \\ 
+%  & \geq \frac{1}{2} \mathbb{E}_{D_m}\left[\mathrm{D}_{\mathrm{H}}^2\left(\mathrm{Alg}_{\mathrm{TF^E}}\left(\cdot \mid \H^{t-1}_m\right), \mathrm{Alg}_{\T}\left(\cdot \mid \H^{t-1}_m\right)\right)\right] \\ 
+%  & \quad-\mathbb{E}_{D_m}\left[\sum_{a \in \mathcal{A}}\left(\sqrt{\mathrm{Alg}_\T\left(\cdot \mid \H^{t-1}_m\right)}-\sqrt{\mathrm{Alg}_{\T_k}\left(\cdot \mid \H^{t-1}_m\right)}\right)^2\right]^{1 / 2} \\ 
+%  & \geq \frac{1}{2} \mathbb{E}_{D_m}\left[\mathrm{D}_{\mathrm{H}}^2\left(\mathrm{Alg}_{\mathrm{TF^E}}\left(\cdot \mid \H^{t-1}_m\right), \mathrm{Alg}_\T\left(\cdot \mid \H^{t-1}_m\right)\right)\right]-\left\|\mathrm{Alg}_\T\left(\cdot \mid \H^{t-1}_m\right)-\mathrm{Alg}_{\T_k}\left(\cdot \mid \H^{t-1}_m\right)\right\|_1^{1 / 2} \\ 
+%  & \geq \frac{1}{2} \mathbb{E}_{D_m}\left[\mathrm{D}_{\mathrm{H}}^2\left(\mathrm{Alg}_{\mathrm{TF^E}}\left(\cdot \mid \H^{t-1}_m\right), \mathrm{Alg}_\T\left(\cdot \mid ^{t-1}_m\right)\right)\right]-\frac{\sqrt{2}}{M T}
+% \end{align*}
+
+% for all $i \in[n], t \in[T]$, where the first inequality uses $-\log x \geq 1-x$, the second inequality follows from Cauchy-Schwartz inequality, the third inequality uses $(\sqrt{x}-\sqrt{y})^2 \leq|x-y|$ for $x, y \geq 0$, the last inequality uses the fact that $\theta$ is covered by $\theta_k$ and Lemma 15. Since any $\theta \in \Theta$ is covered by $\theta_k$ for some $k \in\left[n_{\mathrm{cov}}\right]$, and for this $k$ summing over $t \in[T]$ gives
+% $$
+% \sum_{m=1}^M \sum_{t=1}^T \ell_{m, t}=\L_n(\text { expert })-\L_n\left(\theta_k\right) \leq \L_n(\text { expert })-\L_n(\theta)+\frac{1}{n T} \leq \L_n(\text { expert })-\L_n(\theta)+1
+% $$
+% Therefore, with probability at least $1-\delta$, we have
+% $$
+% \begin{aligned}
+% & \frac{1}{2}\left(\L_n(\text { expert })-\L_n(\theta)+1\right)+T \log \left(n_{\text {cov }} T / \delta\right)+\sqrt{2} \\
+% \geq & \frac{n}{2} \sum_{t=1}^T \mathbb{E}_{D_T}\left[\mathrm{D}_{\mathrm{H}}^2\left(\mathrm{Alg}_\T\left(\cdot \mid D_{t-1}, s_t\right), \operatorname{Alg}_{\text {expert }}\left(\cdot \mid D_{t-1}, s_t\right)\right)\right]
+% \end{aligned}
+% $$
+% for all $\theta \in \Theta$, where $D_T$ follows $\Pb_{\cT}^{\mathrm{Alg}_0}$. Multiplying both sides by $2 / n$ and letting $n_{\text {cov }}=\mathcal{N}_{\Theta}\left(1 /(n T)^2\right)$ yields Eq. (13).

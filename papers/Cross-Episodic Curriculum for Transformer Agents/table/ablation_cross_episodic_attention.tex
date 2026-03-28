@@ -1,0 +1,17 @@
+\begin{table}[t!]
+\caption{\textbf{Ablation on the importance of cross-episodic attention.} Transformer agents trained with the same curricular data but without cross-episodic attention degrade significantly during evaluation, suggesting its indispensable role in learning highly performant policies.}
+\label{table:ablation_cross_episodic_attention}
+\vspace{0.1in}
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{@{}r|ccc|cc@{}}
+\toprule
+\multirow{2}{*}{}                 & \multicolumn{3}{c|}{\textbf{DMLab}}    & \multicolumn{2}{c}{\textbf{RoboMimic}} \\ \cmidrule(l){2-6} 
+                                  & Goal Maze   & Watermaze   & Irreversible Path & Lift               & Can               \\ \midrule
+Ours                              & $\bestscore{65.2 \pm 6.7}$ & $\bestscore{50.9 \pm 6.6}$ & $\bestscore{38.2 \pm 7.0}$       & $\bestscore{100.0 \pm 0.0}$       & $\bestscore{100.0 \pm 0.0}$      \\
+Ours w/o Cross-Episodic Attention & $35.0 \pm 7.1$ & $20.0 \pm 2.5$ & $\hphantom{0}3.8 \pm 4.9$        & $\hphantom{00}75.9 \pm 12.3$       & $\bestscore{\hphantom{0}99.3 \pm 0.9}$       \\ \bottomrule
+\end{tabular}
+
+}
+\vspace{-1em}
+\end{table}

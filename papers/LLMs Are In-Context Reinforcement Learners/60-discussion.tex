@@ -1,0 +1,25 @@
+\section{Discussion and Limitations}\label{sec:disc}
+
+We study the innate capabilities of off-the-shelf LLMs to perform ICRL in the contextual bandit setting. We outline a straightforward algorithm to show this behavior, and propose an enhanced version featuring stochasticity in the prompt construction, while increasing stability. 
+We characterize ICRL, including scaling effects, stability, the importance of the reward signal, and the impact of abstract labels (i.e., that contain no semantic information). 
+
+Fundamentally, our work illustrates that exploration is the key ingredient necessary for ICRL behavior in LLMs. When exploration is combined with filtering of episodes with negative rewards, conventional ICL abilities (i.e., learning from demonstrations) bring about strong ICRL trends. 
+Furthermore, exploration can be aided by introducing stochasticity in the prompt construction. 
+The dependence of the learning trends on filtering out negative rewards leaves an important challenge for future work -- how to elicit or train LLMs to reason effectively about negative episodes. 
+
+
+
+While our work provides a plethora of insights into ICRL behavior, much remains to be studied. 
+We intentionally choose the contextual bandit setting using classification benchmarks following~\citep{pmlr-v97-zhang19b, bietti2021contextual}, and focus on binary rewards to simplify the experiments and evaluation in this early stage of studying ICRL. This formulation abstracts over challenges like exact numerical interpretation (i.e., of rewards), while focusing on the fundamental skills of exploration and learning from rewards. 
+However, this limitation leaves open the question of applicability to more complex RL problems, where rewards are more nuanced, or where interactions comprise multiple steps. 
+For example, math and coding tasks often require multiple steps, but also introduce complex evaluation challenges. 
+We believe our study enables future work to study these challenges, and that this is an important direction. 
+
+
+Our work also leaves open questions about the use of computational resources. ICRL is relatively compute-intensive, especially after the learner observes many episodes. 
+We propose \approximate in \aautoref{sec:icrl:approximate} to reduce certain forms of computational overhead, and show how it allows to trade-off compute for robustness. 
+Further reducing computational demands is an important direction for future work. 
+
+
+We hope our work helps to shed light on the capabilities of contemporary LLMs, and that it lays out the ground for extensive future work, both in research and practice. 
+

@@ -1,0 +1,71 @@
+This paper belongs to a recent body of work that aims to understand the capabilities of LLMs, \ie what they can and cannot do well, and why.
+Capabilities that have received considerable attention, but are peripheral to the present paper, include general intelligence~\citep{bubeck2023sparks,binz2023using}, causal~\citep{kiciman2023causal,yiu2023imitation} and mathematical reasoning~\citep{cobbe2021training,lu2023mathvista}, planning~\citep{valmeekam2023planbench,momennejad2023evaluating,brooks2023large}, and compositionality~\citep{yu2023skill}.
+
+In more detail, our work contributes to the broader literature on capabilities of in-context learning.
+Prior studies of in-context learning include theoretical~\citep{xie2021explanation,akyurek2022learning,zhang2023and,abernethy2023mechanism,zhang2023trained,han2023explaining,cheng2023transformers,ahn2023transformers,wies2023learnability,fu2023transformers,wu2023many,huang2023context,hendel2023context,li2023transformers,von2023transformers,bai2023transformers,hahn2023theory,jeon2024information} and empirical~\citep{garg2022can,kirsch2022general,ahuja2023context,han2023understanding,raventos2023pretraining,weber2023icl,bhattamishra2023understanding,guo2023transformers,shen2023pretrained,akyurek2024context} investigations, though as
+mentioned in the prequel, the vast majority of this work pertains to in-context
+supervised learning; in-context reinforcement learning has received far less attention. The small collection of empirical
+works that study in-context RL~\citep{laskin2022context,lee2023supervised,raparthy2023generalization,xu2022prompting} focus on models trained from scratch using trajectory data collected
+from another agent (either an RL algorithm or an
+expert); theoretically, \citet{lee2023supervised} and
+later~\citet{lin2023transformers} justify this approach with a Bayesian
+meta-reinforcement learning perspective~\citep{simchowitz2021bayesian},
+and show that pre-trained transformers can implement classical
+exploration strategies like Thompson sampling and upper confidence
+bounds (UCB). However, these works require interventions to the
+\emph{pre-training} phase of the language model, and do not study
+whether existing LLMs exhibit exploration capabilities under standard
+training conditions.
+
+Perhaps closest to the present paper, \citet{coda2023meta} evaluates the performance of in-context learning with \gptthree on a two-armed bandit task and an associated meta-learning task. As with our study, they find that \gptthree performs similarly (in fact, slightly worse) than \greedy; however, they do not consider long enough time horizons to distinguish \greedy from successful baselines like \ucb. 
+
+In parallel, there is a rapidly growing line of work that applies LLMs to real-world decision-making applications. Beyond previously mentioned works~\citep{shinn2023reflexion,wang2023voyager,lee2023ai}, which consider applications to gaming, programming, and medicine, highlights include \citet{park2023generative}, who introduce generative agents which simulate human behavior in an open-world environment, \citet{ahn2022can,xu2023creative}, who develop LLM-enabled robots.
+
+
+
+\xhdr{Concurrent work.}
+Two closely related concurrent works~\citep{wu2024smartplay,park2024llm} also study in-context LLM performance in bandit tasks.
+\citet{wu2024smartplay} considers a battery of tasks that aim to characterize ``intelligent agents'' with two-armed bandits as a specific task of interest.
+Their bandit experiments differ in several key respects: They consider a very easy MAB instance (with $2$ arms and a gap $\Delta=0.6$, which is much easier than both of our instances), focus on a single prompt design (similar to our basic prompt), and compare to human players rather than algorithmic benchmarks. These differences lead to very different experimental findings. In particular, they find that \gptfour performs well on their simple MAB instance, converging very quickly to the best arm, while we find that \gptfour with a similar prompt fails on a harder MAB instance. However, their finding is consistent with ours, as we also find that several configurations of \gptfour do well on the \easy MAB instance. As we discuss in~\Cref{ssec:exp-causes}, this instance is too simple to provide compelling evidence for principled exploratory behavior.
+
+\citet{park2024llm} primarily focus on full-information online
+learning and repeated game settings but also evaluate LLMs in bandit
+settings. Their experiments differ from ours in two significant
+ways. First, although some of their data generation protocols are
+stochastic in nature, they are primarily interested in adversarial
+settings. Consequently they compare with adversarial bandits baselines
+and present the history to the LLM via importance-weighted
+losses~\citep{bandits-exp3}. Second, they mostly consider shorter time
+horizons ($T = 25$ for bandits and up to $T = 50$ for
+full-information). In an updated version of their paper (announced on
+arXiv in Fall 2024), they also include longer horizon experiments of
+their original settings, where they find that LLMs continue to perform
+well, as well as experiments with our \hard MAB instance with horizon
+$T=100$, where they evaluate uniform and suffix
+failures. Interestingly, they find that both \gptfour and \gptfouro
+succeed (with high reward, no suffix failures, and low \MinFrac) when
+using their default prompt which asks for distributional output,
+chain-of-thought, and which presents the history via importance
+weighting. They further find that removing importance weighting
+results in failures, specifically, higher \MinFrac\xspace for \gptfour
+and suffix failures for \gptfouro. These findings are perhaps
+consistent with ours: both results highlight that pre-processing the
+history (either via summarization or via importance weighting) is
+crucial for eliciting exploratory behavior from LLMs.
+
+
+Other concurrent work includes~\citet{schubert2024context,hayes2024relative,coda2024cogbench} who use in-context bandit and other tasks to study whether LLMs exhibit human-like behavior (particularly, biases) in decision making tasks. 
+
+We also refer the interested reader to a recent survey of methods for using LLMs in reinforcement learning settings~\citep{cao2024survey}.
+
+
+\xhdr{Follow-up work.}
+\citet{monea2024llms} and \citet{nie2024evolve} follow up on our results with several new experimental findings. Both works consider \emph{contextual} bandits (and \citet{nie2024evolve} also considers vanilla MAB), and find that LLMs fail to explore without non-trivial interventions. In this sense, these works corroborate our main findings. Further, both works propose interventions that improve LLM exploration. In particular, \citet{monea2024llms} propose a training-free intervention \asedit{whereby the interaction history is subsampled uniformly before it is included in the LLM prompt,}
+while \citet{nie2024evolve} consider few-shot prompting and fine-tuning with optimal demonstrations. These interventions improve performance, but are still not competitive with standard algorithmic baselines.
+
+
+
+
+
+
+

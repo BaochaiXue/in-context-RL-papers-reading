@@ -1,0 +1,267 @@
+% RLJ main.tex Version 2025.0
+
+\documentclass[10pt]{article} % For LaTeX2e
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AUTHOR: Select ONE option:
+%      [accepted]{rlj} --> for camera ready (after peer review, if accepted)
+%      {rlj}           --> for submission
+%      [preprint]{rlj} --> to de-anonymize and remove references to RLJ/RLC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[accepted]{rlj}           % Should be uncommented for submission
+%\usepackage[accepted]{rlj} % Should be uncommented for the camera-ready
+% \usepackage[preprint]{rlj} % Should be uncommented for preprint versions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WARNING: The following packages are already included in the
+%          rlj.sty style file:
+%
+%  1. fancyhdr  - For controlling header/footers
+%  2. natbib    - For formatting the bibliography
+%  3. enumitem  - To customize the appearance of lists
+%  4. fontenc (with option [T1]) - Allows for proper hyphenation and accents
+%  5. times     - Times new roman font
+%  6. ragged2e  - Used to justify text
+%  7. tcolorbox - Used to create boxes on cover page
+%  8. hyperref  - Configures hyperlinks throughout (e.g., links to references)
+%  9. xcolor    - Used to define custom colors for links and boxes
+%  10. amsmath  - Not used, but conflicts with lineno, so we include (and patch) it for authors
+%  11. etoolbox - Included in the amsmath + lineno patch
+%  12. lineno   - For adding line numbers when in submission
+%
+% You do not need to include them again in your main.tex.
+% Including them again may lead to conflicts or compilation errors.
+% Additionally, avoid loading packages that might conflict with these.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Recommended (but not required) packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amssymb}            % Defines common symbols like \mathbb R
+\usepackage{mathtools}          % Extends amsmath, providing common math tools
+\usepackage{mathrsfs}           % Enables \mathscr, which can work in cases that \mathcal does not
+%\mathtoolsset{showonlyrefs}     % Only number equations that are referenced (optional)
+\usepackage{graphicx}           % For including images
+\usepackage{subcaption}         % Allows for the use of subfigures and subcaptions
+\usepackage[space]{grffile}     % For spaces in image names
+\usepackage{url}                % For displaying URLs
+\usepackage{lipsum}             % For placeholder text
+
+
+\usepackage{macros}
+\usepackage{dirtytalk}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+
+\newcounter{findingcounter}
+\newcommand{\customfinding}[1][\normalfont]{\stepcounter{findingcounter}\textbf{Finding \thefindingcounter:}#1 }
+
+% \usepackage[most]{tcolorbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AUTHOR: Fill in the following meta-data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Enter the title of your paper:
+\title{Pretraining Decision Transformers with Reward Prediction for In-Context Multi-task Structured Bandit Learning
+
+}
+
+% The "running title" will be displayed in the header on every-other page.
+% It is typically either the same as the title or a shorter version of the title.
+% Enter your running title here:
+\setrunningtitle{Pretraining Decision Transformers with Reward Prediction for Multi-task Bandit Learning}
+
+% WARNING: Authors must not appear in the submitted version. They should be hidden
+% as long as the rlj package is used without the [accepted] or [preprint] options.
+% Non-anonymous submissions will be rejected without review.
+
+% Enter the author names below. 
+% NOTE: Denote affiliations using superscripts as in the provided example.
+% NOTE: Use \textscript{1,2,3} instead of $^{1,2,3}$.
+%       - Failure to do so will cause affiliation superscripts to appear on the cover page for camera-ready and preprint versions.
+\author{Subhojyoti Mukherjee\textsuperscript{1,$\dagger$}, Josiah P.\ Hanna\textsuperscript{2}, Qiaomin Xie\textsuperscript{3}, Robert Nowak\textsuperscript{4}}
+
+% NOTE: For camera-ready and preprint versions, the cover page includes author names but not affiliations.
+% It automatically removes the superscripts for affiliations.
+% If the automatic process breaks (e.g., if an author name should include a superscript), you can manually define the author string to appear on the cover page by uncommenting the following line.
+%\coverPageAuthor{Marlos C. Machado, Philip S. Thomas, Lorem Ipsum}
+
+% Author emails, which can be clustered if they have shared endings as in this example
+\emails{subhomuk@adobe.com, \ \{jphanna,qiaomin.xie,rdnowak\}@wisc.edu}
+
+% Author affiliations, in the order the occur
+% The inclusion of state/province, etc. is optional.
+% The inclusion of multiple affiliations is optional.
+%   - List multiple affiliations with comma-separated numbers as in the example.
+\affiliations{
+$^{1}$\textbf{Adobe Research, San Jose, CA, USA}\\
+$^{2}$\textbf{Computer Sciences Department, University of Wisconsin -- Madison}\\
+$^{3}$\textbf{ISYE, University of Wisconsin -- Madison} \\
+$^{4}$\textbf{ECE Department, University of Wisconsin -- Madison} 
+% The following two lines are optional and can be commented out
+\par % If including additional comments like below, use \par to add some whitespace. 
+$^\dagger$ Work was done as a PhD candidate at the ECE Department, University of Wisconsin-Madison
+}
+
+\contribution{
+    % Contribution
+    We introduce a new pre-training and test time decision-making procedure that in-context learns the underlying reward structure for structured bandit settings, resulting in a near-optimal policy without access to privileged information even when training data comes from a sub-optimal demonstrator.  
+    % It also outperforms the demonstrator thereby showing emergent abilities where it identifies the reward structure of the test task and thereby an exploration strategy without actually being trained to do so.
+    }
+    {
+    % Caveat:
+    Previous works like \dpt\ \citep{lee2023supervised} required access to the optimal action per task, Algorithmic Distillation (\ad) could not outperform the demonstrator, other works need to know the structure to perform optimally.
+    }
+
+\contribution{
+    % Contribution
+    We show that our approach enables successful in-context learning across a diverse set of structured bandit settings where it matches the performance of existing algorithms that were developed with knowledge of the structure.
+    % Our algorithm that learns the reward structure is a general approach extending to many structured bandit settings where it outperforms existing algorithms.
+    }
+    % Caveat:
+    {
+    We evaluate our approach in linear,non-linear, bilinear, and latent bandit settings as well as bandit experiments based on real-life datasets and show that it lowers regret compared to \dpt\ and \ad\ while matching the near-optimal performance of specialized algorithms.
+    % We show that our proposed algorithm is able to learn the shared latent structure in linear, non-linear, real-life datasets, bilinear, and latent bandit settings. In contrast, \dpt,\ad, fail to reach a near-optimal policy, and other works need to know the structure to perform optimally in these settings. 
+    }
+
+\contribution{
+    % Contribution: 
+    We show that our algorithm leverages the latent structure and conducts a two-phase exploration to minimize regret. 
+    % When the structure breaks down no structure or exploration is learned.
+    }
+    {
+    % Context:
+    We analyze the exploration of the pretrained decision transformer in the simplified linear bandit setting where the optimal policy is well-understood. Previous works like \dpt\ do not study the exploration conducted by such transformer algorithms. We introduce new actions both at train and test time. Since new actions are not shared across tasks now, the transformer algorithm fails to learn the latent structure as we scale up the number of new actions, thus indicating that it is relying on a discovered underlying structure.
+    % When we systematically remove the shared structure across the tasks, no reward structure or exploration is learned. 
+    %
+    We observed in our experiments that our proposed algorithm implicitly conducts two-phase exploration, following the distribution of optimal action across training tasks and then switching to the most rewarding action for the task after observing a few in-context examples. 
+    }
+
+
+
+% Include a list of keywords for the topic of the paper:
+\keywords{Structured Bandit, Multi-task Learning, Decision Transformer} % Your keywords
+
+% Define the summary that appears on the cover page.
+\summary{We study learning to learn for the multi-task structured bandit problem where the goal is to learn a near-optimal algorithm that minimizes cumulative regret. The tasks share a common structure and an algorithm should exploit the shared structure to minimize the cumulative regret for an unseen but related test task. We use a transformer as a decision-making algorithm to learn this shared structure from data collected by a demonstrator on a set of training task instances. Our objective is to devise a training procedure such that the transformer will learn to outperform the demonstrator's learning algorithm on unseen test task instances. Prior work on pretraining decision transformers either requires privileged information like access to optimal arms or cannot outperform the demonstrator. Going beyond these approaches, we introduce a pre-training approach that trains a transformer network to learn a near-optimal policy in-context. This approach leverages the shared structure across tasks, does not require access to optimal actions, and can outperform the demonstrator. 
+%
+We validate these claims over a wide variety of structured bandit problems to show that our proposed solution is general and can quickly identify expected rewards on unseen test tasks to support effective exploration. 
+% Finally, we theoretically analyze the expected risk of the reward predictions of the trained transformer and obtain generalization bounds in the in-context multi-task learning setting.
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Begin document, create title and abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\makeCover  % Create the cover page
+\maketitle  % Make the title section
+
+\begin{abstract}
+We study learning to learn for the multi-task structured bandit problem where the goal is to learn a near-optimal algorithm that minimizes cumulative regret. The tasks share a common structure and an algorithm should exploit the shared structure to minimize the cumulative regret for an unseen but related test task. We use a transformer as a decision-making algorithm to learn this shared structure from data collected by a demonstrator on a set of training task instances. Our objective is to devise a training procedure such that the transformer will learn to outperform the demonstrator's learning algorithm on unseen test task instances. Prior work on pretraining decision transformers either requires privileged information like access to optimal arms or cannot outperform the demonstrator. Going beyond these approaches, we introduce a pre-training approach that trains a transformer network to learn a near-optimal policy in-context. This approach leverages the shared structure across tasks, does not require access to optimal actions, and can outperform the demonstrator. We validate these claims over a wide variety of structured bandit problems to show that our proposed solution is general and can quickly identify expected rewards on unseen test tasks to support effective exploration. 
+% In this paper, we study learning to learn multi-task structured bandit problem where the goal is to learn a near-optimal algorithm that minimizes cumulative regret on a new problem instance. The tasks share a common structure and any optimal algorithm should exploit the shared structure to minimize the cumulative regret for an unseen but related test task. We use a transformer as a decision-making algorithm to learn this shared structure so as to generalize to the unseen test task. Prior work on pretrained decision transformers like \dpt\ requires access to the optimal action during training, which may be unavailable in some scenarios. Diverging from these works, we introduce a learning algorithm that does not need knowledge of the optimal action per task during training but predicts a reward vector for each of the actions based on using only the observed offline data from the diverse training tasks. Finally, during inference time, it selects action using the reward predictions employing various exploration strategies in-context for an unseen test task. We show that our model outperforms other methods like \dpt, and Algorithmic Distillation (\ad) and matches the performance of algorithms that requires privileged information on the structure of the problem. Interestingly, we show that our algorithm, without the knowledge of the underlying problem structure, can learn a near-optimal policy in-context by leveraging the shared structure across diverse tasks. 
+% %
+% We show that when the shared structure breaks down with the introduction of new actions both during training and test time, our proposed algorithm fails to learn the underlying latent structure. 
+% % extend the field of pre-trained decision transformers by showing that they can leverage unseen tasks with new actions and still learn the underlying latent structure to derive a near-optimal policy. 
+% % 
+% We further show that our algorithm conducts an implicit two-phase exploration and validate all of these findings over several experiments spanning linear, non-linear, real-life datasets, bilinear, and latent bandit settings. 
+% % to show that our proposed solution is very general and has wide applications to potentially emergent online and offline strategies at test time. 
+% Finally, we theoretically analyze the performance of our algorithm and obtain generalization bounds in the in-context multi-task learning setting.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Section: Submission of papers to RLJ/RLC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{-0.5em}
+\section{Introduction}
+\vspace*{-0.5em}
+\label{sec:intro}
+\input{intro}
+
+
+% \vspace*{-1em}
+\section{Background}
+\label{sec:prelim}
+\input{prelim}
+
+% \vspace*{-1em}
+\section{The \pred Algorithm}
+\label{sec:algo}
+% \vspace*{-1em}
+\input{algo}
+
+\vspace*{-0.3em}
+\section{Empirical Study: Non-Linear Structure}
+\vspace*{-0.3em}
+\label{sec:short-horizon}
+\input{short_horizon}
+
+\vspace*{-0.5em}
+\section{Empirical Study: Linear Structure and Understanding \pred's Exploration}
+\label{sec:linear}
+\vspace*{-0.5em}
+\input{linear}
+% \label{sec:new-actions}
+% \input{new_arms}
+
+
+\vspace*{-0.5em}
+\section{Empirical Study: Importance of Shared Structure and Introducing New Actions}
+\label{sec:new-actions}
+\vspace*{-0.5em}
+\input{new_arms}
+
+\vspace*{-0.6em}
+\section{Data Collection Analysis}
+\label{sec:data-collection}
+\vspace*{-0.6em}
+\input{collection}
+
+\vspace*{-0.7em}
+\section{Theoretical Analysis of Generalization}
+\vspace*{-0.7em}
+\label{sec:theory}
+\input{theory_new}
+
+
+
+\vspace*{-1.0em}
+\section{Conclusions, Limitations and Future Works}
+\label{sec:conc}
+\vspace*{-0.7em}
+\input{conclusions}
+
+
+\bibliography{biblio}
+\bibliographystyle{rlj}
+
+\appendix
+\onecolumn
+\section{Appendix}
+\label{sec:appendix}
+\input{appendix}
+
+\end{document}

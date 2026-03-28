@@ -1,0 +1,369 @@
+\subsection{Scenario Prompts}
+\label{app_subsec: prompt}
+We provide a set of prompts that are used in each scenario. For Multi-Arm Bandit, we include the following prompts:
+\begin{enumerate}
+    \item MAB, Bernoulli Bandit, $K=5$, Raw History (\textbf{RH}), Video Action Description (Figure~\ref{fig:video_k5_rh}), Clothes Action Description (Figure~\ref{fig:clothing_k5_rh})
+    \item MAB, Bernoulli Bandit, $K=5$, \ag (\textbf{AG}), Clothes Action Description (Figure~\ref{fig:clothing_k5_sh_ag}), Video Action Description (Figure~\ref{fig:video_k5_sh_ag})
+    \item MAB, Gaussian Bandit, $K=5$, Raw History (\textbf{RH}), Video Action Description (Figure~\ref{fig:video_gaussian_k5_rh}), Clothes Action Description (Figure~\ref{fig:clothes_gaussian_k5_rh})
+\end{enumerate}
+
+For Contextual Bandit, we include the following prompts:
+\begin{enumerate}
+    \item CB, $K=10$, Raw History (\textbf{RH}) (Figure~\ref{fig:cb_movie_10_rh})
+    \item CB, $K=10$, Raw History (\textbf{RH}) with \ag (\textbf{AG}) (Prompt Part 1 Figure~\ref{fig:cb_movie_10_rh_ag_part1}, Prompt Part 2 Figure~\ref{fig:cb_movie_10_rh_ag_part2}).
+\end{enumerate}
+
+For \textbf{OFT}, we use the same prompt as shown in the figures above. The LLM generates the next action token conditioned on the entire prompt, and we compute the negative log-likelihood loss over the action tokens, with the action chosen by UCB/LinUCB algorithm.
+
+\subsection{Examples of few-shot demonstrations}
+\label{app_subsec: few_shot}
+% \ys{Allen, add things here!! How the things are sampled, and show some few-shot examples!}
+
+We provide examples of how few-shot prompt being used. We include few-shot demonstrations from optimal exploration trajectories before past interaction history (without the task description and instruction). We show two examples to illustrate that how few-shot demonstrations domain match with the evaluation domain:
+\begin{enumerate}
+    \item MAB, Benoulli Bandit, Video Action Description, $K=5$, Raw History (\textbf{RH}), with Few-shot Demonstrations from Video Action Description, $K=5$, Raw History (\textbf{RH}) (Figure~\ref{fig:fewshot_vid5_easy_rh_inf_rh})
+    \item MAB, Benoulli Bandit, Video Action Description, $K=5$, Raw History (\textbf{RH}), ith Few-shot Demonstrations from Clothes Action Description, $K=5$, Raw History (\textbf{RH}) (Figure~\ref{fig:fewshot_clothes5_easy_rh_inf_rh})
+\end{enumerate}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform. 
+    There are 5 videos available in your library, titled [A, B, AI, BS, E]. 
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences. 
+    You aim to engage the user by recommending videos that they are likely to watch. 
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions, 
+    enhancing user satisfaction and platform engagement.
+    
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 1
+    B video, reward 1
+    AI video, reward 1
+    BS video, reward 0
+    E video, reward 0
+    A video, reward 0
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, B, AI, BS, E AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Video Action Description, $K=5$, Raw History.}
+    \label{fig:video_k5_rh}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are an AI fashion assistant for an online boutique powered by a bandit algorithm that offers a variety of clothing options from different brands. 
+    There are 5 unique clothing items you can recommend, named [Midnight Mirage Trousers, Opulent Oasis Overcoat, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer]. 
+    When a customer visits the online store, you assess their style preferences and shopping history to choose an item to suggest. 
+    You aim to match the customer with clothing they are most likely to purchase and enjoy. 
+    Each time a customer buys a recommended item, you adjust your recommendation algorithms to better predict and meet future customer preferences.
+    
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the clothing brands and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    
+    So far you have played 6 times with the following choices and rewards:
+    Midnight Mirage Trousers item, reward 0
+    Opulent Oasis Overcoat item, reward 1
+    Infinite Impeccable Jacket item, reward 1
+    Supreme Spectrum Slippers item, reward 0
+    Bejeweled Bloom Blazer item, reward 0
+    Opulent Oasis Overcoat item, reward 1
+    
+    Which item will you choose next? PLEASE RESPOND ONLY WITH Midnight Mirage Trousers, Opulent Oasis Overcoat, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Clothing Action Description, $K=5$, Raw History.}
+    \label{fig:clothing_k5_rh}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are an AI fashion assistant for an online boutique that offers a variety of clothing options from different brands. 
+    There are 5 unique clothing items you can recommend, named
+    Stellar Sheen Shawl,
+    Faithful Fantasy Frock,
+    Supreme Sylvan Sandals,
+    Bespoke Bliss Blouse item,
+    Silk Spectrum Slip 
+    When a customer visits the online store, you assess their style preferences and shopping history to choose an item to suggest. 
+    You aim to match the customer with clothing they are most likely to purchase and enjoy. 
+    Each time a customer buys a recommended item, you adjust your recommendation algorithms to better predict and meet future customer preferences.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the clothing brands and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 4 times with the following choices and rewards:
+    Stellar Sheen Shawl item, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Faithful Fantasy Frock item, 1 time, avg reward 1, exploration bonus 1.00, exploitation value 1.00
+    Supreme Sylvan Sandals item, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Bespoke Bliss Blouse item, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Silk Spectrum Slip item, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Which clothes item will you choose next?
+    Action: 
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Bernoulli, Clothing Action Description, $K=5$, Algorithmic Guide.}
+    \label{fig:clothing_k5_sh_ag}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform. 
+    There are 5 videos available in your library, titled
+    AA
+    BS
+    BW
+    CQ
+    CP 
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences. 
+    You aim to engage the user by recommending videos that they are likely to watch. 
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions, enhancing user satisfaction and platform engagement.
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    So far you have played 4 times with the following choices and rewards:
+    AA video, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    BS video, 1 time, avg reward 1, exploration bonus 1.00, exploitation value 1.00
+    BW video, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    CQ video, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    CP video, 1 time, avg reward 0, exploration bonus 1.00, exploitation value 0.00
+    Which video will you choose next?
+    Action: 
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Beroulli, Video Action Description, $K=5$, Algorithmic Guide.}
+    \label{fig:video_k5_sh_ag}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are a video recommendation system powered by a bandit algorithm for an online streaming platform. 
+    There are 5 videos available in your library, titled [A, CX, AF, AQ, S]. 
+    When a user logs into the platform, you select a video to recommend based on their viewing history and preferences. 
+    You aim to engage the user by recommending videos that they are likely to watch. 
+    Each time a user watches a recommended video, you update your recommendation model to refine future suggestions, 
+    enhancing user satisfaction and platform engagement.
+    
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the videos and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    
+    So far you have played 6 times with the following choices and rewards:
+    A video, reward 2.0205556227286694
+    CX video, reward 5.046038662976072
+    AF video, reward -4.043037070451992
+    AQ video, reward 5.937910707405409
+    S video, reward -4.856036829535051
+    AQ video, reward 6.2468398842187405
+    
+    Which video will you choose next? PLEASE RESPOND ONLY WITH A, CX, AF, AQ, S AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Gaussian, Video Action Description, $K=5$, Raw History.}
+    \label{fig:video_gaussian_k5_rh}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+    You are an AI fashion assistant for an online boutique powered by a bandit algorithm that offers a variety of clothing options from different brands. 
+    There are 5 unique clothing items you can recommend, named [Midnight Mirage Trousers, Dapper Dreams Denim, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer]. 
+    When a customer visits the online store, you assess their style preferences and shopping history to choose an item to suggest. 
+    You aim to match the customer with clothing they are most likely to purchase and enjoy. 
+    Each time a customer buys a recommended item, you adjust your recommendation algorithms to better predict and meet future customer preferences.
+    
+    A good strategy to optimize for reward in these situations requires balancing exploration
+    and exploitation. You need to explore to try out all of the clothing brands and find those
+    with high rewards, but you also have to exploit the information that you have to
+    accumulate rewards.
+    
+    So far you have played 6 times with the following choices and rewards:
+    Midnight Mirage Trousers item, reward -3.701605707528312
+    Dapper Dreams Denim item, reward 1.4965799995904072
+    Infinite Impeccable Jacket item, reward 4.576557137862691
+    Supreme Spectrum Slippers item, reward -0.32883145604929176
+    Bejeweled Bloom Blazer item, reward 1.5907554114707747
+    Infinite Impeccable Jacket item, reward 6.534020380965033
+    
+    Which item will you choose next? PLEASE RESPOND ONLY WITH Midnight Mirage Trousers, Dapper Dreams Denim, Infinite Impeccable Jacket, Supreme Spectrum Slippers, Bejeweled Bloom Blazer AND NO TEXT EXPLANATION.
+    \end{lstlisting}
+    \caption{Multi-Arm Bandit: Gaussian, Clothes Action Description, $K=5$, Raw History.}
+    \label{fig:clothes_gaussian_k5_rh}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+You are an AI movie recommendation assistant for a streaming platform powered by a bandit algorithm that offers a wide variety of films from different studios and genres.
+There are 10 unique movies you can recommend, named 
+American Beauty (1999) (Comedy|Drama),
+Star Wars: Episode IV - A New Hope (1977) (Action|Adventure|Fantasy|Sci-Fi),
+Star Wars: Episode V - The Empire Strikes Back (1980) (Action|Adventure|Drama|Sci-Fi|War),
+Star Wars: Episode VI - Return of the Jedi (1983) (Action|Adventure|Romance|Sci-Fi|War),
+Jurassic Park (1993) (Action|Adventure|Sci-Fi),
+Saving Private Ryan (1998) (Action|Drama|War),
+Terminator 2: Judgment Day (1991) (Action|Sci-Fi|Thriller),
+The Matrix (1999) (Action|Sci-Fi|Thriller),
+Back to the Future (1985) (Comedy|Sci-Fi),
+The Silence of the Lambs (1991) (Drama|Thriller)
+
+When a user visits the streaming platform, you assess their demographic description to choose a movie to suggest.
+You aim to match the user with movies they are most likely to watch and enjoy.
+Each time a user watches a recommended movie, you adjust your recommendation algorithms to better predict and meet future user preferences.
+Your goal is to enhance the user's viewing experience by providing personalized and engaging movie suggestions.
+
+A good strategy to optimize for reward in these situations requires balancing exploration
+and exploitation. You need to explore to try out different movies and find those
+with high rewards, but you also have to exploit the information that you have to
+accumulate rewards.
+
+So far you have interacted 4 times with the most recent following choices and rewards:
+Context: a person who is a 18-year-old man with an occupation of college/grad student and live in Pulaski county, AR. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.011492758058011532, 0.027099572122097015, -0.020118921995162964, -0.002230832353234291, -0.003236030228435993].
+Action: Saving Private Ryan (1998)
+Reward: 4.735634 out of 5
+
+Context: a person who is a 25-year-old man with an occupation of sales/marketing and live in Solano county, CA. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.00312434253282845, 0.0017211971571668983, 0.0015880014980211854, 0.012064018286764622, 0.009061760269105434].
+Action: Jurassic Park (1993)
+Reward: 0 out of 5
+
+Context: a person who is a 56-year-old man with an occupation of sales/marketing and live in Jefferson county, KY. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009686884470283985, 0.028794225305318832, -0.011435767635703087, 0.006439171731472015, -0.010343835689127445].
+Action: Saving Private Ryan (1998)
+Reward: 5 out of 5
+
+Context: a person who is a 25-year-old man with an occupation of executive/managerial and live in Washington county, DC. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.010095382109284401, 0.010144174098968506, -0.01811344549059868, -0.009553882293403149, -0.012143188156187534].
+Action: Saving Private Ryan (1998)
+Reward: 3.953174 out of 5
+
+
+You have a new user: PLEASE RESPOND ONLY WITH A CHOICE of MOVIES LISTED ABOVE AND NO TEXT EXPLANATION.
+
+Context: This person is a 35-year-old man, working as a lawyer and live in Camden county, NJ. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009149148128926754, -0.00417252816259861, 0.011747784912586212, -0.012008273974061012, -0.006486567202955484].
+Action: 
+    \end{lstlisting}
+    \caption{Contextual Bandit: Movie Recommendation for movies, Raw History.}
+    \label{fig:cb_movie_10_rh}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+You are an AI movie recommendation assistant for a streaming platform powered by a bandit algorithm that offers a wide variety of films from different studios and genres.
+There are 10 unique movies you can recommend, named 
+American Beauty (1999) (Comedy|Drama),
+Star Wars: Episode IV - A New Hope (1977) (Action|Adventure|Fantasy|Sci-Fi),
+Star Wars: Episode V - The Empire Strikes Back (1980) (Action|Adventure|Drama|Sci-Fi|War),
+Star Wars: Episode VI - Return of the Jedi (1983) (Action|Adventure|Romance|Sci-Fi|War),
+Jurassic Park (1993) (Action|Adventure|Sci-Fi),
+Saving Private Ryan (1998) (Action|Drama|War),
+Terminator 2: Judgment Day (1991) (Action|Sci-Fi|Thriller),
+The Matrix (1999) (Action|Sci-Fi|Thriller),
+Back to the Future (1985) (Comedy|Sci-Fi),
+The Silence of the Lambs (1991) (Drama|Thriller)
+
+When a user visits the streaming platform, you assess their demographic description to choose a movie to suggest.
+You aim to match the user with movies they are most likely to watch and enjoy.
+Each time a user watches a recommended movie, you adjust your recommendation algorithms to better predict and meet future user preferences.
+Your goal is to enhance the user's viewing experience by providing personalized and engaging movie suggestions.
+
+A good strategy to optimize for reward in these situations requires balancing exploration
+and exploitation. You need to explore to try out different movies and find those
+with high rewards, but you also have to exploit the information that you have to
+accumulate rewards.
+
+So far you have interacted 2 times with the most recent following choices and rewards:
+Context: a person who is a 18-year-old man with an occupation of college/grad student and live in Pulaski county, AR. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.011492758058011532, 0.027099572122097015, -0.020118921995162964, -0.002230832353234291, -0.003236030228435993].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.018}, {"exploitation value":0.000}}
+Action: The Silence of the Lambs (1991)
+Reward: 4.121133 out of 5
+
+Context: a person who is a 25-year-old man with an occupation of sales/marketing and live in Solano county, CA. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.00312434253282845, 0.0017211971571668983, 0.0015880014980211854, 0.012064018286764622, 0.009061760269105434].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.008}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.008}, {"exploitation value":-0.000}}
+Action: American Beauty (1999)
+Reward: 0 out of 5
+    \end{lstlisting}
+    \caption{Contextual Bandit: Movie Recommendation for 10 movies, with \ag (Part 1)}
+    \label{fig:cb_movie_10_rh_ag_part1}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{lstlisting}[escapechar=!]
+Context: a person who is a 56-year-old man with an occupation of sales/marketing and live in Jefferson county, KY. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009686884470283985, 0.028794225305318832, -0.011435767635703087, 0.006439171731472015, -0.010343835689127445].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.017}, {"exploitation value":-0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.017}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.017}, {"exploitation value":0.005}}
+Action: The Silence of the Lambs (1991)
+Reward: 3.9708314 out of 5
+
+Context: a person who is a 25-year-old man with an occupation of executive/managerial and live in Washington county, DC. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.010095382109284401, 0.010144174098968506, -0.01811344549059868, -0.009553882293403149, -0.012143188156187534].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.014}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.014}, {"exploitation value":0.006}}
+Action: The Silence of the Lambs (1991)
+Reward: 1.0985798 out of 5
+
+
+You have a new user: PLEASE RESPOND ONLY WITH A CHOICE of MOVIES LISTED ABOVE AND NO TEXT EXPLANATION.
+
+Context: This person is a 35-year-old man, working as a lawyer and live in Camden county, NJ. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.009149148128926754, -0.00417252816259861, 0.011747784912586212, -0.012008273974061012, -0.006486567202955484].
+Side Information for decision making:
+{"American Beauty (1999)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Star Wars: Episode IV - A New Hope (1977)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Star Wars: Episode V - The Empire Strikes Back (1980)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Star Wars: Episode VI - Return of the Jedi (1983)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Jurassic Park (1993)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Saving Private Ryan (1998)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Terminator 2: Judgment Day (1991)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"The Matrix (1999)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"Back to the Future (1985)": {"exploration value": 0.010}, {"exploitation value":0.000}}
+{"The Silence of the Lambs (1991)": {"exploration value": 0.010}, {"exploitation value":-0.001}}
+Action: 
+    \end{lstlisting}
+    \caption{Contextual Bandit: Movie Recommendation for 10 movies, with \ag (Part 2)}
+    \label{fig:cb_movie_10_rh_ag_part2}
+\end{figure}

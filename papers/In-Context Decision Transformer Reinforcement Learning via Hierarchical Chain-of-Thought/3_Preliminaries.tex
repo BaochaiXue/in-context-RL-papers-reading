@@ -1,0 +1,16 @@
+\section{Preliminaries}
+
+\noindent\textbf{Partially Observable Markov Decision Process.}~~
+We consider learning problems in the context of Partially Observable Markov Decision Processes (POMDP) represented by the tuple $\mathcal{M}=(\mathcal{S,O,A},P, \mathcal{R})$. The POMDP tuple consist of states $s\in \mathcal{S} $, observations $o\in \mathcal{O} $, actions $a\in \mathcal{A} $, rewards $r\in \mathcal{R} $, and transition probability function $P (s_{t+1}|s_t,a_t)$, where $t$ is an integer denoting the timestep. In environments described by a POMDP, at each timestep $t$ the agent receives the observation $o_t$, selects an action $a_t \sim \pi(\cdot|o_t)$ from its policy, and then receives the next observation $o_{t+1}$. A trajectory is a sequence of observations, actions, and rewards and is denoted by $\tau=(o_0,a_0,r_0,\dots,o_T,a_T,r_T)$. The return of a trajectory at timestep $t$, $R_t = \sum_{t'=t}^Tr_t'$, is calculated as the sum of future rewards from that timestep.
+In addition, a completion token $d_t$, a binary identifier, is used to indicate whether a trajectory ends at time $t$.
+
+\noindent\textbf{Hierarchical Reinforcement Learning.}~~
+RL algorithms aim to maximize the expected return $\mathrm{E}[\sum_{t=0}^Tr_t]$ throughout an agent's lifetime or training episodes. In long-horizon tasks, standard RL methods suffer from poor performance due to the exponentially growing exploration space. Hierarchical RL decomposes the long-horizon task into subproblems or subtasks such that a high-level policy learns to perform the task by choosing optimal subtasks as the high-level decisions \cite{18}. High-level decisions can be designed as discrete or continuous forms. The discrete form can select multiple independent low-level policy models \cite{19}, while the continuous form usually serves as additional conditions to control a general low-level policy model \cite{10}. Since the transformer-based policy is a conditional generative model, it is naturally adapted to high-level decisions in the continuous form, such as the return-to-go condition in the decision transformer \cite{2}. In this work, we use a vector $\textbf{z}$ to represent high-level decisions and assume that it is sampled from a multivariate Gaussian distribution.
+
+\noindent\textbf{Transformers.}~~
+The Transformer \cite{4} architecture consists of multiple layers of self-attention operation and MLP. The self-attention begins by projecting input data $X$ with three separate matrices onto $D$-dimensional vectors called queries $Q$, keys $K$, and values $V$. These vectors are then passed through the attention function:
+\begin{equation}
+    \mathrm{Attention}(Q,K,V)=\mathrm{softmax}(QK^T/\sqrt{D})V.
+\label{self-attention}
+\end{equation}
+The $QK^T$ term computes an inner product between two projections of the input data $X$. The inner product is then normalized and projected back to a $D$-dimensional vector with the scaling term $V$. Transformers utilize self-attention as a core part of the architecture to process sequential data \cite{22,21}. In this work, we use GPT \cite{23} architecture that modifies the transformer with a causal self-attention mask to focus on the previous tokens in the sequence ($j\in[1,i]$), enabling us to do autoregressive generation at test time.

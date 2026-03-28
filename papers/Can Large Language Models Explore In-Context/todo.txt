@@ -1,0 +1,10 @@
+-- Appendix with baseline algorithm pseudocode and parameter settings
+-- Update Fig 2 with ``scenario'' and make arrows bigger
+-- Add some anecdotal evidence from the logs
+
+
+Todo July 9
+DONE Make sure to cite Kaiqing Zhang's paper
+-- Check for other concurrent works
+DONE Cite: Using cognitive psychology to understand GPT-3 (2023)
+IGNORE Cite: Meta-in-context learning in large language models (2023)

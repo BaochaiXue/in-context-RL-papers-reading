@@ -1,0 +1,67 @@
+…
+
+𝑎𝑡
+
+𝑎𝑡+𝑐−1
+
+linear layer
+
+Generating actions by transformer
+valuable
+𝑠
+sub-goals 𝑖
+
+offline
+training
+
+𝑧𝑡
+
+𝑠𝑡
+
+…
+𝑎𝑡
+
+𝑟𝑡
+
+𝑧𝑡
+
+𝑡
+
+𝑡+𝑐
+
+𝑠𝑡+𝑐−1 𝑎𝑡+𝑐−1 𝑟𝑡+𝑐−1
+
+Generating sub-goals from long-term experience by mamba
+
+…
+
+offline training
+and
+online testing
+
+…
+
+…
+𝑠𝑡
+
+𝑟^𝑡
+
+𝑑𝑡
+
+previous episodes
+
+𝑠𝑡
+
+𝑟^𝑡
+
+^
+𝑑𝑡+𝑐
+𝑑𝑡 𝑠𝑡+𝑐 𝑟𝑡+𝑐
+
+current episode
+
+𝑠𝑖
+
+…
+
+

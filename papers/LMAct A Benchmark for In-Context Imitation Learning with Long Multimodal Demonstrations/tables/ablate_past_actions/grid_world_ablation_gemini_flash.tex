@@ -1,0 +1,41 @@
+\begin{tabular}{@{}lllllr@{}}
+    \toprule
+    \textbf{Model}                          & \textbf{Observation}              & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Past Actions} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{28}{*}{Gemini 1.5 Flash}   & \multirow[c]{9}{*}{ASCII}         & \multirow[c]{4}{*}{False} & \multirow[c]{2}{*}{False} & False                 & 0.07 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.09} \\
+    \cmidrule{4-6}                  
+                                            &                                   &                           & \multirow[c]{2}{*}{True}  & \textbf{False}        & \textbf{0.12} \\
+                                            &                                   &                           &                           & True                  & 0.08 \\
+    \cmidrule{3-6}                  
+                                            &                                   & \multirow[c]{4}{*}{True}  & \multirow[c]{2}{*}{False} & False                 & 0.09 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.11} \\
+    \cmidrule{4-6}                  
+                                            &                                   &                           & \multirow[c]{2}{*}{True}  & False                 & 0.10 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.15} \\
+    \cmidrule{2-6}              
+                                            & \multirow[c]{9}{*}{Coordinates}   & \multirow[c]{4}{*}{False} & \multirow[c]{2}{*}{False} & False                 & 0.08 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.21} \\
+    \cmidrule{4-6}                  
+                                            &                                   &                           & \multirow[c]{2}{*}{True}  & False                 & 0.07 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.10} \\
+    \cmidrule{3-6}                  
+                                            &                                   & \multirow[c]{4}{*}{True}  & \multirow[c]{2}{*}{False} & False                 & 0.10 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.14} \\
+    \cmidrule{4-6}                  
+                                            &                                   &                           & \multirow[c]{2}{*}{True}  & \textbf{False}        & \textbf{0.08} \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.08} \\
+    \cmidrule{2-6}                  
+                                            & \multirow[c]{9}{*}{RGB}           & \multirow[c]{4}{*}{False} & \multirow[c]{2}{*}{False} & False                 & 0.11 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.16} \\
+    \cmidrule{4-6}                  
+                                            &                                   &                           & \multirow[c]{2}{*}{True}  & False                 & 0.08 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.12} \\
+    \cmidrule{3-6}                  
+                                            &                                   & \multirow[c]{4}{*}{True}  & \multirow[c]{2}{*}{False} & False                 & 0.10 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.14} \\
+    \cmidrule{4-6}                  
+                                            &                                   &                           & \multirow[c]{2}{*}{True}  & False                 & 0.09 \\
+                                            &                                   &                           &                           & \textbf{True}         & \textbf{0.12} \\
+   \bottomrule
+\end{tabular}

@@ -1,0 +1,99 @@
+topic: in-context-rl
+claim_family: evaluation
+claims:
+  - claim_id: icrl-eval-001
+    statement: "The local evaluation landscape is still dominated by bandits, grid worlds, DarkRoom-like tasks, and procedurally generated benchmarks, with comparatively fewer embodied or irreversible decision settings."
+    type: inference
+    support_note_files:
+      - notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+      - notes/papers/can-large-language-models-explore-in-context.md
+      - notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+      - notes/papers/xland-100b-a-large-scale-multi-task-dataset-for-in-context-reinforcement-learning.md
+      - notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+    evidence_anchors:
+      - note_file: notes/papers/in-context-reinforcement-learning-with-algorithm-distillation.md
+        anchors: [Environments, Evaluation]
+      - note_file: notes/papers/can-large-language-models-explore-in-context.md
+        anchors: [Experimental setup, Experimental results]
+      - note_file: notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+        anchors: [Environments and Datasets, Evaluation]
+      - note_file: notes/papers/xland-100b-a-large-scale-multi-task-dataset-for-in-context-reinforcement-learning.md
+        anchors: [Data Evaluation, Experiments, Limitations and Future Work]
+      - note_file: notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+        anchors: [task: Task, Darkroom and Miniworld, Conclusion and Limitations]
+    confidence: 0.83
+    downstream_use_candidates: [benchmark-selection, reviewer-response, evaluation-gap]
+
+  - claim_id: icrl-eval-002
+    statement: "Return, regret, success rate, and similar scalar metrics dominate the local corpus, while calibration, abstention, intervention sensitivity, and recovery metrics appear much less often."
+    type: inference
+    support_note_files:
+      - notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+      - notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+      - notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+      - notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+    evidence_anchors:
+      - note_file: notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+        anchors: [BanditBench, Results and Ablation studies]
+      - note_file: notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+        anchors: [Evaluation, Overall performance, Various Coverage]
+      - note_file: notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+        anchors: [Experiments, Ablation Studies]
+      - note_file: notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+        anchors: [Adaptation metric, Test scores, Probe tasks]
+    confidence: 0.72
+    downstream_use_candidates: [metric-design, proposal-eval-section, red-team-checklist]
+
+  - claim_id: icrl-eval-003
+    statement: "Long multimodal demonstrations and long textual histories do not reliably translate into competent policy execution in the local LLM-related evaluations."
+    type: evidence
+    support_note_files:
+      - notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+      - notes/papers/can-large-language-models-explore-in-context.md
+      - notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+    evidence_anchors:
+      - note_file: notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+        anchors: [In-Context Imitation Learning, Results, Discussion & Related Work]
+      - note_file: notes/papers/can-large-language-models-explore-in-context.md
+        anchors: [Experimental results, Identifying failures, Root causes]
+      - note_file: notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+        anchors: [Empirical Evaluations, Results and Ablation studies]
+    confidence: 0.91
+    downstream_use_candidates: [benchmark-choice, multimodal-caveat, proposal-motivation]
+
+  - claim_id: icrl-eval-004
+    statement: "Negative evidence, poor data coverage, and OOD shifts recur as explicit failure regimes across both LLM-style and offline ICRL evaluations."
+    type: inference
+    support_note_files:
+      - notes/papers/can-large-language-models-explore-in-context.md
+      - notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+      - notes/papers/random-policy-enables-in-context-reinforcement-learning-within-trust-horizons.md
+      - notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+    evidence_anchors:
+      - note_file: notes/papers/can-large-language-models-explore-in-context.md
+        anchors: [Identifying failures, Root causes, Discussion and open questions]
+      - note_file: notes/papers/evolve-evaluating-and-optimizing-llms-for-exploration.md
+        anchors: [Functional Interpretation of LLM Exploration Behavior, Results and Ablation studies]
+      - note_file: notes/papers/random-policy-enables-in-context-reinforcement-learning-within-trust-horizons.md
+        anchors: [Trustworthiness of the Random Policy, Numerical Results]
+      - note_file: notes/papers/yes-q-learning-helps-offline-in-context-rl.md
+        anchors: [Various Coverage, Absence of the Learning History Structure, Additional Experiments with Mixture of Dynamics]
+    confidence: 0.89
+    downstream_use_candidates: [failure-taxonomy, stress-testing, risk-section]
+
+  - claim_id: icrl-eval-005
+    statement: "Embodied and non-stationary evaluations in the local corpus demand unusually large training diversity or memory length to avoid trivial memorization."
+    type: inference
+    support_note_files:
+      - notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+      - notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+      - notes/papers/omnirl-in-context-reinforcement-learning-by-large-scale-meta-training-in-randomized-worlds.md
+    evidence_anchors:
+      - note_file: notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+        anchors: [In-Context Learning on task, Training with 64k Context Length, Conclusion and Limitations]
+      - note_file: notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+        anchors: [Scaling the memory length, Scaling the size of the task pool, Distillation improves performance]
+      - note_file: notes/papers/omnirl-in-context-reinforcement-learning-by-large-scale-meta-training-in-randomized-worlds.md
+        anchors: [Demonstration of Generalization and Scalability, Emergence of General-Purpose ICRL by Increasing Task Number]
+    confidence: 0.78
+    downstream_use_candidates: [resource-planning, evaluation-scope, benchmark-selection]

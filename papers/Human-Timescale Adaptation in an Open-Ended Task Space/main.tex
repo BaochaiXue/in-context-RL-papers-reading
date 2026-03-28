@@ -1,0 +1,260 @@
+\documentclass[11pt, a4paper, logo, copyright]{deepmind}
+
+\usepackage[authoryear, sort&compress, round]{natbib}
+\usepackage{subcaption}[skip=-10pt]
+\usepackage{svg}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{cleveref} 
+\usepackage{chngcntr}
+\usepackage{multirow} 
+\usepackage{array}
+
+\captionsetup[subfigure]{justification=centering}
+\input{math_commands.tex}
+
+\bibliographystyle{abbrvnat}
+
+\title{Human-Timescale Adaptation in an Open-Ended Task Space}
+
+\correspondingauthor{Feryal Behbahani (\href{mailto:feryal@deepmind.com}{feryal@deepmind.com}) and Edward Hughes (\href{mailto:edwardhughes@deepmind.com}{edwardhughes@deepmind.com}).\linebreak 
+}
+
+\reportnumber{001} 
+
+\renewcommand{\today}{}
+
+\author[1]{\hyperref[sec:authors]{Adaptive Agents Team}}
+\affil[1]{DeepMind}
+
+\input{sections/abstract}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+  \includegraphics[width=1\textwidth]{figures/adaptation_cartoon.pdf}
+  \captionof{figure}{\textbf{Human timescale adaptation.} Example trajectories of our agent (AdA) solving a held-out task in a complex
+  3D environment within minutes of test-time experience without any further agent training. Initial trials (\textbf{Exploration}) show a policy that uncovers hidden environment dynamics. After just seconds of test-time experience (\textbf{Success}), AdA finds a valid solution to the task. Later (\textbf{Refinement}), it improves this solution, gradually finding a more rewarding behaviour. The solid white lines show agent movement. The dashed coloured lines show the agent carrying an object of the corresponding colour. For a full description of the task, see Figure \ref{fig:wrong-pair-disappears-explained}. Videos of AdA's behaviour are available on our \href{http://sites.google.com/view/adaptive-agent/}{microsite} and accompanying \href{https://youtu.be/U93bUQ1roiw}{results reel}.}
+  \label{fig:intro-pyramid-in-a-haystack-explained}
+\end{center}
+
+
+\input{sections/introduction}
+
+\section{Adaptive Agent (AdA)} 
+To achieve human timescale adaptation across a vast and diverse task space, we propose a general and scalable approach for memory-based meta-RL, producing an \textit{Adaptive Agent} (AdA). We train and test AdA in XLand 2.0, an environment supporting procedural generation of diverse 3D worlds and multi-player games, with rich dynamics that necessitate adaptation. Our training method combines three key components: a curriculum to guide the agent's learning, a model-based RL algorithm to train agents with large-scale attention-based memory, and distillation to enable scaling. An overview of our approach is shown in Figure \ref{fig:method_overview}. In the following sections, we describe each component and how it contributes to efficient few-shot adaptation.
+
+\input{sections/methods_env}
+\input{sections/methods_intro}
+\input{sections/methods_curriculum}
+\input{sections/methods_rl}
+
+\input{sections/results_intro}
+\input{sections/results_adaptation}
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/architecture_comparison.pdf}
+        \vskip -3pt  \caption{Impact of architecture}
+        \label{fig:architecture_comparison}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.47\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{figures/curriculum/curricula_performance.pdf}
+         \vskip -3pt \caption{Impact of curriculum}
+         \label{fig:curricula_performance}
+     \end{subfigure}
+    
+    \caption{
+         \textbf{(a)} Adaptation over increasing numbers of trials for different choices of architectures. Incorporating attention modules is essential to achieve adaptation, with Transformer-XL architectures performing best. \textbf{(b)} Adaptation over increasing numbers of trials for different choices of curricula. No-op filtering and PLR greatly improve both zero-shot generalisation and few-shot adaptation over the uniform sampling baseline.
+    }
+\end{figure}
+
+\input{sections/results_architecture}
+\input{sections/results_curriculum}
+\input{sections/results_scaling_transformer}
+
+\input{sections/results_scaling_tasks}
+
+\input{sections/results_distillation}
+\input{sections/results_many_shots}
+\input{sections/prompting}
+\input{sections/related_work}
+\input{sections/discussion}
+
+\section{Authors and Contributions}
+\label{sec:authors}
+
+We list authors alphabetically by last name. Please direct all correspondence to Feryal Behbahani (\href{mailto:feryal@deepmind.com}{feryal@deepmind.com}) and Edward Hughes (\href{mailto:edwardhughes@deepmind.com}{edwardhughes@deepmind.com}). 
+
+\subsection{Core contributors}
+
+\begin{itemize}
+    \item \textbf{Jakob Bauer}: technical leadership, curriculum research, infrastructure engineering, task authoring, paper writing
+    \item \textbf{Kate Baumli}: agent research, scaling, agent analysis, task authoring, paper writing
+    \item \textbf{Feryal Behbahani}: research vision, team leadership, agent research, paper writing
+    \item \textbf{Avishkar Bhoopchand}: technical leadership, evaluation research, infrastructure engineering, task authoring, paper writing
+    \item \textbf{Michael Chang}: visualisation, agent analysis, human experiments
+    \item \textbf{Adrian Collister}: XLand development, human experiments
+    \item \textbf{Edward Hughes}: research vision, team leadership, evaluation research, paper writing
+    \item \textbf{Sheleem Kashem}: infrastructure engineering, curriculum research, human experiments 
+    \item \textbf{Jack Parker-Holder}: curriculum research, paper writing
+    \item \textbf{Yannick Schroecker}: agent research, scaling, task authoring, agent analysis, paper writing
+    \item \textbf{Jakub Sygnowski}: infrastructure engineering, curriculum research, agent analysis, paper writing
+    \item \textbf{Alexander Zacherl}: design leadership, agent analysis, task authoring, visualisation, human experiments
+    \item \textbf{Lei Zhang}: curriculum research, agent analysis, paper writing
+\end{itemize}
+
+\subsection{Partial contributors}
+
+\begin{itemize}
+    \item \textbf{Nathalie Bradley-Schmieg}: project management
+    \item \textbf{Natalie Clay}: QA testing, human experiments
+    \item \textbf{Vibhavari Dasagi}: evaluation research
+    \item \textbf{Lucy Gonzalez}: project management
+    \item \textbf{Karol Gregor}: agent research
+    \item \textbf{Maria Loks-Thompson}: XLand development, human experiments
+    \item \textbf{Hannah Openshaw}: project management
+    \item \textbf{Shreya Pathak}: agent analysis
+    \item \textbf{Nicolas Perez-Nieves}: agent analysis, task authoring
+    \item \textbf{Nemanja Rakicevic}: curriculum research, agent analysis
+    \item \textbf{Tim Rockt\"aschel}: strategic advice, paper writing
+    \item \textbf{Sarah York}: QA testing, human experiments
+\end{itemize}
+
+\subsection{Sponsors}
+
+\begin{itemize}
+    \item \textbf{Satinder Baveja}: strategic advice
+    \item \textbf{Karl Tuyls}: strategic advice
+\end{itemize}
+
+\input{sections/acknowledgements}
+
+\bibliography{main}
+
+\newpage
+\begin{appendix}
+
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+\section*{Appendix}
+
+
+\section{Environment Details}
+\input{appendix/environment_appendix}
+\input{sections/methods_evaluation}
+
+\section{Agent Details}
+Here we provide technical details of our agent architecture, observation and action specifications. 
+
+\input{appendix/architecture}
+\input{appendix/observations}
+
+\section{Training Details}
+\label{app:training-details}
+\subsection{Meta-RL}\label{appendix:metarl}
+
+AdA is trained with a meta-RL setup, in which episodes of experience for the agent comprise multiple trials of interaction with the task environment, where the task is reset on trial boundaries. In this setting, it is known that the agent's policy can converge to Bayes-optimal behaviour, experimenting on-the-fly to reduce its epistemic uncertainty, and reusing discovered information to achieve goals increasingly efficiently. It is important that the agent's memory is not reset at trial boundaries, but only at episode boundaries. Similarly, the agent trains with a fixed discount factor $\gamma \neq 0$ throughout the episode, including on trial boundaries. For training, we sample $(m, k)$ pairs according to a factorised distribution $(\rho_{\mathcal{M}}, \rho_K)$, the parameters of which are controlled by an automatic curriculum (Section \ref{sec:methods_auto_curriculum}). The MDPs $m$ are all drawn from a procedurally generated domain $\mathcal{M}$, called XLand (Section \ref{sec:methods_xverse}). We choose as our space of trials $K = \{1,2, \dots 6\}$, and provide our agent with $k$ as a conditioning input. After training, our agent is capable of few-shot adaptation across a wide-range of MDPs, including in held-out $m \in \mathcal{M}$ on which $\rho_{\mathcal{M}}$ puts no probability mass, and when $k > 6$.
+
+\input{appendix/training_details}
+\newpage
+\section{Additional Experiments}
+
+\input{appendix/ma_appendix}
+\input{sections/results_conditioning}
+\input{appendix/results_scaling_task_complexity}
+\input{appendix/computational_cost}
+\input{appendix/repeated_distillation}
+
+\section{Human-Timescale Adaptation}\label{appendix:human_scale_adaptation}
+In this section we provide more details regarding our claim of human-timescale adaptation.
+
+\subsection{Probe tasks}\label{appendix:probe_tasks}
+
+Tables \ref{probe-task-desc-single-agent} and \ref{probe-task-desc-multi-agent} describe in detail the single-agent and multi-agent probe tasks respectively. Unless noted otherwise, all probe tasks are set in complex worlds with many objects in them, and use multiple production rules, which are fully hidden from the players.
+
+\renewcommand*{\arraystretch}{1.4}
+\begin{longtable}{|>{\raggedright}p{4cm}|p{12cm}|}
+\caption{Single-agent probe tasks}
+    \label{probe-task-desc-single-agent}
+    \\ \hline
+\textbf{Name} & \textbf{Description} \\ \hline
+\textbf{Wrong pair disappears} & The player’s goal is to hold a black cube, which does not exist among the initial objects. There are two (hidden) rules. The player needs to identify the correct world state which triggers the rule that creates the cube and not the one which destroys the necessary inputs. All this is embedded in a challenging world layout with one-way drops and limited visibility. \\ \hline
+\textbf{Wrong pair disappears, partial hiding} & `Wrong pair disappears', but instead of hiding all rules completely we only hide the input objects for both rules (outputs and conditions are fully visible). \\ \hline
+\textbf{Irreversible production} & Similar to `Wrong pair disappears', but this task has multiple dead ends (rules which create unsolvable states). \\ \hline
+\textbf{Irreversible production, all rules visible} & `Irreversible production', but with all rules fully visible to the player. \\ \hline
+\textbf{Push, don't lift} & The vast majority of training and evaluation tasks require lifting objects. Here two hidden rules destroy any object when lifted. In order to create the goal state, some ``lateral thinking'' is necessary: the player needs to identify that pushing the cubes with their body is possible. \\ \hline
+\textbf{Push, don't lift, with distractors} & Similar to `Push, don't lift', but here a large number of distractor objects in the world make this a much more challenging exploration task for any player ignoring the objects mentioned in the goal. \\ \hline
+\textbf{Spacer tool} & Two objects need to be brought close together, but lifting them or touching them (with the avatar's body) destroy them. The solution is to use another object in the world as a tool to push them together. \\ \hline
+\textbf{Transform to transport} & Again, two objects need to be brought close to each other, but lifting and touching them destroys them. The solution here is to exploit a set of rules that can turn one of the objects into something that can be carried safely, and then turn it back into the original object once it is in the right place. \\ \hline
+\textbf{Small workstation} & A very hard object handling task. 8 objects near the player's spawn position need to be combined in different ways and 5 rules need to be triggered (some multiple times) to create the goal object. This task is set on top of a tall plateau and it is very easy to fail by touching an object too hard and throwing it off the edge of the plateau. \\ \hline
+\textbf{Small workstation, all rules visible} & The same as `Small workstation', but all rules are visible to the player. \\ \hline
+\textbf{Crafting pyramid} & Eight objects need to be recursively combined first into four, then two and then ultimately one final object. This requires triggering a chain of 7 rules. This seems easy for humans. But the lack of intermediate reward makes this a hard hierarchical credit assignment task for agents. \\ \hline
+\textbf{Crafting tree, all rules visible} & Similar to the crafting trees in video games like Minecraft, this multi-step task requires triggering different rules in a chain to create the goal object. All objects exist in the world multiple times, making many different solutions viable. \\ \hline
+\textbf{Crafting tree, hidden shortcut} & Identical to `Crafting tree, all rules visible', but one additional (hidden) rule exists. This allows the player to take a shortcut that lets them finish the task faster than executing only the visible rules. \\ \hline
+\textbf{Antimatter} & In a world full of yellow and black spheres, the goal is for no pair of black and yellow spheres to ``see each other'' (no direct line of sight). Beyond moving the objects and blocking line of sight with the avatar there exists a production rule which destroys any yellow sphere and black sphere pair which touch (similar in spirit to matter and antimatter particles). This is all embedded in a world requiring advanced navigation skills. \\ \hline
+\textbf{Antimatter with creation} & Similar to `Antimatter', only here a third object (purple pyramids) exists which duplicates any sphere touching it. In addition, this task is set on two plateaus, making it easier to break line of sight and reducing the navigation challenge. \\ \hline
+\textbf{Pyramid in a haystack} & To create the necessary yellow pyramid, the player needs to find and hold the purple cube. There are several distractor objects and distractor rules in this world, requiring the player to deal not just with a hard exploration challenge but also a very noisy environment. \\ \hline
+\textbf{Protect the egg} & The player is tasked to hold the single yellow sphere in the world. A large number of other spheres exist in the world. These destroy the yellow sphere on collision. As these touch each other or get near the player they get duplicated. This can lead to a constantly growing number of objects, filling up the world. \\ \hline
+\textbf{3 spheres jumbled} & 3 spheres exist in the world. Holding one of them creates the goal object. Only one sphere can be reached within the 10-second time limit, meaning that the optimal policy on the first trial is to choose uniformly at random. \\ \hline
+\textbf{Two doors} & The goal object is hidden behind one of the two large objects (the ``doors'') positioned at opposite ends of the world. Only one of them can be reached in time, so the player needs to decide between exploring one of them per trial. \\ \hline
+\textbf{Same signature: match colours} & All `Same signature' tasks have the exact same world layout, goal and number of fully-hidden rules. This means they look exactly the same to a player starting out. This one only requires two objects of matching colour to be brought close together to create the goal object, using only one production rule out of three. \\ \hline
+\textbf{Same signature: three steps} & This `Same signature' task variant requires the player to trigger all three (hidden) production rules to create the goal object. \\ \hline
+\textbf{Same signature: two dead ends} & In this `Same signature' task variant, two of the tree rules are dead ends, leading to an unsolvable world state. Only one rule is helpful (and in fact required) to solve the task. \\ \hline
+\textbf{Same signature: destroy to protect} & To solve this `Same signature' task variant the player first needs to destroy a black sphere (by getting near it) before creating the goal object (a yellow cube). Otherwise when the black sphere ``sees'' the yellow cube, both get destroyed. This is a very hard credit assignment challenge even for human players (it is hard to notice what is going on). \\ \hline
+\textbf{Don't act} & This task is pre-solved: the player is getting reward from the very beginning. If they lift or touch one of the two objects in the world, the object gets destroyed and reward is now impossible. \\ \hline
+\textbf{Don't peek} & This task is `pre-solved': the player is getting reward from the very beginning. However, the player will destroy any object they look at, at which point reward is impossible. So the optimal strategy is to not look at anything but the sky. \\ \hline
+\textbf{Navigation: find the cube} & This memory task is not using production rules. It uses a large world with the goal object (a cube) hidden after a very winding path. \\ \hline
+\textbf{Navigation: find the cube with teaser} & This memory task is not using production rules. It is set in a large world with the goal object (a cube) hidden after a very winding path. The object is visible from the spawn point but out of sight after starting to traverse the terrain. \\ \hline
+\textbf{Navigation: hold up high} & This memory task is not using production rules. The goal object (a pyramid) is hidden on top of a plateau and can only be seen when nearly there. \\ \hline
+\textbf{Object permanence: yellow cube} & This memory task is not using production rules. The goal object (a yellow cube) is visible from the spawn point. After moving for a bit, a decision between two paths has to be made, with the correct path being to the right. At this point the cube is no longer visible. \\ \hline
+\textbf{Object permanence: black cube} & This memory task is not using production rules. This has same world layout as the task above, only here the player is asked to find the black cube, which requires going to the left. \\
+\hline
+\end{longtable}
+
+\renewcommand*{\arraystretch}{1.4}
+\begin{longtable}{|>{\raggedright}p{4cm}|p{12cm}|}
+\caption{Multi-agent probe tasks}
+    \label{probe-task-desc-multi-agent}
+    \\ \hline
+\textbf{Name} & \textbf{Description} \\ \hline
+\textbf{Pass over the wall} & The players are separated by an opaque wall. They cannot see each other, only their half of the world. The solution requires ``passing'' the accessible objects on either player's side to other player to combine them into the goal object. Then the players must make sure the correct player holds this object. \\ \hline
+\textbf{Pass over the wall repeatedly} & Similar to `Pass over the wall' but here 2 out of 3 initial objects are `frozen' (cannot be moved). This prescribes a very specific solution strategy that requires the players to pass 3 objects over the wall in a specific order. \\ \hline
+\textbf{Coordinated production} & This task requires each player to be near a sphere to turn this sphere into a pyramid, and then for both pyramids to be touching each other to create the goal object. The spheres are slightly hidden in a complex world, requiring some exploration. \\ \hline
+\textbf{Coordinated production with deadends} & Like `Coordinated production' but here each player will destroy one of the initial objects if they get near it. These dead-end rules make this a much harder exploration problem. \\ \hline
+\textbf{Coordinated exchange} & This requires each player to create a new object by holding an existing object, then to hold the object created by the other player to turn it into another intermediate object and finally for both objects to be combined into the goal object. While the world is fully accessible to both players, this can only be solved if both players actively participate. \\ \hline
+\textbf{Overcooked: coordination ring} & Inspired by the video game Overcooked ~\citep{https://doi.org/10.48550/arxiv.1910.05789, strouse2021collaborating}, in this task both players need to ``serve tomato soup to a hungry patron''. This is implemented as a repeatable four-step production rule chain which requires both players to traverse their shared space (a circular layout) carefully in order to not block the other player. \\ \hline
+\textbf{Overcooked: coordination ring, all rules visible} & While in `Overcooked: Coordination ring' all production rules are hidden from both players, here they are fully visible (to match the dynamics of the original Overcooked game). \\ \hline
+\textbf{Overcooked: cramped room} & Similar to `Overcooked: coordination ring' but with a different layout for the shared space and a different number of initial objects, using different shapes and colours. \\ \hline
+\textbf{Overcooked: cramped room, all rules visible} & While in `Overcooked: cramped room' all production rules are hidden from both players, here they are fully visible (to match the dynamics of the original Overcooked game). \\ \hline
+\textbf{Overcooked: forced coordination} & Similar to the other `Overcooked' task variants, but here both players are restricted to only a certain part of the world and so are forced to coordinate to solve this task. No player can solve this alone since they cannot reach all initial objects. \\ \hline
+\textbf{Overcooked: forced coordination, all rules visible} & While in `Overcooked: forced coordination' all production rules are hidden from both players, here they are fully visible (to match the dynamics of the original Overcooked game). \\ \hline
+\textbf{Kickball} & This task is set in large world with two frozen pyramids on opposite sides of the world. Both players want to bring all of the plentiful purple spheres to the yellow pyramid. But lifting them destroys the pyramids so they need to ``kick'' them by bouncing them off the avatar. Think ``soccer practice''. \\ \hline
+\textbf{Lemon eater} & The first player destroys all yellow spheres (of which there are many) when bumping into them. This is also the goal for both players. So they need to cooperate to bring all yellow spheres to the first player as quickly as possible. \\ \hline
+\textbf{Careful lemon eater} & Like `Lemon eater' but any collision between two spheres turns them from yellow to purple. Purple spheres are ``not edible'' and so the players need to be careful to not create those, otherwise they will lose out on reward. \\ \hline
+\textbf{Lemon eater and maker} & Like `Lemon eater' but we start out with only purple spheres. Only the second player can turn purple into yellow spheres by lifting them, effectively having to ``create food'' for the first player. \\ \hline
+\textbf{Antimatter for two} & Identical in nature to the single-player `Antimatter' task but set in a different world layout and with two players who share the same goal. \\ \hline
+\textbf{Antimatter with creation for two} & Identical in nature to the single-player `Antimatter with creation' task but set in a different world layout and with two players who share the same goal. \\ \hline
+\textbf{Antimatter with copies for two} & Identical to `Antimatter for two' but here any two spheres of the same colour colliding leads to the creation of another sphere of that colour. This can set in motion runaway growth in the number of spheres, making it very hard to solve the task. \\ \hline
+\textbf{Irreversible production for two} & Identical in nature to the single-player `Irreversible production' task but set in a different world layout and with two players who share the same goal. \\ \hline
+\textbf{Irreversible production for two, all rules visible} & Like `Irreversible production for two' but with all production rules visible to both players. \\ \hline
+\textbf{Wrong pair disappears for two} & Identical in nature to the single-player `Wrong pair disappears' task but set in a different world layout and with two players who share the same goal. \\ \hline
+\textbf{Wrong pair disappears for two, partial hiding} & Like `Wrong pair disappears for two' but with only the input objects of the productions rules being hidden, the outputs and condition being visible. \\ \hline
+\textbf{Crafting pyramid for two} & Identical in nature to the single-player `Crafting pyramid' task but set in a different world layout and with two players who share the same goal. \\ \hline
+\textbf{Information asymmetry} & A simple world in which the players are asked to execute a two-step production rule in the presence of multiple dead ends. While the first player knows all the rules, they are completely hidden from the second player. This task is intended to measure a specific flavor of third-person imitation. \\ \hline
+\textbf{Information asymmetry with repetition} & While `Information asymmetry' only allows for up to four completions, this task variant is (given unlimited time) infinitely repeatable, providing more opportunities for imitation. \\ \hline
+\textbf{Combine outputs} & Similar in nature to `Coordinated production' but set in a larger world and (through the use of frozen objects) requiring both players to repeatedly navigate quite far to create input objects for shared creation. \\ \hline
+\textbf{Two machines} & Many objects of different colours and shapes litter this world. The frozen yellow pyramid on one end of the world transforms these objects into an intermediary object. The players then need to bring the intermediary object to the frozen black pyramid on the other end of the world to ``cash it in'' for instantaneous reward, at which point the intermediary object is destroyed. Therefore to get more reward, the players must repeat this process. \\ \hline
+\textbf{Two machines with information asymmetry} & Like `Two machines', but all rules are visible to one player, and all rules are hidden from the other player. This creates an information asymmetry and thus an opportunity for third-person imitation. \\ \hline
+\end{longtable}
+
+\input{appendix/human_scale_adaptation_appendix}
+\input{appendix/seed_variation}
+\input{appendix/prompting}
+
+\end{appendix}
+\end{document}

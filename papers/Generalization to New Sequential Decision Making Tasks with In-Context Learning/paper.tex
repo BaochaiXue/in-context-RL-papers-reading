@@ -1,0 +1,69 @@
+\documentclass[]{fairmeta}
+% Option "twocolumn" available, but please prioritize single-column
+
+\input{math_commands}
+
+\title{Generalization to New Sequential Decision Making Tasks with In-Context Learning}
+
+\author[1,*]{Sharath Chandra Raparthy}
+\author[1]{Eric Hambro}
+\author[1,2]{Robert Kirk}
+\author[1,\dagger]{Mikael Henaff} 
+\author[1,2,\dagger]{Roberta Raileanu}
+\affiliation[1]{FAIR at Meta}
+\affiliation[2]{UCL}
+
+\contribution[\dagger]{Joint advising}
+
+\input{core/0-abstract}
+% \abstract{\lipsum[1]}
+
+\date{\today}
+\correspondence{Sharath Chandra Raparthy at \email{sharathraparthy@meta.com}}
+
+% You can add additional metadata fields as follows 
+% \metadata[Code]{\url{https://github.com/facebookresearch/repo}}
+% \metadata[Blogpost]{\url{https://ai.meta.com/blog/?page=1}}
+
+
+% \usepackage[textsize=tiny]{todonotes}
+% \newcommand{\method}[0]{\textsc{DiverGen}}
+
+% \input{commenting}
+% \input{notations}
+% \input{math_commands}
+\newcommand{\eg}{\textit{e.g.,}}
+\newcommand{\ie}{\textit{i.e.,}}
+\def\toref{[\textbf{\color{blue}REF}]}
+\def\change{\color{red}}
+\definecolor{lightblue}{rgb}{0.53, 0.81, 0.98}
+
+
+\begin{document}
+
+\maketitle
+
+\input{core/1-intro}
+\input{core/2-background}
+\input{core/3-method}
+\input{core/4-motivating_exp}
+\input{core/5-experiments}
+% \input{core/5-results}
+\input{core/6-related_work}
+\input{core/7-conclusion}
+\clearpage
+\newpage
+\bibliographystyle{assets/plainnat}
+\bibliography{paper}
+
+\clearpage
+\newpage
+\beginappendix
+\input{core/appendix}
+% \input{core/8-acknowledgements}
+% \input{core/9-statement}
+
+% \input{core/A-prompts}
+
+
+\end{document}

@@ -1,0 +1,170 @@
+% \subsection{Theory}
+
+
+
+
+\subsection{Related Works}
+\label{sec:related}
+\input{related}
+
+
+\subsection{Experimental Setting Information and Details of Baselines}
+\label{sec:addl-expt}
+\input{addl_expt}
+
+
+\subsection{Empirical Study: Comparison against K-armed bandits and \dpt}
+\label{sec:k_arms_dpt}
+\input{k_arms_dpt}
+
+
+\subsection{Empirical Study: Bilinear Bandits}
+\label{sec:bilinear}
+\input{bilinear}
+
+
+\subsection{Empirical Study: Latent Bandits}
+\label{sec:latent}
+\input{latent}
+
+% \vspace*{-0.5em}
+\subsection{Connection between \pred\ and Linear Multivariate Gaussian Model}
+\label{sec:und}
+\input{understanding}
+
+
+% \vspace*{-1.0em}
+\subsection{Empirical Study: Increasing number of Actions}
+% \vspace*{-0.5em}
+\label{sec:lim}
+\input{limit}
+
+
+
+\subsection{Empirical Study: Increasing Horizon}
+\label{sec:horizon}
+\input{horizon}
+
+
+\subsection{Empirical Study: Increasing Dimension}
+\label{sec:dimension}
+\input{dimension}
+
+
+\subsection{Empirical Study: Increasing Attention Heads}
+\label{sec:heads}
+\input{heads}
+
+
+
+\subsection{Empirical Study: Increasing Number of Tasks}
+\label{sec:envs}
+\input{inc_env}
+
+
+% \subsection{Exploration of \pred (\gt)}
+% \label{sec:exploration}
+% \input{exploration}
+
+
+\subsection{Exploration of \pred (\gt) in New Arms Setting}
+\label{sec:new-arms-app}
+\input{new_arms_app}
+
+
+% \subsection{Data Collection Analysis}
+% \label{sec:data-collection}
+% \input{collection}
+
+\subsection{Empirical Validation of Theoretical Result}
+\label{sec:validation}
+\input{validation}
+
+\subsection{Empirical Study: Offline Performance}
+\label{sec:offline}
+\input{offline}
+
+
+
+\section{Theoretical Analysis}
+\label{sec:theory-app}
+\input{theory_app}
+
+
+% \section{Posterior Sampling}
+% \label{sec:ps}
+% \input{theory_ps}
+
+
+\section{Generalization and Transfer Learning Proof for \pred}
+\label{sec:generalization-app}
+\input{generalization_proof}
+
+
+% \newpage
+\subsection{Table of Notations}
+\label{table-notations}
+
+\begin{table}[!tbh]
+    \centering
+    \begin{tabular}{|p{10em}|p{28em}|}
+        \hline\textbf{Notations} & \textbf{Definition} \\\hline
+        %%%%%%%%%%%%%%%
+        $M$ & Total number of tasks \\\hline
+        %%%%%%%%%%%%%%%%
+        $d$ & Dimension of the feature \\\hline
+        %%%%%%%%%%%%%%%%
+        $\A_m$  & Action set of the $m$-th task \\\hline
+        %%%%%%%%%%%%%%%%
+        $\X_m$  &Feature space of $m$-th task \\\hline
+        %%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%
+        % $\Mtr$  & Tasks for training \\\hline
+        %%%%%%%%%%%%%%%%%%%
+        $\Mts$  & Tasks for testing\\\hline
+        %%%%%%%%%%%%%%%%%%%
+        $\Mpr$  & Total Tasks for pretraining\\\hline
+        %%%%%%%%%%%%%%%%%%%%
+        $\bx(m, a)$  & Feature of action $a$ in task $m$\\\hline
+        %%%%%%%%%%%%%%%%%%%%
+        $\btheta_{m,*}$  & Hidden parameter for the task $m$\\\hline
+        %%%%%%%%%%%%%%%%%%%
+        $\cTp$  & Pretraning distribution on tasks\\\hline
+        %%%%%%%%%%%%%%%%%%%%
+        $\cTs$  & Testing distribution on tasks\\\hline
+        %%%%%%%%%%%%%%%%%%%%
+        $n$  & Total horizon for each task $m$\\\hline
+        %%%%%%%%%%%%%%%%%
+        $\H_m  = \{I_t, r_t\}_{t=1}^n$  & Dataset sampled for the $m$-th task containing $n$ samples\\\hline
+        %%%%%%%%%%%%%%%%%%%
+        $\H^t_m = \{I_s, r_s\}_{s=1}^t$  & Dataset sampled for the $m$-th task containing samples from round $s=1$ to $t$\\\hline
+        %%%%%%%%%%%%%%%%%%%%%%%%
+        $\bw$ & Transformer model parameter\\\hline
+        %%%%%%%%%%%%%%%%%%%%%%%%
+        $\T_{\bw}$ & Transformer with model parameter $\bw$\\\hline
+        %%%%%%%%%%%%%%%%%%%%
+        $\Dpr$  & Pretraining in-context distribution\\\hline
+        %%%%%%%%%%%%%%%%%%%%%
+        $\Htr$  & Training in-context dataset\\\hline
+        %%%%%%%%%%%%%%%%%%%
+        $\Dts$  & Testing in-context distribution\\\hline%%
+        %%%%%%%%%%%%%%%%%%%
+    \end{tabular}
+    \vspace{1em}
+    \caption{Table of Notations}
+    \label{tab:my_label}
+\end{table}
+
+% \section{Scribbles}
+
+% $\mathcal{L}(\theta) = \frac{1}{n} \sum_{i=1}^n \sum_{t=0}^T \log A_\theta(a_i^t |  D_{t-1}^i)$
+
+% $\mathbb{E} [\mathcal{L}(\theta)] = \mathbb{E}_{D_{t-1}, a_t \sim \pi(\cdot | D_{t-1})}[ \sum_{t=0}^T \log A_\theta(a_i^t | D_{t-1}^i)]$
+
+% For Predatar: $\pi(a) \propto e^{\widehat{r}(a)}$
+
+
+% $L(\theta_{MSE}) = (\wr^i_t(a) - r^i_t(a))^2$
+
+
+

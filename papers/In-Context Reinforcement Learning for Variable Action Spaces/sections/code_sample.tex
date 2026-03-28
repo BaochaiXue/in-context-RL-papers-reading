@@ -1,0 +1,82 @@
+\clearpage
+\section{Code Sample}
+\label{appendix:pseudo_code}
+
+\definecolor{mygray}{gray}{0.95}
+\begin{listing}[h!]
+\begin{tcolorbox}[left*=1.5mm, size=fbox, colback=mygray, boxrule=0.1pt]
+\begin{minted}[
+    fontsize=\tiny,
+    fontfamily=tt
+]{python}
+from typing import Tuple
+
+import torch
+import torch.nn as nn
+
+
+class ActionMapper(nn.Module):
+    def __init__(
+        self,
+        action_embed_dim: int,
+        num_actions: int,
+        device: str,
+    ):
+        super().__init__()
+        self.action_embed_dim = action_embed_dim
+        self.num_actions = num_actions
+        self.device = device
+
+        self.action_map = torch.empty((num_actions, action_embed_dim), device=device)
+        self.action_map.requires_grad = False
+
+    @torch.no_grad()
+    def regenerate(self) -> None:
+        torch.nn.init.orthogonal_(self.action_map, gain=1)
+
+    @torch.no_grad()
+    def __call__(self, actions: torch.Tensor) -> torch.Tensor:
+        embeds = self.action_map[actions]
+
+        return embeds
+
+    @torch.no_grad()
+    def get_action(
+        self,
+        embeds: torch.Tensor,
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        sims = embeds @ self.action_map.T
+
+        dist = torch.distributions.Categorical(logits=sims)
+        actions_sample, actions_argmax = dist.sample(), dist.probs.argmax(-1)
+
+        return actions_sample, actions_argmax
+
+    @torch.no_grad()
+    def _get_action_map_as_context(self, batch_size: int):
+        actions = torch.tile(self.action_map.unsqueeze(0), (batch_size, 1, 1))
+
+        return actions
+
+
+act_mapper = ActionMapper(...)
+
+for states, actions, rewards in dataloader:
+    act_mapper.regenerate()
+    action_embeds = act_mapper(actions)
+
+    actions_list = act_mapper._get_action_map_as_context(batch_size=states.shape[0])
+
+    pred = model(
+        states=states,
+        act_emb=action_embeds,
+        rewards=rewards,
+        actions_list=actions_list,
+    )
+
+    act_sample, act_mode = act_mapper.get_action(pred)
+\end{minted}
+\end{tcolorbox}
+\label{fig:code_sample}
+\caption{Code that demonstrates the Headless-AD training procedure. Note that this snippet is intended for illustration purposes only. The complete code can be found in Headless-AD's repository.}
+\end{listing}

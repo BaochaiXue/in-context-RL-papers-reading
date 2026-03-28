@@ -1,0 +1,25 @@
+\begin{table}[h]
+\caption{Model hyperparameters for vision encoders.}
+\vspace{0.1in}
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value}    \\ \midrule
+\multicolumn{2}{c}{DMLab} \\\midrule
+Image Size     & 72 $\times$ 96 \\
+Number of ConvNet Blocks     & 1       \\
+Channels per Block      & [16, 32, 32]      \\
+Output Size     & 256        \\\midrule
+\multicolumn{2}{c}{RoboMimic} \\\midrule
+Image Size     & 84 $\times$ 84 \\
+Random Crop Height     & 76       \\
+Random Crop Width     & 76       \\
+Number of Randomly Cropped Patches     & 1       \\
+ConvNet Backbone      & ResNet-18~\citep{he2015resnet}      \\
+Output Size     & 64        \\
+Spatial-Softmax Number of Keypoints     & 32        \\
+Spatial-Softmax Temperature     & 1.0        \\
+Output Size     & 64        \\\bottomrule
+\end{tabular}
+\label{supp:table:vision_encoder}
+\end{table}

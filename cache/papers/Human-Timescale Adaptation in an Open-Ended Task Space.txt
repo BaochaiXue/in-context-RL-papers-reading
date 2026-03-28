@@ -1,0 +1,33 @@
+20th Percentile Score
+
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0.0
+
++4x effective memory and trials in training
++4x trials in training +RNN encoder
++4x trials in training
++4x effective memory length
+Baseline
+
+1
+
+5
+
+13
+
+24
+
+Trials
+
+36
+
+48
+
+

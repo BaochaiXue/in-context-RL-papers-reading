@@ -1,0 +1,154 @@
+
+\documentclass[10pt]{article} % For LaTeX2e
+
+% \usepackage{tmlr}
+% \usepackage[preprint]{tmlr}
+\usepackage[accepted]{tmlr}
+
+% If accepted, instead use the following line for the camera-ready submission:
+%\usepackage[accepted]{tmlr}
+% To de-anonymize and remove mentions to TMLR (for example for posting to preprint servers), instead use the following:
+%\usepackage[preprint]{tmlr}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% newly added packages %%%%%%%%%
+\usepackage{pifont} % For checkmarks and crosses
+\newcommand{\yes}{\textcolor{blue}{\ding{51}}} % Checkmark
+\newcommand{\no}{\textcolor{red}{\ding{55}}} % Cross
+
+
+
+\def\Real{\mathbb{R}}
+\usepackage{color}
+\let\Bbbk\relax
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm,bm}
+\usepackage{amsmath}
+\usepackage{cases}
+
+\newtheorem{proposition}{Proposition}
+% \newtheorem{observation}{Observation}
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+\newenvironment{myproof}{{\noindent\it Proof. }}{\hfill $\square$ \par}
+
+
+\newtheorem{remark}{Remark}
+
+\def \Reg {\mathbf{Reg} }
+\DeclareMathOperator{\sgn}{sgn}
+
+\usepackage{caption}
+\usepackage{dsfont}
+
+
+\let\proof\relax
+\let\endproof\relax
+\usepackage{comment}
+
+\usepackage{subfigure}
+\usepackage{graphicx}
+
+\let\AND\relax % Temporarily undefine \AND
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{float}
+
+\input{mysymbol.sty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% newly added packages %%%%%%%%%55
+
+\title{Random Policy Enables In-Context Reinforcement Learning within Trust Horizons}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the tmlr package is used without the [accepted] or [preprint] options.
+% Non-anonymous submissions will be rejected without review.
+
+
+
+
+
+
+
+
+\author{\name Weiqin Chen \email chenw18@rpi.edu \\
+      \addr Department of Electrical, Computer, and Systems Engineering, Rensselaer Polytechnic Institute \\
+      \AND
+      \\
+      \name Santiago Paternain \email paters@rpi.edu \\
+      \addr Department of Electrical, Computer, and Systems Engineering, Rensselaer Polytechnic Institute
+      }
+
+% \author{\name Weiqin Chen and Santiago Paternain \\
+%       \addr Department of Electrical, Computer, and Systems Engineering, Rensselaer Polytechnic Institute
+%       }
+
+
+
+
+
+
+
+
+
+
+
+% The \author macro works with any number of authors. Use \AND 
+% to separate the names and addresses of multiple authors.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\def\month{04}  % Insert correct month for camera-ready version
+\def\year{2025} % Insert correct year for camera-ready version
+\def\openreview{\url{https://openreview.net/forum?id=mAiMKnr9r5}} % Insert correct link to OpenReview for camera-ready version
+
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+
+Pretrained foundation models (FMs) have exhibited extraordinary in-context learning performance, allowing zero-shot (or few-shot) generalization to new environments/tasks not encountered during the pretraining. In the case of reinforcement learning (RL), in-context RL (ICRL) emerges when pretraining FMs on decision-making problems in an autoregressive-supervised manner. Nevertheless, the current state-of-the-art ICRL algorithms, such as Algorithm Distillation,  Decision Pretrained Transformer and Decision Importance Transformer, impose stringent requirements on the pretraining dataset concerning the behavior (source) policies, context information, and action labels, etc. Notably, these algorithms either demand optimal policies or require varying degrees of well-trained behavior policies for all pretraining environments. This significantly hinders the application of ICRL to real-world scenarios, where acquiring optimal or well-trained policies for a substantial volume of real-world training environments can be prohibitively expensive or even intractable. To overcome this challenge, we introduce a novel approach, termed State-Action Distillation (SAD), that allows to generate an effective pretraining dataset guided solely by random policies. In particular, SAD selects query states and corresponding action labels by distilling the outstanding state-action pairs from the entire state and action spaces by using random policies within a trust horizon, and then inherits the classical autoregressive-supervised mechanism during the pretraining. To the best of our knowledge, this is the first work that enables effective ICRL under (e.g., uniform) random policies and random contexts. We also establish the quantitative analysis of the trustworthiness as well as the performance guarantees of our SAD approach. Moreover, our empirical results across multiple popular ICRL benchmark environments demonstrate that, on average, SAD outperforms the best baseline by $236.3\%$ in the offline evaluation and by $135.2\%$ in the online evaluation.
+
+\end{abstract}
+
+
+
+\input{intro.tex}
+
+\input{related_work.tex}
+
+\input{in-context_RL.tex}
+\input{state-action-distill.tex}
+\input{experiments.tex}
+\input{conclusion.tex}
+
+
+\clearpage
+\bibliography{main}
+\bibliographystyle{tmlr}
+
+
+\clearpage
+\appendix
+% \section{Appendix}
+% You may include other additional sections here.
+\input{appendix.tex}
+
+
+
+\end{document}

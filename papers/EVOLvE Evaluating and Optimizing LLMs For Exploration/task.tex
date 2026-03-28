@@ -1,0 +1,110 @@
+\section{In-Context Exploration}
+\label{sec: icdm}
+
+In this section, we define the problem of In-Context Exploration (\ICE), following the setup in~\cite{krishnamurthy2024can}. An agent interacts with an environment by observing state information, selecting actions, and collecting feedback. The goal of the agent is to maximize its cumulative reward through multiple rounds of interactions. 
+Specifically for \ICE, the agent is an LLM that keeps a history of observations and interactions with the environment in its context. The agent determines its actions based on this context, rather than by updating its weights or executing hand-designed exploration strategies.
+
+\paragraph{Notation and Definitions.}
+\label{sec:notations}
+We primarily consider \textit{bandits}, a simple class of environments that still incorporates many fundamental challenges in decision-making. Here, we describe a framework that encompasses both \textit{multi-armed bandits (MAB)} and \textit{contextual bandits (CB)}. A bandit environment $\gT$ is defined as $\gT=(\gX, \gA, R)$, where $\gA$ defines a set of valid actions. $\gX$ is the set of state information (if any), and $R$ represents the underlying reward distributions of actions, which are unknown to the agent.
+MAB and CB tasks differ in whether the context $x$ is provided and used: in MAB, the reward depends solely on the action, whereas in CB it depends on both the action and the context. 
+The interaction between the agent and the environment occurs over $T \in \mathbb{N}$ steps. At each time step $t \in [T]$, the environment reveals a new observation\footnote{In CB, context $x$ is exogenous and independently sampled from a stationary distribution; it is not affected by action $a$, as in the full RL setting.} $x_t \in \gX$, the agent selects an action $a_t \in \mathcal{A}$ following its policy $\pi$, and then a reward $r_t^{a_t} \sim R^{a_t}(x_t)$ is revealed. 
+Given an LLM agent with policy $\pi$, it determines its action $a_t \sim \pi(H^\pi_t)$, where $H^\pi_t = (x_1, a_1, r_1^{a_1}, \ldots, x_t)$ stores the historical actions taken by the agent and the corresponding environment feedback, which is sent as input context to the LLM. 
+
+Over $T$ rounds, we measure the performance of an agent $\pi$ on task $\mathcal{T} $as its expected cumulative reward, given by $J_{\mathcal{T}}(\pi) = \E_{\mathcal{T}, \pi} \left[\sum_{t =1}^T r_t^{a_t}\right]$. The optimal policy $\pi^*$ represents the agent that selects the action with the highest average reward, defined as $\pi^*(x) = \argmax_a \E_{\mathcal T}\left[r^a \ | \ x \right]$. 
+A commonly used metric to measure the performance of an agent or algorithm is regret.
+\begin{defn}[Cumulative Regret]
+The expected regret of a policy $\pi$ under task $\mathcal{T}$ is: $\text{REG}(\pi) = \E_{\mathcal{T}, \pi} \left[\sum_{t=1}^T (r_t^{a^*_t} - r_t^{a_t})  \right] = J_{\mathcal{T}}(\pi^*) - J_\mathcal{T}(\pi)$, where $a^*_t = \pi^*(x_t)$.
+\end{defn} 
+We expect \emph{good} agents to have \textit{average} regret that converges to zero (i.e. $\frac{1}{T}\text{REG} \stackrel{T}{\rightarrow} 0$), demonstrating that they eventually learn to perform as good as the optimal policy. UCB and Thompson Sampling are two such examples with sublinear regret. Examples of cumulative regret curves are shown in Figure~\ref{fig:ucb_cum_curve}. 
+
+\paragraph{Representing Histories In-Context.}
+Developing an LLM agent suited for in-context decision-making tasks also requires designing a robust textualization function $\phi$ that translates histories $H^\pi_t$ for the LLM to consume.
+The obvious baseline for $\phi$ is to simply record the \textbf{Raw History} (\RH) from the environments as a list of (context, action, reward) tuples directly as the context. In this representation, the context length of $\phi(H_t^{\pi})$ grows linearly with $t$, and \RH contains all information. While \RH is a general textualization function applicable to any task $\gT$, more advanced task-specific textualization functions may exist and yield better performance. For example, \cite{krishnamurthy2024can} proposed a \textbf{Summarized History} function (\SH)
+that compresses the history while still containing sufficient information for a given task $\gT$.
+\textbf{RH} and \textbf{SH} differ in how past interaction histories are represented to the LLM agent, as shown in Figure~\ref{fig:prompt}. At time step $t$, \textbf{RH} provides a complete list of past interactions as (Time $t'$, Action Name $a_{t'}$, Reward $r_{t'}$) for $t'=0\cdots t$. In contrast, $\textbf{SH}$ provides sufficient statistics of the past interactions. Specifically, under MAB, \textbf{SH} utilizes the empirical mean over each arm (i.e., $\hat\E[r^{a}], \forall a \in \gA$), the number of times each arm has been pulled up to time $t$, $N_t(a)$, and the current horizon $t$. 
+In this paper, we consider good textualizations to be those that satisfy ``sufficiency'', which we express using the following definition. 
+
+\begin{defn}[Sufficient Textualization] 
+Given a policy class $\Pi$, let $\Pi^\phi \subset \Pi$ and $\Pi^\text{raw} \subset \Pi$ be the sets of policies that take a history representation $\phi(H_t)$ using the textualization function $\phi$ and the raw history $H_t$, respectively. Then the textualization function $\phi$ is sufficient if
+$$
+\lim_{T \to \infty} \left[ \inf_{\pi^\phi \in \Pi^\phi} \frac{1}{T} REG(\pi^\phi) - \inf_{\pi^\text{raw} \in \Pi^\text{raw}} \frac{1}{T} REG(\pi^\text{raw})\right] = 0.
+$$
+\label{def:sufficient}
+\end{defn} 
+In other words, the best agent that uses the history representation can asymptotically achieve the same average regret as one with the full raw history, meaning that the textualization preserves all the essential information needed for effective decision-making.
+
+\section{BanditBench}
+\label{subsec: banditbench}
+We present BanditBench, an extensive suite of MAB~\citep{slivkins2019introduction} and CB~\citep{li2010contextual} environments in \emph{natural language} to benchmark the in-context exploration capabilities of LLMs. We show two examples in Figure~\ref{fig:mab_cb_prompt}. 
+\paragraph{Multi-Armed Bandit}
+
+In (stochastic) multi-armed bandit problems, we vary our environment configurations primarily along two key dimensions:
+1) \emph{action space}, where we change the number of actions $K$ and the textual descriptions associated with each action; 2) \emph{reward distributions}, where we change the parametric distribution of the reward, i.e., the types of reward distributions, and the exploration difficulty, characterized by the gap between the best-performing arm and the second-best arm. A smaller gap makes it harder for the agent to distinguish between optimal and sub-optimal actions, thereby increasing the exploration difficulty.
+In contrast to the setup in \citet{krishnamurthy2024can}, which focuses solely on MAB instances with Bernoulli reward distribution, our expanded setup allows us to systematically analyze LLMs' performance across diverse environments with different action spaces and reward structures. %, examining its decision-making capabilities across diverse environments.
+
+
+The detailed configurations are shown in Appendix~\ref{app_subsec: mab}. 
+For the action space, we explore two different sizes: $K=5$ for a small action space and $K=20$ for a large action space. We also differentiate between two types of action descriptions: \emph{Videos}, represented as arbitrary two-letter combinations with no semantic meaning such as ``Video AA'', and \emph{Clothes},  described using semantically meaningful phrases, such as ``Supreme Sylvan Sandals''. Regarding reward distributions, we evaluate two types: \emph{Bernoulli} and \emph{Gaussian} Bandit.
+For Bernoulli, the reward $r \in \{0, 1\}$ is binary with $r^{a_k} \sim \text{Bernoulli}(p_k)$, where $p_k$ is the mean for the $k$-th action. Following ~\citet{krishnamurthy2024can}, the best-performing arm has $p_k:=0.5 + \Delta_{\min}/2$, while the remaining arms have $p_k = 0.5 - \Delta_{\min}/2$. The parameter $\Delta_{\min}$ captures the exploration difficulty, with a larger gap ($\Delta_{\min}=0.5$) indicating easy tasks and smaller gap ($\Delta_{\min}=0.2$) representing hard tasks. For the Gaussian bandit, the rewards are continuous with $r^{a_k} \sim \gN(\mu_k, \sigma)$. Here $\mu_k \sim \gN(0, \sigma)$ represents the mean for each action, and the variance $\sigma$ captures the difficulty of exploration. Following \citet{sutton2018reinforcement}, we study both $\sigma=1$ and $\sigma=3$.
+
+
+\begin{figure}[h]
+\noindent
+\small
+    \centering
+  \begin{minipage}[t]{0.37\textwidth}
+  \footnotesize
+    \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title=Multi-Armed Bandit (Clothes)]
+        You are an AI fashion assistant for an online boutique powered by a bandit algorithm that offers a variety of clothing options from different brands.  \newline
+        [More Instructions] \newline 
+        There are 5 unique clothing items you can recommend, named: \newline 
+        \sethlcolor{antiquewhite}~\hl{Midnight Mirage Mittens}, \hl{Opulent Oasis Overcoat}, \hl{Infinite Impeccable Jacket}, \hl{Alluring Apex Apron}, \hl{Bejeweled Bloom Blazer}. \newline 
+        So far you have interacted \sethlcolor{lavender}~\hl{6 times} with the following choices and rewards: \newline
+        \sethlcolor{antiquewhite}~\hl{Midnight Mirage Mittens}, \sethlcolor{lavender}~\hl{reward 0} \newline
+         \sethlcolor{antiquewhite}~\hl{Opulent Oasis Overcoat}, \sethlcolor{lavender}~\hl{reward 1} \newline
+         \sethlcolor{antiquewhite}~\hl{Bejeweled Bloom Blazer}, \sethlcolor{lavender}~\hl{reward 0} \newline
+         \sethlcolor{antiquewhite}~\hl{Opulent Oasis Overcoat}, \sethlcolor{lavender}~\hl{reward 0} \newline
+         \sethlcolor{antiquewhite}~\hl{Infinite Impeccable Jacket}, \sethlcolor{lavender}~\hl{reward 1} \newline
+         \sethlcolor{antiquewhite}~\hl{Alluring Apex Apron}, \sethlcolor{lavender}~\hl{reward 0} \newline
+        \sethlcolor{lavender}~\hl{...} \newline 
+        Which item will you choose next? 
+    \end{tcolorbox}
+\end{minipage}%
+~
+\begin{minipage}[t]{0.63\textwidth}
+\footnotesize
+    \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title=Contextual Bandit (Movies)]
+  You are an AI movie recommendation assistant for a streaming platform powered by a bandit algorithm that offers a wide variety of films from different studios and genres. \newline
+    [More Instructions] \newline
+  There are 10 unique movies you can recommend, named \newline 
+     \sethlcolor{antiquewhite}~\hl{Saving Private Ryan (1998) (Action|Drama|War)} \newline 
+     \sethlcolor{antiquewhite}~\hl{Jurassic Park (1993) (Action|Adventure|Sci-Fi)} \newline
+     \sethlcolor{antiquewhite}~\hl{The Matrix (1999) (Action|Sci-Fi|Thriller)} \newline 
+     \sethlcolor{antiquewhite}~\hl{The Silence of the Lambs (1991) (Drama|Thriller)} \newline
+      \sethlcolor{antiquewhite}~\hl{...} \newline
+    So far you have interacted \sethlcolor{lavender}~\hl{4 times} with the following choices and rewards: \newline
+    Context: \sethlcolor{azure(web)(azuremist)}~\hl{a person who is a 18-year-old man who is a college/grad student and live in Pulaski county, AR. The user has some numerical values that represent their true implicit preference or taste for all movies: [-0.011, 0.027, -0.020, -0.002, -0.003].} \newline
+    Action: \sethlcolor{antiquewhite}~\hl{Saving Private Ryan (1998)} \newline
+    Reward: \sethlcolor{lavender}~\hl{4.74 out of 5} \newline 
+    \sethlcolor{lavender}~\hl{...} \newline 
+    You have a new user: \newline 
+    Context: \sethlcolor{azure(web)(azuremist)}~\hl{This person is a 35-year-old man, working as a lawyer...}\newline 
+    Action:
+    \end{tcolorbox}
+\end{minipage}%
+    \caption{\footnotesize{The problem representation of in-context exploration is represented in text. Detailed prompts for both MAB and CB are provided in Appendix~\ref{app_subsec: prompt}.}}
+    \label{fig:mab_cb_prompt}
+\end{figure}
+
+
+\paragraph{Contextual Bandit}
+
+For contextual bandit, at each round $t\in[T]$, the agent is presented with some contextual feature $x$ (which may consist of both textual descriptions and numeric values) describing the state (and action). The LLM agent $\pi$ chooses an action $a \in \gA$, and then a reward $r(x, a)$ is received, which depends on both the context and the chosen action. 
+We design the semi-synthetic contextual bandit task based on the MovieLens dataset~\citep{harper2015movielens}, which consists of approximately 10,000 real users' movie ratings. 
+The goal of the agent is to recommend a personalized movie that a specific user is likely to enjoy.
+In particular, the observations $x$ include user-specific features such as age, gender, occupation, and geographical location (county and state), as well as features of the movies. The action space is limited to the top-$K$ most-watched movies in the dataset, with $K=10$ for the easy setting and $K=30$ for the more challenging setting. To construct the ground-truth reward distribution, we perform low-rank approximation~\citep{koren2009matrix} on the user-movie rating matrix $P \in \mathbb{R}^{N \times K}$, where $N$ is the number of users. 
+This is done by approximating $P$ with $\tilde{P} = U \Sigma V^T$ using singular value decomposition (SVD), yielding a user embedding matrix $U \in \mathbb{R}^{N \times d}$, a movie embedding matrix $V \in \mathbb{R}^{K \times d}$, and a diagonal matrix $\Sigma \in \mathbb{R}^{d \times d}$ of the top singular values. In our case, we set $d=5$ to be the dimension of the embeddings. The ground-truth reward for user $i$ and movie $j$ is then computed as $r_{i,j} = u_i^T \Sigma v_j$.
+At each time step, we provide textual contextual features alongside a 5-dimensional user preference vector $u_i$.
+The task can easily be scaled up to include more movies, i.e., a larger $K$.
+Further details about the setup can be found in Appendix~\ref{app_subsec: cb_detail}.

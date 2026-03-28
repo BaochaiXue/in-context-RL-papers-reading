@@ -1,0 +1,123 @@
+
+
+LLMs are capable of in-context learning the distribution of functions that represent sequence transformations by completing abstract patterns observed among examples of input-output sequences $x^{i} = (x^{i}_{\text{input}}, x^{i}_{\text{output}})$ of arbitrary tokens, each drawn from a fixed alphabet $\mathcal{A}$. For example, suppose that we are given a string of input-output examples such as ``\tt{ 5 3 0, 3 5; 7 6 1, 6 7; 9 2 3, 2 9; 4 8 5,}''. Here $\mathcal{A}$ consists of tokens that represent space-prefixed digits 0--9, a comma token to separate inputs from outputs, and a semi-colon token to delineate examples from each other. A general pattern machine should infer the completion ``\tt{ 8 4}'' by recognizing that the pattern is to swap the first 2 tokens, then remove the 3rd.
+
+\begin{wraptable}{r}{0.39\textwidth}
+    \vspace{-1.3em}
+    \small
+    \setlength\tabcolsep{3.5pt}
+    \centering
+    \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Method & Total (of 800) \\
+    \midrule
+    (g4) gpt-4-0613 & 77 \\
+    (d3) text-davinci-003 & 85 \\
+    (d3) w/ random $\mathcal{A}$ & $^\dagger$44$\pm$6 \\  %
+    (d2) text-davinci-002 \cite{ouyang2022training} & 64 \\
+    (p) PaLM \cite{chowdhery2022palm,anil2023palm} & 42 \\
+    (d1) text-davinci-001 \cite{brown2020language} & 11 \\
+    (d1) finetuned & 9 \\
+    \midrule
+    Ainooson et al., 2023 \cite{ainooson2023approach}  & $^{*}$130 \\
+    Kaggle 1st Place, 2022 \cite{kaggle} & $^\#$164 \\
+    Xu et al., 2022 \cite{xu2022graphs} & $^{\dagger\dagger}$57  \\
+    Alford et al., 2021 \cite{alford2021neurosymbolic} & $^{**}$22 \\
+    Ferré et al., 2021 \cite{ferre2021first} & 32 \\
+    \bottomrule
+    \vspace{-0.9em}
+    \end{tabular}
+    \scriptsize
+    $^\dagger$Numbers averaged across 5 randomly sampled alphabets.\\
+    $^{*}$Based on brute force search over a hand-designed DSL.
+    $^\#$Reported out of 400 train tasks, among 3 candidates.\\
+    $^{\dagger\dagger}$Reported out of a subset of 160 object-oriented problems.\\
+    $^{**}$Based on program synthesis, out of 36 symmetry tasks.\\
+    \vspace{-0.7em}
+    \caption{
+    \small
+    LLMs out-of-the-box can solve a nontrivial number of ARC problems. 
+    \vspace{-3em}
+    }
+    \label{tab:arc-results}
+    \vspace{-1em}
+\end{wraptable}
+
+We use the ARC \cite{chollet2019measure}  to evaluate LLMs on such sequence transformations that are substantially more complex, covering a range of abstract spatial tasks: infilling, counting, rotating shapes, etc. Each task has input-output examples (3.3 on average), and 1-3 test inputs which can be represented as 2D grids. Input and output sizes may differ. LLMs can be used for the ARC by flattening grids and predicting output grid items in row-major order, which naturally supports variable-length outputs. While LLMs are not specifically trained for rasterizing spatial outputs, we hypothesize that a general pattern machine would be capable of implicitly recognizing long-range dependencies between rows (using positional encoding as a bias \cite{su2021roformer}) to pick up patterns that extend across the 2nd dimension. %
+
+\textbf{Result: ARC benchmark.} \cref{tab:arc-results} shows that LLMs (PaLM, InstructGPT series in acronyms d1 - d3) prompted with input grids represented as tokens drawn from an alphabet of digits, can correctly infer solutions for up to 85 problems. Surprisingly, this outperforms some recent systems \cite{ferre2021first,xu2022graphs} based on program synthesis that use manually engineered domain-specific languages (DSLs).
+While LLMs have yet to surpass brute-force search \cite{ainooson2023approach} to compose functions from a handcrafted API of grid operators, they do exhibit non-trivial performance. (We address the important caveat that parts of the ARC may be present in the training data of LLMs later below.) Note that while we are concerned with LLM performance over raw patterns, concurrent work finds  improvements via object representations \cite{xu2023llms} and hypothesis search \cite{wang2023hypothesis}.
+
+\textbf{Observation: consistent tokenization matters.} The ARC can be found among the suite of tasks in BIG-Bench \cite{srivastava2022beyond}, but has often been overlooked since many language models appear to perform poorly (near or at zero performance). We observe this occurs due to the formatting of the benchmark, where grid elements are represented as neighboring characters \ie ``\tt{8686}'' (instead of ``\tt{ 8 6 8 6}''). While subtle, this difference is enough for certain Byte-Pair Encoding (or SentencePiece) tokenizers \cite{sennrich2015neural,kudo2018sentencepiece} (that do not tokenize per digit) to group  multiple grid elements (``\tt{8}'' and ``\tt{6}'') into a single token (``\tt{86}'') which maps to a different token embedding. This causes inconsistencies with how patterns are expressed at the token level. For example, given a task expressed as ``\tt{8686, 6868; 7979,}'' if the tokenizer groups pairs of digits \tt{86}, \tt{68}, \tt{79}, respectively, the sequential inductive patterns of the task (to swap and repeat individual digits) are lost. A simple work-around is to directly pass token indices or embeddings to the language model, or use token alphabets unlikely to be grouped together (which involves some knowledge about the tokenizer). Even beyond the ARC, we observe it is beneficial to tokenize  consistently with the pattern being represented. \looseness=-1
+
+\textbf{Observation: token mapping invariance.} The hypothesis that LLMs can serve as general pattern machines stems from the observation that they can still solve a non-trivial number of ARC problems using alphabets $\mathcal{A}$ sampled randomly from the LLM's token vocabulary. For instance, given a particular alphabet: 
+\{
+\tt{8} $\mapsto$ \tt{falls},
+\tt{6} $\mapsto$ \tt{+\#},
+\tt{7} $\mapsto$ \tt{Ul},
+\tt{9} $\mapsto$ \tt{Chev},
+\tt{3} $\mapsto$ \ch,
+\tt{2} $\mapsto$ \tt{2010}\},
+a pattern machine at sufficient proficiency can be expected to complete the prompt
+``\tt{falls +\# falls +\#, +\# falls +\# falls; UI Chev UI Chev, Chev UI Chev UI; }\ch\tt{ 2010 }\ch\tt{ 2010,}''
+by predicting
+``\tt{ 2010 }\ch\tt{ 2010 }\ch''.
+For example, text-davinci-003 \cite{ouyang2022training,brown2020language} with the following mapping
+$\mathcal{A}=$\{
+\tt{0} $\mapsto$ \tt{offence},
+\tt{1} $\mapsto$ \tt{Subject},
+\tt{2} $\mapsto$ \tt{Lub},
+\tt{3} $\mapsto$ \tt{Fail},
+\tt{4} $\mapsto$ \tt{Chev},
+\tt{5} $\mapsto$ \tt{symb},
+\tt{6} $\mapsto$ \tt{swung},
+\tt{7} $\mapsto$ \tt{Ul},
+\tt{8} $\mapsto$ \tt{escalate},
+\tt{9} $\mapsto$ \tt{Chromebook}\}
+solves 52 ARC problems, and across 5 random alphabets solves an average of 43.6 problems. Interestingly, we find that token mapping invariance holds to an extent on patterns over randomly sampled \textit{embeddings} as well (not associated with any token in the vocabulary; see \cref{app:token-invariance-continuous}).
+
+The implications of token mapping invariance are two-fold.
+First, note that it is possible that parts of the ARC are present in the LLM's training data (\ie due to contamination).
+Thus, measuring the performance of LLMs under random alphabets may provide a closer estimate of their underlying sequence transformation capabilities. (As further evidence that these abilities are not simply due to memorization, we provide a new procedurally-generated pattern transformation benchmark described below.)
+Second, we hypothesize that the pattern manipulation capabilities implied by token invariance could help drive positive transfer from patterns learned across Internet-scale language data to new modalities or symbolic representations for robot reasoning.
+As an example, (i) \cref{fig:picking} (top) in the Appendix shows a grasp (Skittles) detector which outputs target coordinates within a downsampled image (with 6 in-context examples), and (ii) \cref{fig:picking} (bottom) shows spatial rearrangement via predicting simple forward dynamics where the red bowl moves to the green plate (with 9 in-context examples of downsampled images as inputs and outputs). 
+The generality of what the arbitrary tokens could represent may allow pattern transformation capabilities---especially as LLMs improve---to be leveraged at various levels of abstraction in robotics (\eg pixels or joint positions). %
+
+
+\begin{wraptable}{r}{0.39\textwidth}
+    \vspace{-1.1em}
+    \small
+    \setlength\tabcolsep{3.5pt}
+    \centering
+    \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Method & Accuracy (\%) \\
+    \midrule
+    (d3) text-davinci-003 & \textbf{75} \\
+    (d3) w/ random $\mathcal{A}$ &  $^\dagger$58 $\pm$ 1 \\
+    (p) PaLM \cite{chowdhery2022palm,anil2023palm} & 74 \\
+    (d2) text-davinci-002 \cite{ouyang2022training} & 69 \\
+    (d1) text-davinci-001 \cite{brown2020language} & 60 \\
+    (c1) text-curie-001 &  54 \\
+    (b1) text-babbage-001 & 50 \\
+    (a1) text-ada-001 & 39 \\
+    \bottomrule
+    \vspace{-0.7em}
+    \end{tabular}
+    \scriptsize
+    $^\dagger$Numbers averaged across 5 randomly sampled alphabets.
+    \vspace{-2.0em}
+    \caption{
+    \small
+    LLMs of varying sizes are capable of completing patterns procedurally generated with PCFG, averaged over a range of $k$ and $w$.
+    \vspace{-2em} 
+    }
+    \label{tab:pcfg-results}
+    \vspace{1em}
+\end{wraptable}
+
+\textbf{Result: PCFG benchmark.} The ARC is a difficult benchmark, and the performance falloff can be steep (and relatively uninformative) across LLMs with decreasing model size and data scale, making it difficult to measure incremental progress towards pattern machines that could be used for sequence transformation in robotics. Therefore, we introduce an adjustable-difficulty benchmark, where the transformations are procedurally generated using the probabilistic context-free grammar (PCFG) in \citet{hupkes2020compositionality}. 
+These transformations include a collection of lexical rules that may be composed (\eg \tt{reverse}, \tt{shift}, \tt{swap}, \tt{repeat}, etc.) over the tokens in the input sequence $x^{i}_{\text{input}}$ to generate $x^{i}_{\text{output}}$.
+Example transformations are given in \cref{tab:pcfg-examples} in the Appendix.
+The complexity of these transformations can be controlled by varying the number of tokens $k$ used to express sequences $x^i=(s_1,\dots,s_k)$, and the number of lexical rules $w$ used to define the transformation. This is simply the identity function when $w=0$, and progressively appears more complex as $w\rightarrow\infty$. \cref{tab:pcfg-results} aggregates PCFG pattern completion accuracy across different LLMs over sequence length $k = [1, 2, 4, 8, 16, 32]$ and complexity $w = [0, 1, 3, 7, 15, 31]$, each with 100 runs (see \cref{app:pcfg-kw} for ablations of $k, w$).
+This benchmark provides a more unbiased evaluation of pattern reasoning capabilities in LLMs; PCFG completion accuracy improves with model scale, and correlates with ARC performance. We use PCFG for evaluation only (rather than for training \cite{hupkes2020compositionality,allen2023physics}) so that one can measure how pre-training regimes or modalities may improve general pattern capabilities across sequence transformations. We have released the PCFG benchmark. \looseness=-1

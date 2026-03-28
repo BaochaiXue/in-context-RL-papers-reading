@@ -1,0 +1,41 @@
+\begin{tabular}{@{}lllllr@{}}
+    \toprule
+    \textbf{Model}                                                      & \textbf{Observation}            & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Past Actions} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{28}{*}{\shortstack{Claude 3.5 Sonnet\\\\(2024-10-22)}} & \multirow[c]{9}{*}{ASCII}       & \multirow[c]{4}{*}{False} & \multirow[c]{2}{*}{False} & False                 & 0.94 \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{1.00} \\
+    \cmidrule{4-6}              
+                                                                        &                                 &                           & \multirow[c]{2}{*}{True}  & \textbf{False}        & \textbf{1.00} \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{1.00} \\
+    \cmidrule{3-6}              
+                                                                        &                                 & \multirow[c]{4}{*}{True}  & \multirow[c]{2}{*}{False} & \textbf{False}        & \textbf{1.00} \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{1.00} \\
+    \cmidrule{4-6}              
+                                                                        &                                 &                           & \multirow[c]{2}{*}{True}  & \textbf{False}        & \textbf{1.00} \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{1.00} \\
+    \cmidrule{2-6}              
+                                                                        & \multirow[c]{9}{*}{Coordinates} & \multirow[c]{4}{*}{False} & \multirow[c]{2}{*}{False} & False                 & 0.77 \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{0.96} \\
+    \cmidrule{4-6}              
+                                                                        &                                 &                           & \multirow[c]{2}{*}{True}  & False                 & 0.84 \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{1.00} \\
+    \cmidrule{3-6}              
+                                                                        &                                 & \multirow[c]{4}{*}{True}  & \multirow[c]{2}{*}{False} & False                 & 0.77 \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{0.99} \\
+    \cmidrule{4-6}              
+                                                                        &                                 &                           & \multirow[c]{2}{*}{True}  & False                 & 0.78 \\
+                                                                        &                                 &                           &                           & \textbf{True}         & \textbf{0.99} \\
+    \cmidrule{2-6}              
+                                                                        & \multirow[c]{9}{*}{RGB}         & \multirow[c]{4}{*}{False} & \multirow[c]{2}{*}{False} & \textbf{False}        & \textbf{0.26} \\
+                                                                        &                                 &                           &                           & True                  & 0.19 \\
+    \cmidrule{4-6}              
+                                                                        &                                 &                           & \multirow[c]{2}{*}{True}  & \textbf{False}        & \textbf{0.47} \\
+                                                                        &                                 &                           &                           & True                  & 0.40 \\
+    \cmidrule{3-6}              
+                                                                        &                                 & \multirow[c]{4}{*}{True}  & \multirow[c]{2}{*}{False} & \textbf{False}        & \textbf{0.37} \\
+                                                                        &                                 &                           &                           & True                  & 0.21 \\
+    \cmidrule{4-6}              
+                                                                        &                                 &                           & \multirow[c]{2}{*}{True}  & \textbf{False}        & \textbf{0.68} \\
+                                                                        &                                 &                           &                           & True                  & 0.53 \\
+    \bottomrule
+\end{tabular}

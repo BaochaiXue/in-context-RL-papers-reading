@@ -1,0 +1,163 @@
+\documentclass[11pt, logo]{googledeepmind}
+
+\usepackage[authoryear, sort&compress, round]{natbib}
+\bibliographystyle{abbrvnat}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=blue
+}
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{soul}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{listings}
+
+\input{code}
+\input{header}
+\input{math_commands}
+
+\usepackage{inconsolata}
+\usepackage[capitalise]{cleveref}
+
+\newcommand{\ys}[1]{\textcolor{purple}{[YS: #1]}}
+\newcommand{\bo}[1]{\textcolor{magenta}{[Bo: #1]}}
+\newcommand{\anie}[1]{\textcolor{blue}{[AN: #1]}}
+\newcommand{\lee}[1]{\textcolor{red}{[JL: #1]}}
+\newcommand{\mc}[1]{\textcolor{brown}{[MC: #1]}}
+
+% https://latexcolor.com/ 
+% Chosen by colorwheel from https://www.canva.com/colors/color-wheel/ 
+\definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}
+% \definecolor{azure(web)(azuremist)}{rgb}{0.94, 1.0, 1.0}
+\definecolor{azure(web)(azuremist)}{rgb}{0.84,0.98,0.92}
+\definecolor{lavender}{rgb}{0.92,0.84,0.98}
+
+
+%\newcommand{\icdm}{In-Context Decision-Making\xspace}
+%\newcommand{\ICDM}{ICDM\xspace}
+\newcommand{\ICE}{ICE\xspace}
+\newcommand{\SH}{\textbf{SH}\xspace}
+\newcommand{\RH}{\textbf{RH}\xspace}
+\newcommand{\AG}{\textbf{AG}\xspace}
+\newcommand{\OFT}{OFT\xspace}
+\newcommand{\FSD}{Few-Shot\xspace}
+\newcommand{\AWR}{Overall Win-Rate\xspace}
+\newcommand{\ice}{\emph{in-context exploration}\xspace}
+\newcommand{\ag}{Algorithm-Guided Support\xspace}
+\newcommand{\rah}{Raw History\xspace}
+\newcommand{\sh}{Summarized History\xspace}
+\newcommand{\oft}{Oracle Behavior Fine-Tuning\xspace}
+\newcommand{\fsd}{In-Context Few-Shot Demonstration\xspace}
+\newcommand{\awr}{overall win-rate\xspace}
+\newcommand{\ad}{algorithm distillation\xspace}
+
+
+\newcommand{\mred}[1]{\textcolor{red}{#1}}
+\newcommand{\mblue}[1]{\textcolor{blue}{#1}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem{proposition}{Proposition}%[section]
+\newtheorem{corollary}{Corollary}%[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}%[section]
+\newtheorem{example}{Example}%[section]
+\newtheorem{assumption}{Assumption}%[section]
+\newtheorem{axiom}{Axiom}%[section]
+
+
+\title{EVOLvE:~\textbf{Ev}aluating and \textbf{O}ptimizing \textbf{L}LMs For \textbf{E}xploration}
+
+\correspondingauthor{anie@cs.stanford.edu, \{yisumtv, bochang, minminc\}@google.com}
+
+
+% Use the internally issued paper ID, if there is one
+\reportnumber{001} % Leave blank if n/a
+
+% Assign your own date to the report.
+% Can comment out if not needed or leave blank if n/a.
+\renewcommand{\today}{2024-10-08}
+
+\author[$\blacklozenge$*,1]{Allen Nie}
+\author[*,2]{Yi Su}
+\author[*,2]{Bo Chang}
+\author[2]{Jonathan N. Lee}
+\author[2]{Ed H. Chi}
+\author[2]{Quoc V. Le}
+\author[2]{Minmin Chen}
+
+% Affiliations *must* come after the declaration of \author[]
+\affil[*]{Equal contributions}
+\affil[1]{Stanford University}
+\affil[2]{Google DeepMind}
+\affil[$\blacklozenge$]{Work done during an internship at Google DeepMind}
+
+\begin{abstract}
+Despite their success in many domains, large language models (LLMs) remain under-studied in scenarios requiring optimal decision-making under uncertainty.
+This is crucial as many real-world applications, ranging from personalized recommendations to healthcare interventions, demand that LLMs not only predict but also actively learn to make optimal decisions through \emph{exploration}.
+In this work, we measure LLMs' (in)ability to make optimal decisions in bandits, a state-less reinforcement learning setting relevant to many applications. We develop a comprehensive suite of environments, including both context-free and contextual bandits with varying task difficulties, to benchmark LLMs' performance.
+Motivated by the existence of optimal exploration algorithms, we propose efficient ways to integrate this algorithmic knowledge into LLMs: by providing explicit \emph{algorithm-guided support} during inference; and through \emph{algorithm distillation} via in-context demonstrations and fine-tuning, using synthetic data generated from these algorithms.
+Impressively, these techniques allow us to achieve superior exploration performance with smaller models, surpassing larger models on various tasks. We conducted an extensive ablation study to shed light on various factors, such as task difficulty and data representation, that influence the efficiency of LLM exploration. 
+Additionally, we conduct a rigorous analysis of the LLM's exploration efficiency using the concept of regret, linking its ability to explore to the model size and underlying algorithm. The code is available at \url{https://github.com/allenanie/EVOLvE}.
+\end{abstract}
+
+
+\begin{document}
+
+\maketitle
+
+\input{intro}
+
+\input{task}
+
+\input{method}
+
+\input{analysis}
+
+\input{related}
+
+\section{Conclusion}
+
+In this work, we explored the in-context exploration capabilities of LLMs in bandit environments, introducing BanditBench, a comprehensive benchmark designed to rigorously evaluate LLM's performance. Our evaluation reveals that LLMs struggle with in-context exploration when relying solely on raw interaction history, while inference-time support significantly improves performance. Motivated by the presence of optimal algorithms in this domain, we investigated methods to integrate these algorithms into LLMs through both algorithm-guided support and algorithm distillation via synthesized demonstration data. Notably, these approaches enable smaller models to outperform larger ones in decision-making tasks. However, an optimality gap remains between LLMs and classical optimal algorithms, highlighting the need for further research to bridge this gap.
+
+\section*{Software and Data}
+
+BanditBench and the inference code have been provided in this GitHub repo and will be updated/monitored regularly: \url{https://github.com/allenanie/EVOLvE}. You can install the code with: \texttt{pip install banditbench}.
+
+\section*{Acknowledgements}
+
+We thank Yaqing Wang for helping some infra on data processing and storage, Aviral Kumar, Yifeng Lu, Haokai Lu, Ice Pasupat, Kefan Dong, Ollie Liu, Deqing Fu for valuable discussions on the project. We thank Ruijie Zheng for feedback on the code base.
+
+\bibliography{main}
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\setcounter{table}{0}  % for future table handling
+\renewcommand{\thetable}{A\arabic{table}}
+
+\appendix
+\input{appendix}
+
+
+\end{document}

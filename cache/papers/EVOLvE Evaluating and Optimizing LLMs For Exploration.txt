@@ -1,0 +1,57 @@
+Overall Win-Rate (%)
+
+100
+
+No Support (Raw)
+
+Inference-time Support*
+
+In-context Demonstration*
+
+Oracle Behavior Fine-Tuning (OFT)*
+UCB
+
+89.3
+80
+65.6
+60
+
+50.2
+
+40
+27.7
+20
+0
+
+60.0
+
+Gemma-9B
+
+46.4
+
+34.8
+
+7.6 10.5 4.7 10.5 5.3 9.2
+Gemma-2B
+
+60.7
+
+56.4
+
+45.5
+
+64.3
+
+25.0
+7.1
+
+Gemini-1.5 Flash Gemini-1.5 Pro
+
+Multi-Armed Bandit
+
+0.0
+Gemini-1.5 Flash Gemini-1.5 Pro
+
+Contextual Bandit
+
+

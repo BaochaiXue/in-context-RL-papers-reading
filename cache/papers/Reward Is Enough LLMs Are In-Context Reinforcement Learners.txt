@@ -1,0 +1,29 @@
+ICRL Preset (Ours)
+ICRL Autonomous (Ours)
+Best-of-N
+Reflexion
+Self-Refine
+
+0.8
+
+Success Rate
+
+0.6
+0.4
+0.2
+0.0
+0
+
+10
+
+20
+
+30
+
+Trial Number
+
+40
+
+50
+
+

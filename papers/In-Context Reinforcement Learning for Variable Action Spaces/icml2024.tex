@@ -1,0 +1,193 @@
+%%%%%%%% ICML 2024 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+
+\usepackage{listings}
+\usepackage[frozencache=true, cachedir=minted-cache]{minted}
+% \usepackage{minted}
+\usepackage{tcolorbox}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+% \usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2024} with \usepackage[nohyperref]{icml2024} above.
+\usepackage{hyperref}
+
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2024}
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+% Ours
+\usepackage[normalem]{ulem}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{csvsimple-l3}
+\usepackage{pgfplotstable}
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+% \usepackage{algpseudocode}
+\usepackage{pdfpages}
+\usepackage{svg}
+\usepackage{enumitem}
+% \usepackage{newclude}
+% \usepackage{dblfloatfix}
+% \usepackage{float}
+% \usepackage{caption}
+% \usepackage{nidanfloat}
+% \usepackage{cuted}
+% \usepackage{adjustbox}
+% \usepackage{xcolor}
+% \usepackage{array}
+% \usepackage{nicematrix}
+
+% \usepackage{capt-of,etoolbox}
+
+% Use the following line for the initial blind version submitted for review:
+\usepackage[accepted]{icml2024}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{In-Context Reinforcement Learning for Variable Action Spaces}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{In-Context Reinforcement Learning for Variable Action Spaces}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2024
+% package.
+
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
+
+% You can specify symbols, otherwise they are numbered in order.
+% Ideally, you should not use this facility. Affiliations will be numbered
+% in order of appearance and this is the preferred way.
+\icmlsetsymbol{attink}{*}
+
+\begin{icmlauthorlist}
+\icmlauthor{Viacheslav Sinii}{tink,inno}
+\icmlauthor{Alexander Nikulin}{airi,mipt,attink}
+\icmlauthor{Vladislav Kurenkov}{airi,inno,attink}
+\icmlauthor{Ilya Zisman}{airi,skol,attink}
+\icmlauthor{Sergey Kolesnikov}{tink}
+\end{icmlauthorlist}
+
+\icmlaffiliation{tink}{Tinkoff, Moscow, Russia}
+% \icmlaffiliation{airi}{AIRI, Moscow, Russia (\textbf{\underline{Work done while at Tinkoff}})}
+\icmlaffiliation{airi}{AIRI, Moscow, Russia}
+\icmlaffiliation{inno}{Innopolis University}
+\icmlaffiliation{mipt}{MIPT}
+\icmlaffiliation{skol}{Skoltech, Moscow, Russia}
+% \icmlaffiliation{star}{Work done while at Tinkoff}
+
+\icmlcorrespondingauthor{Viacheslav Sinii}{v.siniy@tinkoff.ai}
+
+% You may provide any keywords that you
+% find helpful for describing your paper; these are used to populate
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{Machine Learning, Reinforcement Learning, In-Context Learning, Variable Action Spaces, Transformers}
+
+\vskip 0.3in
+]
+
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column
+% listing the affiliations and the copyright notice.
+% The command takes one argument, which is text to display at the start of the footnote.
+% The \icmlEqualContribution command is standard text for equal contribution.
+% Remove it (just {}) if you do not need this facility.
+
+% \printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+
+\begin{abstract}
+Recently, it has been shown that transformers pre-trained on diverse datasets with multi-episode contexts can generalize to new reinforcement learning tasks in-context. A key limitation of previously proposed models is their reliance on a predefined action space size and structure. The introduction of a new action space often requires data re-collection and model re-training, which can be costly for some applications. In our work, we show that it is possible to mitigate this issue by proposing the Headless-AD model that, despite being trained only once, is capable of generalizing to discrete action spaces of variable size, semantic content and order. By experimenting with Bernoulli and contextual bandits, as well as a gridworld environment, we show that Headless-AD exhibits significant capability to generalize to action spaces it has never encountered, even outperforming specialized models trained for a specific set of actions on several environment configurations. Implementation is available at: \url{https://github.com/corl-team/headless-ad}.
+\end{abstract}
+
+
+\input{sections/introduction}
+\input{sections/bad_ad}
+\input{sections/methodology}
+\input{sections/experiments}
+\input{sections/ablations}
+\input{sections/related_work}
+\input{sections/conclusion}
+\input{sections/broader_impact}
+
+% In the unusual situation where you want a paper to appear in the
+% references without citing it in the main text, use \nocite
+% \nocite{langley00}
+
+\bibliography{icml2024}
+\bibliographystyle{icml2024}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\onecolumn
+
+
+\input{sections/background}
+\input{sections/extended_related_work}
+\input{sections/ad_perm_train}
+\input{sections/across_env}
+\input{sections/visual_observations}
+\input{sections/grid_alt_split}
+\input{sections/mse_headless_curves}
+\input{sections/ortho_sampling}
+\input{sections/algorithm_training_times}
+\input{sections/model_hypers}
+\input{sections/emb_lin_dep}
+\input{sections/code_sample}
+
+\end{document}

@@ -1,0 +1,88 @@
+
+\documentclass{article} %
+\input{00-header.tex}
+
+\usepackage[final]{colm2025_conference}
+
+  
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+
+\usepackage{lineno}
+
+\definecolor{darkblue}{rgb}{0, 0, 0.5}
+\hypersetup{colorlinks=true, citecolor=darkblue, linkcolor=darkblue, urlcolor=darkblue}
+
+
+\title{LLMs Are In-Context Bandit Reinforcement Learners}
+
+
+\newcommand{\cornellid}{1} %
+\newcommand{\epflid}{2} %
+\newcommand{\harvardid}{3} %
+
+\author{Giovanni Monea,$^\cornellid$ Antoine Bosselut,\textsuperscript{\epflid} Kianté Brantley,\textsuperscript{\harvardid} and Yoav Artzi$^\cornellid$ \\
+$^\cornellid$Cornell University \hspace{2em} $^\epflid$EPFL \hspace{2em} $^\harvardid$Harvard University\\
+\texttt{\{giovanni, yoav\}@cs.cornell.edu, antoine.bosselut@epfl.ch,}\\
+\texttt{kdbrantley@g.harvard.edu}
+}
+
+
+
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\begin{document}
+
+\ifcolmsubmission
+\linenumbers
+\fi
+
+\maketitle
+
+\begin{abstract}
+\input{00-abstract}
+\end{abstract}
+
+
+
+\input{10-intro}
+
+\input{20-icrl}
+
+\input{30-exp}
+
+\input{40-results}
+
+\input{50-related}
+
+\input{60-discussion}
+
+\input{80-acks}
+
+\section*{{Acknowledgments}}
+We thank Yair Feldman for proposing Spearman's rank correlation as a stability metric, and Mustafa Omer Gul, Yair Feldman, Yilun Hua, and Robert West for insightful discussion and feedback. 
+This research was supported by NSF under grants No. 1750499 and OAC-2311521, NASA under award No. 20-OSTFL20-0053, a gift from Open Philanthropy, the Academic Grant Program, a gift from Apple, the National Artificial Intelligence Research Resource (NAIRR) Pilot, the Frontera supercomputer supported by the National Science Foundation (award NSF-OAC 1818253) at the Texas Advanced Computing Center (TACC) at The University of Texas at Austin, and the Delta advanced computing and data resource which is supported by the National Science Foundation (award NSF-OAC 2005572). We thank Google for enabling experiments with \gemini through a gift.
+We gratefully acknowledge use of the research computing resources of the Empire AI Consortium, Inc, with support from the State of New York, the Simons Foundation, and the Secunda Family Foundation~\citep{Bloom2025EmpireAI}.
+AB gratefully acknowledges the support of the Swiss National Science Foundation (No. 215390), Innosuisse (PFFS-21-29), the EPFL Center for Imaging, Sony Group Corporation, and the Allen Institute for AI.
+Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation, NASA, or the other funders. 
+
+
+
+\bibliography{bibliography}
+\bibliographystyle{colm2025_conference}
+
+\newpage
+
+\onecolumn
+
+\appendix
+
+
+\input{70-appendix}
+
+
+\end{document}

@@ -1,0 +1,59 @@
+topic: in-context-rl
+claim_family: weak_claims
+claims:
+  - claim_id: icrl-weak-001
+    statement: "Pretrained models in the local corpus share a single minimal algorithmic state that can be cleanly decomposed into a fixed set of typed variables."
+    type: speculation
+    support_note_files:
+      - notes/papers/transformers-learn-temporal-difference-methods-for-in-context-reinforcement-learning.md
+      - notes/papers/sparse-autoencoders-reveal-temporal-difference-learning-in-large-language-models.md
+      - notes/papers/learning-how-to-infer-partial-mdps-for-in-context-adaptation-and-exploration.md
+    evidence_anchors:
+      - note_file: notes/papers/transformers-learn-temporal-difference-methods-for-in-context-reinforcement-learning.md
+        anchors: [Conclusion]
+      - note_file: notes/papers/sparse-autoencoders-reveal-temporal-difference-learning-in-large-language-models.md
+        anchors: [Discussion, Limitations & Future Work]
+      - note_file: notes/papers/learning-how-to-infer-partial-mdps-for-in-context-adaptation-and-exploration.md
+        anchors: [Learning How to Infer Partial Models]
+    confidence: 0.34
+    downstream_use_candidates: [future-work-only]
+    flag_reason: "Support notes point to candidate latent computations, not a shared minimal decomposition."
+
+  - claim_id: icrl-weak-002
+    statement: "A single generic context compiler would outperform raw-history conditioning across all local task families."
+    type: speculation
+    support_note_files:
+      - notes/papers/filtering-learning-histories-enhances-in-context-reinforcement-learning.md
+      - notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+      - notes/papers/can-large-language-models-explore-in-context.md
+      - notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+    evidence_anchors:
+      - note_file: notes/papers/filtering-learning-histories-enhances-in-context-reinforcement-learning.md
+        anchors: [Learning History Filtering, Discussion]
+      - note_file: notes/papers/retrieval-augmented-decision-transformer-external-memory-for-in-context-rl.md
+        anchors: [Discussion, Ablation Studies]
+      - note_file: notes/papers/can-large-language-models-explore-in-context.md
+        anchors: [Root causes, Investigating successes]
+      - note_file: notes/papers/lmact-a-benchmark-for-in-context-imitation-learning-with-long-multimodal-demonstrations.md
+        anchors: [In-Context Imitation Learning, Discussion & Related Work]
+    confidence: 0.41
+    downstream_use_candidates: [future-work-only]
+    flag_reason: "Local notes motivate better context handling, but they do not justify one universal compiler claim."
+
+  - claim_id: icrl-weak-003
+    statement: "Current local evidence is already sufficient to claim robust general-purpose adaptive intelligence."
+    type: speculation
+    support_note_files:
+      - notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+      - notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+      - notes/papers/reward-is-enough-llms-are-in-context-reinforcement-learners.md
+    evidence_anchors:
+      - note_file: notes/papers/human-timescale-adaptation-in-an-open-ended-task-space.md
+        anchors: [Experiments and Results, Computational cost]
+      - note_file: notes/papers/relic-a-recipe-for-64k-steps-of-in-context-reinforcement-learning-for-embodied-ai.md
+        anchors: [Conclusion and Limitations]
+      - note_file: notes/papers/reward-is-enough-llms-are-in-context-reinforcement-learners.md
+        anchors: [Results, Discussion]
+    confidence: 0.28
+    downstream_use_candidates: [do-not-use]
+    flag_reason: "The local corpus still reports major limits around scale, memorization, negative evidence, and interface diversity."

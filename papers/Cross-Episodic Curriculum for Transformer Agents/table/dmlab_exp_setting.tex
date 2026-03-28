@@ -1,0 +1,17 @@
+\begin{table}[t!]
+\caption{\textbf{Generalization gaps between training and testing for DMLab levels.} Note that agents resulting from task-difficulty-based curricula are not trained on test configurations. Therefore, their performance should be considered as \emph{zero-shot}.}
+\label{table:dmlab_exp_setting}
+\vspace{0.1in}
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{@{}c|c|c|ccccc@{}}
+\toprule
+\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Level\\ Name\end{tabular}}} & \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Difficulty\\ Parameter\end{tabular}}} & \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Test\\ Difficulty\end{tabular}}} & \multicolumn{5}{c}{\textbf{Training Difficulty}}                                                                                                                                                                                                                                                                               \\ \cmidrule(l){4-8} 
+                                                                               &                                                                                          &                                                                                     & \begin{tabular}[c]{@{}c@{}}Ours\\ (Learning Progress)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ours\\ (Task Difficulty)\end{tabular} & \begin{tabular}[c]{@{}c@{}}BC\\ w/ Expert Data\end{tabular} & \begin{tabular}[c]{@{}c@{}}RL\\ (Oracle)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Curriculum RL\\ (Oracle)\end{tabular} \\ \midrule
+Goal Maze                                                                      & Room Numbers                                                                             & 20                                                                                  & 20                                                                 & 5→10→15                                                          & 20                                                          & 20                                                    & 5→10→15→20                                                       \\
+Watermaze                                                                      & Spawn Radius                                                                             & 580                                                                                 & 580                                                                & 150→300→450                                                      & 580                                                         & 580                                                   & 150→300→450→580                                                  \\
+Irreversible Path                                                              & Built-In Difficulty                                                                      & .9                                                                                  & .9                                                                 & .1→.3→.5→.7                                                      & .9                                                          & .9                                                    & .1→.3→.5→.7→.9                                                   \\ \bottomrule
+\end{tabular}
+
+}
+\end{table}

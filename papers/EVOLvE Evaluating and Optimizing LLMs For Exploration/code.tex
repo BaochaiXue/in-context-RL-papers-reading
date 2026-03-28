@@ -1,0 +1,45 @@
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+
+\definecolor{backcolour}{RGB}{245,248,250}
+\definecolor{emph}{RGB}{166,88,53}
+\definecolor{nightblue}{RGB}{9,49,105}
+\definecolor{keywords}{RGB}{207,33,46}
+\definecolor{lightpurple}{RGB}{130,81,223}
+
+\definecolor{skyblue}{RGB}{86,168,245}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},    % \color{backcolour}
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{keywords},
+    stringstyle=\color{nightblue},
+    basicstyle=\fontsize{7}{8}\ttfamily,
+    breakatwhitespace=true,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numberstyle=\tiny\color{codegray},
+    numbersep=2pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    emph={bundle,@trace,trace,backward, instruction, code, documentation, variables, constraints,inputs,others,outputs,feedback,actual_problem_instance,variable1_name,variable2_name,variable1_value1,variable1_value2,variable2_value1,variable2_value2,feedback_1,feedback_2,node,@trace_class},
+    emphstyle={\color{codepurple}},
+    linewidth=1\columnwidth,
+    frame=tb,    
+    xrightmargin=0pt,
+    xleftmargin=0.23cm,
+    numbers=left,
+    aboveskip=0.2cm,
+    belowskip=0.1cm,
+}
+
+\lstset{style=mystyle}
+

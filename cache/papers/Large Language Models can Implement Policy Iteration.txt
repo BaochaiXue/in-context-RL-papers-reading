@@ -1,0 +1,84 @@
+For each action in {A(1), ..., A(n)}:
+
+A(n)
+
+st
+
+LLM
+
+s2
+
+LLM
+
+a2
+
+D
+
+r2
+
+LLM
+
+s3
+
+arg maxa
+P
+... Q(st, A(1)) = γ uru
+
+...
+
+...
+
+= s1
+...
+
+st
+
+D
+
+...
+
+st
+
+= a1
+
+r1
+
+...
+
+A(1)
+
+D
+
+= a1
+= s1
+
+LLM
+
+s2
+
+LLM
+
+D
+
+r1
+
+D
+
+a2
+
+Environment
+
+LLM
+
+s3
+
+D
+
+r2
+
+P u u
+... Q(st, A(n)) = γ r
+
+at
+
+

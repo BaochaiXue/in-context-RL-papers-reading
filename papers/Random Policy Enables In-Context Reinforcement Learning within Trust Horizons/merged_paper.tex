@@ -1,0 +1,2621 @@
+\documentclass[10pt]{article}
+\usepackage[accepted]{tmlr}
+\usepackage{amsmath,amsfonts,bm}
+\newcommand{\figleft}{{\em (Left)}}
+\newcommand{\figcenter}{{\em (Center)}}
+\newcommand{\figright}{{\em (Right)}}
+\newcommand{\figtop}{{\em (Top)}}
+\newcommand{\figbottom}{{\em (Bottom)}}
+\newcommand{\captiona}{{\em (a)}}
+\newcommand{\captionb}{{\em (b)}}
+\newcommand{\captionc}{{\em (c)}}
+\newcommand{\captiond}{{\em (d)}}
+\newcommand{\newterm}[1]{{\bf #1}}
+\def\figref#1{figure~\ref{#1}}
+\def\Figref#1{Figure~\ref{#1}}
+\def\twofigref#1#2{figures \ref{#1} and \ref{#2}}
+\def\quadfigref#1#2#3#4{figures \ref{#1}, \ref{#2}, \ref{#3} and \ref{#4}}
+\def\secref#1{section~\ref{#1}}
+\def\Secref#1{Section~\ref{#1}}
+\def\twosecrefs#1#2{sections \ref{#1} and \ref{#2}}
+\def\secrefs#1#2#3{sections \ref{#1}, \ref{#2} and \ref{#3}}
+\def\eqref#1{equation~\ref{#1}}
+\def\Eqref#1{Equation~\ref{#1}}
+\def\plaineqref#1{\ref{#1}}
+\def\chapref#1{chapter~\ref{#1}}
+\def\Chapref#1{Chapter~\ref{#1}}
+\def\rangechapref#1#2{chapters\ref{#1}--\ref{#2}}
+\def\algref#1{algorithm~\ref{#1}}
+\def\Algref#1{Algorithm~\ref{#1}}
+\def\twoalgref#1#2{algorithms \ref{#1} and \ref{#2}}
+\def\Twoalgref#1#2{Algorithms \ref{#1} and \ref{#2}}
+\def\partref#1{part~\ref{#1}}
+\def\Partref#1{Part~\ref{#1}}
+\def\twopartref#1#2{parts \ref{#1} and \ref{#2}}
+\def\ceil#1{\lceil #1 \rceil}
+\def\floor#1{\lfloor #1 \rfloor}
+\def\1{\bm{1}}
+\newcommand{\train}{\mathcal{D}}
+\newcommand{\valid}{\mathcal{D_{\mathrm{valid}}}}
+\newcommand{\test}{\mathcal{D_{\mathrm{test}}}}
+\def\eps{{\epsilon}}
+\def\reta{{\textnormal{$\eta$}}}
+\def\ra{{\textnormal{a}}}
+\def\rb{{\textnormal{b}}}
+\def\rc{{\textnormal{c}}}
+\def\rd{{\textnormal{d}}}
+\def\re{{\textnormal{e}}}
+\def\rf{{\textnormal{f}}}
+\def\rg{{\textnormal{g}}}
+\def\rh{{\textnormal{h}}}
+\def\ri{{\textnormal{i}}}
+\def\rj{{\textnormal{j}}}
+\def\rk{{\textnormal{k}}}
+\def\rl{{\textnormal{l}}}
+\def\rn{{\textnormal{n}}}
+\def\ro{{\textnormal{o}}}
+\def\rp{{\textnormal{p}}}
+\def\rq{{\textnormal{q}}}
+\def\rr{{\textnormal{r}}}
+\def\rs{{\textnormal{s}}}
+\def\rt{{\textnormal{t}}}
+\def\ru{{\textnormal{u}}}
+\def\rv{{\textnormal{v}}}
+\def\rw{{\textnormal{w}}}
+\def\rx{{\textnormal{x}}}
+\def\ry{{\textnormal{y}}}
+\def\rz{{\textnormal{z}}}
+\def\rvepsilon{{\mathbf{\epsilon}}}
+\def\rvtheta{{\mathbf{\theta}}}
+\def\rva{{\mathbf{a}}}
+\def\rvb{{\mathbf{b}}}
+\def\rvc{{\mathbf{c}}}
+\def\rvd{{\mathbf{d}}}
+\def\rve{{\mathbf{e}}}
+\def\rvf{{\mathbf{f}}}
+\def\rvg{{\mathbf{g}}}
+\def\rvh{{\mathbf{h}}}
+\def\rvu{{\mathbf{i}}}
+\def\rvj{{\mathbf{j}}}
+\def\rvk{{\mathbf{k}}}
+\def\rvl{{\mathbf{l}}}
+\def\rvm{{\mathbf{m}}}
+\def\rvn{{\mathbf{n}}}
+\def\rvo{{\mathbf{o}}}
+\def\rvp{{\mathbf{p}}}
+\def\rvq{{\mathbf{q}}}
+\def\rvr{{\mathbf{r}}}
+\def\rvs{{\mathbf{s}}}
+\def\rvt{{\mathbf{t}}}
+\def\rvu{{\mathbf{u}}}
+\def\rvv{{\mathbf{v}}}
+\def\rvw{{\mathbf{w}}}
+\def\rvx{{\mathbf{x}}}
+\def\rvy{{\mathbf{y}}}
+\def\rvz{{\mathbf{z}}}
+\def\erva{{\textnormal{a}}}
+\def\ervb{{\textnormal{b}}}
+\def\ervc{{\textnormal{c}}}
+\def\ervd{{\textnormal{d}}}
+\def\erve{{\textnormal{e}}}
+\def\ervf{{\textnormal{f}}}
+\def\ervg{{\textnormal{g}}}
+\def\ervh{{\textnormal{h}}}
+\def\ervi{{\textnormal{i}}}
+\def\ervj{{\textnormal{j}}}
+\def\ervk{{\textnormal{k}}}
+\def\ervl{{\textnormal{l}}}
+\def\ervm{{\textnormal{m}}}
+\def\ervn{{\textnormal{n}}}
+\def\ervo{{\textnormal{o}}}
+\def\ervp{{\textnormal{p}}}
+\def\ervq{{\textnormal{q}}}
+\def\ervr{{\textnormal{r}}}
+\def\ervs{{\textnormal{s}}}
+\def\ervt{{\textnormal{t}}}
+\def\ervu{{\textnormal{u}}}
+\def\ervv{{\textnormal{v}}}
+\def\ervw{{\textnormal{w}}}
+\def\ervx{{\textnormal{x}}}
+\def\ervy{{\textnormal{y}}}
+\def\ervz{{\textnormal{z}}}
+\def\rmA{{\mathbf{A}}}
+\def\rmB{{\mathbf{B}}}
+\def\rmC{{\mathbf{C}}}
+\def\rmD{{\mathbf{D}}}
+\def\rmE{{\mathbf{E}}}
+\def\rmF{{\mathbf{F}}}
+\def\rmG{{\mathbf{G}}}
+\def\rmH{{\mathbf{H}}}
+\def\rmI{{\mathbf{I}}}
+\def\rmJ{{\mathbf{J}}}
+\def\rmK{{\mathbf{K}}}
+\def\rmL{{\mathbf{L}}}
+\def\rmM{{\mathbf{M}}}
+\def\rmN{{\mathbf{N}}}
+\def\rmO{{\mathbf{O}}}
+\def\rmP{{\mathbf{P}}}
+\def\rmQ{{\mathbf{Q}}}
+\def\rmR{{\mathbf{R}}}
+\def\rmS{{\mathbf{S}}}
+\def\rmT{{\mathbf{T}}}
+\def\rmU{{\mathbf{U}}}
+\def\rmV{{\mathbf{V}}}
+\def\rmW{{\mathbf{W}}}
+\def\rmX{{\mathbf{X}}}
+\def\rmY{{\mathbf{Y}}}
+\def\rmZ{{\mathbf{Z}}}
+\def\ermA{{\textnormal{A}}}
+\def\ermB{{\textnormal{B}}}
+\def\ermC{{\textnormal{C}}}
+\def\ermD{{\textnormal{D}}}
+\def\ermE{{\textnormal{E}}}
+\def\ermF{{\textnormal{F}}}
+\def\ermG{{\textnormal{G}}}
+\def\ermH{{\textnormal{H}}}
+\def\ermI{{\textnormal{I}}}
+\def\ermJ{{\textnormal{J}}}
+\def\ermK{{\textnormal{K}}}
+\def\ermL{{\textnormal{L}}}
+\def\ermM{{\textnormal{M}}}
+\def\ermN{{\textnormal{N}}}
+\def\ermO{{\textnormal{O}}}
+\def\ermP{{\textnormal{P}}}
+\def\ermQ{{\textnormal{Q}}}
+\def\ermR{{\textnormal{R}}}
+\def\ermS{{\textnormal{S}}}
+\def\ermT{{\textnormal{T}}}
+\def\ermU{{\textnormal{U}}}
+\def\ermV{{\textnormal{V}}}
+\def\ermW{{\textnormal{W}}}
+\def\ermX{{\textnormal{X}}}
+\def\ermY{{\textnormal{Y}}}
+\def\ermZ{{\textnormal{Z}}}
+\def\vzero{{\bm{0}}}
+\def\vone{{\bm{1}}}
+\def\vmu{{\bm{\mu}}}
+\def\vtheta{{\bm{\theta}}}
+\def\va{{\bm{a}}}
+\def\vb{{\bm{b}}}
+\def\vc{{\bm{c}}}
+\def\vd{{\bm{d}}}
+\def\ve{{\bm{e}}}
+\def\vf{{\bm{f}}}
+\def\vg{{\bm{g}}}
+\def\vh{{\bm{h}}}
+\def\vi{{\bm{i}}}
+\def\vj{{\bm{j}}}
+\def\vk{{\bm{k}}}
+\def\vl{{\bm{l}}}
+\def\vm{{\bm{m}}}
+\def\vn{{\bm{n}}}
+\def\vo{{\bm{o}}}
+\def\vp{{\bm{p}}}
+\def\vq{{\bm{q}}}
+\def\vr{{\bm{r}}}
+\def\vs{{\bm{s}}}
+\def\vt{{\bm{t}}}
+\def\vu{{\bm{u}}}
+\def\vv{{\bm{v}}}
+\def\vw{{\bm{w}}}
+\def\vx{{\bm{x}}}
+\def\vy{{\bm{y}}}
+\def\vz{{\bm{z}}}
+\def\evalpha{{\alpha}}
+\def\evbeta{{\beta}}
+\def\evepsilon{{\epsilon}}
+\def\evlambda{{\lambda}}
+\def\evomega{{\omega}}
+\def\evmu{{\mu}}
+\def\evpsi{{\psi}}
+\def\evsigma{{\sigma}}
+\def\evtheta{{\theta}}
+\def\eva{{a}}
+\def\evb{{b}}
+\def\evc{{c}}
+\def\evd{{d}}
+\def\eve{{e}}
+\def\evf{{f}}
+\def\evg{{g}}
+\def\evh{{h}}
+\def\evi{{i}}
+\def\evj{{j}}
+\def\evk{{k}}
+\def\evl{{l}}
+\def\evm{{m}}
+\def\evn{{n}}
+\def\evo{{o}}
+\def\evp{{p}}
+\def\evq{{q}}
+\def\evr{{r}}
+\def\evs{{s}}
+\def\evt{{t}}
+\def\evu{{u}}
+\def\evv{{v}}
+\def\evw{{w}}
+\def\evx{{x}}
+\def\evy{{y}}
+\def\evz{{z}}
+\def\mA{{\bm{A}}}
+\def\mB{{\bm{B}}}
+\def\mC{{\bm{C}}}
+\def\mD{{\bm{D}}}
+\def\mE{{\bm{E}}}
+\def\mF{{\bm{F}}}
+\def\mG{{\bm{G}}}
+\def\mH{{\bm{H}}}
+\def\mI{{\bm{I}}}
+\def\mJ{{\bm{J}}}
+\def\mK{{\bm{K}}}
+\def\mL{{\bm{L}}}
+\def\mM{{\bm{M}}}
+\def\mN{{\bm{N}}}
+\def\mO{{\bm{O}}}
+\def\mP{{\bm{P}}}
+\def\mQ{{\bm{Q}}}
+\def\mR{{\bm{R}}}
+\def\mS{{\bm{S}}}
+\def\mT{{\bm{T}}}
+\def\mU{{\bm{U}}}
+\def\mV{{\bm{V}}}
+\def\mW{{\bm{W}}}
+\def\mX{{\bm{X}}}
+\def\mY{{\bm{Y}}}
+\def\mZ{{\bm{Z}}}
+\def\mBeta{{\bm{\beta}}}
+\def\mPhi{{\bm{\Phi}}}
+\def\mLambda{{\bm{\Lambda}}}
+\def\mSigma{{\bm{\Sigma}}}
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{sl}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+\def\tA{{\tens{A}}}
+\def\tB{{\tens{B}}}
+\def\tC{{\tens{C}}}
+\def\tD{{\tens{D}}}
+\def\tE{{\tens{E}}}
+\def\tF{{\tens{F}}}
+\def\tG{{\tens{G}}}
+\def\tH{{\tens{H}}}
+\def\tI{{\tens{I}}}
+\def\tJ{{\tens{J}}}
+\def\tK{{\tens{K}}}
+\def\tL{{\tens{L}}}
+\def\tM{{\tens{M}}}
+\def\tN{{\tens{N}}}
+\def\tO{{\tens{O}}}
+\def\tP{{\tens{P}}}
+\def\tQ{{\tens{Q}}}
+\def\tR{{\tens{R}}}
+\def\tS{{\tens{S}}}
+\def\tT{{\tens{T}}}
+\def\tU{{\tens{U}}}
+\def\tV{{\tens{V}}}
+\def\tW{{\tens{W}}}
+\def\tX{{\tens{X}}}
+\def\tY{{\tens{Y}}}
+\def\tZ{{\tens{Z}}}
+\def\gA{{\mathcal{A}}}
+\def\gB{{\mathcal{B}}}
+\def\gC{{\mathcal{C}}}
+\def\gD{{\mathcal{D}}}
+\def\gE{{\mathcal{E}}}
+\def\gF{{\mathcal{F}}}
+\def\gG{{\mathcal{G}}}
+\def\gH{{\mathcal{H}}}
+\def\gI{{\mathcal{I}}}
+\def\gJ{{\mathcal{J}}}
+\def\gK{{\mathcal{K}}}
+\def\gL{{\mathcal{L}}}
+\def\gM{{\mathcal{M}}}
+\def\gN{{\mathcal{N}}}
+\def\gO{{\mathcal{O}}}
+\def\gP{{\mathcal{P}}}
+\def\gQ{{\mathcal{Q}}}
+\def\gR{{\mathcal{R}}}
+\def\gS{{\mathcal{S}}}
+\def\gT{{\mathcal{T}}}
+\def\gU{{\mathcal{U}}}
+\def\gV{{\mathcal{V}}}
+\def\gW{{\mathcal{W}}}
+\def\gX{{\mathcal{X}}}
+\def\gY{{\mathcal{Y}}}
+\def\gZ{{\mathcal{Z}}}
+\def\sA{{\mathbb{A}}}
+\def\sB{{\mathbb{B}}}
+\def\sC{{\mathbb{C}}}
+\def\sD{{\mathbb{D}}}
+\def\sF{{\mathbb{F}}}
+\def\sG{{\mathbb{G}}}
+\def\sH{{\mathbb{H}}}
+\def\sI{{\mathbb{I}}}
+\def\sJ{{\mathbb{J}}}
+\def\sK{{\mathbb{K}}}
+\def\sL{{\mathbb{L}}}
+\def\sM{{\mathbb{M}}}
+\def\sN{{\mathbb{N}}}
+\def\sO{{\mathbb{O}}}
+\def\sP{{\mathbb{P}}}
+\def\sQ{{\mathbb{Q}}}
+\def\sR{{\mathbb{R}}}
+\def\sS{{\mathbb{S}}}
+\def\sT{{\mathbb{T}}}
+\def\sU{{\mathbb{U}}}
+\def\sV{{\mathbb{V}}}
+\def\sW{{\mathbb{W}}}
+\def\sX{{\mathbb{X}}}
+\def\sY{{\mathbb{Y}}}
+\def\sZ{{\mathbb{Z}}}
+\def\emLambda{{\Lambda}}
+\def\emA{{A}}
+\def\emB{{B}}
+\def\emC{{C}}
+\def\emD{{D}}
+\def\emE{{E}}
+\def\emF{{F}}
+\def\emG{{G}}
+\def\emH{{H}}
+\def\emI{{I}}
+\def\emJ{{J}}
+\def\emK{{K}}
+\def\emL{{L}}
+\def\emM{{M}}
+\def\emN{{N}}
+\def\emO{{O}}
+\def\emP{{P}}
+\def\emQ{{Q}}
+\def\emR{{R}}
+\def\emS{{S}}
+\def\emT{{T}}
+\def\emU{{U}}
+\def\emV{{V}}
+\def\emW{{W}}
+\def\emX{{X}}
+\def\emY{{Y}}
+\def\emZ{{Z}}
+\def\emSigma{{\Sigma}}
+\newcommand{\etens}[1]{\mathsfit{#1}}
+\def\etLambda{{\etens{\Lambda}}}
+\def\etA{{\etens{A}}}
+\def\etB{{\etens{B}}}
+\def\etC{{\etens{C}}}
+\def\etD{{\etens{D}}}
+\def\etE{{\etens{E}}}
+\def\etF{{\etens{F}}}
+\def\etG{{\etens{G}}}
+\def\etH{{\etens{H}}}
+\def\etI{{\etens{I}}}
+\def\etJ{{\etens{J}}}
+\def\etK{{\etens{K}}}
+\def\etL{{\etens{L}}}
+\def\etM{{\etens{M}}}
+\def\etN{{\etens{N}}}
+\def\etO{{\etens{O}}}
+\def\etP{{\etens{P}}}
+\def\etQ{{\etens{Q}}}
+\def\etR{{\etens{R}}}
+\def\etS{{\etens{S}}}
+\def\etT{{\etens{T}}}
+\def\etU{{\etens{U}}}
+\def\etV{{\etens{V}}}
+\def\etW{{\etens{W}}}
+\def\etX{{\etens{X}}}
+\def\etY{{\etens{Y}}}
+\def\etZ{{\etens{Z}}}
+\newcommand{\pdata}{p_{\rm{data}}}
+\newcommand{\ptrain}{\hat{p}_{\rm{data}}}
+\newcommand{\Ptrain}{\hat{P}_{\rm{data}}}
+\newcommand{\pmodel}{p_{\rm{model}}}
+\newcommand{\Pmodel}{P_{\rm{model}}}
+\newcommand{\ptildemodel}{\tilde{p}_{\rm{model}}}
+\newcommand{\pencode}{p_{\rm{encoder}}}
+\newcommand{\pdecode}{p_{\rm{decoder}}}
+\newcommand{\precons}{p_{\rm{reconstruct}}}
+\newcommand{\laplace}{\mathrm{Laplace}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Ls}{\mathcal{L}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\emp}{\tilde{p}}
+\newcommand{\lr}{\alpha}
+\newcommand{\reg}{\lambda}
+\newcommand{\rect}{\mathrm{rectifier}}
+\newcommand{\softmax}{\mathrm{softmax}}
+\newcommand{\sigmoid}{\sigma}
+\newcommand{\softplus}{\zeta}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\standarderror}{\mathrm{SE}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\normlzero}{L^0}
+\newcommand{\normlone}{L^1}
+\newcommand{\normltwo}{L^2}
+\newcommand{\normlp}{L^p}
+\newcommand{\normmax}{L^\infty}
+\newcommand{\parents}{Pa}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Tr}{Tr}
+\let\ab\allowbreak
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{pifont}
+\newcommand{\yes}{\textcolor{blue}{\ding{51}}}
+\newcommand{\no}{\textcolor{red}{\ding{55}}}
+\def\Real{\mathbb{R}}
+\usepackage{color}
+\let\Bbbk\relax
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm,bm}
+\usepackage{amsmath}
+\usepackage{cases}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newenvironment{myproof}{{\noindent\it Proof. }}{\hfill $\square$ \par}
+\newtheorem{remark}{Remark}
+\def \Reg {\mathbf{Reg} }
+\DeclareMathOperator{\sgn}{sgn}
+\usepackage{caption}
+\usepackage{dsfont}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{comment}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\let\AND\relax
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{float}
+\newenvironment{slideeq} {              \begin{equation*}} {\end{equation*}            }
+\newenvironment{nslideeq}{              \begin{equation*}} {\end{equation*}            }
+\newenvironment{sslideeq}{\small        \begin{equation*}} {\end{equation*} \normalfont}
+\newenvironment{fslideeq}{\footnotesize \begin{equation*}} {\end{equation*} \normalfont}
+\newenvironment{slidealign} {              \begin{align*}} {\end{align*}            }
+\newenvironment{nslidealign}{              \begin{align*}} {\end{align*}            }
+\newenvironment{sslidealign}{\small        \begin{align*}} {\end{align*} \normalfont}
+\newenvironment{fslidealign}{\footnotesize \begin{align*}} {\end{align*} \normalfont}
+\definecolor{pennblue}{cmyk}{1,0.65,0,0.30}
+\definecolor{pennred}{cmyk}{0,1,0.65,0.34}
+\newcommand \red[1]         {{\color{red}#1}}
+\newcommand \blue[1]        {{\color{blue}#1}}
+\newcommand \grey[1]        {{\color[rgb]{0.80,0.80,0.80}#1}}
+\newcommand \gray[1]        {{\color[rgb]{0.80,0.80,0.80}#1}}
+\newcommand \green[1]       {{\color[rgb]{0.10,0.50,0.10}#1}}
+\newcommand \orange[1]      {{\color[rgb]{0.69,0.4,0.0}#1}}
+\newcommand \purple[1]      {{\color[rgb]{0.5,0.0,0.5}#1}}
+\newcommand \bulletcolor[1] {{\color{pennblue}#1}}
+\def \arrowbullet {\bulletcolor{$\ \Rightarrow\ $}}
+\def \arrbullet   {\bulletcolor{$\ \Rightarrow\ $}}
+\def \ab          {\bulletcolor{$\ \Rightarrow\ $}}
+\def \arritem     {\item[] \quad \arrowbullet}
+\def \ai          {\item[] \quad \arrowbullet}
+\def \doublearrow {\bulletcolor{$\ \Leftrightarrow\ $}}
+\def \darrbullet  {\bulletcolor{$\ \Leftrightarrow\ $}}
+\def \defQfunction
+        {Q(u):=(1/\sqrt{2\pi})\int_u^\infty e^{-u^2/2} du}
+\def \intinfty  { \int_{-\infty}^{\infty} }
+\def \ovP {\overline{P}}
+\def \ovl {\overline{l}}
+\def \ovbbl {\overline{\bbl}}
+\def \ovX {\overline{X}}
+\def \ovbbX {\overline{\bbX}}
+\def \ovp {\overline{p}}
+\def \ovbbp {\overline{\bbp}}
+\def \ovr {\overline{r}}
+\def \ova {\overline{a}}
+\def \ovc {\overline{c}}
+\def \ovalpha {\overline{\alpha}}
+\def \undP {\underline{P}}
+\def \undl {\underline{l}}
+\def \undbbl {\underline{\bbl}}
+\def \undX {\underline{X}}
+\def \undbbX {\underline{\bbX}}
+\def \undp {\underline{p}}
+\def \undbbp {\underline{\bbp}}
+\def \undr {\underline{r}}
+\def \unda {\underline{a}}
+\def \undc {\underline{c}}
+\def \undalpha {\underline{\alpha}}
+\def \undovP     {\underline{\ovP}}
+\def \undovX     {\underline{\ovX}}
+\def \undovbbX   {\underline{\ovbbX}}
+\def \undovp     {\underline{\ovp}}
+\def \undovbbp   {\underline{\ovbbp}}
+\def \undovr     {\underline{\ovr}}
+\def \undova     {\underline{\ova}}
+\def \undovc     {\underline{\ovc}}
+\def \undovalpha {\underline{\ovalpha}}
+\def \ap   {\text{ap}   }
+\def \best {\text{best} }
+\def \Co   {\text{Co}   }
+\def \Cov  {\text{Cov}  }
+\def \cov  {\text{cov}  }
+\def \dest {\text{dest} }
+\def \diag {\text{diag} }
+\def \eig  {\text{eig}  }
+\def \for  {\text{for}  }
+\def \ML   {\text{ML}   }
+\def \MLE  {\text{MLE}  }
+\def \ml   {\text{ml}   }
+\def \mse  {\text{mse}  }
+\def \rank {\text{rank} }
+\def \sign {\text{sign} }
+\def \st   {\text{\,s.t.} }
+\def \tr   {\text{tr}   }
+\newcommand   \Ec    [1] {{\mathbb E}\left(#1\right)}
+\renewcommand \Pr    [1] {\text{\normalfont Pr}  \left[#1\right]}
+\newcommand   \Prc   [1] {\text{\normalfont Pr}  \left(#1\right)}
+\renewcommand \P     [1] {\text{\normalfont P}   \left[#1\right]}
+\newcommand   \Pc    [1] {\text{\normalfont P}   \left(#1\right)}
+\newcommand   \Pcbig [1] {\text{\normalfont P}   \big(#1 \big)}
+\newcommand   \PcBig [1] {\text{\normalfont P}   \Big(#1 \Big)}
+\newcommand   \var   [1] {\text{\normalfont var} \left[#1\right]}
+\newcommand   \varc  [1] {\text{\normalfont var} \left(#1\right)}
+\newcommand   \ind   [1]{{\mathbb I \left\{#1\right\}  } }
+\def \naturals {{\mathbb N}}
+\def \reals    {{\mathbb R}}
+\def \blog { {\bf \log   } }
+\def \given{ {\,\big|\,  } }
+\def\bbarA{{\ensuremath{\bar A}}}
+\def\bbarB{{\ensuremath{\bar B}}}
+\def\bbarC{{\ensuremath{\bar C}}}
+\def\bbarD{{\ensuremath{\bar D}}}
+\def\bbarE{{\ensuremath{\bar E}}}
+\def\bbarF{{\ensuremath{\bar F}}}
+\def\bbarG{{\ensuremath{\bar G}}}
+\def\bbarH{{\ensuremath{\bar H}}}
+\def\bbarI{{\ensuremath{\bar I}}}
+\def\bbarJ{{\ensuremath{\bar J}}}
+\def\bbarK{{\ensuremath{\bar K}}}
+\def\bbarL{{\ensuremath{\bar L}}}
+\def\bbarM{{\ensuremath{\bar M}}}
+\def\bbarN{{\ensuremath{\bar N}}}
+\def\bbarO{{\ensuremath{\bar O}}}
+\def\bbarP{{\ensuremath{\bar P}}}
+\def\bbarQ{{\ensuremath{\bar Q}}}
+\def\bbarR{{\ensuremath{\bar R}}}
+\def\bbarW{{\ensuremath{\bar W}}}
+\def\bbarU{{\ensuremath{\bar U}}}
+\def\bbarV{{\ensuremath{\bar V}}}
+\def\bbarS{{\ensuremath{\bar S}}}
+\def\bbarT{{\ensuremath{\bar T}}}
+\def\bbarX{{\ensuremath{\bar X}}}
+\def\bbarY{{\ensuremath{\bar Y}}}
+\def\bbarZ{{\ensuremath{\bar Z}}}
+\def\bbara{{\ensuremath{\bar a}}}
+\def\bbarb{{\ensuremath{\bar b}}}
+\def\bbarc{{\ensuremath{\bar c}}}
+\def\bbard{{\ensuremath{\bar d}}}
+\def\bbare{{\ensuremath{\bar e}}}
+\def\bbarf{{\ensuremath{\bar f}}}
+\def\bbarg{{\ensuremath{\bar g}}}
+\def\bbarh{{\ensuremath{\bar h}}}
+\def\bbari{{\ensuremath{\bar i}}}
+\def\bbarj{{\ensuremath{\bar j}}}
+\def\bbark{{\ensuremath{\bar k}}}
+\def\bbarl{{\ensuremath{\bar l}}}
+\def\bbarm{{\ensuremath{\bar m}}}
+\def\bbarn{{\ensuremath{\bar n}}}
+\def\bbaro{{\ensuremath{\bar o}}}
+\def\bbarp{{\ensuremath{\bar p}}}
+\def\bbarq{{\ensuremath{\bar q}}}
+\def\bbarr{{\ensuremath{\bar r}}}
+\def\bbarw{{\ensuremath{\bar w}}}
+\def\bbaru{{\ensuremath{\bar u}}}
+\def\bbarv{{\ensuremath{\bar v}}}
+\def\bbars{{\ensuremath{\bar s}}}
+\def\bbart{{\ensuremath{\bar t}}}
+\def\bbarx{{\ensuremath{\bar x}}}
+\def\bbary{{\ensuremath{\bar y}}}
+\def\bbarz{{\ensuremath{\bar z}}}
+\def\mbA{{\ensuremath{\mathbb A}}}
+\def\mbB{{\ensuremath{\mathbb B}}}
+\def\mbC{{\ensuremath{\mathbb C}}}
+\def\mbD{{\ensuremath{\mathbb D}}}
+\def\mbE{{\ensuremath{\mathbb E}}}
+\def\mbF{{\ensuremath{\mathbb F}}}
+\def\mbG{{\ensuremath{\mathbb G}}}
+\def\mbH{{\ensuremath{\mathbb H}}}
+\def\mbI{{\ensuremath{\mathbb I}}}
+\def\mbJ{{\ensuremath{\mathbb J}}}
+\def\mbK{{\ensuremath{\mathbb K}}}
+\def\mbL{{\ensuremath{\mathbb L}}}
+\def\mbM{{\ensuremath{\mathbb M}}}
+\def\mbN{{\ensuremath{\mathbb N}}}
+\def\mbO{{\ensuremath{\mathbb O}}}
+\def\mbP{{\ensuremath{\mathbb P}}}
+\def\mbQ{{\ensuremath{\mathbb Q}}}
+\def\mbR{{\ensuremath{\mathbb R}}}
+\def\mbS{{\ensuremath{\mathbb S}}}
+\def\mbT{{\ensuremath{\mathbb T}}}
+\def\mbU{{\ensuremath{\mathbb U}}}
+\def\mbV{{\ensuremath{\mathbb V}}}
+\def\mbW{{\ensuremath{\mathbb W}}}
+\def\mbX{{\ensuremath{\mathbb X}}}
+\def\mbY{{\ensuremath{\mathbb Y}}}
+\def\mbZ{{\ensuremath{\mathbb Z}}}
+\def\ccalA{{\ensuremath{\mathcal A}}}
+\def\ccalB{{\ensuremath{\mathcal B}}}
+\def\ccalC{{\ensuremath{\mathcal C}}}
+\def\ccalD{{\ensuremath{\mathcal D}}}
+\def\ccalE{{\ensuremath{\mathcal E}}}
+\def\ccalF{{\ensuremath{\mathcal F}}}
+\def\ccalG{{\ensuremath{\mathcal G}}}
+\def\ccalH{{\ensuremath{\mathcal H}}}
+\def\ccalI{{\ensuremath{\mathcal I}}}
+\def\ccalJ{{\ensuremath{\mathcal J}}}
+\def\ccalK{{\ensuremath{\mathcal K}}}
+\def\ccalL{{\ensuremath{\mathcal L}}}
+\def\ccalM{{\ensuremath{\mathcal M}}}
+\def\ccalN{{\ensuremath{\mathcal N}}}
+\def\ccalO{{\ensuremath{\mathcal O}}}
+\def\ccalP{{\ensuremath{\mathcal P}}}
+\def\ccalQ{{\ensuremath{\mathcal Q}}}
+\def\ccalR{{\ensuremath{\mathcal R}}}
+\def\ccalW{{\ensuremath{\mathcal W}}}
+\def\ccalU{{\ensuremath{\mathcal U}}}
+\def\ccalV{{\ensuremath{\mathcal V}}}
+\def\ccalS{{\ensuremath{\mathcal S}}}
+\def\ccalT{{\ensuremath{\mathcal T}}}
+\def\ccalX{{\ensuremath{\mathcal X}}}
+\def\ccalY{{\ensuremath{\mathcal Y}}}
+\def\ccalZ{{\ensuremath{\mathcal Z}}}
+\def\ccala{{\ensuremath{\mathcal a}}}
+\def\ccalb{{\ensuremath{\mathcal b}}}
+\def\ccalc{{\ensuremath{\mathcal c}}}
+\def\ccald{{\ensuremath{\mathcal d}}}
+\def\ccale{{\ensuremath{\mathcal e}}}
+\def\ccalf{{\ensuremath{\mathcal f}}}
+\def\ccalg{{\ensuremath{\mathcal g}}}
+\def\ccalh{{\ensuremath{\mathcal h}}}
+\def\ccali{{\ensuremath{\mathcal i}}}
+\def\ccalj{{\ensuremath{\mathcal j}}}
+\def\ccalk{{\ensuremath{\mathcal k}}}
+\def\ccall{{\ensuremath{\mathcal l}}}
+\def\ccalm{{\ensuremath{\mathcal m}}}
+\def\ccaln{{\ensuremath{\mathcal n}}}
+\def\ccalo{{\ensuremath{\mathcal o}}}
+\def\ccalp{{\ensuremath{\mathcal p}}}
+\def\ccalq{{\ensuremath{\mathcal q}}}
+\def\ccalr{{\ensuremath{\mathcal r}}}
+\def\ccalw{{\ensuremath{\mathcal w}}}
+\def\ccalu{{\ensuremath{\mathcal u}}}
+\def\ccalv{{\ensuremath{\mathcal v}}}
+\def\ccals{{\ensuremath{\mathcal s}}}
+\def\ccalt{{\ensuremath{\mathcal t}}}
+\def\ccalx{{\ensuremath{\mathcal x}}}
+\def\ccaly{{\ensuremath{\mathcal y}}}
+\def\ccalz{{\ensuremath{\mathcal z}}}
+\def\ccal0{{\ensuremath{\mathcal 0}}}
+\def\hhatA{{\ensuremath{\hat A}}}
+\def\hhatB{{\ensuremath{\hat B}}}
+\def\hhatC{{\ensuremath{\hat C}}}
+\def\hhatD{{\ensuremath{\hat D}}}
+\def\hhatE{{\ensuremath{\hat E}}}
+\def\hhatF{{\ensuremath{\hat F}}}
+\def\hhatG{{\ensuremath{\hat G}}}
+\def\hhatH{{\ensuremath{\hat H}}}
+\def\hhatI{{\ensuremath{\hat I}}}
+\def\hhatJ{{\ensuremath{\hat J}}}
+\def\hhatK{{\ensuremath{\hat K}}}
+\def\hhatL{{\ensuremath{\hat L}}}
+\def\hhatM{{\ensuremath{\hat M}}}
+\def\hhatN{{\ensuremath{\hat N}}}
+\def\hhatO{{\ensuremath{\hat O}}}
+\def\hhatP{{\ensuremath{\hat P}}}
+\def\hhatQ{{\ensuremath{\hat Q}}}
+\def\hhatR{{\ensuremath{\hat R}}}
+\def\hhatW{{\ensuremath{\hat W}}}
+\def\hhatU{{\ensuremath{\hat U}}}
+\def\hhatV{{\ensuremath{\hat V}}}
+\def\hhatS{{\ensuremath{\hat S}}}
+\def\hhatT{{\ensuremath{\hat T}}}
+\def\hhatX{{\ensuremath{\hat X}}}
+\def\hhatY{{\ensuremath{\hat Y}}}
+\def\hhatZ{{\ensuremath{\hat Z}}}
+\def\hhata{{\ensuremath{\hat a}}}
+\def\hhatb{{\ensuremath{\hat b}}}
+\def\hhatc{{\ensuremath{\hat c}}}
+\def\hhatd{{\ensuremath{\hat d}}}
+\def\hhate{{\ensuremath{\hat e}}}
+\def\hhatf{{\ensuremath{\hat f}}}
+\def\hhatg{{\ensuremath{\hat g}}}
+\def\hhath{{\ensuremath{\hat h}}}
+\def\hhati{{\ensuremath{\hat i}}}
+\def\hhatj{{\ensuremath{\hat j}}}
+\def\hhatk{{\ensuremath{\hat k}}}
+\def\hhatl{{\ensuremath{\hat l}}}
+\def\hhatm{{\ensuremath{\hat m}}}
+\def\hhatn{{\ensuremath{\hat n}}}
+\def\hhato{{\ensuremath{\hat o}}}
+\def\hhatp{{\ensuremath{\hat p}}}
+\def\hhatq{{\ensuremath{\hat q}}}
+\def\hhatr{{\ensuremath{\hat r}}}
+\def\hhatw{{\ensuremath{\hat w}}}
+\def\hhatu{{\ensuremath{\hat u}}}
+\def\hhatv{{\ensuremath{\hat v}}}
+\def\hhats{{\ensuremath{\hat s}}}
+\def\hhatt{{\ensuremath{\hat t}}}
+\def\hhatx{{\ensuremath{\hat x}}}
+\def\hhaty{{\ensuremath{\hat y}}}
+\def\hhatz{{\ensuremath{\hat z}}}
+\def\tdA{{\ensuremath{\tilde A}}}
+\def\tdB{{\ensuremath{\tilde B}}}
+\def\tdC{{\ensuremath{\tilde C}}}
+\def\tdD{{\ensuremath{\tilde D}}}
+\def\tdE{{\ensuremath{\tilde E}}}
+\def\tdF{{\ensuremath{\tilde F}}}
+\def\tdG{{\ensuremath{\tilde G}}}
+\def\tdH{{\ensuremath{\tilde H}}}
+\def\tdI{{\ensuremath{\tilde I}}}
+\def\tdJ{{\ensuremath{\tilde J}}}
+\def\tdK{{\ensuremath{\tilde K}}}
+\def\tdL{{\ensuremath{\tilde L}}}
+\def\tdM{{\ensuremath{\tilde M}}}
+\def\tdN{{\ensuremath{\tilde N}}}
+\def\tdO{{\ensuremath{\tilde O}}}
+\def\tdP{{\ensuremath{\tilde P}}}
+\def\tdQ{{\ensuremath{\tilde Q}}}
+\def\tdR{{\ensuremath{\tilde R}}}
+\def\tdW{{\ensuremath{\tilde W}}}
+\def\tdU{{\ensuremath{\tilde U}}}
+\def\tdV{{\ensuremath{\tilde V}}}
+\def\tdS{{\ensuremath{\tilde S}}}
+\def\tdT{{\ensuremath{\tilde T}}}
+\def\tdX{{\ensuremath{\tilde X}}}
+\def\tdY{{\ensuremath{\tilde Y}}}
+\def\tdZ{{\ensuremath{\tilde Z}}}
+\def\tda{{\ensuremath{\tilde a}}}
+\def\tdb{{\ensuremath{\tilde b}}}
+\def\tdc{{\ensuremath{\tilde c}}}
+\def\tdd{{\ensuremath{\tilde d}}}
+\def\tde{{\ensuremath{\tilde e}}}
+\def\tdf{{\ensuremath{\tilde f}}}
+\def\tdg{{\ensuremath{\tilde g}}}
+\def\tdh{{\ensuremath{\tilde h}}}
+\def\tdi{{\ensuremath{\tilde i}}}
+\def\tdj{{\ensuremath{\tilde j}}}
+\def\tdk{{\ensuremath{\tilde k}}}
+\def\tdl{{\ensuremath{\tilde l}}}
+\def\tdm{{\ensuremath{\tilde m}}}
+\def\tdn{{\ensuremath{\tilde n}}}
+\def\tdo{{\ensuremath{\tilde o}}}
+\def\tdp{{\ensuremath{\tilde p}}}
+\def\tdq{{\ensuremath{\tilde q}}}
+\def\tdr{{\ensuremath{\tilde r}}}
+\def\tdw{{\ensuremath{\tilde w}}}
+\def\tdu{{\ensuremath{\tilde u}}}
+\def\tdv{{\ensuremath{\tilde r}}}
+\def\tds{{\ensuremath{\tilde s}}}
+\def\tdt{{\ensuremath{\tilde t}}}
+\def\tdx{{\ensuremath{\tilde x}}}
+\def\tdy{{\ensuremath{\tilde y}}}
+\def\tdz{{\ensuremath{\tilde z}}}
+\def\chka{{\ensuremath{\check a}}}
+\def\chkb{{\ensuremath{\check b}}}
+\def\chkc{{\ensuremath{\check c}}}
+\def\chkd{{\ensuremath{\check d}}}
+\def\chke{{\ensuremath{\check e}}}
+\def\chkf{{\ensuremath{\check f}}}
+\def\chkg{{\ensuremath{\check g}}}
+\def\chkh{{\ensuremath{\check h}}}
+\def\chki{{\ensuremath{\check i}}}
+\def\chkj{{\ensuremath{\check j}}}
+\def\chkk{{\ensuremath{\check k}}}
+\def\chkl{{\ensuremath{\check l}}}
+\def\chkm{{\ensuremath{\check m}}}
+\def\chkn{{\ensuremath{\check n}}}
+\def\chko{{\ensuremath{\check o}}}
+\def\chkp{{\ensuremath{\check p}}}
+\def\chkq{{\ensuremath{\check q}}}
+\def\chkr{{\ensuremath{\check r}}}
+\def\chkw{{\ensuremath{\check w}}}
+\def\chku{{\ensuremath{\check u}}}
+\def\chkv{{\ensuremath{\check v}}}
+\def\chks{{\ensuremath{\check s}}}
+\def\chkt{{\ensuremath{\check t}}}
+\def\chkx{{\ensuremath{\check x}}}
+\def\chky{{\ensuremath{\check y}}}
+\def\chkz{{\ensuremath{\check z}}}
+\def\bbone{{\ensuremath{\mathbf 1}}}
+\def\bbzero{{\ensuremath{\mathbf 0}}}
+\def\bbA{{\ensuremath{\mathbf A}}}
+\def\bbB{{\ensuremath{\mathbf B}}}
+\def\bbC{{\ensuremath{\mathbf C}}}
+\def\bbD{{\ensuremath{\mathbf D}}}
+\def\bbE{{\ensuremath{\mathbf E}}}
+\def\bbF{{\ensuremath{\mathbf F}}}
+\def\bbG{{\ensuremath{\mathbf G}}}
+\def\bbH{{\ensuremath{\mathbf H}}}
+\def\bbI{{\ensuremath{\mathbf I}}}
+\def\bbJ{{\ensuremath{\mathbf J}}}
+\def\bbK{{\ensuremath{\mathbf K}}}
+\def\bbL{{\ensuremath{\mathbf L}}}
+\def\bbM{{\ensuremath{\mathbf M}}}
+\def\bbN{{\ensuremath{\mathbf N}}}
+\def\bbO{{\ensuremath{\mathbf O}}}
+\def\bbP{{\ensuremath{\mathbf P}}}
+\def\bbQ{{\ensuremath{\mathbf Q}}}
+\def\bbR{{\ensuremath{\mathbf R}}}
+\def\bbW{{\ensuremath{\mathbf W}}}
+\def\bbU{{\ensuremath{\mathbf U}}}
+\def\bbV{{\ensuremath{\mathbf V}}}
+\def\bbS{{\ensuremath{\mathbf S}}}
+\def\bbT{{\ensuremath{\mathbf T}}}
+\def\bbX{{\ensuremath{\mathbf X}}}
+\def\bbY{{\ensuremath{\mathbf Y}}}
+\def\bbZ{{\ensuremath{\mathbf Z}}}
+\def\bba{{\ensuremath{\mathbf a}}}
+\def\bbb{{\ensuremath{\mathbf b}}}
+\def\bbc{{\ensuremath{\mathbf c}}}
+\def\bbd{{\ensuremath{\mathbf d}}}
+\def\bbe{{\ensuremath{\mathbf e}}}
+\def\bbf{{\ensuremath{\mathbf f}}}
+\def\bbg{{\ensuremath{\mathbf g}}}
+\def\bbh{{\ensuremath{\mathbf h}}}
+\def\bbi{{\ensuremath{\mathbf i}}}
+\def\bbj{{\ensuremath{\mathbf j}}}
+\def\bbk{{\ensuremath{\mathbf k}}}
+\def\bbl{{\ensuremath{\mathbf l}}}
+\def\bbm{{\ensuremath{\mathbf m}}}
+\def\bbn{{\ensuremath{\mathbf n}}}
+\def\bbo{{\ensuremath{\mathbf o}}}
+\def\bbp{{\ensuremath{\mathbf p}}}
+\def\bbq{{\ensuremath{\mathbf q}}}
+\def\bbr{{\ensuremath{\mathbf r}}}
+\def\bbw{{\ensuremath{\mathbf w}}}
+\def\bbu{{\ensuremath{\mathbf u}}}
+\def\bbv{{\ensuremath{\mathbf v}}}
+\def\bbs{{\ensuremath{\mathbf s}}}
+\def\bbt{{\ensuremath{\mathbf t}}}
+\def\bbx{{\ensuremath{\mathbf x}}}
+\def\bby{{\ensuremath{\mathbf y}}}
+\def\bbz{{\ensuremath{\mathbf z}}}
+\def\bb0{{\ensuremath{\mathbf 0}}}
+\def\rmA{{\ensuremath\text{A}}}
+\def\rmB{{\ensuremath\text{B}}}
+\def\rmC{{\ensuremath\text{C}}}
+\def\rmD{{\ensuremath\text{D}}}
+\def\rmE{{\ensuremath\text{E}}}
+\def\rmF{{\ensuremath\text{F}}}
+\def\rmG{{\ensuremath\text{G}}}
+\def\rmH{{\ensuremath\text{H}}}
+\def\rmI{{\ensuremath\text{I}}}
+\def\rmJ{{\ensuremath\text{J}}}
+\def\rmK{{\ensuremath\text{K}}}
+\def\rmL{{\ensuremath\text{L}}}
+\def\rmM{{\ensuremath\text{M}}}
+\def\rmN{{\ensuremath\text{N}}}
+\def\rmO{{\ensuremath\text{O}}}
+\def\rmP{{\ensuremath\text{P}}}
+\def\rmQ{{\ensuremath\text{Q}}}
+\def\rmR{{\ensuremath\text{R}}}
+\def\rmW{{\ensuremath\text{W}}}
+\def\rmU{{\ensuremath\text{U}}}
+\def\rmV{{\ensuremath\text{V}}}
+\def\rmS{{\ensuremath\text{S}}}
+\def\rmT{{\ensuremath\text{T}}}
+\def\rmX{{\ensuremath\text{X}}}
+\def\rmY{{\ensuremath\text{Y}}}
+\def\rmZ{{\ensuremath\text{Z}}}
+\def\rma{{\ensuremath\text{a}}}
+\def\rmb{{\ensuremath\text{b}}}
+\def\rmc{{\ensuremath\text{c}}}
+\def\rmd{{\ensuremath\text{d}}}
+\def\rme{{\ensuremath\text{e}}}
+\def\rmf{{\ensuremath\text{f}}}
+\def\rmg{{\ensuremath\text{g}}}
+\def\rmh{{\ensuremath\text{h}}}
+\def\rmi{{\ensuremath\text{i}}}
+\def\rmj{{\ensuremath\text{j}}}
+\def\rmk{{\ensuremath\text{k}}}
+\def\rml{{\ensuremath\text{l}}}
+\def\rmm{{\ensuremath\text{m}}}
+\def\rmn{{\ensuremath\text{n}}}
+\def\rmo{{\ensuremath\text{o}}}
+\def\rmp{{\ensuremath\text{p}}}
+\def\rmq{{\ensuremath\text{q}}}
+\def\rmr{{\ensuremath\text{r}}}
+\def\rmw{{\ensuremath\text{w}}}
+\def\rmu{{\ensuremath\text{u}}}
+\def\rmv{{\ensuremath\text{v}}}
+\def\rms{{\ensuremath\text{s}}}
+\def\rmt{{\ensuremath\text{t}}}
+\def\rmx{{\ensuremath\text{x}}}
+\def\rmy{{\ensuremath\text{y}}}
+\def\rmz{{\ensuremath\text{z}}}
+\def\barbA{{\bar{\ensuremath{\mathbf A}} }}
+\def\barbB{{\bar{\ensuremath{\mathbf B}} }}
+\def\barbC{{\bar{\ensuremath{\mathbf C}} }}
+\def\barbD{{\bar{\ensuremath{\mathbf D}} }}
+\def\barbE{{\bar{\ensuremath{\mathbf E}} }}
+\def\barbF{{\bar{\ensuremath{\mathbf F}} }}
+\def\barbG{{\bar{\ensuremath{\mathbf G}} }}
+\def\barbH{{\bar{\ensuremath{\mathbf H}} }}
+\def\barbI{{\bar{\ensuremath{\mathbf I}} }}
+\def\barbJ{{\bar{\ensuremath{\mathbf J}} }}
+\def\barbK{{\bar{\ensuremath{\mathbf K}} }}
+\def\barbL{{\bar{\ensuremath{\mathbf L}} }}
+\def\barbM{{\bar{\ensuremath{\mathbf M}} }}
+\def\barbN{{\bar{\ensuremath{\mathbf N}} }}
+\def\barbO{{\bar{\ensuremath{\mathbf O}} }}
+\def\barbP{{\bar{\ensuremath{\mathbf P}} }}
+\def\barbQ{{\bar{\ensuremath{\mathbf Q}} }}
+\def\barbR{{\bar{\ensuremath{\mathbf R}} }}
+\def\barbS{{\bar{\ensuremath{\mathbf S}} }}
+\def\barbT{{\bar{\ensuremath{\mathbf T}} }}
+\def\barbU{{\bar{\ensuremath{\mathbf U}} }}
+\def\barbV{{\bar{\ensuremath{\mathbf V}} }}
+\def\barbW{{\bar{\ensuremath{\mathbf W}} }}
+\def\barbX{{\overline{\bbX}}}
+\def\barbY{{\bar{\ensuremath{\mathbf Y}} }}
+\def\barbZ{{\bar{\ensuremath{\mathbf Z}} }}
+\def\barba{{\bar{\ensuremath{\mathbf a}} }}
+\def\barbb{{\bar{\ensuremath{\mathbf b}} }}
+\def\barbc{{\bar{\ensuremath{\mathbf c}} }}
+\def\barbd{{\bar{\ensuremath{\mathbf d}} }}
+\def\barbe{{\bar{\ensuremath{\mathbf e}} }}
+\def\barbf{{\bar{\ensuremath{\mathbf f}} }}
+\def\barbg{{\bar{\ensuremath{\mathbf g}} }}
+\def\barbh{{\bar{\ensuremath{\mathbf h}} }}
+\def\barbi{{\bar{\ensuremath{\mathbf i}} }}
+\def\barbj{{\bar{\ensuremath{\mathbf j}} }}
+\def\barbk{{\bar{\ensuremath{\mathbf k}} }}
+\def\barbl{{\bar{\ensuremath{\mathbf l}} }}
+\def\barbm{{\bar{\ensuremath{\mathbf m}} }}
+\def\barbn{{\bar{\ensuremath{\mathbf n}} }}
+\def\barbo{{\bar{\ensuremath{\mathbf o}} }}
+\def\barbp{{\bar{\ensuremath{\mathbf p}} }}
+\def\barbq{{\bar{\ensuremath{\mathbf q}} }}
+\def\barbr{{\bar{\ensuremath{\mathbf r}} }}
+\def\barbs{{\bar{\ensuremath{\mathbf s}} }}
+\def\barbt{{\bar{\ensuremath{\mathbf t}} }}
+\def\barbu{{\bar{\ensuremath{\mathbf u}} }}
+\def\barbv{{\bar{\ensuremath{\mathbf v}} }}
+\def\barbw{{\bar{\ensuremath{\mathbf w}} }}
+\def\barbx{{\bar{\ensuremath{\mathbf x}} }}
+\def\barby{{\bar{\ensuremath{\mathbf y}} }}
+\def\barbz{{\bar{\ensuremath{\mathbf z}} }}
+\def\hbA{{\hat{\ensuremath{\mathbf A}} }}
+\def\hbB{{\hat{\ensuremath{\mathbf B}} }}
+\def\hbC{{\hat{\ensuremath{\mathbf C}} }}
+\def\hbD{{\hat{\ensuremath{\mathbf D}} }}
+\def\hbE{{\hat{\ensuremath{\mathbf E}} }}
+\def\hbF{{\hat{\ensuremath{\mathbf F}} }}
+\def\hbG{{\hat{\ensuremath{\mathbf G}} }}
+\def\hbH{{\hat{\ensuremath{\mathbf H}} }}
+\def\hbI{{\hat{\ensuremath{\mathbf I}} }}
+\def\hbJ{{\hat{\ensuremath{\mathbf J}} }}
+\def\hbK{{\hat{\ensuremath{\mathbf K}} }}
+\def\hbL{{\hat{\ensuremath{\mathbf L}} }}
+\def\hbM{{\hat{\ensuremath{\mathbf M}} }}
+\def\hbN{{\hat{\ensuremath{\mathbf N}} }}
+\def\hbO{{\hat{\ensuremath{\mathbf O}} }}
+\def\hbP{{\hat{\ensuremath{\mathbf P}} }}
+\def\hbQ{{\hat{\ensuremath{\mathbf Q}} }}
+\def\hbR{{\hat{\ensuremath{\mathbf R}} }}
+\def\hbS{{\hat{\ensuremath{\mathbf S}} }}
+\def\hbT{{\hat{\ensuremath{\mathbf T}} }}
+\def\hbU{{\hat{\ensuremath{\mathbf U}} }}
+\def\hbV{{\hat{\ensuremath{\mathbf V}} }}
+\def\hbW{{\hat{\ensuremath{\mathbf W}} }}
+\def\hbX{{\hat{\ensuremath{\mathbf X}} }}
+\def\hbY{{\hat{\ensuremath{\mathbf Y}} }}
+\def\hbZ{{\hat{\ensuremath{\mathbf Z}} }}
+\def\hba{{\hat{\ensuremath{\mathbf a}} }}
+\def\hbb{{\hat{\ensuremath{\mathbf b}} }}
+\def\hbc{{\hat{\ensuremath{\mathbf c}} }}
+\def\hbd{{\hat{\ensuremath{\mathbf d}} }}
+\def\hbe{{\hat{\ensuremath{\mathbf e}} }}
+\def\hbf{{\hat{\ensuremath{\mathbf f}} }}
+\def\hbg{{\hat{\ensuremath{\mathbf g}} }}
+\def\hbh{{\hat{\ensuremath{\mathbf h}} }}
+\def\hbi{{\hat{\ensuremath{\mathbf i}} }}
+\def\hbj{{\hat{\ensuremath{\mathbf j}} }}
+\def\hbk{{\hat{\ensuremath{\mathbf k}} }}
+\def\hbl{{\hat{\ensuremath{\mathbf l}} }}
+\def\hbm{{\hat{\ensuremath{\mathbf m}} }}
+\def\hbn{{\hat{\ensuremath{\mathbf n}} }}
+\def\hbo{{\hat{\ensuremath{\mathbf o}} }}
+\def\hbp{{\hat{\ensuremath{\mathbf p}} }}
+\def\hbq{{\hat{\ensuremath{\mathbf q}} }}
+\def\hbr{{\hat{\ensuremath{\mathbf r}} }}
+\def\hbs{{\hat{\ensuremath{\mathbf s}} }}
+\def\hbt{{\hat{\ensuremath{\mathbf t}} }}
+\def\hbu{{\hat{\ensuremath{\mathbf u}} }}
+\def\hbv{{\hat{\ensuremath{\mathbf v}} }}
+\def\hbw{{\hat{\ensuremath{\mathbf w}} }}
+\def\hbx{{\hat{\ensuremath{\mathbf x}} }}
+\def\hby{{\hat{\ensuremath{\mathbf y}} }}
+\def\hbz{{\hat{\ensuremath{\mathbf z}} }}
+\def\tbA{{\tilde{\ensuremath{\mathbf A}} }}
+\def\tbB{{\tilde{\ensuremath{\mathbf B}} }}
+\def\tbC{{\tilde{\ensuremath{\mathbf C}} }}
+\def\tbD{{\tilde{\ensuremath{\mathbf D}} }}
+\def\tbE{{\tilde{\ensuremath{\mathbf E}} }}
+\def\tbF{{\tilde{\ensuremath{\mathbf F}} }}
+\def\tbG{{\tilde{\ensuremath{\mathbf G}} }}
+\def\tbH{{\tilde{\ensuremath{\mathbf H}} }}
+\def\tbI{{\tilde{\ensuremath{\mathbf I}} }}
+\def\tbJ{{\tilde{\ensuremath{\mathbf J}} }}
+\def\tbK{{\tilde{\ensuremath{\mathbf K}} }}
+\def\tbL{{\tilde{\ensuremath{\mathbf L}} }}
+\def\tbM{{\tilde{\ensuremath{\mathbf M}} }}
+\def\tbN{{\tilde{\ensuremath{\mathbf N}} }}
+\def\tbO{{\tilde{\ensuremath{\mathbf O}} }}
+\def\tbP{{\tilde{\ensuremath{\mathbf P}} }}
+\def\tbQ{{\tilde{\ensuremath{\mathbf Q}} }}
+\def\tbR{{\tilde{\ensuremath{\mathbf R}} }}
+\def\tbS{{\tilde{\ensuremath{\mathbf S}} }}
+\def\tbT{{\tilde{\ensuremath{\mathbf T}} }}
+\def\tbU{{\tilde{\ensuremath{\mathbf U}} }}
+\def\tbV{{\tilde{\ensuremath{\mathbf V}} }}
+\def\tbW{{\tilde{\ensuremath{\mathbf W}} }}
+\def\tbX{{\tilde{\ensuremath{\mathbf X}} }}
+\def\tbY{{\tilde{\ensuremath{\mathbf Y}} }}
+\def\tbZ{{\tilde{\ensuremath{\mathbf Z}} }}
+\def\tba{{\tilde{\ensuremath{\mathbf a}} }}
+\def\tbb{{\tilde{\ensuremath{\mathbf b}} }}
+\def\tbc{{\tilde{\ensuremath{\mathbf c}} }}
+\def\tbd{{\tilde{\ensuremath{\mathbf d}} }}
+\def\tbe{{\tilde{\ensuremath{\mathbf e}} }}
+\def\tbf{{\tilde{\ensuremath{\mathbf f}} }}
+\def\tbg{{\tilde{\ensuremath{\mathbf g}} }}
+\def\tbh{{\tilde{\ensuremath{\mathbf h}} }}
+\def\tbi{{\tilde{\ensuremath{\mathbf i}} }}
+\def\tbj{{\tilde{\ensuremath{\mathbf j}} }}
+\def\tbk{{\tilde{\ensuremath{\mathbf k}} }}
+\def\tbl{{\tilde{\ensuremath{\mathbf l}} }}
+\def\tbm{{\tilde{\ensuremath{\mathbf m}} }}
+\def\tbn{{\tilde{\ensuremath{\mathbf n}} }}
+\def\tbo{{\tilde{\ensuremath{\mathbf o}} }}
+\def\tbp{{\tilde{\ensuremath{\mathbf p}} }}
+\def\tbq{{\tilde{\ensuremath{\mathbf q}} }}
+\def\tbr{{\tilde{\ensuremath{\mathbf r}} }}
+\def\tbs{{\tilde{\ensuremath{\mathbf s}} }}
+\def\tbt{{\tilde{\ensuremath{\mathbf t}} }}
+\def\tbu{{\tilde{\ensuremath{\mathbf u}} }}
+\def\tbv{{\tilde{\ensuremath{\mathbf v}} }}
+\def\tbw{{\tilde{\ensuremath{\mathbf w}} }}
+\def\tbx{{\tilde{\ensuremath{\mathbf x}} }}
+\def\tby{{\tilde{\ensuremath{\mathbf y}} }}
+\def\tbz{{\tilde{\ensuremath{\mathbf z}} }}
+\def\bbcalA{\mbox{\boldmath $\mathcal{A}$}}
+\def\bbcalB{\mbox{\boldmath $\mathcal{B}$}}
+\def\bbcalC{\mbox{\boldmath $\mathcal{C}$}}
+\def\bbcalD{\mbox{\boldmath $\mathcal{D}$}}
+\def\bbcalE{\mbox{\boldmath $\mathcal{E}$}}
+\def\bbcalF{\mbox{\boldmath $\mathcal{F}$}}
+\def\bbcalG{\mbox{\boldmath $\mathcal{G}$}}
+\def\bbcalH{\mbox{\boldmath $\mathcal{H}$}}
+\def\bbcalI{\mbox{\boldmath $\mathcal{I}$}}
+\def\bbcalJ{\mbox{\boldmath $\mathcal{J}$}}
+\def\bbcalK{\mbox{\boldmath $\mathcal{K}$}}
+\def\bbcalL{\mbox{\boldmath $\mathcal{L}$}}
+\def\bbcalM{\mbox{\boldmath $\mathcal{M}$}}
+\def\bbcalN{\mbox{\boldmath $\mathcal{N}$}}
+\def\bbcalO{\mbox{\boldmath $\mathcal{O}$}}
+\def\bbcalP{\mbox{\boldmath $\mathcal{P}$}}
+\def\bbcalQ{\mbox{\boldmath $\mathcal{Q}$}}
+\def\bbcalR{\mbox{\boldmath $\mathcal{R}$}}
+\def\bbcalW{\mbox{\boldmath $\mathcal{W}$}}
+\def\bbcalU{\mbox{\boldmath $\mathcal{U}$}}
+\def\bbcalV{\mbox{\boldmath $\mathcal{V}$}}
+\def\bbcalS{\mbox{\boldmath $\mathcal{S}$}}
+\def\bbcalT{\mbox{\boldmath $\mathcal{T}$}}
+\def\bbcalX{\mbox{\boldmath $\mathcal{X}$}}
+\def\bbcalY{\mbox{\boldmath $\mathcal{Y}$}}
+\def\bbcalZ{\mbox{\boldmath $\mathcal{Z}$}}
+\def\tdupsilon{\tilde\upsilon}
+\def\tdalpha{\tilde\alpha}
+\def\tbeta{\tilde\beta}
+\def\tdgamma{\tilde\gamma}
+\def\tddelta{\tilde\delta}
+\def\tdepsilon{\tilde\epsilon}
+\def\tdvarepsilon{\tilde\varepsilon}
+\def\tdzeta{\tilde\zeta}
+\def\tdeta{\tilde\eta}
+\def\tdtheta{\tilde\theta}
+\def\tdvartheta{\tilde\vartheta}
+\def\tdiota{\tilde\iota}
+\def\tdkappa{\tilde\kappa}
+\def\tdlambda{\tilde\lambda}
+\def\tdmu{\tilde\mu}
+\def\tdnu{\tilde\nu}
+\def\tdxi{\tilde\xi}
+\def\tdpi{\tilde\pi}
+\def\tdrho{\tilde\rho}
+\def\tdvarrho{\tilde\varrho}
+\def\tdsigma{\tilde\sigma}
+\def\tdvarsigma{\tilde\varsigma}
+\def\tdtau{\tilde\tau}
+\def\tdupsilon{\tilde\upsilon}
+\def\tdphi{\tilde\phi}
+\def\tdvarphi{\tilde\varphi}
+\def\tdchi{\tilde\chi}
+\def\tdpsi{\tilde\psi}
+\def\tdomega{\tilde\omega}
+\def\tdGamma{\tilde\Gamma}
+\def\tdDelta{\tilde\Delta}
+\def\tdTheta{\tilde\Theta}
+\def\tdLambda{\tilde\Lambda}
+\def\tdXi{\tilde\Xi}
+\def\tdPi{\tilde\Pi}
+\def\tdSigma{\tilde\Sigma}
+\def\tdUpsilon{\tilde\Upsilon}
+\def\tdPhi{\tilde\Phi}
+\def\tdPsi{\tilde\Psi}
+\def\bbarupsilon{\bar\upsilon}
+\def\bbaralpha{\bar\alpha}
+\def\bbarbeta{\bar\beta}
+\def\bbargamma{\bar\gamma}
+\def\bbardelta{\bar\delta}
+\def\bbarepsilon{\bar\epsilon}
+\def\bbarvarepsilon{\bar\varepsilon}
+\def\bbarzeta{\bar\zeta}
+\def\bbareta{\bar\eta}
+\def\bbartheta{\bar\theta}
+\def\bbarvartheta{\bar\vartheta}
+\def\bbariota{\bar\iota}
+\def\bbarkappa{\bar\kappa}
+\def\bbarlambda{\bar\lambda}
+\def\bbarmu{\bar\mu}
+\def\bbarnu{\bar\nu}
+\def\bbarxi{\bar\xi}
+\def\bbarpi{\bar\pi}
+\def\bbarrho{\bar\rho}
+\def\bbarvarrho{\bar\varrho}
+\def\bbarvarsigma{\bar\varsigma}
+\def\bbarphi{\bar\phi}
+\def\bbarvarphi{\bar\varphi}
+\def\bbarchi{\bar\chi}
+\def\bbarpsi{\bar\psi}
+\def\bbaromega{\bar\omega}
+\def\bbarGamma{\bar\Gamma}
+\def\bbarDelta{\bar\Delta}
+\def\bbarTheta{\bar\Theta}
+\def\bbarLambda{\bar\Lambda}
+\def\bbarXi{\bar\Xi}
+\def\bbarPi{\bar\Pi}
+\def\bbarSigma{\bar\Sigma}
+\def\bbarUpsilon{\bar\Upsilon}
+\def\bbarPhi{\bar\Phi}
+\def\bbarPsi{\bar\Psi}
+\def\chkupsilon{\check\upsilon}
+\def\chkalpha{\check\alpha}
+\def\chkbeta{\check\beta}
+\def\chkgamma{\check\gamma}
+\def\chkdelta{\check\delta}
+\def\chkepsilon{\check\epsilon}
+\def\chkvarepsilon{\check\varepsilon}
+\def\chkzeta{\check\zeta}
+\def\chketa{\check\eta}
+\def\chktheta{\check\theta}
+\def\chkvartheta{\check\vartheta}
+\def\chkiota{\check\iota}
+\def\chkkappa{\check\kappa}
+\def\chklambda{\check\lambda}
+\def\chkmu{\check\mu}
+\def\chknu{\check\nu}
+\def\chkxi{\check\xi}
+\def\chkpi{\check\pi}
+\def\chkrho{\check\rho}
+\def\chkvarrho{\check\varrho}
+\def\chksigma{\check\sigma}
+\def\chkvarsigma{\check\varsigma}
+\def\chktau{\check\tau}
+\def\chkupsilon{\check\upsilon}
+\def\chkphi{\check\phi}
+\def\chkvarphi{\check\varphi}
+\def\chkchi{\check\chi}
+\def\chkpsi{\check\psi}
+\def\chkomega{\check\omega}
+\def\chkGamma{\check\Gamma}
+\def\chkDelta{\check\Delta}
+\def\chkTheta{\check\Theta}
+\def\chkLambda{\check\Lambda}
+\def\chkXi{\check\Xi}
+\def\chkPi{\check\Pi}
+\def\chkSigma{\check\Sigma}
+\def\chkUpsilon{\check\Upsilon}
+\def\chkPhi{\check\Phi}
+\def\chkPsi{\check\Psi}
+\def\bbalpha{\boldsymbol{\alpha}}
+\def\bbbeta{\boldsymbol{\beta}}
+\def\bbgamma{\boldsymbol{\gamma}}
+\def\bbdelta{\boldsymbol{\delta}}
+\def\bbepsilon{\boldsymbol{\epsilon}}
+\def\bbvarepsilon{\boldsymbol{\varepsilon}}
+\def\bbzeta{\boldsymbol{\zeta}}
+\def\bbeta{\boldsymbol{\eta}}
+\def\bbtheta{\boldsymbol{\theta}}
+\def\bbvartheta{\boldsymbol{\vartheta}}
+\def \bbtau {\boldsymbol{\tau}}
+\def\bbupsilon{\boldsymbol{\upsilon}}
+\def\bbiota{\boldsymbol{\iota}}
+\def\bbkappa{\boldsymbol{\kappa}}
+\def\bblambda{\boldsymbol{\lambda}}
+\def\bblam{\boldsymbol{\lambda}}
+\def\bbmu{\boldsymbol{\mu}}
+\def\bbnu{\boldsymbol{\nu}}
+\def\bbxi{\boldsymbol{\xi}}
+\def\bbpi{\boldsymbol{\pi}}
+\def\bbrho{\boldsymbol{\rho}}
+\def\bbvarrho{\boldsymbol{\varrho}}
+\def\bbvarsigma{\boldsymbol{\varsigma}}
+\def\bbsigma{\boldsymbol{\sigma}}
+\def\bbphi{\boldsymbol{\phi}}
+\def\bbvarphi{\boldsymbol{\varphi}}
+\def\bbchi{\boldsymbol{\chi}}
+\def\bbpsi{\boldsymbol{\psi}}
+\def\bbomega{\boldsymbol{\omega}}
+\def\bbGamma{\boldsymbol{\Gamma}}
+\def\bbDelta{\boldsymbol{\Delta}}
+\def\bbTheta{\boldsymbol{\Theta}}
+\def\bbLambda{\boldsymbol{\Lambda}}
+\def\bbXi{\boldsymbol{\Xi}}
+\def\bbPi{\boldsymbol{\Pi}}
+\def\bbSigma{\boldsymbol{\Sigma}}
+\def\bbUpsilon{\boldsymbol{\Upsilon}}
+\def\bbPhi{\boldsymbol{\Phi}}
+\def\bbPsi{\boldsymbol{\Psi}}
+\def\barbupsilon{\bar\bbupsilon}
+\def\barbalpha{\bar\bbalpha}
+\def\barbbeta{\bar\bbbeta}
+\def\barbgamma{\bar\bbgamma}
+\def\barbdelta{\bar\bbdelta}
+\def\barbepsilon{\bar\bbepsilon}
+\def\barbvarepsilon{\bar\bbvarepsilon}
+\def\barbzeta{\bar\bbzeta}
+\def\barbeta{\bar\bbeta}
+\def\barbtheta{\bar\bbtheta}
+\def\barbvartheta{\bar\bbvartheta}
+\def\barbiota{\bar\bbiota}
+\def\barbkappa{\bar\bbkappa}
+\def\barblambda{\bar\bblambda}
+\def\barbmu{\bar\bbmu}
+\def\barbnu{\bar\bbnu}
+\def\barbxi{\bar\bbxi}
+\def\barbpi{\bar\bbpi}
+\def\barbrho{\bar\bbrho}
+\def\barbvarrho{\bar\bbvarrho}
+\def\barbvarsigma{\bar\bbvarsigma}
+\def\barbphi{\bar\bbphi}
+\def\barbvarphi{\bar\bbvarphi}
+\def\barbchi{\bar\bbchi}
+\def\barbpsi{\bar\bbpsi}
+\def\barbomega{\bar\bbomega}
+\def\barbGamma{\bar\bbGamma}
+\def\barbDelta{\bar\bbDelta}
+\def\barbTheta{\bar\bbTheta}
+\def\barbLambda{\bar\bbLambda}
+\def\barbXi{\bar\bbXi}
+\def\barbPi{\bar\bbPi}
+\def\barbSigma{\bar\bbSigma}
+\def\barbUpsilon{\bar\bbUpsilon}
+\def\barbPhi{\bar\bbPhi}
+\def\barbPsi{\bar\bbPsi}
+\def\hbupsilon{\hat\bbupsilon}
+\def\hbalpha{\hat\bbalpha}
+\def\hbbeta{\hat\bbbeta}
+\def\hbgamma{\hat\bbgamma}
+\def\hbdelta{\hat\bbdelta}
+\def\hbepsilon{\hat\bbepsilon}
+\def\hbvarepsilon{\hat\bbvarepsilon}
+\def\hbzeta{\hat\bbzeta}
+\def\hbeta{\hat\bbeta}
+\def\hbtheta{\hat\bbtheta}
+\def\hbvartheta{\hat\bbvartheta}
+\def\hbiota{\hat\bbiota}
+\def\hbkappa{\hat\bbkappa}
+\def\hblambda{\hat\bblambda}
+\def\hbmu{\hat\bbmu}
+\def\hbnu{\hat\bbnu}
+\def\hbxi{\hat\bbxi}
+\def\hbpi{\hat\bbpi}
+\def\hbrho{\hat\bbrho}
+\def\hbvarrho{\hat\bbvarrho}
+\def\hbvarsigma{\hat\bbvarsigma}
+\def\hbphi{\hat\bbphi}
+\def\hbvarphi{\hat\bbvarphi}
+\def\hbchi{\hat\bbchi}
+\def\hbpsi{\hat\bbpsi}
+\def\hbomega{\hat\bbomega}
+\def\hbGamma{\hat\bbGamma}
+\def\hbDelta{\hat\bbDelta}
+\def\hbTheta{\hat\bbTheta}
+\def\hbLambda{\hat\bbLambda}
+\def\hbXi{\hat\bbXi}
+\def\hbPi{\hat\bbPi}
+\def\hbSigma{\hat\bbSigma}
+\def\hbUpsilon{\hat\bbUpsilon}
+\def\hbPhi{\hat\bbPhi}
+\def\hbPsi{\hat\bbPsi}
+\def\tbupsilon{\tilde\bbupsilon}
+\def\tbalpha{\tilde\bbalpha}
+\def\tbbeta{\tilde\bbbeta}
+\def\tbgamma{\tilde\bbgamma}
+\def\tbdelta{\tilde\bbdelta}
+\def\tbepsilon{\tilde\bbepsilon}
+\def\tbvarepsilon{\tilde\bbvarepsilon}
+\def\tbzeta{\tilde\bbzeta}
+\def\tbeta{\tilde\bbeta}
+\def\tbtheta{\tilde\bbtheta}
+\def\tbvartheta{\tilde\bbvartheta}
+\def\tbiota{\tilde\bbiota}
+\def\tbkappa{\tilde\bbkappa}
+\def\tblambda{\tilde\bblambda}
+\def\tbmu{\tilde\bbmu}
+\def\tbnu{\tilde\bbnu}
+\def\tbxi{\tilde\bbxi}
+\def\tbpi{\tilde\bbpi}
+\def\tbrho{\tilde\bbrho}
+\def\tbvarrho{\tilde\bbvarrho}
+\def\tbvarsigma{\tilde\bbvarsigma}
+\def\tbphi{\tilde\bbphi}
+\def\tbvarphi{\tilde\bbvarphi}
+\def\tbchi{\tilde\bbchi}
+\def\tbpsi{\tilde\bbpsi}
+\def\tbomega{\tilde\bbomega}
+\def\tbGamma{\tilde\bbGamma}
+\def\tbDelta{\tilde\bbDelta}
+\def\tbTheta{\tilde\bbTheta}
+\def\tbLambda{\tilde\bbLambda}
+\def\tbXi{\tilde\bbXi}
+\def\tbPi{\tilde\bbPi}
+\def\tbSigma{\tilde\bbSigma}
+\def\tbUpsilon{\tilde\bbUpsilon}
+\def\tbPhi{\tilde\bbPhi}
+\def\tbPsi{\tilde\bbPsi}
+\def \deltat {\triangle t}
+\def \eps    {\epsilon}
+\def \lam    {\lambda}
+\def \bblam  {\bblambda}
+\def \Lam    {\Lambda}
+\def \bbLam  {\bbLambda}
+\def\hhattheta{\hat\theta}
+\title{Random Policy Enables In-Context Reinforcement Learning within Trust Horizons}
+\author{\name Weiqin Chen \email chenw18@rpi.edu \\
+      \addr Department of Electrical, Computer, and Systems Engineering, Rensselaer Polytechnic Institute \\
+      \AND
+      \\
+      \name Santiago Paternain \email paters@rpi.edu \\
+      \addr Department of Electrical, Computer, and Systems Engineering, Rensselaer Polytechnic Institute
+      }
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\def\month{04}
+\def\year{2025}
+\def\openreview{\url{https://openreview.net/forum?id=mAiMKnr9r5}}
+\begin{document}
+\maketitle
+\begin{abstract}
+Pretrained foundation models (FMs) have exhibited extraordinary in-context learning performance, allowing zero-shot (or few-shot) generalization to new environments/tasks not encountered during the pretraining. In the case of reinforcement learning (RL), in-context RL (ICRL) emerges when pretraining FMs on decision-making problems in an autoregressive-supervised manner. Nevertheless, the current state-of-the-art ICRL algorithms, such as Algorithm Distillation,  Decision Pretrained Transformer and Decision Importance Transformer, impose stringent requirements on the pretraining dataset concerning the behavior (source) policies, context information, and action labels, etc. Notably, these algorithms either demand optimal policies or require varying degrees of well-trained behavior policies for all pretraining environments. This significantly hinders the application of ICRL to real-world scenarios, where acquiring optimal or well-trained policies for a substantial volume of real-world training environments can be prohibitively expensive or even intractable. To overcome this challenge, we introduce a novel approach, termed State-Action Distillation (SAD), that allows to generate an effective pretraining dataset guided solely by random policies. In particular, SAD selects query states and corresponding action labels by distilling the outstanding state-action pairs from the entire state and action spaces by using random policies within a trust horizon, and then inherits the classical autoregressive-supervised mechanism during the pretraining. To the best of our knowledge, this is the first work that enables effective ICRL under (e.g., uniform) random policies and random contexts. We also establish the quantitative analysis of the trustworthiness as well as the performance guarantees of our SAD approach. Moreover, our empirical results across multiple popular ICRL benchmark environments demonstrate that, on average, SAD outperforms the best baseline by $236.3\%$ in the offline evaluation and by $135.2\%$ in the online evaluation.
+\end{abstract}
+\section{Introduction}
+Pretrained foundation models (FMs) have demonstrated promising performance across a wide variety of domains in artificial intelligence including natural language processing (NLP)~\citep{devlin2018bert, radford2018improving, radford2019language, brown2020language}, computer vision (CV)~\citep{yuan2021florence, sammani2022nlx, ma2023crepe, chen2024internvl}, and sequential decision-making~\citep{chen2021decision, janner2021offline, xu2022prompting, yang2023foundation, light2024strategist, light2024pianist}. This success is attributed to FMs' impressive capability of in-context learning~\citep{dong2022survey, li2023transformers, wei2023larger, wies2024learnability} which refers to the ability to infer and understand the new (unseen) tasks provided with the context information (or prompt) and without model parameters updates.
+Recently, in-context reinforcement learning (ICRL)~\citep{laskin2022context, grigsby2023amago, lin2023transformers, sinii2023context, zisman2023emergence, lee2024supervised, lu2024structured, wang2024transformers, dong2024context} has emerged when FMs are pretrained on sequential decision-making problems.
+Whereas FMs use texts as the context/prompt in NLP, ICRL treats the state-action-reward tuples as the contextual information for decision-making.
+However, the current state-of-the-art (SOTA) ICRL algorithms impose strict requirements on the pretraining datasets. More specifically, Algorithm Distillation (AD)~\citep{laskin2022context} requires the context to contain the complete learning history (from the initial policy to the final-trained policy) of the source (or behavior) RL algorithm for all pretraining environments. In addition, AD requires environments to have short episodes, allowing the context to capture cross-episodic information. This enables AD to learn the improvement operator of the source RL algorithm.
+Conversely, Decision Pretrained Transformer (DPT)~\citep{lee2024supervised} {partially relaxes the} requirement on the context, permitting it to be gathered by random policies and without needing to adhere to the transition dynamics. Nevertheless, DPT necessitates the optimal policy to label an optimal action for any randomly sampled query state across all pretraining environments.
+To explore the feasibility of ICRL in the absence of optimal policies, Decision Importance Transformer (DIT)~\citep{dong2024context} proposes to leverage the observed state-action pairs in the context data as query states and corresponding action labels. Each state-action pair within the context is assigned a weight in the training process. This weight is proportional to the return-to-go of the pair. Thus, DIT prioritizes the training on high-return pairs.
+Despite not demanding optimal policies, DIT still requires a substantial context dataset to comprehensively cover all state-action pairs from the state and action spaces. Furthermore, DIT still mandates that more than $30\%$ of the context data comes from well-trained policies to ensure the coverage of good action labels, and the context should originate from a complete episode.
+Notably, acquiring either optimal policies or well-trained policies across a multitude of pretraining environments in real-world scenarios can be prohibitively expensive or even intractable.
+On the other hand, the transition data available in real-world problems—collected as the context—may not originate from a complete episode.
+These stringent requirements on the pretraining dataset of the SOTA ICRL algorithms severely limit their practical applications to the real world,  especially for those where the transition data exhibits high variance to train an effective policy. This work thus aims to relax these requirements by considering an untrained random policy. Although the random policy cannot solve all decision-making problems, it is worth noting that the random policy and the optimal policy select the same optimal actions in certain problems, e.g., the grid world navigation problem~\citep{laskin2022context, lee2024supervised, dong2024context} where the reward is received only upon reaching the unique goal. In these problems, the optimal action induced by both policies corresponds to navigating to the goal as quickly as possible.
+Consequently, this paper centers on the ICRL that operates without the need for optimal (or any degree of well-trained) policies or episodic context, placing its emphasis on the scenarios under (e.g., uniform) random policies and random contexts only.
+Our applicable domains in this work focus on the multi-armed bandits and the grid world navigation problems with a single sparse reward received only upon achieving the unique goal.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\linewidth]{figures/sad_schematic_new.png}
+\caption{Schematic of the State-Action Distillation approach: i) Collecting the context by using the random policy to interact with pretraining environments. ii) Sampling a query state randomly from the state space.
+iii) Starting from the query state and any action in action space, running trust horizons under the random policy, and distilling the action label by the action that yields the maximal return.
+iv) Pretraining foundation models in a supervised mechanism, which predicts the action label given the context and query state.
+}
+\label{fig_schematic}
+\end{figure}
+\subsection{Main Contributions}
+The main contributions of this work are summarized as follows.
+\begin{itemize}
+    \item We propose a novel approach termed State-Action Distillation (SAD) to generate the pretraining dataset of ICRL under random policies. Notably, SAD distills the outstanding state-action pairs over the entire state and action spaces for the query states and corresponding action labels (refer to Figure~\ref{fig_schematic}), by executing all possible actions under the random policies within a trust horizon.
+    \item To the best of our knowledge, SAD stands as the first method that enables effective ICRL under (e.g., uniform) random policies and random contexts.
+    \item We establish the quantitative analysis of the trustworthiness as well as the performance guarantees of our SAD approach. We substantiate the efficacy of SAD by empirical results on several popular ICRL benchmark environments.
+    On average, SAD significantly outperforms all existing SOTA ICRL algorithms. More concretely, SAD surpasses the best baseline by $236.3\%$ in the offline evaluation and by $135.2\%$ in the online evaluation.
+\end{itemize}
+\section{Related Work}
+\label{appendix_related_work}
+\subsection{Offline Reinforcement Learning}
+In contrast to the unlimited interactions with the environment in online RL, offline RL seeks to learn optimal policies from a pre-collected and static dataset~\citep{fujimoto2019benchmarking, levine2020offline, kumar2020conservative, kostrikov2021offline, chen2024domain}. One of the critical challenges in offline RL is with bootstrapping from out-of-distribution (OOD) actions~\citep{levine2020offline, kumar2020conservative, xu2022policy, liu2024beyond} due to the mismatch between the behavior policies and the learned policies. To address this issue, the current SOTA offline RL algorithms propose to update pessimistically by either adding a regularization or underestimating the Q-value of OOD actions.
+\subsection{Autoregressive-Supervised Decision Making}
+In addition to the traditional offline RL methods, autoregressive-supervised mechanisms based on the transformer architecture~\citep{vaswani2017attention} have been successfully applied to offline decision making domains by their powerful capability in sequential modeling.
+The pioneering work in the autoregressive-supervised decision making is the Decision Transformer (DT)~\citep{chen2021decision}.
+DT autoregressively models the sequence of actions from the historical offline data conditioned on the sequence of returns in the history.
+During the inference, the trained model can be queried based on pre-defined target returns, allowing it to generate actions aligned with the target returns.
+The subsequent works such as Multi-Game Decision Transformer (MGDT)~\citep{lee2022multi} and Gato~\citep{reed2022generalist} have exhibited the success of the autoregressive-supervised mechanisms in learning multi-task policies by fine-tuning or leveraging expert demonstrations in the downstream tasks.
+\subsection{In-Context Reinforcement Learning}
+However, both traditional offline RL and autoregressive-supervised decision making mechanisms suffer from the poor zero-shot generalization and in-context learning capabilities to new environments, as neither can improve the policy, with a fixed trained model, in context by trial and error. In-context reinforcement learning (ICRL) aims to pretrain a transformer-based FM, such as GPT2~\citep{radford2019language}, across a wide range of pretraining environments. During the evaluation (or inference), the pretrained model can directly infer the unseen environment and learn in-context without the need for updating model parameters.
+The SOTA ICRL algorithms including AD~\citep{laskin2022context}, DPT~\citep{lee2024supervised} and DIT~\citep{dong2024context} have demonstrated the potential of the ICRL framework. Nevertheless, each of these methods imposes distinct yet strict requirements on the pretraining dataset e.g., requiring well-trained (or even optimal) behavior policies, the context to be episodic and/or substantial, which significantly restrict their practicality in real-world applications.
+Accordingly, mastering and executing ICRL under (e.g., uniform) random policies and random contexts remains a crucial direction and a critical challenge.
+\section{In-Context Reinforcement Learning}
+This section introduces the background of ICRL mechanisms and three SOTA ICRL algorithms. We start by presenting the preliminaries of ICRL.
+\subsection{Preliminaries}
+RL problems are generally formulated as Markov Decision Processes (MDPs)~\citep{sutton2018reinforcement}.
+An MDP can be represented by a tuple $\tau = (S, A, R, P, \rho)$, where $S$ and $A$ denote finite state and action spaces, $R: S \times A \to \Real$ denotes the reward function that evaluates the quality of the action, $P: S \times A \times S \to [0, 1]$ denotes the transition probability that describes the dynamics of the system, and $\rho: S \to [0, 1]$ denotes the initial state distribution.
+A policy $\pi$ defines a mapping from states to probability distributions over actions, providing a strategy that guides the agent in the decision making.
+The agent interacts with the environment following the policy $\pi$ and the transition dynamics of the system, and then generates an episode of the transition data $(s_0, a_0, r_0, \cdots)$.
+The performance measure $J (\pi)$ is defined by the expected discounted cumulative reward under the policy $\pi$
+\begin{align}
+    J (\pi) = \mbE_{s_0 \sim \rho, a_t \sim \pi(\cdot | s_t), s_{t+1} \sim P(\cdot|s_t, a_t)} \left[ \sum_{t=0}^\infty \gamma^t r_t \right].
+\end{align}
+The goal of RL is to find an optimal policy $\pi^*$ that maximizes $J (\pi)$.
+It is crucial to recognize that $\pi^*$ often varies across different MDPs (environments). Thus, the optimal policy for standard RL must be re-learned each time a new environment is encountered.
+Under this circumstance, ICRL proposes to pretrain a FM on a wide variety of pretraining environments, and then deploy it in the \textit{unseen} test environments without updating parameters in the pretrained model, i.e., zero-shot generalization~\citep{sohn2018hierarchical, mazoure2022improving, zisselman2023explore, kirk2023survey}.
+\subsection{Supervised Pretraining Mechanism}
+In this subsection, we introduce the methodology behind ICRL--a supervised pretraining mechanism. Consider two distributions over environments $\ccalT_{\text{train}}$ and $\ccalT_{\text{test}}$ {for} pretraining and test (evaluation), respectively. Each environment, along with its corresponding MDP $\tau$, can be regarded as an instance drawn from the environment distributions, where each environment may exhibit distinct reward functions and transition dynamics.
+Given an environment $\tau$, a context/prompt $\ccalC = \{s_i, a_i, r_i, s_i'\}_{i \in [n]}$ refers to a sample from a pretraining context dataset $D_{\text{train}} (\cdot \mid \tau)$, i.e., $\ccalC \sim D_{\text{train}} (\cdot \mid \tau)$, which are collected through interactions between a behavior policy and the environment $\tau$ (see e.g., Algorithm~\ref{alg_collect_context}). Notably, $D_{\text{train}} (\cdot \mid \tau)$ contains the contextual information regarding the environment $\tau$.
+We next consider a query state distribution $D_q^\tau$ and a label policy that maps the query state to the distribution of the action label, i.e., $\pi_{l}: S \to \Delta_{a_l} (A)$, where $\Delta_{a_l}(\cdot)$ denotes the probability distribution and $a_l$ denotes the prediction/output goal of the FM.
+Then, the joint distribution over the environment $\tau$, context $\ccalC$, query state $s_{q}$, and action label $a_{l}$ is given by
+\begin{align}\label{eqn_pretrain_distribution}
+    P_{\text{train}} (\tau, \ccalC, s_{q}, a_{l}) = \ccalT_{\text{train}} (\tau) \cdot D_{\text{train}} (\ccalC | \tau) \cdot D_q^\tau \cdot \pi_{l}(a_{l} | s_{q}).
+\end{align}
+ICRL follows a supervised pretraining mechanism. More concretely, a FM with parameter $\theta$ (denoted by $\ccalF_\theta: \mbC \times S \to \Delta (a_{l})$) is pretrained to predict the action label $a_{l}$ given the context $\ccalC$ and query state $s_{q}$. To do so, the current literature~\citep{laskin2022context, lee2024supervised, dong2024context} often considers the following objective function
+\begin{align}\label{eqn_loss}
+    \theta^* = \argmin_\theta \mbE_{P_{\text{train}}} \left[ l \left( \ccalF_\theta(\cdot \mid \ccalC, s_{q}), a_{l}\right) \right],
+\end{align}
+where $l(\cdot, \cdot)$ represents the loss function, for instance, negative log-likelihood (NLL) for discrete-action problems and mean square error (MSE) for continuous-action scenarios.
+We note that while the current SOTA ICRL algorithms (AD, DPT, and DIT) adhere to a common objective function \eqref{eqn_loss}, they differ significantly in constructing the context, query state, and action label.
+Furthermore, it is important to highlight that selecting appropriate action labels in existing ICRL algorithms can be prohibitively expensive. We discuss this in more detail for each of the ICRL baselines  that follow.
+\paragraph{Algorithm Distillation.} Instead of learning an optimal policy for a specific environment, AD proposes to learn a RL algorithm itself across a wide range of environments. This is, the FM in AD is pretrained to imitate the source (or behavior) algorithm over the pretraining environment distribution $\ccalT_{\text{train}}$. In general, AD demands a well-trained source algorithm with its complete learning history (from the initial policy to the final-trained policy). Additionally, AD is restricted to the environments with short episode length, as the context must capture cross-episode information of the source algorithm, while standard transformers often have limited context length.
+In terms of the objective function \eqref{eqn_loss}, AD takes the state at the time step $t$ as the query state, $a_t$ from the source algorithm as the action label, and the episodic history data $(s_0, a_0, r_0, \cdots, s_{t-1}, a_{t-1}, r_{t-1})$ to be the context.
+\paragraph{Decision Pretrained Transformer.}
+Instead of being stringent on the context and the environment itself, DPT handles the context and query state in a more general manner.
+Specifically, in terms of the objective function \eqref{eqn_loss}, DPT can consider a random collection of transitions as the context $\ccalC$, a random query state $s_q$ drawn from $D_q$, and an optimal action label corresponding to $s_q$.
+Despite less requirements on the context, DPT necessitates access to optimal policies for the optimal action labels in all pretraining environments, which may not be available in real-world applications.
+\paragraph{Decision Importance Transformer.}
+DIT proposes to learn ICRL without optimal action labels, following the same supervised pretraining mechanism as DPT.
+To that end, DIT chooses to consider every possible state and action in the context as the query state and corresponding action label.
+It is important to point out that DIT requires a (partially) complete episode to form the context, enabling the computation of a return-to-go for each state-action pair. By mapping the return-to-go to a weight that reflects the quality of each state-action pair, DIT can pretrain the FM using the DPT structure, augmented by the weight assigned to each query state and action label.
+In other words, DIT prioritizes the training on high-return pairs.
+Notably, DIT still mandates that more than $30\%$ of the context data comes from well-trained policies to ensure the coverage of good action labels.
+To summarize, it is worth highlighting that all these SOTA ICRL algorithms necessitate varying degrees of well-trained, or even optimal policies during the pretraining phase.
+However, obtaining such policies for real-world applications is often prohibitive, as it demands extensive training across a vast number of real-world environments.
+This challenge becomes even more pronounced in the domains where the transition data exhibits high variance to train an effective policy.
+Thus, executing ICRL under (e.g., uniform) random policies and random contexts is crucial for enabling the practical application of ICRL in the real-world.
+\section{State-Action Distillation}
+In this section, we propose the State-Action Distillation (SAD), an approach for generating the pretraining dataset for ICRL under random policies and random contexts (see Figure~\ref{fig_schematic}).
+As indicated in \eqref{eqn_pretrain_distribution}, the pretraining data consists of the context, the query state and the action label. We start by introducing the generation of the context under random policies in SAD (refer to Algorithm~\ref{alg_collect_context}).
+It is important to highlight that the context is collected through interactions with the environment under any given random policy (e.g., uniform random policy), and notably, the context not necessarily originates from a complete episode.
+These benefits make SAD potentially well-suited for ICRL's real-world applications with random transition data only.
+\begin{algorithm}
+\caption{Collecting Contexts under Random Policy}         \label{alg_collect_context}
+\begin{algorithmic}[1]
+		\STATE \textbf{Require:} Random policy $\pi$, context horizon length $T$, state space $S$, environment $\tau$, empty context $\ccalC = \emptyset$
+        \FOR{$t$ in $[T]$}
+            \STATE Sample a state $s \sim S$ and an action $a \sim \pi(\cdot | s)$
+            \STATE Collect $(r, s')$ by executing action $a$ in the environment $\tau$
+            \STATE Add $(s, a, r, s')$ to $\ccalC$
+        \ENDFOR
+        \STATE \textbf{Return} $\ccalC$
+\end{algorithmic}
+\end{algorithm}
+Having collected the random context, we are now in the stage of collecting query states and corresponding action labels for the pretraining of FM under the random policy.
+We proceed by recalling that DIT prioritizes the training on high-return pairs from the context data collected. To that end, DIT assigns a weight $w$ to the loss function during the pretraining phase that is proportional to the return-to-go, i.e.,
+$w(s_t, a_t) \propto \sum_{t'=t}^T \gamma^{t' - t} r_{t'}.$
+Nonetheless, we acknowledge that DIT may not explore to train on good state-action pairs under the random policy for two reasons: ($i$) DIT solely considers to train on the state-action pairs that are observed in the context, which now contains limited and, more importantly, random transition data.
+($ii$) Even for the state-action pairs in the collected context, the return-to-go does not necessarily prioritize the optimal pair but rather promotes the pair with high immediate reward, as the discount factor applies starting from the current time step with a horizon of $(T-t+1)$ only, instead of $T$. This issue becomes even more critical in the problems with sparse rewards.
+Under this circumstance, our SAD approach advocates for distilling the outstanding query states and action labels by searching across the entire state and action spaces under the random policy.
+Before proceeding, we recall the definition of the optimal action in the problems of multi-armed bandit (MAB) and MDP. For any query state $s_q$, the optimal action for $s_q$ corresponds to the action that maximizes the optimal Q-function
+\begin{align}
+    &a_\text{MAB}^*(s_q) \overset{\Delta}{=} \argmax_{a \in A} \underbrace{\mbE \left[ r(s_q, a) \right]}_{Q_\text{MAB}^*(s_q, a)}, \quad a_\text{MDP}^*(s_q) \overset{\Delta}{=} \argmax_{a \in A} \underbrace{\mbE_{\pi^*} \!\! \left[ \sum_{t=0}^\infty \gamma^t  r_t | s_0=s_q, a_0=a \right]}_{Q_\text{MDP}^*(s_q, a)},
+\end{align}
+where $s_q$ in the MAB problem refers to the singleton state of bandits, and $\pi^*$ denotes the optimal policy in the MDP.
+However, both $a_\text{MAB}^*$ and $a_\text{MDP}^*$ are intractable to obtain in our problem of interest for two reasons: ($i$) computing the expectation in the Q-function demands to sample infinite episodes; ($ii$) one can only have access to the random policy, instead of $\pi^*$. Therefore, we instead consider ($i$) stochastic approximation that uses the average as the unbiased estimate of the expectation due to the law of large numbers; ($ii$) maximizing the episodic return under the random policy.
+\subsection{Trustworthiness of the Random Policy}
+Subsequently, the crucial question arises: \textbf{when can we trust the random policy?}
+We claim: \textit{The random policy is probabilistically trustworthy for the MAB and MDP problems within a trust horizon.}
+We formalize this claim for MAB and MDP in this subsection, which relies on the following assumptions.
+\begin{assumption}\label{assumption_bound_reward}
+   The absolute value of the reward $r(s, a)$ is bounded by a positive constant $B$ for all state-action pairs in the MAB and MDP, i.e., $|r(s, a)| \leq B, \forall (s, a) \in S \times A.$
+\end{assumption}
+Note that Assumption~\ref{assumption_bound_reward} is common in the literature~\citep{azar2017minimax, wei2020model, zhang2021near}.
+In particular, in the case of finite state-action spaces, it is always possible to design the reward to avoid the possibility of being unbounded.
+\begin{assumption}\label{assumption_mdp_equal}
+    Given a random policy $\pi$, assume that
+    \begin{align}
+        \argmax_{ a \in A} Q_\text{MDP}^\pi(s_q, a) = \argmax_{a \in A} Q_\text{MDP}^*(s_q, a), \, \forall s_q \in S.
+    \end{align}
+\end{assumption}
+It is worth highlighting first that Assumption~\ref{assumption_mdp_equal} may not hold universally for all MDP problems. In fact, it is unlikely that a random policy and the optimal policy select the same optimal actions for all problems. Nevertheless, we acknowledge that Assumption~\ref{assumption_mdp_equal} does hold in the MDP problems like the grid world navigation where the reward is received only upon achieving the unique goal~\citep{laskin2022context, lee2024supervised, dong2024context}, which fall into the applicable domains of this work. We visualize in Figure~\ref{fig_single_dim_MDP_visualize} a single-dimensional grid world navigation problem as an example. In particular, the action derived from maximizing the return under the random policy becomes equivalent to that guided by maximizing the return under the optimal policy, as the maximal return induced by both policies corresponds to navigating to the goal as quickly as possible. We formalize this in Proposition~\ref{proposition_single_MDP} and provide a theoretical proof and empirical validation (refer to Appendix~\ref{appendix_validate_assump2}).
+Although Assumption~\ref{assumption_mdp_equal} holds for the grid world navigation problems considered in this work, it is crucial to point out that Assumption~\ref{assumption_mdp_equal} may not hold for all grid world navigation problems. To this end, we further discuss the validity of Assumption~\ref{assumption_mdp_equal} for the grid world navigation with two sparse rewards  (see Appendix~\ref{appendix_validate_assump2_two_rewards}), and demonstrate that the validity of Assumption~\ref{assumption_mdp_equal} depends on problem-specific factors such as the rewards and the discount factor $\gamma$.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.35\linewidth]{figures/single_dim_MDP_visualize.pdf}
+    \caption{A single-dimensional grid world MDP comprising five states $\{s_0, s_1, s_2, s_3, s_4\}$, where $s_0$ represents the goal state (golden star). The environment offers two possible actions: $a_0$ (go left), and $a_1$ (go right). Any transitions that would result in (left or right) boundary crossing will be confined to the current position. The reward structure is sparse, with a value of 1 received solely upon reaching the unique goal state $s_0$ and a value of 0 otherwise. We consider an infinite time horizon with a discounter factor $\gamma$.}
+    \label{fig_single_dim_MDP_visualize}
+\end{figure}
+Having introduced the necessary assumptions, we are in the stage of investigating the trustworthiness of the random policy in both MAB and MDP problems. To  proceed, we rely on the following two definitions.
+\begin{definition}[MAB]\label{definition_mab}
+    Denote by $s_q$ and $a^*$ the singleton state and optimal arm in the MAB problem. Consider a random policy $\pi$. Suppose that each arm $a$ has been selected $N_a$ times $(N_a \in \mbN_+)$ under $\pi$. The trustworthiness of the random policy in the the MAB problems represents the probability of selecting the optimal arm under the random policy, i.e.,
+    \begin{align}\label{eqn_assump_bandit}
+        \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r_i(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r_i(s_q, a).
+    \end{align}
+    The corresponding trust horizon denotes the minimal number of selections over all arms, i.e., $N\triangleq \min_{a \in A}  N_a$ that guarantees such trustworthiness.
+\end{definition}
+Definition~\ref{definition_mab} implies by the law of large numbers that $N\to \infty$ serves as a trust horizon, ensuring the selection of the optimal arm with probability one. In practice, achieving large trustworthiness requires a sufficiently large trust horizon. The intuition is that a large enough horizon approximates the infinite step problem. The same intuition holds for the MDP problems.
+We formalize this concept in the next definition, which builds upon the Q-function of the finite-horizon MDP
+\begin{align}
+    &Q_\text{MDP}^{\pi, N}(s_q, a) = \mbE_\pi \!\! \left[ \sum_{t=0}^{N} \gamma^t r(s_t, a_t) | s_0=s_q, a_0=a \right],\, \forall a \in A, \\
+    &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \!=\! \frac{1}{N_\text{ep}} \sum_{i=1}^{N_\text{ep}} \sum_{t=0}^{N} \! \left( \gamma^t r(s_t, a_t) | s_0=s_q, a_0=a, \pi \right),\, \forall a \in A, \label{eqn_Q_mdp_N_hat}
+\end{align}
+where $\hat{Q}_\text{MDP}^{\pi, N}(s_q, a)$ is an unbiased estimate of $Q_\text{MDP}^{\pi, N}(s_q, a)$ and $N_\text{ep}$ denotes the number of episodes.
+\begin{definition}[MDP]\label{definition_mdp}
+    Denote by $a^*$ the optimal action given a query state $s_q$. Consider a random policy $\pi$ as well as its Q-function $Q_\text{MDP}^\pi$.
+    The trustworthiness of the random policy in the the MDP problems represents the probability of selecting the optimal action for any query state in the state space, i.e.,
+    \begin{align}
+        \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_\text{MDP}^{\pi, N}(s_q, a), \, \forall s_q \in S.
+    \end{align}
+    The corresponding trust horizon denotes the minimal horizon length of the MDP such that
+    \begin{align}
+        Q_\text{MDP}^{\pi, N}(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} Q_\text{MDP}^{\pi, N}(s_q, a), \, \forall s_q \in S.
+    \end{align}
+\end{definition}
+In both Definitions~\ref{definition_mab} and \ref{definition_mdp}, the trustworthiness refers to the probability of selecting the optimal action. While the trust horizon in both cases approximates the infinite-horizon problem, they show subtle differences in the relationship to the trustworthiness.
+In the MAB problem, which consists of a single episode, the trustworthiness depends on the trust horizon only. However, in the MDP, computing \( Q_\text{MDP}^{\pi, N}(s_q, a) \) is generally intractable, thus requiring the use of an unbiased estimate (as defined in \eqref{eqn_Q_mdp_N_hat}), which depends on the number of episodes \( N_\text{ep} \). Consequently, the trustworthiness in the MDP setting is influenced by both the trust horizon and the number of episodes.
+Next, we formally quantify the relationship between the trustworthiness and the trust horizon for the MAB and MDP problems.
+\begin{theorem}[MAB]\label{theorem_mab}
+    Let Assumption~\ref{assumption_bound_reward} hold. The random policy is at least $(1-\delta)$-trustworthy as in Definition~\ref{definition_mab}, when the trust horizon $N$ satisfies
+    \begin{align}
+        N \geq \frac{8B^2}{\left(\mbE[r(s_q, a^*)] - \max\limits_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+    \end{align}
+\end{theorem}
+\begin{myproof}
+    See Appendix~\ref{appendix_omit_proof_theorem_mab}.
+\end{myproof}
+Theorem~\ref{theorem_mab} implies that the trust horizon $N$ quantifies the trustworthiness of the decision making under the random policy $\pi$ for MAB problems. Indeed, a larger $N$ implies a higher probability (smaller $\delta$) that the average reward of the optimal arm under $\pi$ exceeds that of the next-best arm, therefore, making a more reliable decision. We substantiate this claim by empirical evidence (depicted in Figure~\ref{fig_action_select_acc}(a)).
+In the practical implementation, we simply execute the MAB under the random policy $\pi$ until every action in the action space $A$ selected at least $N$ times.
+Subsequently, we select the action with the maximal average reward as the action label. The detailed procedure for collecting such action labels in MAB is outlined in Algorithm~\ref{alg_collect_queries_bandit}.
+\begin{algorithm}
+\caption{Collecting Query States and Action Labels under Random Policy (MAB)}         \label{alg_collect_queries_bandit}
+\begin{algorithmic}[1]
+		\STATE \textbf{Require:} Random policy $\pi$, singleton query state $s_q$, action space $A$, environment $\tau$, empty average reward list $L_r$, trust horizon $N$
+            \STATE Execute the MAB in $\tau$ under the random policy $\pi$ until every action in $A$ selected at least $N$ times
+            \FOR{$a$ in $[A]$}
+                \STATE Record the average reward associated with the action $a$ in the history, and add it to $L_r$
+            \ENDFOR
+            \STATE Obtain $a_l = A(\argmax (L_r))$
+        \STATE \textbf{Return} $(s_q, a_l)$
+\end{algorithmic}
+\end{algorithm}
+\begin{theorem}[MDP]\label{theorem_mdp}
+Let Assumptions~\ref{assumption_bound_reward} and \ref{assumption_mdp_equal} hold.
+ Define $\kappa = \min\limits_{s_q \in S} \big( Q_\text{MDP}^\pi(s_q, a^*) - \max\limits_{a \in A \setminus \{a^*\}} Q_\text{MDP}^\pi(s_q, a) \big)$. Consider the trust horizon $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$. The random policy is at least $(1-\delta)$-trustworthy as in Definition~\ref{definition_mdp}, when the number of episodes $N_\text{ep}$ satisfies
+\begin{align}\label{eqn_theorem_MDP}
+    N_\text{ep}  \geq \underbrace{ \frac{ 2 \left( 1-\gamma^{N+1}\right)^2}{ \left( \kappa \left( 1-\gamma \right) / (2B) - \gamma^{N+1}\right)^2} }_{G_1}   \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+\end{theorem}
+\begin{myproof}
+    See Appendix~\ref{appendix_omit_proof_theorem_mdp}.
+\end{myproof}
+Theorem~\ref{theorem_mdp} implies that the trust horizon $N$ and the number of episodes $N_\text{ep}$ quantify the trustworthiness of the decision making under the random policy $\pi$ for MDP problems. Notice that $G_1$ in \eqref{eqn_theorem_MDP} is monotonically decreasing with respect to the trust horizon $N$ when $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$ (see Lemma~\ref{lemma_mono_decrease} in Appendix~\ref{appendix_tech_lemma}). Thus, with a fixed number of episodes, a larger $N$ corresponds to a higher probability (smaller $\delta$) that the average reward of the optimal action under $\pi$ exceeds that of the next-best action, indicating a more reliable decision.
+This aligns with the intuition that a larger $N$ corresponds to a closer approximation of the infinite-horizon MDP, where the random policy $\pi$ selects the same optimal action as that of the optimal policy (by Assumption~\ref{assumption_mdp_equal}).
+However, it is worth noting that Theorem~\ref{theorem_mdp} considers the worst-case guarantee of selecting the optimal actions over all states in the state space. It is therefore could be conservative. That being said, Theorem~\ref{theorem_mdp} still hints to the fact that one should select the action that yields the largest average reward in practice.
+In the practical implementation, we randomly select a query state from the state space and execute an episode of $N$ steps for each action in the action space. When the maximal return across all actions is no less than a pre-designed return threshold $\mathfrak{R}$, we choose the action that maximizes $\hat{Q}_\text{MDP}^{\pi, N}(s_q, a)$ across the entire action space $A$. Otherwise, we randomly sample another query state and repeat the process of evaluating each action in a horizon $N$. The implementation details are summarized in Algorithm~\ref{alg_collect_queries_dense}.
+\begin{algorithm}
+\caption{Collecting Query States and Action Labels under Random Policy (MDP)}
+\label{alg_collect_queries_dense}
+\begin{algorithmic}[1]
+		\STATE \textbf{Require:} Random policy $\pi$, state space $S$, action space $A$, environment $\tau$, trust horizon $N$, return threshold $\mathfrak{R}$
+        \STATE \textbf{Set} $\texttt{max\_return} = \mathfrak{R} - 1$
+        \WHILE{ $\texttt{max\_return} < \mathfrak{R}$ }
+            \STATE Sample a query state $s_q \sim S$
+            \STATE Empty a return list $L_r$
+            \FOR{$a$ in $[A]$}
+                \STATE Initialize the state and action as $s_0 = s_q, \, a_0 = a$
+                \STATE Run an episode of $N$ steps in $\tau$ under the random policy $\pi$
+            \STATE Add the discounted episodic return to $L_r$
+            \ENDFOR
+            \STATE $\texttt{max\_return} = \max (L_r)$
+        \ENDWHILE
+            \STATE Obtain $a_l = A(\argmax (L_r))$
+        \STATE \textbf{Return} $(s_q, a_l)$
+\end{algorithmic}
+\end{algorithm}
+Notably, this work focuses on the grid world navigation problems where the reward is received solely upon reaching the unique goal. In this sparse reward MDP, it is worth highlighting that the action that maximizes the discounted return is essentially the same as that reaches the goal using fewest steps. This is because that the discounted return $\sum_t \gamma^t r_t$ has a term $\gamma^t$ where $t$ is the time step. Thus, fewer steps (smaller $t$) corresponds to larger discounted return (larger $\gamma^t$). Therefore, for any query state $s_q$, we prioritize actions that can achieve the goal within $N$ steps, with the actions consuming fewer steps being preferred. If no action can accomplish the goal within $N$ steps, we sample another query state until a qualified action is identified. This action is then designated as the action label associated with the query state $s_q$. Details of this implementation are outlined in Algorithm~\ref{alg_collect_queries_sparse} (see Appendix~\ref{appendix_implement}).
+Having introduced the processes for collecting the context, query state, and action label under the random policy, we can now generate the pretraining dataset by integrating the aforementioned procedures (refer to Algorithm~\ref{alg_sad}).
+Given the pretraining dataset, the model pretraining procedure as well as the offline and online deployment for SAD are summarized in Algorithm~\ref{alg_pretrain_deploy} (see Appendix~\ref{appendix_implement}).
+\begin{algorithm}[ht]
+\caption{State-Action Distillation (SAD) under Random Policy}
+\label{alg_sad}
+\begin{algorithmic}[1]
+		\STATE \textbf{Require:} Empty pretraining dataset $\ccalD$ with size $|\ccalD|$, pretraining environment distribution $\ccalT_{\text{train}}$, random policy $\pi$, context horizon length $T$, state space $S$, action space $A$, trust horizon $N$
+        \FOR{$i$ in $[|\ccalD|]$}
+            \STATE Sample an environment $\tau \sim \ccalT_{\text{train}}$
+            \STATE Collect the context $\ccalC$ under the environment $\tau$ and the random policy $\pi$ through Algorithm~\ref{alg_collect_context}
+            \STATE Collect the query state $s_q$ and the action label $a_l$ under the environment $\tau$ and the random policy $\pi$ through Algorithm~\ref{alg_collect_queries_bandit} for MAB (Algorithm~\ref{alg_collect_queries_dense} for MDP)
+            \STATE Add $(\ccalC, s_q, a_l)$ to the pretraining dataset $\ccalD$
+        \ENDFOR
+        \STATE \textbf{Return} $\ccalD$
+\end{algorithmic}
+\end{algorithm}
+\subsection{Performance Guarantees}
+This subsection establishes the performance guarantees of SAD, offering deeper insights into its efficacy.
+\begin{corollary}
+\label{corollary_ps_sampling}
+Let hypotheses of Theorems~\ref{theorem_mab}  and \ref{theorem_mdp} hold. Denote by $l$ the length of the trajectory.
+For any environment $\tau$ and history data $H$, SAD and the well-specified posterior sampling follow the same trajectory distribution with probability $(1-\delta)^l$
+\begin{align}
+    P_{\ccalF_{\theta}} (\text{trajectory}  \mid  \tau, H) = P_{ps}(\text{trajectory} \mid \tau, H), \, \forall \text{trajectory}.
+\end{align}
+\end{corollary}
+\begin{myproof}
+    See Appendix~\ref{appendix_omit_proof_corollary_ps_sampling}.
+\end{myproof}
+Notice that DPT takes the same distribution as that from a well-specified posterior sampling~\citep{lee2024supervised}, which is widely recognized as a provably sample-efficient RL algorithm~\citep{osband2013more}.
+However, it is crucial to highlight that our SAD approach focuses only on the pretraining dataset generation, while maintaining the same pretraining process as that of DPT. Building upon Theorems~\ref{theorem_mab} and \ref{theorem_mdp} implying that SAD probabilistically selects the optimal action (required by DPT), Corollary~\ref{corollary_ps_sampling} substantiates that our SAD approach follows the same trajectory distribution as that of the posterior sampling with probability $(1-\delta)^l$.
+Having established the corollary above, we next investigate the regret bound of SAD in the finite MDP setting (see details in Appendix~\ref{appendix_finite_mdp_setting}).
+Consider the online cumulative regret of SAD over $K$ episodes in the environment $\tau$ as $\text{Regret}_\tau(\ccalF_{\theta}) = \sum_{k=0}^K V_\tau (\pi_\tau^*) - V_\tau(\pi_k)$, where $\pi_k (\cdot \mid s_t) = \ccalF_{\theta}(\cdot \mid \ccalC_{k-1}, s_t)$.
+Then, the regret bound of SAD is formally stated as follows.
+\begin{corollary}
+\label{corollary_regret_bound}
+Let hypotheses of Theorems~\ref{theorem_mab} and \ref{theorem_mdp} hold.
+Given environment $\tau$ and a constant $B' > 0$, suppose that $\sup_{\tau} {\ccalT_{\text{test}}(\tau)}/{\ccalT_{\text{train}}(\tau)} \leq B'$. In the finite MDP with horizon $T$, it holds with probability $(1-\delta)^{KT}$ that
+\begin{align}
+       \mbE_{\ccalT_{\text{test}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right]  \leq \widetilde{\ccalO} (B' |S| T^{3/2} \sqrt{K |A|}). \label{eqn_regret_bound}
+\end{align}
+\end{corollary}
+\begin{myproof}
+    See Appendix~\ref{appendix_omit_proof_corollary_regret_bound}.
+\end{myproof}
+Analogous to Corollary~\ref{corollary_ps_sampling}, Corollary~\ref{corollary_regret_bound} implies that SAD achieves the same regret bound as that of DPT (\eqref{eqn_regret_bound}) with probability $(1-\delta)^{KT}$, as SAD and DPT undergo the identical pretraining process.
+\section{Experiments}
+In this section, we substantiate the efficacy of our proposed SAD method on five ICRL benchmark problems: \textit{Gaussian Bandits, Bernoulli Bandits, Darkroom, Darkroom-Large, Miniworld}, which are commonly considered in the ICRL literature~\citep{laskin2022context, lee2024supervised, dong2024context}.
+All these problems are challenging to solve in-context, as the test environments differ from the pretraining environments, while the parameters of the FM  remain frozen during the test.
+\subsection{Environmental Setup}
+\label{appendix_experiment_detail_env_setup}
+\paragraph{\textit{Gaussian Bandits.}}
+We investigate a five-armed bandit problem in which the state space $S$ consists solely of a singleton state $s_q$.
+With each arm (action) pulled, the agent receives a reward. The goal is to identify the optimal arm that can maximize the cumulative reward.
+We consider the reward function for each arm following a Gaussian distribution with mean $\mu_a$ and variance $\sigma^2$, i.e., $R(\cdot | s_q, a) = \ccalN (\mu_a, \sigma^2)$. Each arm possesses means $\mu_a$ drawn from a uniform distribution $U[0, 1]$ and all arms share the same variance $\sigma = 0.3$. We consider the pretraining and test data to have distinct Gaussian distributions with different means.
+\paragraph{\textit{Bernoulli Bandits.}}
+We adopt the same setup as in \textit{Gaussian Bandits}, with the exception that the reward function does not follow a Gaussian distribution. Instead, we model the reward function using a Bernoulli distribution. Specifically, the mean of each arm $\mu_a$ is drawn from a Beta distribution $\textit{Beta}(1, 1)$, and the reward function follows a Bernoulli distribution with probability of success $\mu_a$. To validate the capability of SAD tackling OOD scenarios, we consider the test data drawn from the Bernoulli distribution while the pretraining data drawn from the Gaussian distribution as in the \textit{Gaussian bandits}.
+\paragraph{\textit{Darkroom.}}
+\textit{Darkroom}~\citep{laskin2022context, zintgraf2019varibad} is a two-dimensional navigation task with discrete state and action spaces. The room consists of $7 \times 7$ grids ($|S| = 49$), with an unknown goal randomly placed at any of these grids. The agent can select $5$ actions: go up, go down, go left, go right, or stay. The horizon length for \textit{Darkroom} is $49$, meaning the agent must reach the goal within 49 moves. The challenge of this task arises from its sparse reward structure, i.e., the agent receives a reward of 1 solely upon reaching the unique goal, and $0$ otherwise.
+Given $7 \times 7 = 49$ available goals, we utilize $39$ of these goals ($\sim 80\%$) for pretraining and reserve the remaining 10 ($\sim 20\%$) (unseen during pretraining) for test.
+\paragraph{\textit{Darkroom-Large.}}
+We adopt the same setup as in \textit{Darkroom}, yet with an expanded state space of $10 \times 10$ and a longer horizon $T=100$. Consequently, the agent must explore the environment more extensively due to the sparse reward setting, making this task more challenging than \textit{Darkroom}. We still consider $80\%$ of the $100$ available goals for pretraining and the remaining unseen $20\%$ goals for test.
+\paragraph{\textit{Miniworld.}}
+\textit{Miniworld} is a three-dimensional pixel-based navigation task. The agent is situated in a room with four differently colored boxes, one of which is the target (unknown to the agent). The agent must navigate to the target box using $25 \times 25 \times 3$ image observations and by selecting from 4 available actions: turn left, turn right, move forward, or stay. Similar to \textit{Darkroom}, the agent receives a reward of 1 only upon approaching the unique target box, and 0 otherwise. The high-dimensional pixel inputs clearly render \textit{Miniworld} a much more challenging task than \textit{Darkroom} and \textit{Darkroom-Large}.
+\subsection{Numerical Results}
+We consider four SOTA ICRL algorithms as our baselines in this work: AD, DIT, DPT, and DPT$^*$.
+Since all these methods are FM-based, we employ the same transformer architecture (causal GPT2 model~\citep{radford2019language}) and hyperparameters (number of attention layers, number of attention heads, embedding dimensions, etc) across all experiments to ensure a fair comparison. The main hyperparameters employed in this work are summarized in Tables~\ref{tab_hyperparameters}-\ref{tab_hyperparameters_env} (refer to Appendix~\ref{appendix_experiment_detail_hyperparameters}).
+In all experiments, we employ a uniform random policy to collect context, query states, and action labels, as indicated in Algorithms~\ref{alg_collect_context}-\ref{alg_collect_queries_dense}.
+Then, we pretrain the FM and deploy it with two options: online and offline. In online deployment, the pretrained model collects its own context by iteratively interacting with the test environments. In offline deployment, the pretrained model directly uses a sampled context from an offline context dataset, which is pre-collected using the random policy to interact with the test environments. The details of online/offline deployments are deferred to Algorithm~\ref{alg_pretrain_deploy} in Appendix~\ref{appendix_implement}.
+\begin{figure}[ht]
+\centering
+\setcounter{subfigure}{0}
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_bandits_gaussian.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_bandits_gaussian.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_bandits_bernoulli.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_bandits_bernoulli.pdf}
+	\end{minipage}
+}
+\caption{Offline and online evaluations of ICRL algorithms trained under a uniform random policy: AD, DPT, DIT, DPT$^*$, and SAD (ours). Each algorithm contains four independent runs with mean and standard deviation. \textit{Gaussian Bandits}: (a) and (b), \textit{Bernoulli Bandits}: (c) and (d).}
+\label{fig_bandits}
+\end{figure}
+\paragraph{\textit{Bandits}.}
+We adhere to offline and online evaluation metrics for \textit{Bandits} established in~\citep{lee2024supervised}. In the offline evaluation, we utilize the \textit{suboptimality} over different context horizon, defined by $\mu_{a^*} - \mu_a$, where $\mu_{a^*}$ and $\mu_a$ represent the mean rewards over 200 test environments of the optimal arm and the selected arm, respectively. In online evaluation, we employ \textit{cumulative regret}, defined by $\sum_{t=0}^T (\mu_{a^*} - \mu_{a_t})$,
+where $a_t$ denotes the selected arm at time $t$.
+Figures~\ref{fig_bandits}(a) and \ref{fig_bandits}(b) demonstrate that our SAD approach significantly outperforms three SOTA baselines under uniform random policy, by achieving much lower \textit{suboptimality} and \textit{cumulative regret}.
+More specifically, let us define the performance improvement of SAD over baselines in the offline evaluation by
+$(suboptimality_\text{baseline} - suboptimality_\text{SAD}) / suboptimality_\text{SAD}$.
+Likewise, the performance improvement in the online evaluation is to simply replace the \textit{suboptimality} by \textit{cumulative regret}. Then, SAD surpasses the best baseline, DIT, by achieving $354.0\%$ performance improvements in the offline evaluation and $273.9\%$ in the online evaluation (refer to the first row of Tables~\ref{tab_compare_offline} and \ref{tab_compare_online} in Appendix~\ref{appendix_experiment_detail_addition_result}).
+To evaluate the out-of-distribution performance of SAD compared to other baselines, we test the models pretrained by all methods on the \textit{Gaussian Bandits} and assess their performance on the \textit{Bernoulli Bandits} with no further fine-tuning. Figures~\ref{fig_bandits}(c) and \ref{fig_bandits}(d) illustrate that SAD still achieves lower \textit{suboptimality} and \textit{cumulative regret} than all other baselines, demonstrating a more robust performance in handling out-of-distribution scenarios.
+More specifically, SAD surpasses the best baseline, DIT, by $289.5\%$ in the offline evaluation and $313.9\%$ in the online evaluation (refer to the second row of Tables~\ref{tab_compare_offline} and \ref{tab_compare_online} in Appendix~\ref{appendix_experiment_detail_addition_result}).
+In the environments of \textit{Darkroom} and \textit{Miniworld}, we use return as the evaluation metric. Moreover, we define the performance improvement of our SAD approach over the baseline methods in both offline and online evaluations by
+$(Return_\text{SAD} - Return_\text{baseline}) / Return_\text{baseline}$.
+\begin{figure}[ht]
+\centering
+\setcounter{subfigure}{0}
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_darkroom7_7.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_darkroom7_7.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_darkroom10_10.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_darkroom10_10.pdf}
+	\end{minipage}
+}
+\caption{Offline and online evaluations of ICRL algorithms trained under a uniform random policy: AD, DPT, DIT, DPT$^*$, and SAD (ours). Each algorithm contains four independent runs with mean and standard deviation. \textit{DarkRoom}: (a) and (b). \textit{DarkRoom-Large}: (c) and (d).}
+\label{fig_darkroom}
+\end{figure}
+\paragraph{\textit{Darkrooms}.}
+Figure~\ref{fig_darkroom} demonstrates that our SAD approach significantly outperforms three SOTA baselines in the \textit{Darkroom} and \textit{Darkroom-Large} under uniform random policy, by achieving much higher return.
+In the \textit{Darkroom}, SAD surpasses the best baseline, DIT, by $149.3\%$ in the offline evaluation and $41.7\%$ in the online evaluation (refer to the third row of Tables~\ref{tab_compare_offline} and \ref{tab_compare_online} in Appendix~\ref{appendix_experiment_detail_addition_result}).
+Likewise, in the \textit{Darkroom-Large}, SAD outperforms the best baseline, DIT, by $266.8\%$ in the offline evaluation and $24.7\%$ in the online evaluation (refer to the fourth row of Tables~\ref{tab_compare_offline} and \ref{tab_compare_online} in Appendix~\ref{appendix_experiment_detail_addition_result}).
+\begin{figure}[ht]
+\centering
+\setcounter{subfigure}{0}
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_miniworld.pdf}
+	\end{minipage}
+}
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_miniworld.pdf}
+	\end{minipage}
+}
+\caption{Offline and online evaluations of ICRL algorithms trained under a uniform random policy: AD, DPT, DIT, DPT$^*$, and SAD (ours). Each algorithm contains four independent runs with mean and standard deviation. Environment: \textit{Miniworld}.}
+\label{fig_miniworld}
+\end{figure}
+\paragraph{\textit{Miniworld}.}
+Figure~\ref{fig_miniworld} demonstrates that our SAD approach outperforms the three SOTA baselines in the \textit{Miniworld} under uniform random policy, by achieving a higher return.
+More specifically, SAD surpasses the best baseline, DIT, by $122.1\%$ in the offline evaluation and $21.7\%$ in the online evaluation (refer to the fifth row of Tables~\ref{tab_compare_offline} and \ref{tab_compare_online} in Appendix~\ref{appendix_experiment_detail_addition_result}).
+Tables~\ref{tab_compare_offline} and \ref{tab_compare_online} also imply that SAD significantly outperforms all baselines on average across the five ICRL benchmark environments. In the offline evaluation, SAD exceeds the best baseline DIT by $236.3\%$ on average, the second-best DPT by $2015.9\%$, and the third-best AD by $2075.2\%$. In the online evaluation, SAD surpasses DIT by $135.2\%$, DPT by $3093.8\%$, and AD by $3208.8\%$ on average.
+In addition to comparing SAD with the three SOTA ICRL algorithms under the uniform random policy, we also include the empirical performance of the DPT with optimal action labels (DPT$^*$) as the oracle upper bound of SAD. We observe that SAD demonstrates performance comparable to DPT$^*$ in tasks such as \textit{Gaussian Bandits}, \textit{Bernoulli Bandits}, \textit{DarkRoom}, and \textit{DarkRoom-Large}. Although \textit{Miniworld} introduces challenges due to its pixel-based inputs and complex environments, SAD under the random policy still achieves approximately $50\%$ of the performance of DPT$^*$. Overall, SAD is within $18.6\%$ of the performance of DPT$^*$ in the offline evaluation across five ICRL tasks, and within $12.3\%$ in the online evaluation (see details in Tables~\ref{tab_compare_offline} and \ref{tab_compare_online}).
+\subsection{Ablation Studies}
+\label{subsec_ablation}
+\paragraph{Trust Horizon.}
+Theorems~\ref{theorem_mab} implies that the uniform random policy is probabilistically trustworthy within a horizon $N$, with monotonically increasing probability of selecting the optimal action with $N$ in the MAB problem. We substantiate this observation from the theorem by empirical evidence, as presented in Figure~\ref{fig_action_select_acc}(a).
+Furthermore, we conduct empirical investigations into the influence of the trust horizon $N$ on the performance of the MAB problem, which considers the environments of \textit{Gaussian Bandits}.
+As expected, a larger $N$ in the MAB problem leads to a better performance (see Figures~\ref{fig_diff_trust_horizon}(a) and \ref{fig_diff_trust_horizon}(b)).
+\begin{figure}[ht]
+\centering
+\setcounter{subfigure}{0}
+\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_action_select_acc_MAB.pdf}
+	\end{minipage}
+}
+\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_action_select_acc_MDP.pdf}
+	\end{minipage}
+}
+\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.22\linewidth}
+	\centering
+	\includegraphics[width=0.855\columnwidth]{figures/grid_world_demo_corner.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.22\linewidth}
+	\centering
+	\includegraphics[width=0.855\columnwidth]{figures/grid_world_demo_middle.pdf}
+	\end{minipage}
+}
+\caption{(a) and (b): The accuracy (probability) of selecting the optimal action in the MAB and MDP problems with varying trust horizon $N$. (c) and (d): The minimal number of steps required for a query state to reach the goal (the golden star) in the upper-right corner and in the middle.}
+\label{fig_action_select_acc}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\setcounter{subfigure}{0}
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_bandits_different_N.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_bandits_different_N.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_different_N.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_different_N.pdf}
+	\end{minipage}
+}
+\caption{Offline and online evaluation of SAD with varying trust horizon $N$ for MAB: (a) and (b), and for MDP: (c) and (d). Each $N$ contains four independent runs with mean and standard deviation.}
+\label{fig_diff_trust_horizon}
+\end{figure}
+We then shift to the MDP problem with the environment of \textit{Darkroom}.
+Notice that in our practical algorithm for the sparse-reward MDP like \textit{Darkroom} (Algorithm~\ref{alg_collect_queries_sparse}), we only utilize the state-action pairs that can reach the goal within a trust horizon. Therefore, we solely record the probability/accuracy of selecting the optimal actions on those states, as presented in Figure~\ref{fig_action_select_acc}(b). It shows that the accuracy monotonically decreases with respect to the trust horizon $N$, which, at first glance, may lead to monotonically decreasing performance as well. Nonetheless, we acknowledge that this is not the case.
+In particular, a large trust horizon $N$ in the MDP leads to the low accuracy of selecting the optimal action, whereas a small $N$ may induce the partially short-sighted training of FM, as Algorithm~\ref{alg_collect_queries_sparse} solely trains on the states at most $N$ steps from the goal, instead of all states (refer to Figures~\ref{fig_action_select_acc}(c) and \ref{fig_action_select_acc}(d)).
+Our numerical results in Figures~\ref{fig_diff_trust_horizon}(c) and \ref{fig_diff_trust_horizon}(d) validate this with the fact $N=7$ performing best, and provide the empirical evidence that either an excessively large or small trust horizon can lead to suboptimality.
+\paragraph{Transformer Hyperparameters.}
+We aim to validate the robustness of our proposed SAD approach with respect to the hyperparameters in the transformer block. Concretely, we focus on the number of attention heads and attention layers, as they have large impacts on the model size of the transformer. As depicted in Figure~\ref{fig_diff_head_layer}, our empirical results in \textit{Darkroom} demonstrate a robust performance across varying numbers of attention heads and attention layers.
+\begin{figure}[ht]
+\centering
+\setcounter{subfigure}{0}
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_different_head.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_different_head.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_offline_different_layer.pdf}
+	\end{minipage}
+}
+\!\!\!\!\!\!\!\!\!
+\subfigure[]
+{
+	\begin{minipage}{0.25\linewidth}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/plot_online_different_layer.pdf}
+	\end{minipage}
+}
+\caption{Offline and online evaluations of SAD with different transformer hyperparameters: the number of attention heads ((a) and (b)); the number of attention layers ((c) and (d)). Each hyperparameter contains four independent runs with mean and standard deviation.
+}
+\label{fig_diff_head_layer}
+\end{figure}
+\section{Conclusion}
+In this work, we propose State-Action Distillation (SAD), a novel approach for generating the pretraining dataset for ICRL, which is designed to overcome the limitations imposed by the existing ICRL algorithms like AD, DPT, and DIT in terms of relying on well-trained or even optimal policies to collect the pretraining dataset.
+SAD leverages solely random policies to construct the pretraining data, significantly promoting the practical application of ICRL in real-world scenarios.
+We also provide the quantitative analysis of the trustworthiness as well as the performance guarantees of SAD. Moreover, our empirical results on multiple popular ICRL benchmark environments demonstrate significant improvements over the existing baselines in terms of both performance and robustness.
+Nevertheless, we note that SAD is currently limited to the discrete action space. Extending SAD to handle the continuous action space as well as more complex environments presents a promising direction for the future research.
+\clearpage
+\bibliography{main}
+\bibliographystyle{tmlr}
+\clearpage
+\appendix
+\appendix
+\section{Related Work}
+\label{appendix_related_work}
+\subsection{Offline Reinforcement Learning}
+In contrast to the unlimited interactions with the environment in online RL, offline RL seeks to learn optimal policies from a pre-collected and static dataset~\citep{fujimoto2019benchmarking, levine2020offline, kumar2020conservative, kostrikov2021offline, chen2024domain}. One of the critical challenges in offline RL is with bootstrapping from out-of-distribution (OOD) actions~\citep{levine2020offline, kumar2020conservative, xu2022policy, liu2024beyond} due to the mismatch between the behavior policies and the learned policies. To address this issue, the current SOTA offline RL algorithms propose to update pessimistically by either adding a regularization or underestimating the Q-value of OOD actions.
+\subsection{Autoregressive-Supervised Decision Making}
+In addition to the traditional offline RL methods, autoregressive-supervised mechanisms based on the transformer architecture~\citep{vaswani2017attention} have been successfully applied to offline decision making domains by their powerful capability in sequential modeling.
+The pioneering work in the autoregressive-supervised decision making is the Decision Transformer (DT)~\citep{chen2021decision}.
+DT autoregressively models the sequence of actions from the historical offline data conditioned on the sequence of returns in the history.
+During the inference, the trained model can be queried based on pre-defined target returns, allowing it to generate actions aligned with the target returns.
+The subsequent works such as Multi-Game Decision Transformer (MGDT)~\citep{lee2022multi} and Gato~\citep{reed2022generalist} have exhibited the success of the autoregressive-supervised mechanisms in learning multi-task policies by fine-tuning or leveraging expert demonstrations in the downstream tasks.
+\subsection{In-Context Reinforcement Learning}
+However, both traditional offline RL and autoregressive-supervised decision making mechanisms suffer from the poor zero-shot generalization and in-context learning capabilities to new environments, as neither can improve the policy, with a fixed trained model, in context by trial and error. In-context reinforcement learning (ICRL) aims to pretrain a transformer-based FM, such as GPT2~\citep{radford2019language}, across a wide range of pretraining environments. During the evaluation (or inference), the pretrained model can directly infer the unseen environment and learn in-context without the need for updating model parameters.
+The SOTA ICRL algorithms including AD~\citep{laskin2022context}, DPT~\citep{lee2024supervised} and DIT~\citep{dong2024context} have demonstrated the potential of the ICRL framework. Nevertheless, each of these methods imposes distinct yet strict requirements on the pretraining dataset e.g., requiring well-trained (or even optimal) behavior policies, the context to be episodic and/or substantial, which significantly restrict their practicality in real-world applications.
+Accordingly, mastering and executing ICRL under (e.g., uniform) random policies and random contexts remains a crucial direction and a critical challenge.
+\section{Omitted Proofs}
+\label{appendix_omit_proof}
+\subsection{Proof of Theorem~\ref{theorem_mab}}
+\label{appendix_omit_proof_theorem_mab}
+\textbf{Theorem~\ref{theorem_mab}} (MAB). \textit{
+    Let Assumption~\ref{assumption_bound_reward} hold. The random policy is at least $(1-\delta)$-trustworthy as in Definition~\ref{definition_mab}, when the trust horizon $N$ satisfies
+    \begin{align}
+        N \geq \frac{8B^2}{\left(\mbE[r(s_q, a^*)] - \max\limits_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+    \end{align}
+}
+\begin{myproof}
+For any action $a \in A \setminus \{a^*\} $, consider two positive constants
+\begin{align}
+    &\epsilon_1 = \alpha \left( \mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right), \\
+    &\epsilon_2 = (1 - \alpha) \left( \mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right),
+\end{align}
+where $\alpha \in [0, 1]$.
+Consider the following two inequalities
+\begin{align}
+    &\frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \mbE[ r(s_q, a^*)] - \epsilon_1,  \\
+    &\frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \leq \mbE[ r(s_q, a)] + \epsilon_2.
+\end{align}
+We note that the two inequalities above are the sufficient but not necessary conditions for $\frac{1}{N_{a^*}} \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}} r(s_q, a)$ to hold.
+Therefore, we simply obtain that
+\begin{align}
+    &P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq P\left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \mbE[ r(s_q, a^*)] - \epsilon_1, \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \leq \mbE[ r(s_q, a)] + \epsilon_2 \right) \\
+    &=P\left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \mbE[ r(s_q, a^*)] - \epsilon_1 \right) \cdot P\left(\frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \leq \mbE[ r(s_q, a)] + \epsilon_2 \right),
+\end{align}
+where the last equation follows from the fact that each arm is independent to other arms.
+We then lower bound the two probabilities in the previous expression using Hoeffding’s inequality~\citep{hoeffding1994probability}.
+Since Assumption~\ref{assumption_bound_reward} implies that $r(\cdot, \cdot) \in [-B, B]$, Hoeffding’s inequality yields
+\begin{align}
+    P \left( \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) - \mbE[ r(s_q, a)] \leq \epsilon_2 \right) \geq 1 - \exp \left( - \frac{2 N_{a} \epsilon_2^2}{(B- (-B))^2} \right),
+\end{align}
+i.e.,
+\begin{align}
+    P \left( \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) - \mbE[ r(s_q, a)] \leq \epsilon_2 \right) \geq 1 - \exp \left( - \frac{N_{a} \epsilon_2^2}{2B^2} \right).
+\end{align}
+Likewise, we have
+\begin{align}
+    P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) - \mbE[ r(s_q, a^*)] \geq -\epsilon_1 \right) \geq 1 - \exp \left( - \frac{2N_{a^*} \epsilon_1^2}{(B- (-B))^2} \right),
+\end{align}
+i.e.,
+\begin{align}
+    P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) - \mbE[ r(s_q, a^*)] \geq -\epsilon_1 \right) \geq 1 - \exp \left( - \frac{N_{a^*} \epsilon_1^2}{2B^2} \right).
+\end{align}
+Since $N\triangleq \min_{a \in A}  N_a$, it then follows from the monotonicity of the exponential function that
+\begin{align}
+    &P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N_{a^*} \epsilon_1^2}{2B^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N_{a} \epsilon_2^2}{2B^2} \right) \right) \\
+    &\geq \left( 1 - \exp \left( - \frac{N \epsilon_1^2}{2B^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N \epsilon_2^2}{2B^2} \right) \right).
+\end{align}
+Therefore, it holds for any $\alpha \in [0, 1]$ that
+\begin{align}
+    &P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N \alpha^2 \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right)^2}{2B^2} \right) \right) \!\! \cdot \!\! \left( 1 - \exp \left( - \frac{N (1-\alpha)^2 \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right)^2}{2B^2} \right) \right).
+\end{align}
+Notice that the maximal value of the previous equation with respect to $\alpha$ reaches at $\alpha = 0.5$. Then it holds that
+\begin{align}
+    & P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right)  \geq  \left( 1 - \exp \! \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, a)] \right)^2}{8 B^2} \right) \right)^2, \forall a \in A \setminus \{a^*\}.
+\end{align}
+Since the previous inequality holds for any $a \in A \setminus \{a^*\}$, let us define
+\begin{align}
+    \bar{a} = \argmax_{a \in A \setminus \{a^*\}} \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a).
+\end{align}
+Then it also holds that
+\begin{align}
+    & P \left( \frac{1}{N_{a^*}}  \sum_{i=1}^{N_{a^*}} r(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \frac{1}{N_{a}} \sum_{i=1}^{N_{a}}  r(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \mbE[r(s_q, \bar{a})] \right)^2}{8 B^2} \right) \right)^2 \\
+    &\geq \left( 1 - \exp \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \max_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2}{8 B^2} \right) \right)^2.
+\end{align}
+where the last inequality follows from the monotonicity.
+To make the previous probability greater than $1-\delta$, we require
+\begin{align}
+    \left( 1 - \exp \left( - \frac{N \left(\mbE[r(s_q, a^*)] - \max_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2}{8 B^2} \right) \right)^2 \geq 1-\delta.
+\end{align}
+Hence, we require the trust horizon $N\triangleq \min_{a \in A}  N_a$ to satisfy
+\begin{align}
+    N \geq \frac{8B^2}{\left(\mbE[r(s_q, a^*)] - \max_{a \in A \setminus \{a^*\}} \mbE[r(s_q, a)] \right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+This completes the proof.
+\end{myproof}
+\subsection{Validity of Assumption~\ref{assumption_mdp_equal} in the grid world MDP with a single sparse reward}
+\label{appendix_validate_assump2}
+For the sake of simplicity and without loss of generality, we consider a single-dimensional grid world MDP with the understanding that Assumption~\ref{assumption_mdp_equal} holds for the two-dimensional grid world MDP as well, which is considered in our numerical experiments. The environmental details of the single-dimensional grid world MDP can be found in Figure~\ref{fig_single_dim_MDP_visualize}, where the reward is received only upon reaching the unique goal.
+To proceed, we rely on the lemma below, and Assumption~\ref{assumption_mdp_equal} is then validated by Proposition~\ref{proposition_single_MDP} that follows.
+\begin{lemma}\label{lemma_v_monotonic}
+    Consider the MDP of a single-dimensional grid world with $S=\{s_0, s_1, s_2, s_3, s_4\}$ and $A=\{a_0, a_1\}$, as depicted in Figure~\ref{fig_single_dim_MDP_visualize}. Consider the random policy $\pi$ in Assumption~\ref{assumption_mdp_equal}. It holds that
+    \begin{align}
+        V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1) \geq V_\text{MDP}^{\pi}(s_2) \geq V_\text{MDP}^{\pi}(s_3) \geq V_\text{MDP}^{\pi}(s_4).
+    \end{align}
+\end{lemma}
+\begin{myproof}
+    For simplicity, we consider $\pi$ to be a uniform random policy, i.e., $P(a_0 \mid s) = P(a_1 \mid s) = 0.5, \, \forall s \in S.$
+    Recall the Bellman expectation equation
+    \begin{align}
+        V_\text{MDP}^{\pi}(s) = \sum_{a \in A} \pi(a \mid s) \left( r(s, a) + \gamma \mbE_{s'} V_\text{MDP}^{\pi}(s') \right).
+    \end{align}
+    By combining the previous Bellman expectation equation with Figure~\ref{fig_single_dim_MDP_visualize} yields
+    \begin{align}
+    \begin{cases}
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_0) = \frac{1}{2} \left(r(s_0, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) + r(s_0, a_1) + \gamma V_\text{MDP}^{\pi}(s_1) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_1) = \frac{1}{2} \left(r(s_1, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) + r(s_1, a_1) + \gamma V_\text{MDP}^{\pi}(s_2) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_2) = \frac{1}{2} \left(r(s_2, a_0) + \gamma V_\text{MDP}^{\pi}(s_1) + r(s_2, a_1) + \gamma V_\text{MDP}^{\pi}(s_3) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_3) = \frac{1}{2} \left(r(s_3, a_0) + \gamma V_\text{MDP}^{\pi}(s_2) + r(s_3, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_4) = \frac{1}{2} \left(r(s_4, a_0) + \gamma V_\text{MDP}^{\pi}(s_3) + r(s_4, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) \right).
+    \end{cases}
+    \end{align}
+    Substituting all rewards from Figure~\ref{fig_q_tables} (left) into the previous equations yields
+    \begin{align}\label{eqn_lemma1}
+    \begin{cases}
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_0) = \frac{1}{2} \left(1 + \gamma V_\text{MDP}^{\pi}(s_0) + \gamma V_\text{MDP}^{\pi}(s_1) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_1) = \frac{1}{2} \left(1 + \gamma V_\text{MDP}^{\pi}(s_0) +  \gamma V_\text{MDP}^{\pi}(s_2) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_2) = \frac{1}{2} \left(\gamma V_\text{MDP}^{\pi}(s_1) + \gamma V_\text{MDP}^{\pi}(s_3) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_3) = \frac{1}{2} \left( \gamma V_\text{MDP}^{\pi}(s_2) + \gamma V_\text{MDP}^{\pi}(s_4) \right),  \\
+    &\!\!\!\!\!\! V_\text{MDP}^{\pi}(s_4) = \frac{1}{2} \left( \gamma V_\text{MDP}^{\pi}(s_3) +  \gamma V_\text{MDP}^{\pi}(s_4) \right).
+    \end{cases}
+    \end{align}
+Given $\gamma \in (0, 1)$, the last equation of \eqref{eqn_lemma1} implies that
+\begin{align}
+    V_\text{MDP}^{\pi}(s_3) = \frac{2-\gamma}{\gamma} V_\text{MDP}^{\pi}(s_4) \geq V_\text{MDP}^{\pi}(s_4).
+\end{align}
+Then, the fourth equation of \eqref{eqn_lemma1} yields
+\begin{align}
+    V_\text{MDP}^{\pi}(s_2) &= \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_3) - V_\text{MDP}^{\pi}(s_4) \\
+    &\geq \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_3) - V_\text{MDP}^{\pi}(s_3) \\
+    &\geq V_\text{MDP}^{\pi}(s_3).
+\end{align}
+Likewise, the third equation of \eqref{eqn_lemma1} can be rewritten as
+\begin{align}
+    V_\text{MDP}^{\pi}(s_1) &= \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_2) - V_\text{MDP}^{\pi}(s_3) \\
+    &\geq \frac{2}{\gamma} V_\text{MDP}^{\pi}(s_2) - V_\text{MDP}^{\pi}(s_2) \\
+    &\geq V_\text{MDP}^{\pi}(s_2).
+\end{align}
+Combining the previous inequality with the first two equations of \eqref{eqn_lemma1} directly yields
+\begin{align}
+    V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1).
+\end{align}
+This completes the proof.
+\end{myproof}
+\begin{proposition}\label{proposition_single_MDP}
+    Consider the MDP of a single-dimensional grid world with $S=\{s_0, s_1, s_2, s_3, s_4\}$ and $A=\{a_0, a_1\}$, as depicted in Figure~\ref{fig_single_dim_MDP_visualize}. Consider a uniform random policy $\pi$. It holds that
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^\pi(s, a) = \argmax_{a \in A} \, Q_\text{MDP}^*(s, a), \, \forall s \in S.
+    \end{align}
+\end{proposition}
+\begin{myproof}
+By the definition of $Q_\text{MDP}^*$ and $\pi^*$ we obtain
+    \begin{align}
+        Q_\text{MDP}^*(s, a) = Q_\text{MDP}^{\pi^*}(s, a), \, \forall (s, a) \in S \times A.
+    \end{align}
+    Since the objective of the agent in Figure~\ref{fig_single_dim_MDP_visualize} is to reach the goal state as quickly as possible, and stay still, $\pi^*(s)$ is given by
+    \begin{align}
+        \pi^*(s) = a_0, \, \forall s \in S.
+    \end{align}
+    Moreover, we have
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^*(s, a) = \argmax_{ a \in A} \, Q_\text{MDP}^{\pi^*}(s, a) = \pi^*(s) = a_0, \, \forall s \in S.
+    \end{align}
+We then turn to consider the learning of Q-function under the random policy $\pi$. For simplicity, we consider $\pi$ to be a uniform random policy, i.e., $P(a_0 \mid s) = P(a_1 \mid s) = 0.5, \, \forall s \in S.$
+We next prove that $Q_\text{MDP}^{\pi}(s, a_0) \geq Q_\text{MDP}^{\pi}(s, a_1), \, \forall s \in S$. We start with the state $s_0$. Notice that
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_0, a_0) = r(s_0, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) = 1+ \gamma V_\text{MDP}^{\pi}(s_0), \\
+    &Q_\text{MDP}^{\pi}(s_0, a_1) = r(s_0, a_1) + \gamma V_\text{MDP}^{\pi}(s_1) = \gamma V_\text{MDP}^{\pi}(s_1).
+\end{align}
+Lemma~\ref{lemma_v_monotonic} implies that $V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1)$. The previous equations then directly indicate
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_0, a_0) \geq Q_\text{MDP}^{\pi}(s_0, a_1).
+\end{align}
+For the state $s_1$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_1, a_0) = r(s_1, a_0) + \gamma V_\text{MDP}^{\pi}(s_0) = 1+ \gamma V_\text{MDP}^{\pi}(s_0), \\
+    &Q_\text{MDP}^{\pi}(s_1, a_1) = r(s_1, a_1) + \gamma V_\text{MDP}^{\pi}(s_2) = \gamma V_\text{MDP}^{\pi}(s_2).
+\end{align}
+Lemma~\ref{lemma_v_monotonic} implies that $V_\text{MDP}^{\pi}(s_0) \geq V_\text{MDP}^{\pi}(s_1) \geq V_\text{MDP}^{\pi}(s_2)$. Then it holds that
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_1, a_0) \geq Q_\text{MDP}^{\pi}(s_1, a_1).
+\end{align}
+For the state $s_2$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_2, a_0) = r(s_2, a_0) + \gamma V_\text{MDP}^{\pi}(s_1) = \gamma V_\text{MDP}^{\pi}(s_1), \\
+    &Q_\text{MDP}^{\pi}(s_2, a_1) = r(s_2, a_1) + \gamma V_\text{MDP}^{\pi}(s_3) = \gamma V_\text{MDP}^{\pi}(s_3).
+\end{align}
+Employing Lemma~\ref{lemma_v_monotonic} directly yields
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_2, a_0) \geq Q_\text{MDP}^{\pi}(s_2, a_1).
+\end{align}
+For the state $s_3$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_3, a_0) = r(s_3, a_0) + \gamma V_\text{MDP}^{\pi}(s_2) = \gamma V_\text{MDP}^{\pi}(s_2), \\
+    &Q_\text{MDP}^{\pi}(s_3, a_1) = r(s_3, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) = \gamma V_\text{MDP}^{\pi}(s_4).
+\end{align}
+Employing Lemma~\ref{lemma_v_monotonic} directly yields
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_3, a_0) \geq Q_\text{MDP}^{\pi}(s_3, a_1).
+\end{align}
+Last but not least, for the state $s_4$, we have
+\begin{align}
+    &Q_\text{MDP}^{\pi}(s_4, a_0) = r(s_4, a_0) + \gamma V_\text{MDP}^{\pi}(s_3) = \gamma V_\text{MDP}^{\pi}(s_3), \\
+    &Q_\text{MDP}^{\pi}(s_4, a_1) = r(s_4, a_1) + \gamma V_\text{MDP}^{\pi}(s_4) = \gamma V_\text{MDP}^{\pi}(s_4).
+\end{align}
+Employing Lemma~\ref{lemma_v_monotonic} directly yields
+\begin{align}
+    Q_\text{MDP}^{\pi}(s_4, a_0) \geq Q_\text{MDP}^{\pi}(s_4, a_1).
+\end{align}
+Hence we obtain
+\begin{align}
+   \argmax_{ a \in A} \, Q_\text{MDP}^{\pi}(s, a)  = a_0, \, \forall s \in S.
+\end{align}
+and then
+\begin{align}
+    \argmax_{ a \in A} \, Q_\text{MDP}^{\pi}(s, a) = a_0 =  \argmax_{ a \in A} \, Q_\text{MDP}^*(s, a), \, \forall s \in S.
+\end{align}
+This completes the proof.
+\end{myproof}
+\paragraph{Empirical validation of Assumption~\ref{assumption_mdp_equal} in the grid world MDP.}
+In addition to the theoretical proof above, we also provide an empirical validation of Assumption~\ref{assumption_mdp_equal} in the grid world MDP in Figure~\ref{fig_single_dim_MDP_visualize}.
+We start by considering the Bellman expectation equation
+    \begin{align}
+        Q_\text{MDP}^{\pi}(s, a) = r(s, a) + \gamma \mbE_{a'} \left[ Q_\text{MDP}^{\pi}(s', a') \right], \, \forall (s, a) \in S \times A.
+    \end{align}
+Let us define the temporal-difference (TD) error as follows
+\begin{align}
+    \ccalE (s, a) = \left| r(s, a) + \gamma \mbE_{a'} \left[ Q_\text{MDP}^{\pi}(s', a') \right] - Q_\text{MDP}^{\pi}(s, a) \right|, \, \forall (s, a) \in S \times A.
+\end{align}
+With the understanding that the TD error $\ccalE (s, a)$ of $Q_\text{MDP}^{\pi}(s, a)$ is zero, we iteratively learn and update $Q_\text{MDP}^{\pi}(s, a)$ by minimizing the TD error. To that end, we consider $\gamma=0.99$ and a convergence threshold $\epsilon_Q = 10^{-6}$ (can be arbitrarily small). We initialize $Q_\text{MDP}^{\pi}(s, a)$ to be full of zeros as in Figure~\ref{fig_q_tables} (middle-left). Subsequently, we consistently update $Q_\text{MDP}^{\pi}(s, a)$ under the uniform policy $\pi$, until convergence as follows
+    \begin{align}
+        \ccalE (s, a) \leq \epsilon_Q, \, \forall (s, a) \in S \times A.
+    \end{align}
+Empirically, we observe that the Q-table $Q_\text{MDP}^{\pi}(s, a)$ converges after the $1216^{th}$ iteration; demonstrated in Figure~\ref{fig_q_table_td_error}.
+    As depicted in Figure~\ref{fig_q_tables} (middle-right), the convergent $Q_\text{MDP}^{\pi}(s, a)$ implies that the optimal action for any state under the uniform policy $\pi$ is $a_0$ (see the golden stars), i.e.,
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^\pi(s, a) = a_0, \, \forall s \in S.
+    \end{align}
+    Likewise, we follow the same process above using the  Bellman optimality equation
+    \begin{align}
+        Q_\text{MDP}^*(s, a) = r(s, a) + \gamma \max_{a' \in A} \, Q_\text{MDP}^*(s', a'), \, \forall (s, a) \in S \times A.
+    \end{align}
+    The convergent $Q_\text{MDP}^*(s, a)$ in Figure~\ref{fig_q_tables} (right) demonstrates that the optimal action for any state under the optimal policy is $a_0$ as well, i.e.,
+    \begin{align}
+        \argmax_{ a \in A} \, Q_\text{MDP}^*(s, a) = a_0, \, \forall s \in S.
+    \end{align}
+    This validates Assumption~\ref{assumption_mdp_equal} empirically.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.2\columnwidth]{figures/reward_table_plot.png}
+\includegraphics[width=0.2\columnwidth]{figures/q_table_plot_initial.png}
+\includegraphics[width=0.2\columnwidth]{figures/q_table_plot.png}
+\includegraphics[width=0.2\columnwidth]{figures/q_table_plot_star.png}
+\caption{Left: reward table. Middle-Left: initial Q-table. Middle-Right: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.32\columnwidth]{figures/plot_q_table_bellman_error.pdf}
+\caption{The learning curve of the maximal TD error of $Q_\text{MDP}^{\pi}(s, a)$ over the entire state-action spaces: $\max_{(s, a) \in S \times A} \left| r(s, a) + \gamma \mbE_{a'} \left[ Q_\text{MDP}^{\pi}(s', a') \right] - Q_\text{MDP}^{\pi}(s, a) \right|$.}
+\label{fig_q_table_td_error}
+\end{figure}
+\subsection{Discussion of Assumption~\ref{assumption_mdp_equal} in the grid world MDP with two sparse rewards}
+\label{appendix_validate_assump2_two_rewards}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/single_dim_MDP_visualize_two_rewards.pdf}
+    \caption{A single-dimensional grid world MDP comprising five states $\{s_0, s_1, s_2, s_3, s_4\}$. The environment offers two possible actions: $a_0$ that corresponds to moving left, and $a_1$ that corresponds to moving right. Crossing the boundaries is strictly prohibited. Any transitions that would result in boundary crossing will be confined to the current position. The reward structure is sparse, with a value of $R_l$ received upon reaching $s_0$, a value of $R_s$ received upon reaching $s_4$ and a value of 0 otherwise. We consider an infinite time horizon with a discounter factor $\gamma$.}
+    \label{fig_single_dim_MDP_visualize_two_rewards}
+\end{figure}
+As depicted in Figure~\ref{fig_single_dim_MDP_visualize_two_rewards}, we consider the same problem setting as in Appendix~\ref{appendix_validate_assump2} except that we assign the rewards $R_l$ and $R_s$ to the states $s_0$ and $s_4$, respectively. In the following three cases, we demonstrate that Assumption~\ref{assumption_mdp_equal} holds for some (but not all) navigation problems that have two sparse rewards. The validity of Assumption~\ref{assumption_mdp_equal} depends on the problem-specific factors such as the rewards and the discount factor $\gamma$.
+\begin{itemize}
+    \item[(a)] Consider $R_l = 1, R_s = 0.1, \gamma = 0.99$. The action that maximizes the Q table for both random and optimal policies is the same, i.e., $a_0=\arg\max_a \,  Q_{MDP}^\pi(s,a) =\arg\max_a \, Q_{MDP}^*(s,a)$ for all states as shown in Figure~\ref{fig_q_tables_case1}.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.2\columnwidth]{figures/case1_q_table_plot_pi.png}
+\includegraphics[width=0.2\columnwidth]{figures/case1_q_table_plot_star.png}
+\caption{ When $R_l = 1, R_s = 0.1, \gamma = 0.99$. Left: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables_case1}
+\end{figure}
+    \item[(b)] Consider $R_l = 1, R_s = 0.9, \gamma = 0.8$. In this case, the random policy selects $a_0$ at the states $s_0, s_1, s_2$ and $a_1$ at the states $s_3, s_4$ (see $Q_{MDP}^\pi$ in Figure~\ref{fig_q_tables_case2}). However, notice that the optimal policy selects exactly the same optimal actions as that of the random policy, i.e., $a_0$ for states $s_0, s_1, s_2$ and $a_1$ for states $s_3, s_4$ (see $Q_{MDP}^*$ in Figure~\ref{fig_q_tables_case2}), thus Assumption 2 still holding.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.2\columnwidth]{figures/case2_q_table_plot_pi.png}
+\includegraphics[width=0.2\columnwidth]{figures/case2_q_table_plot_star.png}
+\caption{When $R_l = 1, R_s = 0.9, \gamma = 0.8$. Left: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables_case2}
+\end{figure}
+    \item[(c)] Consider $R_l = 1, R_s = 0.9, \gamma = 0.97$. The convergent Q-tables in Figure~\ref{fig_q_tables_case3} indicate that under the random policy, the optimal action for states $s_3$ and $s_4$ is $a_1$, whereas under the optimal policy, it is $a_0$. This discrepancy indicates that Assumption 2 does not hold.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.2\columnwidth]{figures/case3_q_table_plot_pi.png}
+\includegraphics[width=0.2\columnwidth]{figures/case3_q_table_plot_star.png}
+\caption{When $R_l = 1, R_s = 0.9, \gamma = 0.97$. Left: convergent Q-table under uniform policy $\pi$. Right: convergent optimal Q-table.}
+\label{fig_q_tables_case3}
+\end{figure}
+\end{itemize}
+\clearpage
+\subsection{Proof of Theorem~\ref{theorem_mdp}}
+\label{appendix_omit_proof_theorem_mdp}
+\textbf{Theorem~\ref{theorem_mdp}} (MDP).
+\textit{
+Let Assumptions~\ref{assumption_bound_reward} and \ref{assumption_mdp_equal} hold.
+ Define $\kappa = \min\limits_{s_q \in S} \big( Q_\text{MDP}^\pi(s_q, a^*) - \max\limits_{a \in A \setminus \{a^*\}} Q_\text{MDP}^\pi(s_q, a) \big)$. Consider the trust horizon $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$. The random policy is at least $(1-\delta)$-trustworthy as in Definition~\ref{definition_mdp}, when the number of episodes $N_\text{ep}$ satisfies
+\begin{align}
+    N_\text{ep}  \geq \underbrace{ \frac{ 2 \left( 1-\gamma^{N+1}\right)^2}{ \left( \kappa \left( 1-\gamma \right) / (2B) - \gamma^{N+1}\right)^2} }_{G_1}   \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+}
+\begin{myproof}
+For any action $a \in A \setminus \{a^*\} $, let us define
+\begin{align}
+    &Q_\text{MDP}^\pi(s_q, a) = \underbrace{\mbE \left[ \sum_{t=0}^{N} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a \right] }_{Q_\text{MDP}^{\pi, N}(s_q, a)} + \underbrace{ \mbE \left[ \sum_{t=N+1}^{\infty} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a \right] }_{\xi_a},  \\
+    &Q_\text{MDP}^\pi(s_q, a^*) = \underbrace{\mbE \left[ \sum_{t=0}^{N} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] }_{Q_\text{MDP}^{\pi, N}(s_q, a^*)} + \underbrace{ \mbE \left[ \sum_{t=N+1}^{\infty} \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] }_{\xi_{a^*}}.
+\end{align}
+Then $\forall s_q \in S$,
+\begin{align}
+    &Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - \xi_{a^*} - \left(Q_\text{MDP}^\pi(s_q, a) - \xi_{a} \right) \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, a) + \xi_{a} - \xi_{a^*} \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, a) + \sum_{t=N+1}^{\infty} \gamma^t \left(\mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=a \right] - \mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] \right) \\
+    &\stackrel{(a)}{\geq} Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, a)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\geq Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\geq \min\limits_{s_q \in S} \left( Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a) \right)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(b)}{=}  \kappa - \gamma^{N+1} \frac{2B}{1-\gamma}, \\
+    &\stackrel{(c)}{>} 0.
+\end{align}
+where $(a)$ follows from Assumption~\ref{assumption_bound_reward} and the properties of geometry series, $(b)$ follows from the definition of $\kappa$, $(c)$ is due to $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$.
+Therefore, let us consider two positive constants as follows
+\begin{align}
+    &\epsilon_1 = \alpha \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right), \\
+    &\epsilon_2 = (1 - \alpha) \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right),
+\end{align}
+where $\alpha \in [0, 1]$. Consider the following two inequalities
+\begin{align}
+    &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq Q_\text{MDP}^{\pi, N}(s_q, a^*) - \epsilon_1 \label{eqn_ineq1_MDP}, \\
+    &\hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \leq Q_\text{MDP}^{\pi, N}(s_q, a) + \epsilon_2 \label{eqn_ineq2_MDP}.
+\end{align}
+We acknowledge that \eqref{eqn_ineq1_MDP} and \eqref{eqn_ineq2_MDP} are the sufficient but not necessary conditions for $\hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a)$ to hold.
+Thus,
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right)  \\
+    &\geq P\left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq Q_\text{MDP}^{\pi, N}(s_q, a^*) - \epsilon_1, \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \leq Q_\text{MDP}^{\pi, N}(s_q, a) + \epsilon_2 \right) \\
+    &=P\left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq Q_\text{MDP}^{\pi, N}(s_q, a^*) - \epsilon_1 \right) \cdot P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \leq Q_\text{MDP}^{\pi, N}(s_q, a) + \epsilon_2 \right)
+\end{align}
+where the last equation follows from the fact that each action is independent to other actions.
+Assumption~\ref{assumption_bound_reward} implies that $ \sum_{t=0}^{N} \left( \gamma^t r(s_t, a_t) \mid s_0=s_q, a_0=a, \pi \right) \in [-B \frac{1-\gamma^{N+1}}{1-\gamma}, B \frac{1-\gamma^{N+1}}{1-\gamma}], \forall a \in A$. We therefore lower bound the two probabilities in the previous expression using Hoeffding’s inequality~\citep{hoeffding1994probability}
+\begin{align}
+    &P\left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a^*) \geq - \epsilon_1 \right) \geq  1 - \exp \left( - \frac{N_\text{ep} \epsilon_1^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right), \\
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) - Q_\text{MDP}^{\pi, N}(s_q, a) \leq \epsilon_2 \right) \geq  1 - \exp \left( - \frac{N_\text{ep} \epsilon_2^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right).
+\end{align}
+Then, it holds for any $\alpha \in [0, 1]$ that
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right)  \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep} \epsilon_1^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right) \cdot \left( 1 - \exp \left( - \frac{N_\text{ep} \epsilon_2^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right) \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep} \alpha^2 \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2}{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right) \\
+    &\,\,\,\, \cdot \left( 1 - \exp \left( - \frac{N_\text{ep}  (1-\alpha)^2 \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2 }{2B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)
+\end{align}
+Notice that the maximal value of the previous expression with respect to $\alpha$ reaches at $\alpha = 0.5$. Then it holds that
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right) \geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2, \forall a \in A \setminus \{a^*\}.
+\end{align}
+Since the previous inequality holds for any $a \in A \setminus \{a^*\}$, let us define
+\begin{align}
+    \hat{a} = \argmax_{a \in A \setminus \{a^*\}} \, \hat{Q}_\text{MDP}^{\pi, N}(s_q, a).
+\end{align}
+Then it also holds that
+\begin{align}
+    &P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right) \nonumber \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, \hat{a}) \right) ^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2 \\
+    &\geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left( Q_\text{MDP}^{\pi, N}(s_q, a^*) - \max_{a \in A \setminus \{a^*\}}  Q_\text{MDP}^{\pi, N}(s_q, a) \right) ^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2, \label{eqn_temp_prob1}
+\end{align}
+where the last inequality follows from the monotonicity and the fact that $Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, a) \geq 0, \forall a \in A \setminus \{a^*\}$.
+Let us define
+\begin{align}
+    \bar{a} = \argmax_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^{\pi, N}(s_q, a).
+\end{align}
+Then $\forall s_q \in S$ we obtain
+\begin{align}
+    &Q_\text{MDP}^{\pi, N}(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^{\pi, N}(s_q, a) \\
+    &\stackrel{(a)}{=} Q_\text{MDP}^{\pi, N}(s_q, a^*) - Q_\text{MDP}^{\pi, N}(s_q, \bar{a}) \\
+    &\stackrel{(b)}{=} Q_\text{MDP}^\pi(s_q, a^*) - \xi_{a^*} - \left(Q_\text{MDP}^\pi(s_q, \bar{a}) - \xi_{\bar{a}} \right) \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, \bar{a}) + \xi_{\bar{a}} - \xi_{a^*} \\
+    &= Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, \bar{a}) + \sum_{t=N+1}^{\infty} \gamma^t \left(\mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=\bar{a} \right] - \mbE \left[r(s_t, a_t) \mid s_0=s_q, a_0=a^* \right] \right) \\
+    &\stackrel{(c)}{\geq} Q_\text{MDP}^\pi(s_q, a^*) - Q_\text{MDP}^\pi(s_q, \bar{a})  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(d)}{\geq} Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\geq \min\limits_{s_q \in S} \left( Q_\text{MDP}^\pi(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^\pi(s_q, a) \right)  - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(e)}{=}  \kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \\
+    &\stackrel{(f)}{>} 0,
+\end{align}
+where $(a)$ follows from the definition of $\bar{a}$, $(b)$ follows from the definition of $Q_\text{MDP}^\pi$, $(c)$ follows from Assumption~\ref{assumption_bound_reward} and the properties of geometry series, $(d)$ follows from the fact that $\bar{a}$ may not be the maximizer of $Q_\text{MDP}^\pi(s_q, \cdot)$, $(e)$ follows from the definition of $\kappa$, $(f)$ is due to $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$.
+Consequently, \eqref{eqn_temp_prob1} is monotonically increasing with $Q_\text{MDP}^{\pi, N}(s_q, a^*) - \max_{a \in A \setminus \{a^*\}} \, Q_\text{MDP}^{\pi, N}(s_q, a)$.
+Substituting the previous inequality into \eqref{eqn_temp_prob1} and by the monotonicity yields
+\begin{align}
+    P \left( \hat{Q}_\text{MDP}^{\pi, N}(s_q, a^*) \geq \max_{a \in A \setminus \{a^*\}} \hat{Q}_\text{MDP}^{\pi, N}(s_q, a) \right)
+    \geq \left( 1 - \exp \left( - \frac{N_\text{ep}  \left(\kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \right)^2}{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2,
+\end{align}
+To make the previous probability greater than $1-\delta$, we require
+\begin{align}
+    \left( 1 - \exp \left( - \frac{N_\text{ep}  \left(\kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \right)^2 }{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2} \right) \right)^2 \geq 1-\delta.
+\end{align}
+Thus,
+\begin{align}
+    N_\text{ep} &\geq \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right) \frac{8B^2 \left( \frac{1-\gamma^{N+1}}{1-\gamma}\right)^2}{\left(\kappa - \gamma^{N+1} \frac{2B}{1-\gamma} \right)^2} \\
+    &= \frac{ 2 \left( 1-\gamma^{N+1}\right)^2}{ \left( \kappa \left( 1-\gamma \right) / (2B) - \gamma^{N+1}\right)^2} \log \left( \frac{1+\sqrt{1-\delta}}{\delta} \right).
+\end{align}
+This completes the proof.
+\end{myproof}
+\subsection{Technical Lemma}
+\label{appendix_tech_lemma}
+\begin{lemma}\label{lemma_mono_decrease}
+    Given $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$, $G_1$ in \eqref{eqn_theorem_MDP} is monotonically decreasing with respect to the trust horizon $N$.
+\end{lemma}
+\begin{myproof}
+    We proceed by defining $Y = \kappa (1-\gamma)/(2B)$.
+    Since $N > \log_\gamma \left( \kappa (1-\gamma)/(2B) \right)-1$, we can obtain
+    \begin{align}
+        Y = \frac{\kappa \left( 1-\gamma \right)}{2B} \in (\gamma^{N+1}, 1].
+    \end{align}
+    Let $Z = N+1$, and then we can rewrite $G_1$ as
+    \begin{align}
+        G_1 = \frac{ 2 \left( 1-\gamma^{Z}\right)^2}{ \left(Y - \gamma^{Z}\right)^2}, \, \text{where} \,\, Y \in (\gamma^{Z}, 1].
+    \end{align}
+    The chain rule implies that
+    \begin{align}
+        \frac{\partial G_1}{\partial N} &= \frac{\partial G_1}{\partial Z} \cdot \frac{\partial Z}{\partial N} \\
+        &=\frac{\partial G_1}{\partial Z} \\
+        &=4 \left( \frac{1-\gamma^{Z}}{Y - \gamma^{Z}} \right) \frac{-\gamma^{Z} \log \gamma (Y - \gamma^{Z}) + (1-\gamma^{Z}) \gamma^{Z} \log \gamma }{(Y - \gamma^{Z})^2} \\
+        &=4 \left( \frac{1-\gamma^{Z}}{Y - \gamma^{Z}} \right) \frac{\gamma^{Z} \log \gamma (1-Y)}{(Y - \gamma^{Z})^2} \\
+        &\leq 0,
+    \end{align}
+    where the last inequality follows from $\gamma \in (0, 1]$ and $Y \in (\gamma^{Z}, 1]$.
+    This completes the proof.
+\end{myproof}
+\subsection{Proof of Corollary~\ref{corollary_ps_sampling}}
+\label{appendix_omit_proof_corollary_ps_sampling}
+\textbf{Corollary~\ref{corollary_ps_sampling}}.
+\textit{
+Let hypotheses of Theorems~\ref{theorem_mab}  and \ref{theorem_mdp} hold. Denote by $l$ the length of the trajectory.}
+For any environment $\tau$ and history data $H$, SAD and the well-specified posterior sampling follow the same trajectory distribution with probability $(1-\delta)^l$
+\begin{align}\label{eqn_ps_equal}
+    P_{\ccalF_{\theta}} (\text{trajectory} \ | \ \tau, H) = P_{ps}(\text{trajectory}  \ | \  \tau, H), \forall \text{trajectory}.
+\end{align}
+\begin{myproof}
+To proceed, we rely on the following assumption.
+\begin{assumption}
+\label{assumption_equality}
+Denote by $\ccalF_{\theta}$ the pretrained FM. $\forall (\ccalC, s_q)$,
+assume $P_{\text{train}}(a \mid \ccalC, s_q) = \ccalF_{\theta}( a \mid \ccalC, s_q)$ for all $a \in A$.
+\end{assumption}
+Note that Assumption~\ref{assumption_equality} is a common assumption in the in-context learning literature~\citep{xie2021explanation, lee2024supervised}, assuming that the pretrained FM fits the pretraining distribution exactly provided with sufficient coverage and data, where the SAD fits with a sufficiently large trust horizon $N$.
+With Assumption~\ref{assumption_equality} established, Theorem 1 of \citep{lee2024supervised} implies that \eqref{eqn_ps_equal} holds when the optimal action is selected at each step.
+In addition, Theorems~\ref{theorem_mab} and \ref{theorem_mdp} indicate that the FM trained by SAD selects the optimal action label with probability $1-\delta$ at each step. Consequently, \eqref{eqn_ps_equal} holds for SAD with probability $(1-\delta)^l$.
+This completes the proof.
+\end{myproof}
+\subsection{Finite MDP setting from \cite{osband2013more}}
+\label{appendix_finite_mdp_setting}
+Let us consider the finite MDP setting as in \citep{osband2013more}, where $\mbE[r(s_t, a_t)] \in [0, 1]$. Denote by $S, A, T$ the state space, action space, and time horizon. Consider the uniform random policy $\pi$ for sampling the context $\ccalC$ and query state $s_q$.
+Denote by ${\ccalT_{\text{test}}(\tau)} $ and ${\ccalT_{\text{train}}(\tau)}$ the test and pretraining distribution over the environment $\tau$, respectively.
+Consider the online cumulative regret of SAD over $K$ episodes in the environment $\tau$ as
+\begin{align}
+    \text{Regret}_\tau(\ccalF_{\theta}) \overset{\Delta}{=} \sum_{k=0}^K V_\tau (\pi_\tau^*) - V_\tau(\pi_k),
+\end{align}
+where $\pi_k (\cdot \mid s_t) = \ccalF_{\theta}(\cdot \mid \ccalC_{k-1}, s_t)$.
+\subsection{Proof of Corollary~\ref{corollary_regret_bound}}
+\label{appendix_omit_proof_corollary_regret_bound}
+\textbf{Corollary~\ref{corollary_regret_bound}}.
+\textit{
+Let hypotheses of Theorems~\ref{theorem_mab}  and \ref{theorem_mdp} hold.
+Given the environment $\tau$ and a constant $B' > 0$, suppose that $\sup_{\tau} {\ccalT_{\text{test}}(\tau)}/{\ccalT_{\text{train}}(\tau)} \leq B'$. In the finite MDP setting above, it holds with probability $(1-\delta)^{KT}$ that
+\begin{align}\label{eqn_regret_dpt}
+       \mbE_{\ccalT_{\text{test}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right]  \leq \widetilde{\ccalO} (B' |S| T^{3/2} \sqrt{K |A|}).
+\end{align}
+}
+\begin{myproof}
+    Theorems~\ref{theorem_mab} and \ref{theorem_mdp} imply that the FM trained by SAD selects the optimal action label with probability $1-\delta$ at each step, while the finite MDP setting above comprises $K \cdot T$ steps. Therefore, it holds with probability $(1-\delta)^{KT}$ that the trained FM $\ccalF_\theta$ is equivalent to the posterior sampling established in Corollary~\ref{corollary_ps_sampling}. Then, it follows directly from Corollary 6.2 of \citep{lee2024supervised} that with probability $(1-\delta)^{KT}$ it holds that
+    \begin{align}
+       \mbE_{\ccalT_{\text{train}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right]  \leq \widetilde{\ccalO} ( |S| T^{3/2} \sqrt{K |A|}),
+\end{align}
+    where the notation $\widetilde{\ccalO}$ omits the polylogarithmic dependence. Subsequently, by using the bounded likelihood ratio between the test and pretraining distributions yields
+    \begin{align}
+        \mbE_{\ccalT_{\text{test}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right] &= \int \ccalT_{\text{test}}(\tau) \text{Regret}_\tau(\ccalF_{\theta}) d(\tau) \\
+        &\leq B' \int \ccalT_{\text{train}}(\tau) \text{Regret}_\tau(\ccalF_{\theta}) d(\tau) \\
+        &=B' \mbE_{\ccalT_{\text{train}}} \left[ \text{Regret}_\tau(\ccalF_{\theta}) \right] \\
+        &\leq \widetilde{\ccalO} (B' |S| T^{3/2} \sqrt{K |A|}).
+    \end{align}
+    This completes the proof.
+\end{myproof}
+\clearpage
+\section{Implementation Details}
+\label{appendix_implement}
+We provide below the pseudo-codes that are omitted in the main body of the paper.
+\begin{algorithm}[H]
+\caption{Collecting Query States and Action Labels under Random Policy (Sparse-Reward MDP)}         \label{alg_collect_queries_sparse}
+\begin{algorithmic}[1]
+		\STATE \textbf{Require:} Random policy $\pi$, state space $S$, action space $A$, environment $\tau$, trust horizon $N$
+            \STATE \textbf{Set} $\texttt{min\_step} = N+1$
+            \WHILE{ $\texttt{min\_step} > N$ }
+                \STATE Sample a query state $s_q \sim S$
+                \STATE Empty a step list $L_s$
+                \FOR{$a$ in $[A]$}
+                    \STATE Initialize the state and action as $s_0 = s_q, \, a_0 = a$
+                    \STATE Run an episode of $N$ steps in $\tau$ under the random policy $\pi$, and terminate the episode early upon receiving a reward
+                    \STATE Add consumed steps to $L_s$ (add ``$N+1$'' if no reward is received)
+                \ENDFOR
+            \STATE $\texttt{min\_step} = \min (L_s)$
+            \ENDWHILE
+            \STATE Obtain $a_l = A(\argmin (L_s))$
+        \STATE \textbf{Return} $(s_q, a_l)$
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}
+\caption{Pretraining and Deployment of SAD (Inspired by~\citep{lee2024supervised})}         \label{alg_pretrain_deploy}
+\begin{algorithmic}[1]
+        \STATE \textbf{Require:} Pretraining dataset $\ccalD$, initial model parameters $\theta$, test environment distribution $\ccalT_{\text{test}}$, number of episodes $N_E$
+        \STATE \green{\textbf{// Model pretraining}}
+        \WHILE{not converged}
+            \STATE Sample $(\ccalC, s_q, a_l)$ from the pretraining dataset $\ccalD$ and predict actions by the model $\ccalF_\theta(\cdot  | \ccalC_i, s_q)$ for all $i \in [|\ccalC|]$
+            \STATE Compute the loss in \eqref{eqn_loss} with respect to the action label $a_l$ and backpropagate to update $\theta$.
+        \ENDWHILE
+        \STATE \green{\textbf{// Offline deployment}}
+        \STATE Sample unseen environments $\tau \sim \ccalT_{\text{test}}$
+        \STATE Sample a context $\ccalC \sim \ccalT_{\text{test}}(\cdot \mid \tau)$
+        \STATE Deploy $\ccalF_\theta$ in $\tau$ by selecting $a_t \in \argmax_{a \in A} \ccalF_{\theta}(a \mid \ccalC, s_t)$ at time step $t$
+        \STATE \green{\textbf{// Online deployment}}
+        \STATE Sample unseen environments $\tau \sim \ccalT_{\text{test}}$ and initialize empty context $\ccalC = \{\}$
+        \FOR{$i$ in $[N_E]$}
+                \STATE Deploy $\ccalF_\theta$ by sampling $a_t \sim \ccalF_{\theta}(\cdot  \mid \ccalC, s_t)$ at time step $t$
+                \STATE Add $(s_0, a_0, r_0, \ldots)$ to $\ccalC$
+        \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+\section{Experimental Details}
+\label{appendix_experiment_detail}
+\subsection{Hyperparameters}
+\label{appendix_experiment_detail_hyperparameters}
+The main hyperparameters employed in this work are summarized in Tables~\ref{tab_hyperparameters}-\ref{tab_hyperparameters_env}.
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{The main hyperparameters of each algorithm}
+		\label{tab_hyperparameters}
+		\begin{tabular}{c|cccc}
+        \hline
+        \hline
+   			Hyperparameters & AD & DPT
+			& DIT & SAD (ours) \cr
+        \hline
+             Causal transformer & GPT2 & GPT2 & GPT2 & GPT2 \cr
+            Number of attention heads & 3 & 3 & 3 & 3 \cr
+            Number of attention layers & 3 & 3 & 3 & 3 \cr
+            Embedding size & 32 & 32 & 32 & 32 \cr
+            DIT Weight $\lambda$ & N/A & N/A & 500 & N/A \cr
+            Learning rate & 0.001 & 0.001 & 0.001 & 0.001 \cr
+            Dropout & 0.1 & 0.1 & 0.1 & 0.1 \cr
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{The main hyperparameters of each environment}
+		\label{tab_hyperparameters_env}
+		\begin{tabular}{c|ccccc}
+        \hline
+        \hline
+   			Hyperparameters & \textit{Gaussian Bandits} & \textit{Bernoulli Bandits}
+			& \textit{Darkroom} & \textit{Darkroom-Large} & \textit{Miniworld} \cr
+        \hline
+             Action dimension & 5 & 5 & 5 & 5 & 4 \cr
+             Pixel-based & \no & \no & \no & \no & \yes \cr
+             Trust Horizon & 320 & 320 & 7 & 10 & 3 \cr
+             \# of epochs & 100 & 100 & 100 & 100 & 200 \cr
+             Context horizon & 500 & 500 & 49 & 100 & 50 \cr
+             Training/Test ratio & 0.8/0.2 & 0.8/0.2 & 0.8/0.2 & 0.8/0.2 & 0.8/0.2 \cr
+             \# of environments & 100000 & 100000 & 24010 & 100000 & 40000 \cr
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+\subsection{Additional Results}
+\label{appendix_experiment_detail_addition_result}
+We provide in this subsection additional experimental results that are omitted in the main body of paper.
+Figure~\ref{fig_consumed_time} presents the dataset generation time of our SAD approach, compared with other SOTA baselines (AD, DPT, DIT), where the MAB and MDP problems consider the environments of \textit{Gaussian Bandits} and \textit{Darkroom} respectively. SAD (avg) represents the average of consumed time over different trust horizons (consistent with those in Figure~\ref{fig_action_select_acc}).
+On average, SAD requires the most significant amount of time in the MDP problem. While in the MAB problem, SAD ranks as the second most time-consuming method, with its duration surpassing all except DIT.
+Notice that the additional computational time of SAD aligns with the prevailing trend of leveraging increased computation to fully harness the advanced reasoning capabilities of FMs~\citep{brown2020language}.
+Figure~\ref{fig_fixed_time_budget} compares our SAD approach with the SOTA baselines (AD, DPT, DIT) under the same time budget (38 seconds, which is consumed by DIT).
+Despite with degraded performance and increased vairance compared to before, our SAD method still outperforms all baselines, especially in the offline deployment. This implies that our method has a more robust performance than the baselines when tackling the random contexts as the offline deployment uses pre-collected random contexts.
+Table~\ref{tab_data_amount_time} demonstrates that our method with $N=7$ uses 21,445,147 transition data only and consumes 82 seconds only in the dataset generation. In contrast, obtaining well-trained policies for all pretraining environments in the baseline methods (AD) uses 2,401,000,000 transition data and consumes 3452 seconds in the dataset generation. Furthermore, the baseline methods need to learn and maintain policy and value networks for all pretraining environments (additional costs), which is not the case in our method since the only thing we do is collecting at random. It is true that the baseline methods take about 20-40 seconds (see Figure~\ref{fig_consumed_time}) if they just employ the random policy (no well-trained policies), however, accompanied by a catastrophic performance as depicted in Figure~\ref{fig_darkroom}.
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{Performance improvements of SAD compared to baseline algorithms in the offline evaluation.}
+		\label{tab_compare_offline}
+		\begin{tabular}{c|ccc|c}
+        \hline
+        \hline
+   			Environment & SAD vs AD & SAD vs DPT
+			& SAD vs DIT & SAD vs DPT$^*$ \cr
+        \hline
+             \emph{Gaussian Bandits} & $647.0\%$ & $508.9\%$ & $354.0\%$ & $-5.2\%$ \cr
+             \emph{Bernoulli Bandits} & $553.4\%$ & $426.8\%$ & $289.5\%$  & $-18.7\%$ \cr
+            \emph{Darkroom} & $2162.2\%$ & $2069.6\%$ & $149.3\%$  & $-1.3\%$ \cr
+           \emph{Darkroom-Large} & $6325.5\%$ & $6389.9\%$ & $266.8\%$  & $-14.9\%$ \cr
+            \emph{Miniworld} & $687.7\%$ & $684.2\%$ & $122.1\%$  & $-52.9\%$ \cr
+        \hline
+        Average & $2075.2\%$ & $2015.9\%$ & $236.3\%$  & $-18.6\%$ \cr
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{Performance improvements of SAD compared to baseline algorithms in the online evaluation.}
+		\label{tab_compare_online}
+		\begin{tabular}{c|ccc|c}
+        \hline
+        \hline
+   			Environment & SAD vs AD & SAD vs DPT
+			& SAD vs DIT & SAD vs DPT$^*$ \cr
+        \hline
+            \emph{Gaussian Bandits} & $933.6\%$ & $942.5\%$ & $273.9\%$ & $-0.4\%$  \cr
+            \emph{Bernoulli Bandits} & $846.8\%$ & $830.9\%$ & $313.9\%$ & $-0.2\%$  \cr
+            \emph{Darkroom} & $3053.9\%$ & $2893.8\%$ & $41.7\%$ & $-3.4\%$  \cr
+            \emph{Darkroom-Large} & $10626.9\%$ & $10221.8\%$ & $24.7\%$ & $-0.1\%$  \cr
+            \emph{Miniworld} & $582.9\%$ & $580.1\%$ & $21.7\%$ & $-57.3\%$  \cr
+        \hline
+        Average & $3208.8\%$ & $3093.8\%$ & $135.2\%$ & $-12.3\%$  \cr
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.32\columnwidth]{figures/plot_consumed_time_MAB_baseline.pdf}\quad\quad
+\includegraphics[width=0.32\columnwidth]{figures/plot_consumed_time_MDP_baseline.pdf}
+\caption{The dataset generation time consumed by SAD averaged over varying trust horizons (as in Figure~\ref{fig_action_select_acc}), compared with AD, DPT, and DIT.}
+\label{fig_consumed_time}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.32\columnwidth]{figures/plot_offline_darkroom7_7_fixed_budget.pdf}\quad\quad
+\includegraphics[width=0.32\columnwidth]{figures/plot_online_darkroom7_7_fixed_budget.pdf}
+\caption{Offline and online evaluations of ICRL algorithms under the same time budget (38 seconds).}
+\label{fig_fixed_time_budget}
+\end{figure}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[ht]
+	\centering
+		\caption{The amount of transition data and computation time of SAD ($N=7$) compared to AD with well-trained policies.}
+		\label{tab_data_amount_time}
+		\begin{tabular}{c|cc}
+        \hline
+        \hline
+   			Algorithms & Amount of Transition Data & Computation Time ($s$) \cr
+        \hline
+            AD & $2,401,000,000$ & $3452$  \cr
+            SAD (ours) & $21,445,147$ & $82$ \cr
+        \hline
+        \hline
+		\end{tabular}
+\end{table}
+\end{document}

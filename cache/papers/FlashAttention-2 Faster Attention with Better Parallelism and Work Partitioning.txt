@@ -1,0 +1,72 @@
+Speed (TFLOPs/s)
+
+Attention backward speed (A100 80GB SXM4)
+Pytorch
+FlashAttention
+xformers
+FlashAttention Triton
+FlashAttention-2
+
+200
+150
+
+131
+111
+
+100
+50
+
+166
+
+160
+
+149
+
+81
+58 53
+46
+
+70 68
+54
+
+93
+
+98
+68
+60
+
+6267
+
+6265
+26
+
+25
+
+24
+
+21
+
+19
+
+76 71
+60
+
+85
+
+OOM
+
+512
+
+1k
+
+2k
+
+4k
+
+Sequence length
+
+8k
+
+16k
+
+

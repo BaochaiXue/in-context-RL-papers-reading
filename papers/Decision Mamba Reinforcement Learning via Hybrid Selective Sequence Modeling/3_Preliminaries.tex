@@ -1,0 +1,36 @@
+\section{Preliminaries}
+
+\noindent\textbf{Partially Observable Markov Decision Process.}~~
+We consider learning problems in the context of Partially Observable Markov Decision Processes (POMDP) represented by a tuple $\mathcal{M}=(\mathcal{S,O,A},P, \mathcal{R})$. The POMDP tuple consists of states $s\in \mathcal{S} $, observations $o\in \mathcal{O} $, actions $a\in \mathcal{A} $, rewards $r\in \mathcal{R} $, and a transition probability function $P (s_{t+1}|s_t,a_t)$, where $t$ is an integer denoting the timestep. At each timestep $t$, the agent receives the observation $o_t$, selects an action $a_t \sim \pi(\cdot|o_t)$ based on its policy, and then receives the next observation $o_{t+1}$. For convenience, we uniformly use $s$ to denote the observations or states received from the environment.
+A trajectory is a sequence that consists of observations, actions, and rewards and is denoted by $\tau=(s_0,a_0,r_0,\dots,s_T,a_T,r_T)$. 
+In addition, a completion token $d_t$, a binary identifier, is used to indicate whether a trajectory ends at time $t$.
+
+
+\noindent\textbf{Transformers.}~~
+The Transformer \cite{4} architecture consists of multiple layers of self-attention operation and MLP. The self-attention begins by projecting input data $X$ with three separate matrices onto $D$-dimensional vectors called queries $Q$, keys $K$, and values $V$. These vectors are then passed through the attention function:
+\begin{equation}
+    \mathrm{Attention}(Q,K,V)=\mathrm{softmax}(QK^T/\sqrt{D})V.
+\label{self-attention}
+\end{equation}
+The $QK^T$ term computes an inner product between two projections of the input data $X$. The inner product is then normalized and projected back to a $D$-dimensional vector with the scaling term $V$. Transformers utilize self-attention as a core part of the architecture to process sequential data \cite{21,22}. In this work, we use GPT \cite{23} architecture that modifies the transformer with a causal self-attention mask to focus on the previous tokens in the sequence ($j\in[1,i]$), enabling us to do autoregressive generation at test time.
+
+\noindent\textbf{S4 and Mamba.}~~
+S4 \cite{12} and Mamba \cite{10} are inspired by the continuous system, which maps a 1$-$D function or a sequence $x(t)\in \mathbb{R}\rightarrow y(t)\in \mathbb{R}$ through a hidden state $h(t)\in \mathbb{R}^N$. The mapping process can be represented as the following linear ordinary differential equation:
+
+\begin{equation}
+\begin{aligned}
+    h'(t) =& \mathbf{A}h(t) + \mathbf{B}x(t),\\
+    y(t) =& \mathbf{C}h(t),
+\label{ssm}
+\end{aligned}
+\end{equation}
+where $\mathbf{A}\in\mathbb{R}^{N\times N}$ denotes the evolution parameter, $\mathbf{B}\in\mathbb{R}^{N\times 1}$ and $\mathbf{C}\in\mathbb{R}^{1\times N}$ denote the projection parameters. For application to a discrete input sequence instead of a continuous function, S4 uses the zero-order hold to transform the continuous parameters $\mathbf{A},\mathbf{B}$ to discrete parameters $\overline{\mathbf{A}},\overline{\mathbf{B}}$. Then, the Equation~\eqref{ssm} can be rewritten as:
+\begin{equation}
+\begin{aligned}
+    h_t =& \overline{\mathbf{A}}h_{t-1} + \overline{\mathbf{B}}x_t,\\
+    yt =& \mathbf{C}h_t,
+\end{aligned}
+\end{equation}
+where $\overline{\mathbf{A}}=\mathrm{exp}(\Delta)\mathbf{A}$, $\overline{\mathbf{B}}=(\delta\mathbf{A})^{-1}(\mathrm{exp(\Delta)\mathbf{A}}-\mathbf{I})(\Delta\mathbf{B})$, and $\Delta$ is a timescale parameter. Based on the S4 framework, Mamba introduces a data-dependent selection mechanism while leveraging a hardware-aware parallel algorithm in recurrent mode. Compared with the Transformer, the combined architecture of Mamba empowers it to capture contexts effectively and maintains computational efficiency, particularly for long sequences.
+
+

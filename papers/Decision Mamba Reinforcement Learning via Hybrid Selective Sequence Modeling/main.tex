@@ -1,0 +1,86 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2024
+\PassOptionsToPackage{numbers, compress}{natbib}
+
+% ready for submission
+% \usepackage{neurips_2024}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+\usepackage[preprint]{neurips_2024}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2024}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2024}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{multirow}
+
+\usepackage{enumitem}
+% \usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{bm}
+
+\newcommand{\jf}[1]{\textcolor{blue}{jifeng: #1}}
+
+% % Decision Mambaer
+% Decision-Mamba
+% \title{Hybrid Mamba: An Efficient In-Context RL for Long-Term Decision}
+\title{Decision Mamba: Reinforcement Learning via Hybrid Selective Sequence Modeling}
+% Decision mamba: Reinforcement learning via sequence modeling with selective state spaces
+
+\author{%
+  $\text{\textbf{Sili Huang}}^{\bm{1}}$~~~~~~~~~~$\text{\textbf{Jifeng Hu}}^{\bm{2}}$~~~~~~~~~~$\text{\textbf{Zhejian Yang}}^{\bm{3}}$~~~~~~~~~~$\text{\textbf{Liwei Yang}}^{\bm{4}}$~~~~~~~~~~$\text{\textbf{Tao Luo}}^{\bm{5}}$\\
+  $\text{\textbf{Hechang Chen}}^{\bm{6}*}$~~~~~~~~~~$\text{\textbf{Lichao Sun}}^{\bm{7}}$~~~~~~~~~~$\text{\textbf{Bo Yang}}^{\bm{8}}\thanks{Corresponding Author. Bo Yang and Hechang Chen.}$\\
+  ${}^{\bm{1,8}}$Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education\\
+  ${}^{\bm{1,2,3,6}}$School of Artificial Intelligence, Jilin University, China\\
+  ${}^{\bm{4,5}}$ Institute of High Performance Computing, A*STAR, Singapore\\
+  ${}^{\bm{7}}$Lehigh University, Bethlehem, Pennsylvania, USA\\
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+\input{0_abstract}
+\input{1_Introduction}
+\input{2_Related_work}
+\input{3_Preliminaries}
+\input{4_Method}
+\input{5_Experiment}
+\input{6_Conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\input{7_Appendix}
+% \input{8_check_list}
+
+\end{document}

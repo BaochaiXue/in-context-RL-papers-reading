@@ -1,0 +1,599 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{36}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Azizzadenesheli and
+  Anandkumar}{Azizzadenesheli and Anandkumar}{2019}]%
+        {azizzadenesheliEfficientExplorationBayesian2019}
+\bibfield{author}{\bibinfo{person}{Kamyar Azizzadenesheli} {and}
+  \bibinfo{person}{Animashree Anandkumar}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Efficient {{Exploration}} through {{Bayesian Deep
+  Q-Networks}}}. \bibinfo{publisher}{{arXiv}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.1802.04412}
+\showDOI{\tempurl}
+\showeprint[arxiv]{1802.04412}~[cs, stat]
+
+
+\bibitem[\protect\citeauthoryear{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, Agarwal, {Herbert-Voss}, Krueger,
+  Henighan, Child, Ramesh, Ziegler, Wu, Winter, Hesse, Chen, Sigler, Litwin,
+  Gray, Chess, Clark, Berner, McCandlish, Radford, Sutskever, and Amodei}{Brown
+  et~al\mbox{.}}{2020}]%
+        {brownLanguageModelsAre2020}
+\bibfield{author}{\bibinfo{person}{Tom Brown}, \bibinfo{person}{Benjamin Mann},
+  \bibinfo{person}{Nick Ryder}, \bibinfo{person}{Melanie Subbiah},
+  \bibinfo{person}{Jared~D Kaplan}, \bibinfo{person}{Prafulla Dhariwal},
+  \bibinfo{person}{Arvind Neelakantan}, \bibinfo{person}{Pranav Shyam},
+  \bibinfo{person}{Girish Sastry}, \bibinfo{person}{Amanda Askell},
+  \bibinfo{person}{Sandhini Agarwal}, \bibinfo{person}{Ariel {Herbert-Voss}},
+  \bibinfo{person}{Gretchen Krueger}, \bibinfo{person}{Tom Henighan},
+  \bibinfo{person}{Rewon Child}, \bibinfo{person}{Aditya Ramesh},
+  \bibinfo{person}{Daniel Ziegler}, \bibinfo{person}{Jeffrey Wu},
+  \bibinfo{person}{Clemens Winter}, \bibinfo{person}{Chris Hesse},
+  \bibinfo{person}{Mark Chen}, \bibinfo{person}{Eric Sigler},
+  \bibinfo{person}{Mateusz Litwin}, \bibinfo{person}{Scott Gray},
+  \bibinfo{person}{Benjamin Chess}, \bibinfo{person}{Jack Clark},
+  \bibinfo{person}{Christopher Berner}, \bibinfo{person}{Sam McCandlish},
+  \bibinfo{person}{Alec Radford}, \bibinfo{person}{Ilya Sutskever}, {and}
+  \bibinfo{person}{Dario Amodei}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Language {{Models}} Are {{Few-Shot Learners}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}, Vol.~\bibinfo{volume}{33}. \bibinfo{publisher}{{Curran
+  Associates, Inc.}}, \bibinfo{pages}{1877--1901}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Duan, Schulman, Chen, Bartlett, Sutskever, and
+  Abbeel}{Duan et~al\mbox{.}}{2016}]%
+        {duanRLFastReinforcement2016}
+\bibfield{author}{\bibinfo{person}{Yan Duan}, \bibinfo{person}{John Schulman},
+  \bibinfo{person}{Xi Chen}, \bibinfo{person}{Peter~L. Bartlett},
+  \bibinfo{person}{Ilya Sutskever}, {and} \bibinfo{person}{Pieter Abbeel}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{{RL}}$^2$: {{Fast Reinforcement Learning}} via
+  {{Slow Reinforcement Learning}}}. \bibinfo{publisher}{{arXiv}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.1611.02779}
+\showDOI{\tempurl}
+\showeprint[arxiv]{1611.02779}~[cs, stat]
+
+
+\bibitem[\protect\citeauthoryear{Farquhar, Rockt{\"a}schel, Igl, and
+  Whiteson}{Farquhar et~al\mbox{.}}{2018}]%
+        {farquharTreeQNATreeCDifferentiable2018}
+\bibfield{author}{\bibinfo{person}{Gregory Farquhar}, \bibinfo{person}{Tim
+  Rockt{\"a}schel}, \bibinfo{person}{Maximilian Igl}, {and}
+  \bibinfo{person}{Shimon Whiteson}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{{TreeQN}} and {{ATreeC}}: {{Differentiable
+  Tree-Structured Models}} for {{Deep Reinforcement Learning}}}. In
+  \bibinfo{booktitle}{\emph{International {{Conference}} on {{Learning
+  Representations}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Fortunato, Azar, Piot, Menick, Hessel, Osband,
+  Graves, Mnih, Munos, Hassabis, Pietquin, Blundell, and Legg}{Fortunato
+  et~al\mbox{.}}{2018}]%
+        {fortunatoNoisyNetworksExploration2018}
+\bibfield{author}{\bibinfo{person}{Meire Fortunato},
+  \bibinfo{person}{Mohammad~Gheshlaghi Azar}, \bibinfo{person}{Bilal Piot},
+  \bibinfo{person}{Jacob Menick}, \bibinfo{person}{Matteo Hessel},
+  \bibinfo{person}{Ian Osband}, \bibinfo{person}{Alex Graves},
+  \bibinfo{person}{Volodymyr Mnih}, \bibinfo{person}{Remi Munos},
+  \bibinfo{person}{Demis Hassabis}, \bibinfo{person}{Olivier Pietquin},
+  \bibinfo{person}{Charles Blundell}, {and} \bibinfo{person}{Shane Legg}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Noisy {{Networks For Exploration}}}. In
+  \bibinfo{booktitle}{\emph{International {{Conference}} on {{Learning
+  Representations}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Garg, Tsipras, Liang, and Valiant}{Garg
+  et~al\mbox{.}}{2022}]%
+        {gargWhatCanTransformers2022}
+\bibfield{author}{\bibinfo{person}{Shivam Garg}, \bibinfo{person}{Dimitris
+  Tsipras}, \bibinfo{person}{Percy Liang}, {and} \bibinfo{person}{Gregory
+  Valiant}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{What {{Can Transformers Learn In-Context}}? {{A
+  Case Study}} of {{Simple Function Classes}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Goyal, Friesen, Banino, Weber, Ke, Badia,
+  Guez, Mirza, Humphreys, Konyushova, Valko, Osindero, Lillicrap, Heess, and
+  Blundell}{Goyal et~al\mbox{.}}{2022}]%
+        {goyalRetrievalAugmentedReinforcementLearning2022}
+\bibfield{author}{\bibinfo{person}{Anirudh Goyal}, \bibinfo{person}{Abram
+  Friesen}, \bibinfo{person}{Andrea Banino}, \bibinfo{person}{Theophane Weber},
+  \bibinfo{person}{Nan~Rosemary Ke},
+  \bibinfo{person}{Adri{\`a}~Puigdom{\`e}nech Badia}, \bibinfo{person}{Arthur
+  Guez}, \bibinfo{person}{Mehdi Mirza}, \bibinfo{person}{Peter~C. Humphreys},
+  \bibinfo{person}{Ksenia Konyushova}, \bibinfo{person}{Michal Valko},
+  \bibinfo{person}{Simon Osindero}, \bibinfo{person}{Timothy Lillicrap},
+  \bibinfo{person}{Nicolas Heess}, {and} \bibinfo{person}{Charles Blundell}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Retrieval-{{Augmented Reinforcement Learning}}}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 39th {{International
+  Conference}} on {{Machine Learning}}}}. \bibinfo{publisher}{{PMLR}},
+  \bibinfo{pages}{7740--7765}.
+\newblock
+\showISSN{2640-3498}
+
+
+\bibitem[\protect\citeauthoryear{Ha and Schmidhuber}{Ha and
+  Schmidhuber}{2018}]%
+        {haWorldModels2018}
+\bibfield{author}{\bibinfo{person}{David Ha} {and} \bibinfo{person}{J{\"u}rgen
+  Schmidhuber}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{World {{Models}}}.
+\newblock \bibinfo{journal}{\emph{arXiv}} (\bibinfo{date}{March}
+  \bibinfo{year}{2018}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.5281/zenodo.1207631}
+\showDOI{\tempurl}
+\showeprint[arxiv]{1803.10122}~[cs, stat]
+
+
+\bibitem[\protect\citeauthoryear{Hospedales, Antoniou, Micaelli, and
+  Storkey}{Hospedales et~al\mbox{.}}{2022}]%
+        {hospedalesMetaLearningNeuralNetworks2022}
+\bibfield{author}{\bibinfo{person}{Timothy Hospedales},
+  \bibinfo{person}{Antreas Antoniou}, \bibinfo{person}{Paul Micaelli}, {and}
+  \bibinfo{person}{Amos Storkey}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Meta-{{Learning}} in {{Neural Networks}}: {{A
+  Survey}}}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Pattern Analysis and
+  Machine Intelligence}} \bibinfo{volume}{44}, \bibinfo{number}{9}
+  (\bibinfo{date}{Sept.} \bibinfo{year}{2022}), \bibinfo{pages}{5149--5169}.
+\newblock
+\showISSN{1939-3539}
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TPAMI.2021.3079209}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Ke, Chiappa, Wang, Bornschein, Weber, Goyal,
+  Botvinic, Mozer, and Rezende}{Ke et~al\mbox{.}}{2022}]%
+        {keLearningInduceCausal2022}
+\bibfield{author}{\bibinfo{person}{Nan~Rosemary Ke}, \bibinfo{person}{Silvia
+  Chiappa}, \bibinfo{person}{Jane Wang}, \bibinfo{person}{Jorg Bornschein},
+  \bibinfo{person}{Theophane Weber}, \bibinfo{person}{Anirudh Goyal},
+  \bibinfo{person}{Matthew Botvinic}, \bibinfo{person}{Michael Mozer}, {and}
+  \bibinfo{person}{Danilo~Jimenez Rezende}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{Learning to {{Induce Causal Structure}}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2204.04875}
+
+
+\bibitem[\protect\citeauthoryear{Kossen, Band, Lyle, Gomez, Rainforth, and
+  Gal}{Kossen et~al\mbox{.}}{2021}]%
+        {kossenSelfAttentionDatapointsGoing2021}
+\bibfield{author}{\bibinfo{person}{Jannik Kossen}, \bibinfo{person}{Neil Band},
+  \bibinfo{person}{Clare Lyle}, \bibinfo{person}{Aidan~N Gomez},
+  \bibinfo{person}{Thomas Rainforth}, {and} \bibinfo{person}{Yarin Gal}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Self-{{Attention Between Datapoints}}: {{Going
+  Beyond Individual Input-Output Pairs}} in {{Deep Learning}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}, Vol.~\bibinfo{volume}{34}. \bibinfo{publisher}{{Curran
+  Associates, Inc.}}, \bibinfo{pages}{28742--28756}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Laskin, Wang, Oh, Parisotto, Spencer,
+  Steigerwald, Strouse, Hansen, Filos, Brooks, Gazeau, Sahni, Singh, and
+  Mnih}{Laskin et~al\mbox{.}}{2022}]%
+        {laskinIncontextReinforcementLearning2022}
+\bibfield{author}{\bibinfo{person}{Michael Laskin}, \bibinfo{person}{Luyu
+  Wang}, \bibinfo{person}{Junhyuk Oh}, \bibinfo{person}{Emilio Parisotto},
+  \bibinfo{person}{Stephen Spencer}, \bibinfo{person}{Richie Steigerwald},
+  \bibinfo{person}{D.~J. Strouse}, \bibinfo{person}{Steven Hansen},
+  \bibinfo{person}{Angelos Filos}, \bibinfo{person}{Ethan Brooks},
+  \bibinfo{person}{Maxime Gazeau}, \bibinfo{person}{Himanshu Sahni},
+  \bibinfo{person}{Satinder Singh}, {and} \bibinfo{person}{Volodymyr Mnih}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{In-Context {{Reinforcement Learning}} with
+  {{Algorithm Distillation}}}. \bibinfo{publisher}{{arXiv}}.
+\newblock
+\showeprint[arxiv]{2210.14215}~[cs]
+
+
+\bibitem[\protect\citeauthoryear{Lipton, Li, Gao, Li, Ahmed, and Deng}{Lipton
+  et~al\mbox{.}}{2018}]%
+        {liptonBBQNetworksEfficientExploration2018}
+\bibfield{author}{\bibinfo{person}{Zachary Lipton}, \bibinfo{person}{Xiujun
+  Li}, \bibinfo{person}{Jianfeng Gao}, \bibinfo{person}{Lihong Li},
+  \bibinfo{person}{Faisal Ahmed}, {and} \bibinfo{person}{Li Deng}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{{BBQ-Networks}}: {{Efficient Exploration}} in
+  {{Deep Reinforcement Learning}} for {{Task-Oriented Dialogue Systems}}}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the AAAI Conference on
+  Artificial Intelligence}} \bibinfo{volume}{32}, \bibinfo{number}{1}
+  (\bibinfo{date}{April} \bibinfo{year}{2018}).
+\newblock
+\showISSN{2374-3468}
+\urldef\tempurl%
+\url{https://doi.org/10.1609/aaai.v32i1.11946}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Moerland, Broekens, Plaat, and
+  Jonker}{Moerland et~al\mbox{.}}{2022}]%
+        {moerlandModelbasedReinforcementLearning2022}
+\bibfield{author}{\bibinfo{person}{Thomas~M. Moerland}, \bibinfo{person}{Joost
+  Broekens}, \bibinfo{person}{Aske Plaat}, {and} \bibinfo{person}{Catholijn~M.
+  Jonker}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Model-Based {{Reinforcement Learning}}: {{A
+  Survey}}}. \bibinfo{publisher}{{arXiv}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2006.16712}
+\showDOI{\tempurl}
+\showeprint[arxiv]{2006.16712}~[cs, stat]
+
+
+\bibitem[\protect\citeauthoryear{M{\"u}ller, Hollmann, Arango, Grabocka, and
+  Hutter}{M{\"u}ller et~al\mbox{.}}{2022}]%
+        {mullerTransformersCanBayesian2022}
+\bibfield{author}{\bibinfo{person}{Samuel M{\"u}ller}, \bibinfo{person}{Noah
+  Hollmann}, \bibinfo{person}{Sebastian~Pineda Arango}, \bibinfo{person}{Josif
+  Grabocka}, {and} \bibinfo{person}{Frank Hutter}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Transformers {{Can Do Bayesian Inference}}}. In
+  \bibinfo{booktitle}{\emph{International {{Conference}} on {{Learning
+  Representations}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nagabandi, Clavera, Liu, Fearing, Abbeel,
+  Levine, and Finn}{Nagabandi et~al\mbox{.}}{2019}]%
+        {nagabandiLearningAdaptDynamic2019}
+\bibfield{author}{\bibinfo{person}{Anusha Nagabandi}, \bibinfo{person}{Ignasi
+  Clavera}, \bibinfo{person}{Simin Liu}, \bibinfo{person}{Ronald~S. Fearing},
+  \bibinfo{person}{Pieter Abbeel}, \bibinfo{person}{Sergey Levine}, {and}
+  \bibinfo{person}{Chelsea Finn}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Learning to {{Adapt}} in {{Dynamic}}, {{Real-World
+  Environments}} through {{Meta-Reinforcement Learning}}}. In
+  \bibinfo{booktitle}{\emph{International {{Conference}} on {{Learning
+  Representations}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Oh, Singh, and Lee}{Oh et~al\mbox{.}}{2017}]%
+        {ohValuePredictionNetwork2017}
+\bibfield{author}{\bibinfo{person}{Junhyuk Oh}, \bibinfo{person}{Satinder
+  Singh}, {and} \bibinfo{person}{Honglak Lee}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Value {{Prediction Network}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}, Vol.~\bibinfo{volume}{30}. \bibinfo{publisher}{{Curran
+  Associates, Inc.}}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Osband, Blundell, Pritzel, and Van~Roy}{Osband
+  et~al\mbox{.}}{2016}]%
+        {osbandDeepExplorationBootstrapped2016}
+\bibfield{author}{\bibinfo{person}{Ian Osband}, \bibinfo{person}{Charles
+  Blundell}, \bibinfo{person}{Alexander Pritzel}, {and}
+  \bibinfo{person}{Benjamin Van~Roy}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Deep {{Exploration}} via {{Bootstrapped DQN}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}, Vol.~\bibinfo{volume}{29}. \bibinfo{publisher}{{Curran
+  Associates, Inc.}}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Osband, Roy, Russo, and Wen}{Osband
+  et~al\mbox{.}}{2019}]%
+        {osbandDeepExplorationRandomized2019}
+\bibfield{author}{\bibinfo{person}{Ian Osband}, \bibinfo{person}{Benjamin~Van
+  Roy}, \bibinfo{person}{Daniel~J. Russo}, {and} \bibinfo{person}{Zheng Wen}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Deep {{Exploration}} via {{Randomized Value
+  Functions}}}.
+\newblock \bibinfo{journal}{\emph{Journal of Machine Learning Research}}
+  \bibinfo{volume}{20}, \bibinfo{number}{124} (\bibinfo{year}{2019}),
+  \bibinfo{pages}{1--62}.
+\newblock
+\showISSN{1533-7928}
+
+
+\bibitem[\protect\citeauthoryear{Osband, Russo, and Van~Roy}{Osband
+  et~al\mbox{.}}{2013}]%
+        {osbandMoreEfficientReinforcement2013}
+\bibfield{author}{\bibinfo{person}{Ian Osband}, \bibinfo{person}{Daniel Russo},
+  {and} \bibinfo{person}{Benjamin Van~Roy}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{({{More}}) {{Efficient Reinforcement Learning}} via
+  {{Posterior Sampling}}}. In \bibinfo{booktitle}{\emph{Advances in {{Neural
+  Information Processing Systems}}}}, Vol.~\bibinfo{volume}{26}.
+  \bibinfo{publisher}{{Curran Associates, Inc.}}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Rakelly, Zhou, Finn, Levine, and
+  Quillen}{Rakelly et~al\mbox{.}}{2019}]%
+        {rakellyEfficientOffPolicyMetaReinforcement2019}
+\bibfield{author}{\bibinfo{person}{Kate Rakelly}, \bibinfo{person}{Aurick
+  Zhou}, \bibinfo{person}{Chelsea Finn}, \bibinfo{person}{Sergey Levine}, {and}
+  \bibinfo{person}{Deirdre Quillen}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Efficient {{Off-Policy Meta-Reinforcement
+  Learning}} via {{Probabilistic Context Variables}}}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 36th {{International
+  Conference}} on {{Machine Learning}}}}. \bibinfo{publisher}{{PMLR}},
+  \bibinfo{pages}{5331--5340}.
+\newblock
+\showISSN{2640-3498}
+
+
+\bibitem[\protect\citeauthoryear{Russo, Van~Roy, Kazerouni, Osband, and
+  Wen}{Russo et~al\mbox{.}}{2020}]%
+        {russoTutorialThompsonSampling2020}
+\bibfield{author}{\bibinfo{person}{Daniel Russo}, \bibinfo{person}{Benjamin
+  Van~Roy}, \bibinfo{person}{Abbas Kazerouni}, \bibinfo{person}{Ian Osband},
+  {and} \bibinfo{person}{Zheng Wen}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{A {{Tutorial}} on {{Thompson Sampling}}}.
+  \bibinfo{publisher}{{arXiv}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.1707.02038}
+\showDOI{\tempurl}
+\showeprint[arxiv]{1707.02038}~[cs]
+
+
+\bibitem[\protect\citeauthoryear{S{\ae}mundsson, Hofmann, and
+  Deisenroth}{S{\ae}mundsson et~al\mbox{.}}{2018}]%
+        {saemundssonMetaReinforcementLearning2018}
+\bibfield{author}{\bibinfo{person}{Steind{\'o}r S{\ae}mundsson},
+  \bibinfo{person}{Katja Hofmann}, {and} \bibinfo{person}{Marc~Peter
+  Deisenroth}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Meta {{Reinforcement Learning}} with {{Latent
+  Variable Gaussian Processes}}}. In \bibinfo{booktitle}{\emph{Conference on
+  {{Uncertainty}} in {{Artificial Intelligence}} ({{UAI}})}}.
+\newblock
+\showeprint[arxiv]{1803.07551}
+
+
+\bibitem[\protect\citeauthoryear{Schrittwieser, Antonoglou, Hubert, Simonyan,
+  Sifre, Schmitt, Guez, Lockhart, Hassabis, Graepel, Lillicrap, and
+  Silver}{Schrittwieser et~al\mbox{.}}{2020}]%
+        {schrittwieserMasteringAtariGo2020}
+\bibfield{author}{\bibinfo{person}{Julian Schrittwieser},
+  \bibinfo{person}{Ioannis Antonoglou}, \bibinfo{person}{Thomas Hubert},
+  \bibinfo{person}{Karen Simonyan}, \bibinfo{person}{Laurent Sifre},
+  \bibinfo{person}{Simon Schmitt}, \bibinfo{person}{Arthur Guez},
+  \bibinfo{person}{Edward Lockhart}, \bibinfo{person}{Demis Hassabis},
+  \bibinfo{person}{Thore Graepel}, \bibinfo{person}{Timothy Lillicrap}, {and}
+  \bibinfo{person}{David Silver}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Mastering {{Atari}}, {{Go}}, Chess and Shogi by
+  Planning with a Learned Model}.
+\newblock \bibinfo{journal}{\emph{Nature}} \bibinfo{volume}{588},
+  \bibinfo{number}{7839} (\bibinfo{date}{Dec.} \bibinfo{year}{2020}),
+  \bibinfo{pages}{604--609}.
+\newblock
+\showISSN{1476-4687}
+\urldef\tempurl%
+\url{https://doi.org/10.1038/s41586-020-03051-4}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Schulz, Konstantinidis, and
+  Speekenbrink}{Schulz et~al\mbox{.}}{2015}]%
+        {schulzLearningDecisionsContextual2015}
+\bibfield{author}{\bibinfo{person}{Eric Schulz}, \bibinfo{person}{Emmanouil
+  Konstantinidis}, {and} \bibinfo{person}{Maarten Speekenbrink}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Learning and Decisions in Contextual Multi-Armed
+  Bandit Tasks.}. In \bibinfo{booktitle}{\emph{{{CogSci}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Silver, {van Hasselt}, Hessel, Schaul, Guez,
+  Harley, {Dulac-Arnold}, Reichert, Rabinowitz, Barreto, and Degris}{Silver
+  et~al\mbox{.}}{2017}]%
+        {silverPredictronEndToEndLearning2017}
+\bibfield{author}{\bibinfo{person}{David Silver}, \bibinfo{person}{Hado {van
+  Hasselt}}, \bibinfo{person}{Matteo Hessel}, \bibinfo{person}{Tom Schaul},
+  \bibinfo{person}{Arthur Guez}, \bibinfo{person}{Tim Harley},
+  \bibinfo{person}{Gabriel {Dulac-Arnold}}, \bibinfo{person}{David Reichert},
+  \bibinfo{person}{Neil Rabinowitz}, \bibinfo{person}{Andre Barreto}, {and}
+  \bibinfo{person}{Thomas Degris}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{The {{Predictron}}: {{End-To-End Learning}} and
+  {{Planning}}}. In \bibinfo{booktitle}{\emph{Proceedings of the 34th
+  {{International Conference}} on {{Machine Learning}}}}.
+  \bibinfo{publisher}{{PMLR}}, \bibinfo{pages}{3191--3199}.
+\newblock
+\showISSN{2640-3498}
+
+
+\bibitem[\protect\citeauthoryear{Speekenbrink and Konstantinidis}{Speekenbrink
+  and Konstantinidis}{2015}]%
+        {speekenbrinkUncertaintyExplorationRestless2015}
+\bibfield{author}{\bibinfo{person}{Maarten Speekenbrink} {and}
+  \bibinfo{person}{Emmanouil Konstantinidis}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Uncertainty and {{Exploration}} in a {{Restless
+  Bandit Problem}}}.
+\newblock \bibinfo{journal}{\emph{Topics in Cognitive Science}}
+  \bibinfo{volume}{7}, \bibinfo{number}{2} (\bibinfo{year}{2015}),
+  \bibinfo{pages}{351--367}.
+\newblock
+\showISSN{1756-8765}
+\urldef\tempurl%
+\url{https://doi.org/10.1111/tops.12145}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Strens}{Strens}{2000}]%
+        {strensBayesianFrameworkReinforcement2000}
+\bibfield{author}{\bibinfo{person}{Malcolm Strens}.}
+  \bibinfo{year}{2000}\natexlab{}.
+\newblock \showarticletitle{A {{Bayesian}} Framework for Reinforcement
+  Learning}. In \bibinfo{booktitle}{\emph{{{ICML}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tamar, WU, Thomas, Levine, and Abbeel}{Tamar
+  et~al\mbox{.}}{2016}]%
+        {tamarValueIterationNetworks2016}
+\bibfield{author}{\bibinfo{person}{Aviv Tamar}, \bibinfo{person}{YI WU},
+  \bibinfo{person}{Garrett Thomas}, \bibinfo{person}{Sergey Levine}, {and}
+  \bibinfo{person}{Pieter Abbeel}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Value {{Iteration Networks}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}, Vol.~\bibinfo{volume}{29}. \bibinfo{publisher}{{Curran
+  Associates, Inc.}}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Thompson}{Thompson}{1933}]%
+        {thompsonLikelihoodThatOne1933}
+\bibfield{author}{\bibinfo{person}{William~R. Thompson}.}
+  \bibinfo{year}{1933}\natexlab{}.
+\newblock \showarticletitle{On the {{Likelihood}} That {{One Unknown
+  Probability Exceeds Another}} in {{View}} of the {{Evidence}} of {{Two
+  Samples}}}.
+\newblock \bibinfo{journal}{\emph{Biometrika}} \bibinfo{volume}{25},
+  \bibinfo{number}{3/4} (\bibinfo{year}{1933}), \bibinfo{pages}{285--294}.
+\newblock
+\showISSN{0006-3444}
+\urldef\tempurl%
+\url{https://doi.org/10.2307/2332286}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Vaswani, Shazeer, Parmar, Uszkoreit, Jones,
+  Gomez, Kaiser, and Polosukhin}{Vaswani et~al\mbox{.}}{2017}]%
+        {vaswaniAttentionAllYou2017}
+\bibfield{author}{\bibinfo{person}{Ashish Vaswani}, \bibinfo{person}{Noam
+  Shazeer}, \bibinfo{person}{Niki Parmar}, \bibinfo{person}{Jakob Uszkoreit},
+  \bibinfo{person}{Llion Jones}, \bibinfo{person}{Aidan~N Gomez},
+  \bibinfo{person}{{\L}ukasz Kaiser}, {and} \bibinfo{person}{Illia
+  Polosukhin}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Attention Is {{All}} You {{Need}}}. In
+  \bibinfo{booktitle}{\emph{Advances in {{Neural Information Processing
+  Systems}}}}, Vol.~\bibinfo{volume}{30}. \bibinfo{publisher}{{Curran
+  Associates, Inc.}}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang, King, Porcel, {Kurth-Nelson}, Zhu, Deck,
+  Choy, Cassin, Reynolds, Song, Buttimore, Reichert, Rabinowitz, Matthey,
+  Hassabis, Lerchner, and Botvinick}{Wang et~al\mbox{.}}{2021}]%
+        {wangAlchemyBenchmarkAnalysis2021}
+\bibfield{author}{\bibinfo{person}{Jane~X. Wang}, \bibinfo{person}{Michael
+  King}, \bibinfo{person}{Nicolas Pierre~Mickael Porcel}, \bibinfo{person}{Zeb
+  {Kurth-Nelson}}, \bibinfo{person}{Tina Zhu}, \bibinfo{person}{Charlie Deck},
+  \bibinfo{person}{Peter Choy}, \bibinfo{person}{Mary Cassin},
+  \bibinfo{person}{Malcolm Reynolds}, \bibinfo{person}{H.~Francis Song},
+  \bibinfo{person}{Gavin Buttimore}, \bibinfo{person}{David~P. Reichert},
+  \bibinfo{person}{Neil~Charles Rabinowitz}, \bibinfo{person}{Loic Matthey},
+  \bibinfo{person}{Demis Hassabis}, \bibinfo{person}{Alexander Lerchner}, {and}
+  \bibinfo{person}{Matthew Botvinick}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Alchemy: {{A}} Benchmark and Analysis Toolkit for
+  Meta-Reinforcement Learning Agents}. In
+  \bibinfo{booktitle}{\emph{Thirty-Fifth {{Conference}} on {{Neural Information
+  Processing Systems Datasets}} and {{Benchmarks Track}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang, {Kurth-Nelson}, Tirumala, Soyer, Leibo,
+  Munos, Blundell, Kumaran, and Botvinick}{Wang et~al\mbox{.}}{2016}]%
+        {wangLearningReinforcementLearn2016}
+\bibfield{author}{\bibinfo{person}{Jane~X. Wang}, \bibinfo{person}{Zeb
+  {Kurth-Nelson}}, \bibinfo{person}{Dhruva Tirumala}, \bibinfo{person}{Hubert
+  Soyer}, \bibinfo{person}{Joel~Z. Leibo}, \bibinfo{person}{Remi Munos},
+  \bibinfo{person}{Charles Blundell}, \bibinfo{person}{Dharshan Kumaran}, {and}
+  \bibinfo{person}{Matt Botvinick}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Learning to Reinforcement Learn}.
+  \bibinfo{publisher}{{arXiv}}.
+\newblock
+\showeprint[arxiv]{1611.05763}
+
+
+\bibitem[\protect\citeauthoryear{Weinstein and Botvinick}{Weinstein and
+  Botvinick}{2017}]%
+        {weinsteinStructureLearningMotor2017}
+\bibfield{author}{\bibinfo{person}{Ari Weinstein} {and}
+  \bibinfo{person}{Matthew~M. Botvinick}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Structure {{Learning}} in {{Motor Control}}:{{A
+  Deep Reinforcement Learning Model}}}. \bibinfo{publisher}{{arXiv}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.1706.06827}
+\showDOI{\tempurl}
+\showeprint[arxiv]{1706.06827}~[cs]
+
+
+\bibitem[\protect\citeauthoryear{Xie, Raghunathan, Liang, and Ma}{Xie
+  et~al\mbox{.}}{2022}]%
+        {xieExplanationIncontextLearning2022}
+\bibfield{author}{\bibinfo{person}{Sang~Michael Xie}, \bibinfo{person}{Aditi
+  Raghunathan}, \bibinfo{person}{Percy Liang}, {and} \bibinfo{person}{Tengyu
+  Ma}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{An {{Explanation}} of {{In-context Learning}} as
+  {{Implicit Bayesian Inference}}}. In \bibinfo{booktitle}{\emph{International
+  {{Conference}} on {{Learning Representations}}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zintgraf, Schulze, Lu, Feng, Igl, Shiarlis,
+  Gal, Hofmann, and Whiteson}{Zintgraf et~al\mbox{.}}{2021}]%
+        {zintgrafVariBADVariationalBayesAdaptive2021}
+\bibfield{author}{\bibinfo{person}{Luisa Zintgraf}, \bibinfo{person}{Sebastian
+  Schulze}, \bibinfo{person}{Cong Lu}, \bibinfo{person}{Leo Feng},
+  \bibinfo{person}{Maximilian Igl}, \bibinfo{person}{Kyriacos Shiarlis},
+  \bibinfo{person}{Yarin Gal}, \bibinfo{person}{Katja Hofmann}, {and}
+  \bibinfo{person}{Shimon Whiteson}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{{{VariBAD}}: {{Variational Bayes-Adaptive Deep RL}}
+  via {{Meta-Learning}}}.
+\newblock \bibinfo{journal}{\emph{Journal of Machine Learning Research}}
+  \bibinfo{volume}{22}, \bibinfo{number}{289} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{1--39}.
+\newblock
+\showISSN{1533-7928}
+
+
+\end{thebibliography}

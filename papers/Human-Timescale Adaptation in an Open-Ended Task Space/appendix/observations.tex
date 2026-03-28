@@ -1,0 +1,46 @@
+\subsection{Observations}
+\label{app:observations}
+
+We summarise all the observations received by the agent when running inference in Table \ref{tab:observations}. In the descriptions, ``legacy reasons'' refers to an observation format that was inherited from \citet{xland}.
+
+\begin{longtable}{>{\raggedright}p{0.25\linewidth}|p{0.1\linewidth}|p{0.52\linewidth}}
+    \caption{Agent observations.}
+    \label{tab:observations}
+    \\ \hline
+      \textbf{Observation name} & \textbf{Shape} & \textbf{Meaning} \\
+      \hline
+      RGB & $72 \times 96 \times 3$ & RGB values of the first-person view of the agent. \\
+      \hline
+      IS HOLDING & $1$& Integer in $\{0, 1\}$ indicating whether the agent is holding an object.\\
+      \hline
+      HAND DISTANCE & $1$& Distance to the held object as a fraction of the agent's maximum reach (0 while no object is held).\\
+      \hline
+      HAND FORCE & $1$ & The force exerted by the agent on the held object as a fraction of its maximum grip force (0 while no object is held).\\
+      \hline
+      LAST ACTION & $10$ & Last action performed by the agent.\\
+      \hline
+      GOAL ATOMS & $6 \times 6$ & Agent-readable description of the goal. For legacy reasons, only the first row is non-zero. The first row (6 numbers) describes the goal with elements:\\&&1: whether the goal is negated or not,\\&& 2: index of the binary predicate,\\&&3-4: shape and colour of the first objects,\\&&5-6: shape and colour of the second object. \\
+      \hline
+      GOAL SOP MATRIX & $6 \times 6$ & Always the same, kept for legacy reasons.\\
+      \hline
+      ATOM REWARDS & $6$ & The reward of the agent in the previous frame (1 number), padded with zeros for legacy reasons.\\
+      \hline
+      OPTION REWARDS & $6$ & Same as ATOM REWARDS, kept for legacy reasons.\\
+    \hline
+      PRODUCTION RULES & $16 \times 26$ & A description of up to 16 production rules. A single production rule is described as: $3 \times 6 = 18$ numbers describing up to three object-predicate-object triggers and $4 \times 2 = 8$ numbers describing up to $4$ spawn objects. We only ever use a single object-predicate-object trigger for all tasks in this paper. Hiding (Section \ref{sec:methods_xverse}) is implemented by adding extra predicate and shape indices meaning hidden production rule, first hidden object, etc. \\
+      \hline
+      REWARD &$1$& The environment reward obtained in the previous step.\\
+      \hline
+      TRIALS REMAINING &$5$& One-hot encoding of the number of trials remaining in the episode, up to a maximum of 5 trials remaining. \\
+      \hline
+      MORE THAN 5 TRIALS &$1$& Integer in $\{0,1\}$ indicating whether there are more than 5 trials remaining in the episode. \\
+      \hline
+      TIME UNTIL LAST TRIAL &$1$& Time remaining (in seconds) until the final trial in the current episode. \\
+      \hline
+      TIME LEFT IN CURRENT TRIAL &$1$& Time remaining (in seconds) until the end of the current trial. \\
+      \hline
+      DURATION OF LAST TRIAL &$1$& The duration (in seconds) of the final trial in this episode. In our setting, all trials for the same task have the same duration.  \\
+      \hline
+      DURATION OF NEXT TRIAL &$1$& The duration (in seconds) of the next trial in the current episode. In our setting, all trials for the same task have the same duration. \\
+      \hline
+\end{longtable}

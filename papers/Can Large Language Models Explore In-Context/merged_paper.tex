@@ -1,0 +1,815 @@
+\documentclass[11pt]{article}
+\usepackage{amsthm,mkolar_definitions,color,comment}
+\usepackage{algorithm,algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\bibpunct{(}{)}{;}{a}{,}{,}
+\usepackage[colorlinks,citecolor=blue!70!black,linkcolor=blue!70!black]{hyperref}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\newcommand{\loose}{\looseness=-1}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{xspace}
+\usepackage{nicefrac}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{authblk}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage[nameinlink,capitalize]{cleveref}
+\Crefformat{figure}{#2Figure #1#3}
+\Crefname{figure}{Figure}{Figures}
+\usepackage[suppress]{color-edits}
+\addauthor{as}{magenta}
+\addauthor{ak}{red}
+\addauthor{df}{ForestGreen}
+\addauthor{kh}{orange}
+\newcommand{\dfc}[1]{\dfcomment{#1}}
+\newcount\Comments
+\Comments=1
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{teal}{rgb}{0.3,0.8,0.8}
+\newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
+\newcommand{\akshay}[1]{\kibitz{red}{[AK: #1]}}
+\newcommand{\alex}[1]{\kibitz{blue}{[AS: #1]}}
+\newcommand{\gptfour}{\textsc{Gpt-4}\xspace}
+\newcommand{\gptfouro}{\textsc{Gpt-4o}\xspace}
+\newcommand{\gptthree}{\textsc{Gpt-3.5}\xspace}
+\newcommand{\llama}{\textsc{Llama2}\xspace}
+\newcommand{\ucb}{\textsc{UCB}\xspace}
+\newcommand{\ts}{\textsc{TS}\xspace}
+\newcommand{\greedy}{\textsc{Greedy}\xspace}
+\newcommand{\EpsGreedy}{$\epsilon$-\textsc{Greedy}\xspace}
+\newcommand{\buttons}{\textsc{Buttons}\xspace}
+\newcommand{\bandits}{\textsc{Bandits}\xspace}
+\newcommand{\tC}{\widetilde{\text{C}}}
+\newcommand{\OptCount}{\texttt{BestCount}}
+\newcommand{\MinFrac}{\texttt{MinFrac}}
+\newcommand{\LeastFrac}{\texttt{LeastFrac}}
+\newcommand{\SuffFail}{\texttt{SuffFail}}
+\newcommand{\SuffFailFreq}{\texttt{SuffFailFreq}}
+\newcommand{\GreedyFrac}{\texttt{GreedyFrac}}
+\newcommand{\MedRew}{\texttt{MedianReward}}
+\newcommand{\easy}{\texttt{easy}\xspace}
+\newcommand{\hard}{\texttt{hard}\xspace}
+\newenvironment{OneLiners}[1][\ensuremath{\bullet}]
+    {\begin{list}
+        {#1}
+        {\setlength{\itemsep}{0pt}
+        \setlength{\parsep}{0pt}
+          \setlength{\topsep }{0pt}}}
+    {\end{list}}
+\newrefformat{fn}{\savehyperref{#1}{Footnote~\ref*{#1}}}
+\title{
+Can Large Language Models Explore In-Context?}
+\author[1]{Akshay Krishnamurthy\footnote{Corresponding authors: \texttt{\{akshaykr,slivkins\}@microsoft.com}.}}
+\author[2]{Keegan Harris\footnote{Some of the results were obtained while the author was an intern at Microsoft Research.}}
+\author[1]{Dylan J. Foster}
+\author[1]{\\Cyril Zhang}
+\author[1]{Aleksandrs Slivkins$^*$}
+\affil[1]{\normalsize Microsoft Research}
+\affil[2]{\normalsize Carnegie Mellon University}
+\date{\vspace*{-3mm}\normalsize Initial version: March 2024\\This version: October 2024\footnote{Accepted for publication in Advances in Neural Information Processing Systems, NeurIPS, 2024.}\vspace*{-3mm}
+}
+\newcommand{\eps}{\epsilon}
+\newcommand{\E}{\operatornamewithlimits{\ensuremath{\mathbb{E}}}}
+\newcommand{\capItem}[1]{\vspace{1mm}\newline\textbf{#1}}
+\newcommand{\xhdr}[1]{\vspace{2mm} \noindent{\bf #1}}
+\newcommand{\ie}{{i.e.,~\xspace}}
+\newcommand{\Ie}{{I.e.,~\xspace}}
+\newcommand{\eg}{{e.g.,~\xspace}}
+\newcommand{\Eg}{{E.g.,~\xspace}}
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1.}}
+\newcommand{\paragraphi}[1]{\par\noindent\emph{#1.}}
+\begin{document}
+\maketitle
+\begin{abstract}
+We investigate the extent to which contemporary Large Language Models (LLMs) can engage in \emph{exploration}, a core capability in reinforcement learning and decision making. We focus on native performance of existing LLMs, without training interventions. We deploy LLMs as agents in simple \emph{multi-armed bandit} environments, specifying the environment description and interaction history entirely \emph{in-context}, \ie within the LLM prompt. We experiment with \gptthree, \gptfour, and \llama, using a variety of prompt designs, and find that the models do not robustly engage in exploration without substantial interventions: i) Across all of our experiments, only one configuration resulted in satisfactory exploratory behavior: \gptfour with chain-of-thought reasoning and an externally summarized interaction history, presented as sufficient statistics; ii) All other configurations did not result in robust exploratory behavior, including those with chain-of-thought reasoning but unsummarized history.
+Although these findings can be interpreted positively, they suggest that external summarization---which may not be possible in more complex settings---is important for obtaining desirable behavior from LLM agents.
+We conclude that non-trivial algorithmic interventions, such as fine-tuning or dataset curation, may be required to empower LLM-based decision making agents in complex settings.
+\end{abstract}
+\section{Introduction}
+\label{sec:intro}
+\emph{In-context learning} is an important emergent capability of Large Language Models (LLMs) that enables one to use a pre-trained LLM to solve a problem by specifying the problem description and relevant data entirely \emph{in-context}, \ie within the LLM prompt, with no updates to the LLM parameters \citep{gpt3-neurips20}.
+For example, one can prompt an LLM with numeric covariate vectors and scalar targets and subsequently obtain regression-style predictions from the model by including new covariate vectors in the prompt~\citep{garg2022can}.
+Perhaps surprisingly, LLMs are not explicitly trained for this behavior; instead
+the underlying algorithms employed for in-context learning are extracted from the training corpus and \emph{emerge} at scale.
+Since its discovery in the \textsc{Gpt-3} model~\citep{gpt3-neurips20}, in-context learning has been the subject of a growing body of research.
+  These works include theoretical investigations into the underlying mechanisms~\citep[e.g.,][]{xie2021explanation,akyurek2022learning}, empirical probes~\citep[e.g.,][]{garg2022can,kirsch2022general}, and works leveraging in-context learning in applications~\citep[e.g.,][]{xu2022prompting,som2023demonstrations,edwards2023synergpt}.
+This literature predominantly studies in-context learning for prediction or supervised learning tasks,
+and while theoretical progress is in its infancy, our understanding of how to use \emph{in-context supervised learning} (ICSL) in practice is rapidly taking shape.\loose
+Although supervised learning is an important capability, many applications demand the use of ML models for downstream \emph{decision making}.
+Thus, \emph{in-context reinforcement learning} (ICRL) and sequential decision making is a natural next frontier.
+LLMs are already being used as decision making agents in applications ranging from experimental design in the natural sciences~\citep{lee2023ai} to game playing~\citep{shinn2023reflexion,wang2023voyager}, but our understanding---theoretically and operationally---of ICRL is far less developed than for ICSL.
+To date, we lack a systematic understanding as to whether LLMs can be
+considered general-purpose decision making agents.
+Decision making agents must possess three core capabilities: \emph{generalization} (required for supervised learning), \emph{exploration} (making decisions that may be suboptimal in the short term for the sake of gathering more information) and \emph{planning} (to account for long-term consequences of decisions).
+In this paper, we focus on exploration, the capability to deliberately gather information in order to evaluate alternatives and reduce uncertainty.
+A recent series of papers~\citep{laskin2022context,lee2023supervised,raparthy2023generalization} demonstrates in-context reinforcement learning behavior (including exploration) in transformer models when they are \emph{explicitly trained} to produce this behavior using data from reinforcement learning agents or expert demonstrations on related tasks.
+Such training tends to be laborious, expensive, and possibly task-specific.
+In particular, these findings do not shed light into whether exploratory behavior manifests in general-purpose LLMs obtained via standard training methods, which suggests the following basic question:
+\begin{quote}
+\begin{center}
+  \emph{Do contemporary LLMs exhibit the capability to explore in-context?}
+\end{center}
+\end{quote}
+\xhdr{Contributions.}
+We investigate this question by deploying
+LLMs as agents in simple synthetic reinforcement learning problems, namely \emph{multi-armed bandits (MABs)}~\citep{slivkins-MABbook,LS19bandit-book}, specifying the environment description and interaction history entirely within the LLM prompt.
+Multi-armed bandits are a classical and well-studied type of RL problem that isolates the tradeoff between exploration and \emph{exploitation}, \ie making the best decision given the available data.
+They are also a fundamental building block toward general sequential decision making; the ability to solve MABs is a prerequisite for more challenging reinforcement learning tasks.
+Their simplicity, centrality to RL, and focus on exploration versus exploitation make MABs a natural choice for systematically studying the in-context exploration abilities of LLMs.
+We evaluate the in-context exploration behavior of \gptthree \citep{gpt3-neurips20}, \gptfour \citep{achiam2023gpt}, and \llama \citep{touvron2023llama} in MAB environments, using a variety of prompt designs.
+In our experiments, we find that only a single configuration (i.e., a prompt design and LLM pair) results in satisfactory exploratory behavior.
+All other configurations exhibit
+exploration failures, failing to converge to the best decision (\emph{arm}) with significant probability.
+We find that typically this happens due to \emph{suffix failures}, where the LLM fails to select the best arm even once after some initial rounds (i.e., in some ``time suffix").
+This scenario is reflected in
+\pref{fig:long}(a): in particular, \gptfour with our basic prompt design experiences a suffix failure
+in $>60\%$ of the replicates.
+An alternative failure mode we identify is where the LLM behaves ``uniformly'', selecting all arms near-equally often and failing to narrow down to the better ones.
+The single configuration thato succeeds in our experiments involves a
+combination of \gptfour and an ``enhanced'' prompt that (a) provides a
+suggestive hint to explore, (b) externally summarizes the history of
+interaction into per-arm averages,
+and (c) asks the LLM to use
+zero-shot chain-of-thought reasoning~\citep{wei2022chain,kojima2022large}. This configuration is visualized in
+\pref{fig:long}(b).  One can interpret this finding
+positively: state-of-the-art LLMs \emph{do} possess the capability to
+robustly explore, provided that the prompt is carefully designed to
+elicit this behavior. On the other hand, we find that the same
+configuration without external summarization fails, which leads to a
+negative interpretation: LLMs may fail to explore in more
+complex environments, where externally summarizing the history is a non-trivial algorithm design problem.
+\footnote{\label{fn:summarization} \Eg if there are many arms, or if we are considering contextual bandits with many contexts, then we may only play each arm (context-arm pair) a few times, so averaging reward separately for each---as we do in our experiments---does not provide much summarization. (See~\pref{sec:discussion} for further discussion.)}
+We conclude that while the current generation of LLMs can perhaps explore in simple RL environments with appropriate prompt engineering,
+training
+interventions---in the spirit
+of~\citet{lee2023supervised,raparthy2023generalization}---may be
+required to endow LLMs with
+more sophisticated exploration capabilities required for more complex settings.
+\xhdr{Methodology.}  An underlying technical challenge in assessing LLM
+capabilities and limitations is that one must search a combinatorially large space of
+prompt designs while obtaining statistically meaningful results, all
+while meeting the financial and computational constraints associated with
+LLMs. Assessing in-context bandit learning
+is even more challenging because (a) stochasticity in the environment
+demands a high degree of replication for statistical significance and
+(b) the sample complexity of learning/exploration demands that even a
+single experiment involve hundreds or thousands of LLM queries to obtain meaningful
+effect sizes (i.e., separation between successful and failing methods).
+To address these issues, our core technical contribution is to
+identify \emph{surrogate statistics} as diagnostics for long-term exploration failure. The surrogate statistics we consider characterize long-term exploration failure, yet can be
+measured at moderate scale with few replicates and short learning
+horizons, even when
+the standard performance measure (namely,
+reward)
+is too noisy to be useful.
+\renewcommand{\topfraction}{.95}
+\begin{figure}[t]
+  \hspace{-0.35cm}\includegraphics[width=1.05\textwidth]{./figs/fig1.pdf}
+  \vspace{-8mm}
+  \caption{\textbf{Representative experiments:} Two prompt configurations for \gptfour on a $5$-armed bandit problem, demonstrating exploration failure (top) and success (bottom).
+  The baselines are two standard bandit algorithms with performance guarantees, Upper Confidence Bound (\ucb) and Thompson Sampling (\ts), as well as the \greedy algorithm, which always chooses an arm with the best average reward so far and is known to perform poorly. Visualizations are: (Left) histogram over replicates of the number of times the best arm is chosen, (Center) for each $t$, we plot the \emph{suffix failure frequency}, the fraction of replicates for which the best arm is never chosen after time-step $t$, and (Right) cumulative time-averaged rewards, averaged over replicates.
+  \capItem{(a) Top row.} \gptfour with our basic prompt design with zero temperature. The experiment runs for $T=500$ rounds, and is replicated $N=20$ times, varying environment randomness.
+  This configuration exhibits highly bimodal behavior: a large ($>60\%$) fraction of replicates choose the best arm only a handful of times and exhibit suffix failures, similar to \greedy, and very unlike \ucb and \ts. This is suggestive of a long term failure to explore and, indeed, this configuration underperforms substantially in terms of reward.
+  \capItem{(b) Bottom row.} \gptfour with a suggestive framing, summarized history, and chain-of-thought with zero temperature. The experiment runs for $T=200$ rounds and is replicated $N=40$ times.
+  This configuration exhibits a unimodal distribution of plays of the best arm, very few suffix failures, and reward that is comparable to \ts.
+    }
+  \label{fig:long}
+\end{figure}
+\renewcommand{\topfraction}{.85}
+\section{Experimental setup}
+\label{sec:setup}
+\noindent\textbf{Multi-armed bandits (MAB).} We consider a basic multi-armed bandit variant, \emph{stochastic Bernoulli bandits}. There are $K$ possible actions (\emph{arms}), indexed as $[K]:=\{1,\ldots,K\}$. Each arm $a$ is associated with mean reward $\mu_a\in[0,1]$, which is unknown.
+An agent interacts with the environment for $T$ time steps, where in each time step $t\in [T]$ the agent selects an arm $a_t \in [K]$ and receives a reward $r_t\in\{0,1\}$ drawn independently from a Bernoulli distribution with mean $\mu_{a_t}$. Thus, the MAB instance is determined by the mean rewards $\rbr{\mu_a:\,a\in[K]}$ and the time horizon $T$. The goal is to maximize the total reward, which roughly corresponds to identifying the \emph{best arm}: an arm with the highest mean reward.
+A key feature of the MAB setup is that rewards for arms not chosen by the agent are not revealed, so exploration is necessary to identify the best arm.
+We focus on MAB instances where the best arm has mean reward $\mu^\star = 0.5+\Delta/2$ for a parameter $\Delta>0$, while all other arms have mean reward $\mu = 0.5-\Delta/2$ (so, $\Delta = \mu^\star-\mu$ is the \emph{gap} between the best and the second-best arm).
+The main instance we consider has $K=5$ arms and gap $\Delta=0.2$. We call this the \hard instance, as we also consider an \easy instance with $K=4$ and $\Delta=0.5$.
+\footnote{A larger gap $\Delta$ makes it easier to distinguish arms, while smaller $K$ means there are fewer alternatives to explore.}
+\xhdr{Prompts.}
+We employ LLMs to operate as decision making agents that interact with MAB instances by prompting them
+with a description of the MAB problem (including the time horizon $T$) and the history of interaction thus far. Our prompt design allows several independent choices.
+First is a ``scenario'', which provides a grounding for the decision making problem, positioning the LLM either a) as an agent choosing \emph{buttons} to press, or b) as a recommendation engine displaying \emph{advertisements} to users.
+Second, we specify a ``framing'' as either a) explicitly \emph{suggestive} of the need to balance exploration and exploitation, or b) \emph{neutral}.
+Third, the history can be presented as a) a \emph{raw} list over rounds, or it can b) be \emph{summarized} via number of plays and average rewards of each arm.
+Fourth, the requested final answer can be a) a single \emph{arm}, or b) a \emph{distribution} over arms.
+Finally, we either a) request the answer only, or b) also allow the LLM to provide a ``chain-of-thought" (CoT) explanation.
+Altogether, these choices lead to $2^5=32$ prompt designs, illustrated in~\pref{fig:prompts}.
+More details about the prompt design, including examples, are provided in~\pref{app:prompts}.
+The most basic prompt design from the options above uses the buttons scenario, neutral framing, and raw history, and requests the LLM to return only an arm with no CoT.
+Each of the five possible modifications to this prompt can potentially help the LLM, and our experiments evaluate this.
+For example, both the advertising scenario and suggestive framing might help invoke the LLM's knowledge of bandit algorithms (as bandit algorithms are commonly used in content recommendation).
+History summarization might help if the LLM cannot reliably summarize history itself (perhaps due to arithmetic errors
+\footnote{\Eg LLMs sometimes fail at basic arithmetic \citep{gao2023pal,liu2024exposing}, though this is likely to improve in the near future via better training and/or integrating calculator-like tools.})
+and/or does not fully realize that it should. Returning a distribution might help if the LLM can identify a good distribution, but fails to correctly sample from it. Finally, chain-of-thought is known to help in a wide variety of LLM scenarios \citep{wei2022chain,malach2023auto}, even when used in a zero-shot manner~\citep{kojima2022large} as we do here.
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \vspace{-8mm}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{./prompt-Jan28.png}
+  \end{center}
+  \vspace{-0.7cm}
+  \caption{Prompt designs; see Figure~\ref{fig:prompts-text} for a more detailed view. A prompt is generated by traversing the graph from top to bottom.}
+  \vspace{-2mm}
+  \label{fig:prompts}
+\end{wrapfigure}
+Prompts are presented to each LLM using both system and user messages (exposed by all three LLM APIs).
+The system message presents information about the scenario and framing and prompts the LLM about whether to use CoT and whether (and how) to return a distribution.
+The user message presents the history and reminds the LLM about how to format its response.
+For \gptfour only, we found that prompting the LLM to use CoT in the system prompt did not reliably elicit CoT outputs, so---for \gptfour only---we also consider a \emph{reinforced CoT} prompt design that additionally reminds the LLM to use CoT at the end of the user prompt.
+See~\pref{app:prompts} for examples.
+\xhdr{LLM configurations.}
+We experiment with three LLMs: \gptthree, \gptfour, and \llama.\footnote{Specifically: \textsc{GPT-3.5-Turbo-0613} (released 06/13/2023), \textsc{GPT-4-0613} (released 06/13/2023), and \textsc{Llama2-13B-chat} quantized to 4-bits~\citep{dettmers2023case}.}
+In addition to the prompt variations above, we also consider two choices for the temperature parameter, $0$ and $1$.
+A temperature of $0$ forces the LLM to be deterministic and therefore isolates the ``deliberate'' exploration behavior of the LLM itself.
+A temperature of $1$ provides a source of external randomness in the LLM responses, which may or may not result in randomization among the arms.
+Allowing the LLM to return a distribution instead of a single arm
+also provides external randomness (as we sample from the returned distribution); to
+isolate sources of randomness, we do not consider temperature $1$ with ``return distribution" prompt designs.\loose
+We refer to the tuple (prompt design, temperature) as the \emph{LLM configuration}. We identify each configuration with a 5-letter ``code" $L_1 L_2 L_3 L_4 L_5$, with letters $L_i$ denoting the choices:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item $L_1$: `B' or `A' for, resp., buttons or advertisements scenario;
+\item $L_2$: `N' or `S' for, resp., neutral or suggestive framing;
+\item $L_3$: `R' or `S' for, resp., raw or summarized history;
+\item$L_4$: `C' or `$\widetilde{\text{C}}$' or `N' for, resp., chain-of-thought, reinforced CoT, or no CoT.
+\item $L_5$: '0', '1' or 'D' for, resp., temperature and returning a distribution (with temperature $0$).
+\end{itemize}
+We refer to ``BNRN0" as the \emph{basic} configuration going forward.
+Most of our experiments consider the ``buttons'' scenario, and we use the ``advertisements'' scenario primarily as a robustness check.
+For \gptthree and \llama, we do not consider reinforced CoT as it is not required to reliably elicit CoT outputs; thus, we have 48 configurations total for these two LLMs.
+For \gptfour, we primarily used reinforced CoT, but did experiment with some standard CoT prompt designs; thus, there are 72 configurations total for \gptfour.
+\paragraph{Baselines}
+For baselines, we consider two standard MAB algorithms, \ucb \citep{bandits-ucb1} and Thompson Sampling (\ts) \citep{Thompson-1933}, which are optimal in a certain theoretical sense and also reasonably effective in practice. We also consider the \greedy algorithm, which does not explore and is known to fail.
+\footnote{\label{fn:greedy}In each round, \greedy chooses an arm with the largest average reward so far. The algorithm is initialized with one sample of each arm. It \emph{fails} in that with constant probability, it never chooses the best arm after initialization.}
+While all three baselines have tunable parameters,
+we perform no parameter tuning (see~\pref{sec:bg} for a detailed description of each algorithm with parameter settings). In addition to these baselines, some of our experiments include the the \EpsGreedy algorithm\footnote{\label{fn:eps-greedy}\EpsGreedy is a standard MAB algorithm which in each round chooses an arm uniformly at random with a given probability $\eps$, and exploits (\ie mimics \greedy) otherwise.} with various choices of $\eps$ to quantitatively demonstrate tradeoffs between exploration and exploitation.
+We ran $1000$ replicates for each baseline and each MAB instance (with rewards realized independently across the replicates).
+\xhdr{Scale of the experiments.}
+Our main set of experiments has time horizon $T=100$.
+To account for randomness in rewards (and possibly in the LLM, via temperature) we ran $N \in \{10, 20\}$ replicates for each LLM configuration and each bandit instance, with rewards generated independently across the replicates.
+As a robustness check, we ran a single experiment on \gptfour with the basic configuration for $T=500$ rounds (with $N=20$), and obtained consistent/stronger conclusions, depicted in \pref{fig:long}(a).
+In more detail, for \gptthree we used $N=20$ replicates across all $48$ prompt configurations, resulting in $\approx 200K$ queries in total.
+\gptfour was an order of magnitude more expensive, considerably slower on throughput, and subject to unpredictable throttling.
+As such, we only used $N=10$ replicates across $10$ representative prompt configurations.\footnote{Precisely, $N=10$ for the buttons scenario, and $N=3$ for the robustness check with the advertisements scenario.}
+For additional robustness checks, we ran four \gptfour configurations with $T=200$, two for $N=20$ replicates and two for $N=40$ replicates.
+In total, this resulted in ${\approx}50K$ queries issued to \gptfour.
+\llama was essentially free from our perspective (since it was locally hosted), but its performance was consistently sub-par; we limited our experiments to the \hard MAB instance, $32$ configurations, and $N=10$ replicates.
+We emphasize that bandit experiments with LLMs are quite costly in terms of money and time. They take $N \cdot T$ LLM queries for each LLM configuration and each MAB instance being tested.
+Both $N$ and $T$ must be relatively large to obtain statistically meaningful results:
+$N$ governs the significance level and must be large to overcome randomness in reward realizations, while $T$ governs the effect size and must be large so that good algorithms have enough time to identify the optimal arm.
+Both issues are more pronounced in harder MAB instances (many arms $K$ and/or small gap $\Delta$), but exploration failures also tend to be less frequent in (very) easy MAB instances.
+\footnote{For example, \greedy always succeeds when the gap is $\Delta=1$, \ie there is no noise, and trivially succeeds with probability at least $(1+\Delta)^2/4$ when the initial samples evaluate to $1$ for the good arm and $0$ for the bad arm.}
+Further, we need to cover the space of possible prompt designs, which is essentially infinitely large, to ensure that our findings do not overfit to one particular design.
+Thus, ideally we would take $N$, $T$, the number of MAB instances, and the number of prompts to be rather large, but doing so is not practically feasible.
+\footnote{Raw-history prompts and chain-of-thought outputs are particularly expensive, as LLM APIs bill per token.}
+Instead, we use
+moderately small gap $\Delta=0.2$, moderately large choices for $N \in \{10,20\}$ and $T=100$, and the prompt design space as described above.
+As we will see below, these choices (specifically, $N \in \{10,20\}$
+and $T=100$ and $\Delta=0.2$) do not provide enough statistical power
+to distinguish between successful and unsuccessful methods based
+solely on accumulated rewards. In lieu of further increasing the scale
+of the experiments, which is not practically feasible, we rely
+on \emph{surrogate statistics} which can be detected at our moderate
+scale, and which are highly suggestive of long-term/persistent
+exploration failures. Our robustness checks with larger $T$ and $N$, as well as qualitative findings that we report below provide supporting evidence for this methodology.
+\section{Experimental results}
+\label{sec:results}
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./figs/fig3.pdf}
+  \caption{Scatter plot summarizing all experiments with $T=100$. We plot suffix failures (expressed via $\SuffFailFreq(T/2)$) vs. uniform-like failures (expressed via $K\cdot\MinFrac(T)$).
+       Each LLM/configuration pair maps to a dot on this plane (some dots may overlap).
+       The \gptfour configuration labeled with a star is BSS$\tC$0, which is the only configuration that succeeds.
+       We also plot \EpsGreedy, tracing out the different tradeoffs obtained for different values of $\eps$.}
+  \label{fig:scatter}
+\end{figure*}
+In this section, we present our experimental findings, beginning with a summary in~\Cref{ssec:exp-main}.
+In~\Cref{ssec:exp-failures} we investigate failing LLM configurations
+in detail, and in~\Cref{ssec:exp-success} we focus on the single
+successful LLM configuration our experiments identified.
+Finally, in~\Cref{ssec:exp-causes} we attempt to diagnose the underlying causes for exploration failures.
+\subsection{Overview}
+\label{ssec:exp-main}
+We find that all but one of the LLM configurations we consider exhibit exploration failures, not converging to the best
+arm with significant probability. This happens either due to
+\emph{suffix failures}, where the LLM never selects the best arm after
+a small number of initial rounds, or (in a smaller number of configurations) due to \emph{uniform-like
+failures}, where the LLM selects all arms at an approximately uniform
+rate, failing to eliminate poorly performing arms. The only one
+exception is \gptfour with
+the BSS$\tC$0 configuration, i.e., with the buttons
+scenario, suggestive framing, summarized history, reinforced CoT, and
+temperature $0$.
+We summarize our key findings in \pref{fig:scatter}
+and~\pref{fig:table-gptfour}.
+\pref{fig:scatter} summarizes the main set
+of experiments (which we recall consider the \hard MAB instance), visualizing each LLM
+configuration with a single point on a scatter plot where the
+axes correspond to two \emph{surrogate statistics},
+$\SuffFailFreq$ and $\MinFrac$, which represent the
+strength of the two failure modes ($\SuffFailFreq$ measures
+suffix failures, and $K\cdot\MinFrac$ measures uniform-like failures); these statistics are described in detail in the sequel. \pref{fig:table-gptfour}
+displays $\SuffFailFreq$, $\MinFrac$, $\GreedyFrac$ (which measures how similar a method is to \greedy), and additional summary statistics for each of the \gptfour configurations in
+the main set of experiments. These statistics reveal that all of the LLM configurations, except for
+\gptfour-BSS$\tC$0 (the blue star
+in~\pref{fig:scatter}), behave fundamentally differently from the
+baseline algorithms \ucb and \ts, and we find that these
+differences result in a large, persistent drop in performance.
+Conversely, we find that \gptfour-BSS$\tC$0 successfully explores and (as a result) converges to the best arm.
+\begin{figure*}
+\includegraphics[width=\textwidth]{./figs/fig10.pdf}
+\caption{ \gptfour for $T=100$: a per-configuration \textbf{summary
+    table} on the \hard MAB instance.
+  Only
+  three \gptfour configurations do not exhibit suffix failures; two of
+  these (BNRND and BSSCD) exhibit uniform-like failures. The final
+  configuration (BSS$\tC$0) succeeds.  }
+\label{fig:table-gptfour}
+\end{figure*}
+\begin{figure*}[t]
+\includegraphics[width=\textwidth]{./figs/fig4.pdf}
+\caption{Detailed view of bimodal behavior and suffix failures for \gptfour with $T=100$. Configurations visualized are the basic configuration (BNRN0) and the same configuration but with temperature $1$ (BNRN1). Visualizations are the same as in~\pref{fig:long}.}
+\label{fig:main-ex-a}
+\end{figure*}
+\subsection{Identifying failures}
+\label{ssec:exp-failures}
+We now give a precise overview of the exploration failures illustrated in
+\cref{fig:scatter} and \cref{fig:table-gptfour}, and provide
+additional results and figures that illustrate failure in greater detail. We focus
+on \gptfour, as
+we find that \gptthree and \llama perform worse (and often \emph{much}
+worse) in all experiments; detailed results for \gptthree and \llama
+are included in~\pref{app:summary-figures} for completeness. We begin
+with detailed background on the surrogate statistics, $\SuffFailFreq$
+and $\MinFrac$, used to quantify failures
+in~\cref{fig:scatter,fig:table-gptfour} and beyond, providing evidence that exploration
+failure---as quantified by these statistics---results in a persistent drop in performance.
+\xhdr{Suffix failures.}
+Most of the LLM configurations we consider exhibit highly
+\emph{bimodal} behavior, whereby a large fraction of the replicates
+choose the best arm very rarely, and a few
+replicates converge to the best arm extremely quickly. Consistent with
+this bimodal behavior, we observe a large incidence of \emph{suffix
+  failures}, where the best arm is not selected even once after a
+small number initial of rounds (i.e., in some ``time suffix"). Suffix failures are suggestive of a long-term failure to explore which cannot be improved by running the algorithm for longer, because, without playing the optimal arm, one cannot acquire information to learn that it is indeed optimal. Such behaviors
+are qualitatively similar to those of \greedy
+and qualitatively very different from those of \ucb and Thompson Sampling.
+Our surrogate statistic for measuring suffix failures is defined as
+follows: For an experiment replicate $R$ and round $t$, let
+$\SuffFail(t,R)$ be a binary variable that is $1$ if the best arm is
+never chosen in rounds $[t,T]$. Then let $\SuffFailFreq(t) :=
+\text{mean}(\cbr{\SuffFail(t,R):\, \text{replicates $R$}})$. Suffix failures manifest in most of our experiments at $T=100$.
+In the scatter plot in~\pref{fig:scatter}, the X-axis plots $\SuffFailFreq(T/2)$ for each
+LLM configuration, and we find that all but five configurations have
+$\SuffFailFreq(T/2) \geq 15\%$. Recalling the definition of suffix
+failures, this means that $\geq15\%$ of the time, these configurations do
+not pull the best arm \emph{even once} in the last half of the rounds.
+A more detailed view of suffix failures and bimodal behavior can be
+obtained by focusing on individual LLM configurations. We visualize
+this for the basic configuration (\gptfour-BNRN0) in~\pref{fig:long} (top) for $T=500$, and
+in~\pref{fig:main-ex-a} for \gptfour (BNRN0 and BNRN1) at $T=100$.
+In these detailed views, the middle panels plot $\SuffFailFreq(t)$ at
+each time $t$ for the given LLM configurations, as well as \ucb, \ts, and \greedy. We find that these LLM configurations have much higher suffix failure rates than both \ucb and \ts.
+ Bimodal behavior
+is visualized in the left panel of each plot, where for each
+configuration, a large fraction of replicates rarely pulls the best
+arm, while the remaining fraction almost always pulls the best arm.
+Because of this bimodal behavior (particularly because a constant
+fraction of replicates by chance
+almost always pull the best arm), suffix failures are not fully
+reflected in the total reward plots in the right panels of \cref{fig:main-ex-a}, since the time horizon $T=100$ is not large enough.  However, as mentioned,
+suffix failures are suggestive of an irrecoverable failure to explore
+which leads to stark differences in reward for larger $T$.  This
+is precisely what we find at $T=500$ in~\pref{fig:long},
+which suggests that suffix failures indeed lead to poor long-term
+performance.
+\xhdr{Uniform-like failures.}
+Returning to the left panel of~\pref{fig:scatter}, we see that three \gptfour configurations avoid suffix failures.
+Two of these configurations exhibit a different type of failure,
+where the LLM selects arms in roughly equal
+proportions for the entirety of the $T$ rounds and fails to exploit the acquired information to focus on the better arms.
+We call this a \emph{uniform-like failure}.
+Our surrogate statistic for measuring such failures is defined as follows: For a particular experiment replicate $R$ and round $t$, let $f_a(t,R)$ be the fraction of rounds in $[1,t]$ in which a given arm $a$ is chosen,
+    $\MinFrac(t,R) := \min_a f_a(t,R)$, and
+    $\MinFrac(t):= \text{mean}(\cbr{\MinFrac(t,R):\, \text{replicates $R$}}) $.
+Since $\MinFrac(t) \leq 1/K, \; \forall t \in [T]$, we always plot
+    $K\cdot \MinFrac(t)$,
+so as to rescale the range to $[0,1]$.
+Larger $\MinFrac(t)$  corresponds to a more uniform selection of arms
+at time $t$. When an LLM's $\MinFrac(t)$ does not decrease over time
+and stays substantively larger than that of the baselines (especially
+as $t$ approaches the time horizon $T$), we take it as an indication of a uniform-like failure.
+\begin{figure*}[t]
+\includegraphics[width=\textwidth]{./figs/fig5.pdf}
+\caption{Detailed view of uniform-like failures for \gptfour (the BNRND and BNSND configurations) with $T=200$. Visualizations are: (Left) suffix failure frequency, (Center) $K\cdot\MinFrac(t)$ as a function of $t$ and (Right) cumulative time-averaged rewards.
+  These configurations exhibit uniform-like failures but not suffix failures, and uniform-like failures are detrimental to long-term rewards.}
+\label{fig:main-ex-b}
+\end{figure*}
+The Y-axis of~\pref{fig:scatter} records $K\cdot\MinFrac(T)$ for each
+configuration, where we see that of the three \gptfour configurations
+that avoid suffix failures, two configurations have very high $\MinFrac(T)$ relative to
+\ucb and \ts (the third configuration is \gptfour-BSS$\tC$0, which is successful).  These two configurations are \gptfour-BNRND and
+\gptfour-BSSCD, both of which use the \emph{distributional} output format.
+We provide a more detailed view of \gptfour-BNRND (as well as
+\gptfour-BNSND, which also exhibits uniform-like failures, but only differs from \gptfour-BNRND in the use of summarized history)
+in~\pref{fig:main-ex-b}, which considers a longer horizon and more
+replicates ($T=200$ and $N=20$).  The middle panel reveals that
+$K\cdot\MinFrac(t)$ does not decrease over time for these LLM configurations, while it
+does for the baselines.  This behavior results in no suffix failures,
+but leads to much lower reward than the baselines.  In particular, we obtain a clear separation in
+total reward, showing that uniform-like failures indeed result in poor
+long-term performance.
+\xhdr{Generality of the failures.}
+To summarize, \pref{fig:scatter} shows that all LLM configurations except \gptfour-BSS$\tC$0 exhibit either a suffix failure or a uniform failure for the \hard MAB instance and the buttons scenario.
+Scatter plots for the other three experiments (\ie the advertisements scenario and/or the \easy MAB instance) are qualitatively similar and are deferred to~\pref{app:summary-figures}.
+\newcommand{\AveRew}{\Phi}
+The same data, but with attributions to specific LLM configurations,
+are presented for \emph{all} \gptfour configurations in \pref{fig:table-gptfour}; analogous
+tables for other LLMs and experimental settings are given in~\pref{app:summary-figures}.
+As it is not instructive to present detailed plots such as
+\pref{fig:main-ex-a} for every LLM configuration,
+\cref{fig:table-gptfour} summarizes the performance of each configuration with just a few statistics. We include:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item $\SuffFailFreq(T/2)$ and $\MinFrac(T)$, defined above.
+\item $\MedRew$: the rescaled median (over replicates) of the time-averaged total reward.
+\footnote{More precisely, let $\AveRew(R)$ be the time-averaged total reward for a given replicate $R$. Then
+    $\E\sbr{\AveRew(R)}$ ranges in the interval $[\nicefrac12-\Delta/2,\, \nicefrac12+\Delta/2 ]$.
+We rescale $\AveRew(R)$, by translating and multiplying, so that $\E\sbr{\AveRew(R)}$ ranges in $[0,1]$.}
+\item $\GreedyFrac$: the fraction of \emph{greedy rounds}, averaged over the replicates. A greedy round is one in which an arm with a largest average reward is selected. This is one way to quantify the extent to which a configuration behaves like \greedy.
+\end{itemize}
+\begin{figure*}
+\centering
+\includegraphics[width=0.8\textwidth]{./figs/fig6.pdf}
+\caption{Summary statistics of two \gptfour configurations with reinforced CoT
+  (BSR$\tC$0 and BSS$\tC$0) when run on the \hard MAB
+  instance with $T=200$ for $N=40$ replicates. BSR$\tC$0 exhibits suffix
+  failures. BSS$\tC$0 exhibits neither suffix failures nor uniform-like
+  failures and has reasonable reward, so we declare it to be successful.  }
+\label{fig:table_reinforced_cot}
+\end{figure*}
+We now summarize
+further findings from the scatter plots (\Cref{fig:scatter,fig:main-scatter-all}) and
+the summary tables (\Cref{fig:table-gptfour-all,fig:gpt35_table_buttons_hard,fig:gpt35_table_adverts_hard,fig:gpt35_table_buttons_easy,fig:gpt35_table_adverts_easy,fig:llama_table_buttons,fig:llama_table_adverts}). First, \gptfour performs much better than
+\gptthree, and \llama performs much worse (in particular, the suffix
+failure frequency for \llama ranges from that of \greedy to much
+larger). Second, we observe that all LLMs are sensitive to small changes in
+the prompt design. However, the different modifications we consider
+appear to interact with each other, and it is difficult to identify
+which individual modifications improve performance and which degrade it.
+\subsection{Investigating successes}
+\label{ssec:exp-success}
+On the \hard MAB instance, the only configuration in our experiments
+that avoids both suffix failures and uniform-like failures is \gptfour
+with the BSS$\tC$0 prompt design. As can be seen
+from~\pref{fig:table-gptfour}, at $T=100$, this configuration has no
+suffix failures, the $K\cdot\MinFrac$ value is only slightly larger than
+\ts, and the reward is comparable to \ts. These statistics suggest
+that this configuration succeeds, and in this section we present
+further evidence supporting this claim.
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/fig7.pdf}
+  \caption{Traces of the arm chosen at each time step for (a) $4$ of
+    the replicates of the basic configuration (\gptfour-BNRN0) (left
+    four cells in top row), (b) $4$ of the replicates of
+    \gptfour-BSR$\tC$0 (left four cells of the middle row), (c) $4$ of
+    the replicates of \gptfour-BSS$\tC$0 (left four cells of the
+    bottom row), as well as one replicate of \greedy (red border),
+    \ucb (green border) and \ts (orange border).  For each of the
+    $T=100$ time steps (X-axis) we indicate which of the five arms was
+    chosen (Y-axis). The best arm is the top row of each plot,
+    highlighted with blue boxes.}
+  \label{fig:traces}
+\end{figure*}
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/fig8.pdf}
+  \vspace{-0.75cm}
+  \caption{Visualization of the per-replicate behavior of two \gptfour
+    configurations with reinforced-CoT and the baselines. For each algorithm,
+    replicate and time step $t$, we plot the fraction of rounds in
+    $[0,t]$ where the optimal arm was pulled.}
+  \label{fig:per-rep}
+\end{figure*}
+To do so, we run \gptfour-BSS$\tC$0 on the \hard MAB
+instance with $T=200$ and $N=40$ to obtain more statistically
+meaningful results. We also consider
+\gptfour-BSR$\tC$0, which swaps summarized history
+for raw history, as an ablation.~\pref{fig:table_reinforced_cot}
+provides a summary of the results from this experiment,
+while~\pref{fig:long}(b) provides a detailed view of the
+BSS$\tC$0 configuration.  The figures reveal that
+BSS$\tC$0 continues to avoid suffix failures and
+performs relatively well in terms of reward for larger $T$. On the other hand, we see
+that BSR$\tC$0 exhibits a non-trivial fraction of
+suffix failures, demonstrating that this ablation results in
+fundamentally different behavior.
+We also provide two additional visualizations that provide some
+qualitative evidence toward the success of BSS$\tC$0,
+as well as the failure of other configurations. These are presented
+in~\pref{fig:traces} and~\pref{fig:per-rep}.  In~\pref{fig:traces} we
+visualize the arm chosen at each time step for various replicates of
+several different methods (LLMs and baselines). Specifically, \cref{fig:traces} shows
+four replicates for the basic configuration (BNRN0) and the
+two configurations with reinforced CoT (BSR$\tC$0 and
+BSS$\tC$0), as well as one replicate of each of the
+baseline algorithms. We see that the basic configuration BNRN0 tends to commit to a
+single arm for several rounds, a behavior that is similar to that of
+\greedy and very different from both \ucb and \ts.
+BSR$\tC$0 also commits for long periods, but to a lesser extent than
+the basic configuration.  In contrast, BSS$\tC$0
+switches arms much more frequently, and qualitatively appears much more
+similar to \ts.
+In~\pref{fig:per-rep}, we plot the fraction of rounds in $[0,t]$ where
+the optimal arm was pulled as a function of $t$ for individual
+replicates.  BSR$\tC$0 is visually similar to
+\ucb, except that a non-trivial fraction of runs exhibit suffix failures (the curves that converge to
+$0$ on the plot). Meanwhile, BSS$\tC$0 is visually
+similar to \ts, with almost all replicates slowly converging to $1$.
+These visualizations, along with the summary statistics,
+suggest that BSS$\tC$0 behaves most similarly to
+\ts, which further suggests it will successfully converge to the
+optimal arm given a long enough time horizon.
+\subsection{Root causes}
+\label{ssec:exp-causes}
+\begin{wrapfigure}{r}{0.45\textwidth}
+  \vspace{-0.5cm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{puzzles.pdf}
+    \caption{Per-round decisions with some \gptthree configurations.
+    $T=100$, histories of length $t=30$, \hard MAB instance.}
+    \label{fig:puzzles}
+\end{wrapfigure}
+Our experimental findings above shed light on how LLM-based decision
+making agents
+behave, but it is also worthwhile to understand \emph{why} they behave
+the way they do (and particularly, why they fail).  This question is
+rather challenging to answer decisively, but two natural hypotheses
+are that the configurations we consider (outside of \gptfour-BSS$\tC$0) are either a) too greedy, or b) too uniform-like. In
+this section, we describe how our experiments offer some insight into
+this hypotheses.
+First, focusing on \gptfour, our experiments reveal qualitatively
+different behavior between the \easy and \hard instances (\Cref{fig:table-gptfour-all}(a) and \Cref{fig:table-gptfour-all}(c)).
+Indeed, the \easy instance appears to be \emph{much} easier; most
+\gptfour configurations avoid suffix failures and accrue large rewards
+on this instance, and the $\GreedyFrac$ statistic offers a potential explanation as to why.
+On the \easy instance, most \gptfour configurations have very high $\GreedyFrac$ values, so they behave similarly to \greedy, which performs quite well (even though \greedy provably fails with small constant probability and, empirically, has many suffix failures on this instance).\footnote{Indeed, in~\pref{fig:table-gptfour-all}(c) we see that most \gptfour configurations have very high $\GreedyFrac$ but no suffix failures. Apparently, even a very small amount of exploration suffices for easy instances (and makes a big difference, relative to \greedy). However, this should not be construed as evidence for the more general and robust exploratory behavior necessary for harder bandit instances.}
+A plausible hypothesis from this is that \gptfour performs quite well in low-noise settings, which is precisely when \greedy also performs well.\loose
+A stronger hypothesis would be that most \gptfour configurations (except perhaps those using reinforced CoT) behave like \greedy on \emph{all} instances, but this hypothesis is invalidated by the $\GreedyFrac$ statistics for our experiments on the \hard instance.
+On the \hard instance, it seems that most \gptfour configurations are
+doing something non-trivial (albeit flawed); their behavior is neither
+completely \greedy-like nor like uniform-at-random.
+Toward a more fine-grained understanding, we ran a collection of small-scale secondary experiments focusing on the \emph{per-round decisions} of LLM-agents.
+The experiments focus on a single round $t$ in a bandit problem. Each
+experiment considers a particular ``data source" (a distribution of
+bandit histories), samples $N=50$ bandit histories of length $t$ from this
+distribution, and presents them to the agents (the LLMs and the
+baselines) and asks them to output an arm or distribution over
+  arms. We track two statistics for each agent: $\GreedyFrac$ and
+$\LeastFrac$, the fraction of replicates in which the agent chose,
+resp., an empirically best arm so far and a least-chosen arm so
+far. We vary the data source, i.e., the algorithm which generates the
+history. In particular, we consider histories generated by sampling
+uniformly at random (\texttt{Unif}) and by running our baselines \ucb
+and \ts for $t$ rounds.\loose
+Results are summarized in \cref{fig:puzzles}.  Unfortunately, we
+find that per-round performance of both the LLMs and the baselines is very
+sensitive to the particular data source. For example, the $\MinFrac$
+statistic of \ucb can vary from as high as 0.46 on histories generated
+uniformly at random to as low as 0.09 on histories generated by \ucb
+itself. It seems plausible to conclude the BNSN0 is too greedy while
+BSRN0 is too uniform, but the statistics for the other two LLM
+configurations (BNRN0 and BNRC0)---both of which fail in our
+longitudinal experiments---fall within the reasonable range provided
+by the baselines.  Thus, we find that it is challenging to assess whether
+LLM agents are too greedy or too uniform-like based on per-round
+decisions, even though these agents behave rather differently from the
+baselines in the longitudinal experiments.
+\section{Related work}
+\label{sec:related}
+This paper belongs to a recent body of work that aims to understand the capabilities of LLMs, \ie what they can and cannot do well, and why.
+Capabilities that have received considerable attention, but are peripheral to the present paper, include general intelligence~\citep{bubeck2023sparks,binz2023using}, causal~\citep{kiciman2023causal,yiu2023imitation} and mathematical reasoning~\citep{cobbe2021training,lu2023mathvista}, planning~\citep{valmeekam2023planbench,momennejad2023evaluating,brooks2023large}, and compositionality~\citep{yu2023skill}.
+In more detail, our work contributes to the broader literature on capabilities of in-context learning.
+Prior studies of in-context learning include theoretical~\citep{xie2021explanation,akyurek2022learning,zhang2023and,abernethy2023mechanism,zhang2023trained,han2023explaining,cheng2023transformers,ahn2023transformers,wies2023learnability,fu2023transformers,wu2023many,huang2023context,hendel2023context,li2023transformers,von2023transformers,bai2023transformers,hahn2023theory,jeon2024information} and empirical~\citep{garg2022can,kirsch2022general,ahuja2023context,han2023understanding,raventos2023pretraining,weber2023icl,bhattamishra2023understanding,guo2023transformers,shen2023pretrained,akyurek2024context} investigations, though as
+mentioned in the prequel, the vast majority of this work pertains to in-context
+supervised learning; in-context reinforcement learning has received far less attention. The small collection of empirical
+works that study in-context RL~\citep{laskin2022context,lee2023supervised,raparthy2023generalization,xu2022prompting} focus on models trained from scratch using trajectory data collected
+from another agent (either an RL algorithm or an
+expert); theoretically, \citet{lee2023supervised} and
+later~\citet{lin2023transformers} justify this approach with a Bayesian
+meta-reinforcement learning perspective~\citep{simchowitz2021bayesian},
+and show that pre-trained transformers can implement classical
+exploration strategies like Thompson sampling and upper confidence
+bounds (UCB). However, these works require interventions to the
+\emph{pre-training} phase of the language model, and do not study
+whether existing LLMs exhibit exploration capabilities under standard
+training conditions.
+Perhaps closest to the present paper, \citet{coda2023meta} evaluates the performance of in-context learning with \gptthree on a two-armed bandit task and an associated meta-learning task. As with our study, they find that \gptthree performs similarly (in fact, slightly worse) than \greedy; however, they do not consider long enough time horizons to distinguish \greedy from successful baselines like \ucb.
+In parallel, there is a rapidly growing line of work that applies LLMs to real-world decision-making applications. Beyond previously mentioned works~\citep{shinn2023reflexion,wang2023voyager,lee2023ai}, which consider applications to gaming, programming, and medicine, highlights include \citet{park2023generative}, who introduce generative agents which simulate human behavior in an open-world environment, \citet{ahn2022can,xu2023creative}, who develop LLM-enabled robots.
+\xhdr{Concurrent work.}
+Two closely related concurrent works~\citep{wu2024smartplay,park2024llm} also study in-context LLM performance in bandit tasks.
+\citet{wu2024smartplay} considers a battery of tasks that aim to characterize ``intelligent agents'' with two-armed bandits as a specific task of interest.
+Their bandit experiments differ in several key respects: They consider a very easy MAB instance (with $2$ arms and a gap $\Delta=0.6$, which is much easier than both of our instances), focus on a single prompt design (similar to our basic prompt), and compare to human players rather than algorithmic benchmarks. These differences lead to very different experimental findings. In particular, they find that \gptfour performs well on their simple MAB instance, converging very quickly to the best arm, while we find that \gptfour with a similar prompt fails on a harder MAB instance. However, their finding is consistent with ours, as we also find that several configurations of \gptfour do well on the \easy MAB instance. As we discuss in~\Cref{ssec:exp-causes}, this instance is too simple to provide compelling evidence for principled exploratory behavior.
+\citet{park2024llm} primarily focus on full-information online
+learning and repeated game settings but also evaluate LLMs in bandit
+settings. Their experiments differ from ours in two significant
+ways. First, although some of their data generation protocols are
+stochastic in nature, they are primarily interested in adversarial
+settings. Consequently they compare with adversarial bandits baselines
+and present the history to the LLM via importance-weighted
+losses~\citep{bandits-exp3}. Second, they mostly consider shorter time
+horizons ($T = 25$ for bandits and up to $T = 50$ for
+full-information). In an updated version of their paper (announced on
+arXiv in Fall 2024), they also include longer horizon experiments of
+their original settings, where they find that LLMs continue to perform
+well, as well as experiments with our \hard MAB instance with horizon
+$T=100$, where they evaluate uniform and suffix
+failures. Interestingly, they find that both \gptfour and \gptfouro
+succeed (with high reward, no suffix failures, and low \MinFrac) when
+using their default prompt which asks for distributional output,
+chain-of-thought, and which presents the history via importance
+weighting. They further find that removing importance weighting
+results in failures, specifically, higher \MinFrac\xspace for \gptfour
+and suffix failures for \gptfouro. These findings are perhaps
+consistent with ours: both results highlight that pre-processing the
+history (either via summarization or via importance weighting) is
+crucial for eliciting exploratory behavior from LLMs.
+Other concurrent work includes~\citet{schubert2024context,hayes2024relative,coda2024cogbench} who use in-context bandit and other tasks to study whether LLMs exhibit human-like behavior (particularly, biases) in decision making tasks.
+We also refer the interested reader to a recent survey of methods for using LLMs in reinforcement learning settings~\citep{cao2024survey}.
+\xhdr{Follow-up work.}
+\citet{monea2024llms} and \citet{nie2024evolve} follow up on our results with several new experimental findings. Both works consider \emph{contextual} bandits (and \citet{nie2024evolve} also considers vanilla MAB), and find that LLMs fail to explore without non-trivial interventions. In this sense, these works corroborate our main findings. Further, both works propose interventions that improve LLM exploration. In particular, \citet{monea2024llms} propose a training-free intervention \asedit{whereby the interaction history is subsampled uniformly before it is included in the LLM prompt,}
+while \citet{nie2024evolve} consider few-shot prompting and fine-tuning with optimal demonstrations. These interventions improve performance, but are still not competitive with standard algorithmic baselines.
+\subsection{Further background on multi-armed bandits}
+\label{sec:bg}
+Here, we provide additional background on the multi-armed bandit problem, and on the baseline algorithms used in this paper. Deeper discussion can be found in \citet{Bubeck-survey12,slivkins-MABbook,LS19bandit-book}.
+The \ucb algorithm \citep{bandits-ucb1} explores by assigning each arm $a$ an \emph{index}, defined as the average reward from the arm so far plus a \emph{bonus} of the form $\sqrt{C/n_a}$, where $C = \Theta(\log T)$ and $n_a$ is the number of samples from the arm so far. In each round, it chooses an arm with the largest index. The bonus implements the principle of \emph{optimism under uncertainty}. We use a version of \ucb that sets $C=1$ (a heuristic), which has been observed to have a favorable empirical performance \citep[\eg][]{ZoomingRBA-icml10,RepeatedPA-ec14}.
+Thompson Sampling~\citep[][for a survey]{Thompson-1933,TS-survey-FTML18} proceeds as if the arms' mean rewards were initially drawn from some Bayesian prior. In each round, it computes a Bayesian posterior given the history so far, draws a sample from the posterior, and chooses an arm with largest mean reward according to this sample (\ie assuming the sample were the ground truth).
+In our setting, the prior is essentially a parameter to the algorithm. We choose the prior that draws the mean reward of each arm independently and uniformly at random from the $[0,1]$ interval. This is one standard choice, achieving near-optimal regret bounds, as well as good empirical performance \citep{Kaufmann-alt12,Shipra-colt12,Shipra-aistats13-JACM}. Each arm is updated independently as a Beta-Bernoulli conjugate prior. Further optimizing \ucb and Thompson Sampling is non-essential to this paper, as they already perform quite well in our experiments.
+Provable guarantees for bandit algorithms are commonly expressed via \emph{regret}: the difference in expected total reward of the best arm and the algorithm. Both baselines achieve regret $O(\sqrt{KT\log T})$, which is nearly minimax optimal as a function of $T$ and $K$. They also achieve a nearly instance-optimal regret rate, which scales as $O\rbr{\nicefrac{K}{\Delta}\,\log T}$ for the instances we consider.
+The \EpsGreedy algorithm (\pref{fn:eps-greedy}) is fundamentally inefficient in that it does not adaptively steer its exploration toward better-performing arms. Accordingly, its regret rate scales as $T^{2/3}$ (for an optimal setting of $\eps\sim T^{-1/3}$). Fixing such $\eps$, regret does not improve for easier instances.
+The \greedy algorithm (\pref{fn:greedy}) does not explore at all, which causes suffix failures. This is obvious when the algorithm is initialized with a single sample ($n=1$) of each arm: a suffix failure happens when the good arm returns $0$, and one of the other arms returns $1$. However, suffix failures are not an artifact of small $n$: they can happen for any $n$, with probability that scales as $\Omega(1/\sqrt{n})$~\citep{BSL-myopic23}.
+\section{Discussion and open questions}
+\label{sec:discussion}
+Our investigation suggests that contemporary LLMs do not
+robustly engage in exploration required for very basic
+statistical reinforcement learning and decision making problems, at least without further
+intervention. In what follows, we identify several next steps to further evaluate this
+hypothesis and search for interventions to mitigate this behavior.
+\xhdr{Basic interventions and the need for methodological advancements.}
+In light of our negative results, the most obvious interventions one might consider include:
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+\item \emph{Experiment with other prompts.} As with many other settings~\citep{sclar2023quantifying}, it is possible that small changes to our prompt template might improve performance. However, sensitivity to prompt design is already concerning.
+\item \emph{Experiment with few-shot prompting,} where the prompt contains examples of exploratory behavior, use such examples to \emph{fine-tune} the LLM, or curate the training corpus to include examples of exploratory behavior.
+\item \emph{Train the LLM to use auxiliary tools,} such as a calculator for basic arithmetic or a ``randomizer" to correctly sample from a distribution.
+\end{enumerate}
+While these steps are quite natural, cost, access to models, and compute pose significant barriers to further study, particularly because of the need to employ long horizons $T$ and many replicates $N$ to obtain statistically meaningful results.
+To this end, we believe that further methodological and/or statistical advancements to enable cost-effective diagnosis and understanding of LLM-agent behavior (e.g., our surrogate statistics) are essential.
+\xhdr{Implications for complex decision making problems.}
+Our focus on simple multi-armed bandit problems provides a clean and controllable
+experimental setup to study the exploratory behavior of LLMs and
+potential algorithmic interventions. Exploration failures here suggest
+that similar failures will also occur in more complex RL and decision making settings. On the other hand, caution must be exercised in developing mitigations, as solutions that succeed for the MAB setting may not generalize to more complex settings.
+For example, while \gptfour
+with summarized interaction history and reinforced CoT seems to successfully
+explore in our MAB setting, it is not clear how one should externally summarize the history in settings with complex, high-dimensional observations such as contextual bandits (see \pref{fn:summarization}). Indeed, even for linear contextual bandits, the  approach may not be applicable without a substantial algorithmic intervention (such as, \eg a linear regression computed externally and included in the prompt)
+and the many explicit modeling and algorithmic choices involved in such interventions.
+We believe a deeper investigation of algorithmic interventions is essential to understand the extent to which LLMs can operate as decision making agents.
+\clearpage
+\bibliography{icl_refs,bib-abbrv,bib-bandits,bib-slivkins,llm_refs}
+\clearpage\newpage \clearpage\newpage \clearpage\newpage
+\appendix
+\section{Prompt designs}
+\label{app:prompts}
+\begin{figure*}[h]
+\begin{center}
+    \includegraphics[width=\textwidth]{prompt-large-Jan28.png}
+\end{center}
+\caption{Prompt designs with text in the buttons scenario, expanding on \pref{fig:prompts}.}
+\label{fig:prompts-text}
+\end{figure*}
+\newpage
+\subsection{Prompt examples}
+Let us present three full examples of our prompts. We remove the blank
+lines for the sake of readability.
+\xhdr{(a)} Our basic prompt design (i.e., BNRN, as temperature is specified elsewhere): the buttons scenario with neutral framing and raw histories, asking the LLM to return an action without chain-of-thought reasoning.
+\begin{quote}
+[SYSTEM] You are in a room with 5 buttons labeled blue, green, red, yellow, purple. Each button is associated with a Bernoulli distribution with a fixed but unknown mean; the means for the buttons could be different. For each button, when you press it, you will get a reward that is sampled from the button's associated distribution. You have 10 time steps and, on each time step, you can choose any button and receive the reward. Your goal is to maximize the total reward over the 10 time steps.
+At each time step, I will show you your past choices and rewards. Then you must make the next choice, which must be exactly one of blue, green, red, yellow, purple. You must provide your final answer immediately within the tags \textless Answer\textgreater COLOR\textless/Answer\textgreater\ where COLOR is one of blue, green, red, yellow, purple and with no text explanation.
+[USER] So far you have played 2 times with the following choices and rewards:
+blue button, reward 1 \\
+green button, reward 0
+Which button will you choose next? Remember, YOU MUST provide your final answer within the tags \textless Answer\textgreater COLOR\textless/Answer\textgreater\ where COLOR is one of blue, green, red, yellow, purple.
+\end{quote}
+\xhdr{(b)} The adverts scenario with all the ``advanced'' modifications (i.e., ASSCD) : suggestive framing, summarized histories, asking the LLM to return a distribution over actions, and asking for a chain-of-thought reasoning.
+\begin{quote}
+[SYSTEM] You are recommendation engine that chooses advertisements to display to users when they visit your webpage. There are 5 advertisements you can choose from, named A, B, C, D, E. When a user visits the webpage you can choose an advertisement to display and you will observe whether the user clicks on the ad or not. You model this by assuming that each advertisement has a certain click rate and users click on advertisements with their corresponding rates.
+You have a budget of 10 users to interact with and your goal is to maximize the total number of clicks during this process.
+A good strategy to optimize for clicks in these situations requires balancing exploration and exploitation. You need to explore to try out all of the options and find those with high click rates, but you also have to exploit the information that you have to accumulate clicks.
+When each user visits the webpage, I will show you a summary of the data you have collected so far.
+Then you must choose which advertisement to display. You may output a distribution over the 5 choices formatted EXACTLY like ``A:n1,B:n2,C:n3,D:n4,E:n5''.
+Let's think step by step to make sure we make a good choice. Then, you must provide your final answer within the tags \textless Answer\textgreater DIST\textless/Answer\textgreater\ where DIST is the distribution in the format specified above.
+[USER] So far you have interacted with 2 users. Here is a summary of the data you have collected:
+Advertisement A was shown to 1 users with an estimated click rate of 1.00 \\
+Advertisement B was shown to 1 users with an estimated click rate of 0.00 \\
+Advertisement C has not been shown \\
+Advertisement D has not been shown \\
+Advertisement E has not been shown
+Which advertisement will you choose next? Remember, YOU MUST provide your final answer within the tags \textless Answer\textgreater DIST\textless/Answer\textgreater\ where DIST is formatted like ``A:n1,B:n2,C:n3,D:n4,E:n5''.
+\end{quote}
+\xhdr{(c)} The successful configuration for \gptfour (i.e., BSS$\tC$, as temperature is specified elsewhere), which uses the buttons scenario, suggestive framing, summarized histories, and reinforced chain-of-thought reasoning.
+\begin{quote}
+[SYSTEM] You are a bandit algorithm in a room with 5 buttons labeled blue, green, red, yellow, purple.
+Each button is associated with a Bernoulli distribution with a fixed but unknown mean; the means for the buttons could be different.
+For each button, when you press it, you will get a reward that is sampled from the button's associated distribution.
+You have 10 time steps and, on each time step, you can choose any button and receive the reward.
+Your goal is to maximize the total reward over the 10 time steps.
+At each time step, I will show you a summary of your past choices and rewards. Then you must make the next choice, which must be exactly one of blue, green, red, yellow, purple. Let's think step by step to make sure we make a good choice. You must provide your final answer within the tags \textless Answer\textgreater COLOR\textless/Answer\textgreater\ where COLOR is one of blue, green, red, yellow, purple.
+[USER] So far you have played 2 times with your past choices and rewards summarized as follows:\\
+blue button: pressed 1 times with average reward 1.00\\
+green button: pressed 1 times with average reward 0.00\\
+red button: pressed 0 times\\
+yellow button: pressed 0 times\\
+purple button: pressed 0 times
+Which button will you choose next? Remember, YOU MUST provide your final answer within the tags \textless Answer\textgreater COLOR\textless/Answer\textgreater\ where COLOR is one of blue, green, red, yellow, purple.  Let's think step by step to make sure we make a good choice.
+\end{quote}
+\newpage
+\section{Scatter plots and summary tables}
+\label{app:summary-figures}
+\begin{figure*}[h]
+\includegraphics[width=\textwidth]{./figs/fig12.pdf}
+  \caption{All \textbf{scatter plots} for the main experiments ($T=100$): suffix failures vs. uniform-like failures.
+  Specifically: $\SuffFailFreq(T/2)$ vs $K\cdot \MinFrac(T)$.
+  Each LLM/configuration pair maps to a dot on this plane. (However, some dots may be hidden by some others.)
+    We also plot \EpsGreedy, tracing out the different tradeoffs obtained for different values of $\eps$.}
+  \label{fig:main-scatter-all}
+\end{figure*}
+\begin{figure*}[p]
+  \textbf{(a)} Hard MAB instance ($\Delta = 0.2$), buttons scenario, $N=10$ replicates.
+  \includegraphics[width=\textwidth]{./figs/table_GPT-4_buttons_hard.pdf}
+  \newline\vspace{3mm}
+  \textbf{(b)} Hard MAB instance ($\Delta = 0.2$), advertisements scenario, $N=3$ replicates.
+  \includegraphics[width=\textwidth]{./figs/table_GPT-4_adverts_hard.pdf}
+  \newline\vspace{3mm}
+  \textbf{(c)} Easy MAB instance ($\Delta = 0.5$), buttons scenario, $N=3$ replicates.
+  \includegraphics[width=\textwidth]{./figs/table_GPT-4_buttons_easy.pdf}
+  \newline\vspace{3mm}
+  \textbf{(d)} Easy MAB instance ($\Delta = 0.5$), advertisements scenario, $N=3$ replicates.
+  \includegraphics[width=\textwidth]{./figs/table_GPT-4_adverts_easy.pdf}
+  \caption{\gptfour for $T=100$: the per-configuration \textbf{summary tables}. The ``fails'' row indicates that all replicates completed successfully.}
+ \label{fig:table-gptfour-all}
+\end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{./figs/table_GPT-3.5_buttons_hard.pdf}
+  \vspace{-4mm}
+  \caption{\gptthree for $T=100$: the per-configuration \textbf{summary table}.
+  The buttons scenario, hard MAB instance.}
+  \label{fig:gpt35_table_buttons_hard}
+\end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{./figs/table_GPT-3.5_adverts_hard.pdf}
+  \vspace{-4mm}
+  \caption{\gptthree for $T=100$: the per-configuration \textbf{summary table}.
+  The advertisements scenario, hard MAB instance.}
+  \label{fig:gpt35_table_adverts_hard}
+\end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{./figs/table_GPT-3.5_buttons_easy.pdf}
+  \vspace{-4mm}
+  \caption{\gptthree for $T=100$: the per-configuration \textbf{summary table}.
+  The buttons scenario, easy MAB instance.}
+  \label{fig:gpt35_table_buttons_easy}
+\end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{./figs/table_GPT-3.5_adverts_easy.pdf}
+  \vspace{-4mm}
+  \caption{\gptthree for $T=100$: the per-configuration \textbf{summary table}.
+  The adverts scenario, easy MAB instance.}
+  \label{fig:gpt35_table_adverts_easy}
+\end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{./figs/table_Llama-2-13b_buttons_hard.pdf}
+  \vspace{-4mm}
+  \caption{\llama for $T=100$: the per-configuration \textbf{summary tables}.
+  The buttons scenario, hard MAB instance.}
+ \label{fig:llama_table_buttons}
+\end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{./figs/table_Llama-2-13b_buttons_hard.pdf}
+  \vspace{-4mm}
+  \caption{\llama for $T=100$: the per-configuration \textbf{summary tables}.
+  The advertisements scenario, hard MAB instance.}
+  \label{fig:llama_table_adverts}
+\end{figure*}
+\end{document}

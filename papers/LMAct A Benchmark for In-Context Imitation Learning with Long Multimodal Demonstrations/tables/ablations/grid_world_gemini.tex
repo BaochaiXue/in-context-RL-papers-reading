@@ -1,0 +1,51 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                              & \textbf{Observation}              & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{13}{*}{Gemini 1.5 Flash}       & \multirow[c]{4}{*}{ASCII}         & \multirow[c]{2}{*}{False} & False                     & 0.09 \\
+                                                &                                   &                           & True                      & 0.08 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.11 \\
+                                                &                                   &                           & True                      & \textbf{0.15} \\
+    \cmidrule{2-5}                                                                                                                             
+                                                & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{0.21} \\
+                                                &                                   &                           & True                      & 0.10 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.14 \\
+                                                &                                   &                           & True                      & 0.08 \\
+    \cmidrule{2-5}                                                                                                                             
+                                                & \multirow[c]{4}{*}{RGB}           & \multirow[c]{2}{*}{False} & False                     & \textbf{0.16} \\
+                                                &                                   &                           & True                      & 0.12 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.14 \\
+                                                &                                   &                           & True                      & 0.12 \\
+    \midrule
+    \multirow[c]{13}{*}{Gemini 1.5 Pro}         & \multirow[c]{4}{*}{ASCII}         & \multirow[c]{2}{*}{False} & False                     & \textbf{0.51} \\
+                                                &                                   &                           & True                      & 0.25 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & \textbf{0.51} \\
+                                                &                                   &                           & True                      & 0.36 \\
+    \cmidrule{2-5}                                                                                                                             
+                                                & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & \textbf{0.27} \\
+                                                &                                   &                           & True                      & 0.13 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.16 \\
+                                                &                                   &                           & True                      & 0.12 \\
+    \cmidrule{2-5}                                                                                                                             
+                                                & \multirow[c]{4}{*}{RGB}           & \multirow[c]{2}{*}{False} & False                     & 0.17 \\
+                                                &                                   &                           & True                      & \textbf{0.25} \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.24 \\
+                                                &                                   &                           & True                      & 0.24 \\
+    \midrule
+    \multirow[c]{13}{*}{Gemini 2.0 Flash Exp.}  & \multirow[c]{4}{*}{ASCII}         & \multirow[c]{2}{*}{False} & False                     & 0.27 \\
+                                                &                                   &                           & True                      & \textbf{0.41} \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.25 \\
+                                                &                                   &                           & True                      & 0.39 \\
+    \cmidrule{2-5}                                                                                                                             
+                                                & \multirow[c]{4}{*}{Coordinates}   & \multirow[c]{2}{*}{False} & False                     & 0.22 \\
+                                                &                                   &                           & True                      & 0.22 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & \textbf{0.30} \\
+                                                &                                   &                           & True                      & 0.16 \\
+    \cmidrule{2-5}                                                                                                                             
+                                                & \multirow[c]{4}{*}{RGB}           & \multirow[c]{2}{*}{False} & False                     & 0.18 \\
+                                                &                                   &                           & True                      & 0.37 \\
+                                                &                                   & \multirow[c]{2}{*}{True}  & False                     & 0.23 \\
+                                                &                                   &                           & True                      & \textbf{0.43} \\
+                                            
+   \bottomrule
+\end{tabular}

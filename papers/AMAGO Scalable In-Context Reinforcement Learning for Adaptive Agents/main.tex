@@ -1,0 +1,93 @@
+\documentclass{article}
+
+\usepackage{iclr2024_conference}
+\usepackage{times}
+\iclrfinalcopy
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+%\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+%\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+%\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+\usepackage[sorting=none]{biblatex}
+\usepackage{caption}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{floatrow}
+
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+
+\newcommand{\xmark}{\ding{55}}%http://ctan.org/pkg/pifont
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{esvect}
+\usepackage{graphicx, accents}
+\usepackage{cancel}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usepackage{algpseudocode, algorithm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=cyan,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\addbibresource{bib.bib}
+
+\title{AMAGO: Scalable In-Context Reinforcement Learning for Adaptive Agents}
+
+\author{
+Jake Grigsby$^{1}$, Linxi ``Jim'' Fan$^{2}$, Yuke Zhu$^{1}$\\
+$^1$The University of Texas at Austin \quad
+$^2$NVIDIA Research\\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\section{Introduction}
+
+\input{introduction}
+
+\input{background}
+
+\vspace{-2mm}
+\section{Method}
+
+\input{method}
+
+\section{Experiments}
+\input{experiments}
+
+\vspace{-3mm}
+\section{Conclusion}
+\input{conclusion}
+
+
+\subsubsection*{Acknowledgments}
+This work was supported by NSF EFRI-2318065, Salesforce, and JP Morgan. We would like to thank Braham Snyder, Yifeng Zhu, Zhenyu Jiang, Soroush Nasiriany, Huihan Liu, Rutav Shah, Mingyo Seo, and the UT Austin Robot Perception and Learning Lab for constructive feedback on early drafts of this paper.
+
+\printbibliography
+
+\appendix
+
+\input{appendix.tex}
+
+\end{document}

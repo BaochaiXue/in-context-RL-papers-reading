@@ -1,0 +1,12 @@
+\vspace{-10pt}
+\section{Conclusion and Limitations}
+  \vspace{-10pt}
+
+\looseness=-1 The ability of an agent to rapidly adapt to new environments is crucial for successful Embodied AI tasks. We introduced \method, an in-context RL method that enables the agent to adapt to new environments by in-context learning with up to 64k environment interactions and visual observations. We studied the two main components of \method: \textit{partial updates} and the \textit{\sinkv} and showed both are necessary for achieving such in-context learning. 
+We showed that \method results in significantly better performance on a challenging long-sequence visual task compared to the baselines.
+
+Limitations of the approach are that we found for ICL to emerge, it requires a diverse training dataset on which the model can not overfit. There is no incentive for the model to learn to use the context if it can overfit the task. We were able to address that in the dataset generation by creating different object arrangements for each scene which made it challenging for the model to memorize the objects arrangements.
+Another is that our study only focuses on several environments.
+Future work can explore this same study in more varied environments such as a mobile manipulation task where an agent needs to rearrange objects throughout the scene.
+Finally, \method requires large amounts of RL training to obtain in-context learning capabilities. 
+

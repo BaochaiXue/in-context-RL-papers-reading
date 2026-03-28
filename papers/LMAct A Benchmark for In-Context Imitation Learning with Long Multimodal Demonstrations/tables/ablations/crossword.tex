@@ -1,0 +1,29 @@
+\begin{tabular}{@{}llllr@{}}
+    \toprule
+    \textbf{Model}                                                      & \textbf{Observation}      & \textbf{Legal Actions}    & \textbf{Chain-of-Thought} & \textbf{Average Score} \\
+    \midrule
+    \multirow[c]{2}{*}{\shortstack{Claude 3.5 Sonnet\\\\(2024-10-22)}}  & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 6.73 \\
+                                                                        &                           &                           & True                      & \textbf{6.81} \\
+    \midrule
+    \multirow[c]{2}{*}{Gemini 1.5 Flash}                                & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & \textbf{1.99} \\
+                                                                        &                           &                           & True                      & 1.84 \\
+    \midrule                            
+    \multirow[c]{2}{*}{Gemini 1.5 Pro}                                  & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 3.15 \\
+                                                                        &                           &                           & True                      & \textbf{5.50} \\
+    \midrule
+    \multirow[c]{2}{*}{Gemini 2.0 Flash Exp.}                           & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 3.70 \\
+                                                                        &                           &                           & True                      & \textbf{3.98} \\
+    \midrule                                
+    \multirow[c]{2}{*}{GPT-4o}                                          & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 5.76 \\
+                                                                        &                           &                           & True                      & \textbf{6.67} \\
+    \midrule                                
+    \multirow[c]{2}{*}{o1-mini}                                         & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & \textbf{4.95} \\
+                                                                        &                           &                           & True                      & 4.82 \\
+    \midrule                                    
+    \multirow[c]{2}{*}{o1-preview}                                      & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 9.57 \\
+                                                                        &                           &                           & True                      & \textbf{9.79} \\
+    \midrule                                    
+    \multirow[c]{2}{*}{o1}                                              & \multirow[c]{2}{*}{ASCII} & \multirow[c]{2}{*}{False} & False                     & 9.55 \\
+                                                                        &                           &                           & True                      & \textbf{9.56} \\
+    \bottomrule
+\end{tabular}

@@ -1,0 +1,63 @@
+20
+Amherst, MA
+
+Aberdeen, Scotland
+
+Evanston, IL
+
+Austin, TX
+
+Itaca, NY
+
+40
+
+60
+
+Helsinki, Finland (estimated)
+
+Corvalis, OR
+
+Pittsburgh, PA
+
+Bonn, Germany
+
+Banff, Canada
+
+Washington, DC
+
+Sydney, Australia
+
+Williamstown, CA
+
+Stanford, CA
+
+Bled, Slovenia
+
+Madison, WI
+
+Nashville, TN
+
+Bari, Italy
+
+Tahoe, CA
+
+New Brunswick, NJ
+
+0
+Ann Arbor, MI
+
+Number of Accepted Papers
+160
+
+140
+
+120
+
+100
+
+80
+
+88 89 90 91 92 93 94 95 96 97 98 99 00 01 02 03 04 05 06 07 08
+Conference/Workshop Year
+
+

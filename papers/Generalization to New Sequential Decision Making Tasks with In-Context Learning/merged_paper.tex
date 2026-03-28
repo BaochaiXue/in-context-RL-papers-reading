@@ -1,0 +1,1339 @@
+\documentclass[]{fairmeta}
+\usepackage{amsmath,amsfonts,bm}
+\newcommand{\figleft}{{\em (Left)}}
+\newcommand{\figcenter}{{\em (Center)}}
+\newcommand{\figright}{{\em (Right)}}
+\newcommand{\figtop}{{\em (Top)}}
+\newcommand{\figbottom}{{\em (Bottom)}}
+\newcommand{\captiona}{{\em (a)}}
+\newcommand{\captionb}{{\em (b)}}
+\newcommand{\captionc}{{\em (c)}}
+\newcommand{\captiond}{{\em (d)}}
+\newcommand{\newterm}[1]{{\bf #1}}
+\def\figref#1{figure~\ref{#1}}
+\def\Figref#1{Figure~\ref{#1}}
+\def\twofigref#1#2{figures \ref{#1} and \ref{#2}}
+\def\quadfigref#1#2#3#4{figures \ref{#1}, \ref{#2}, \ref{#3} and \ref{#4}}
+\def\secref#1{section~\ref{#1}}
+\def\Secref#1{Section~\ref{#1}}
+\def\twosecrefs#1#2{sections \ref{#1} and \ref{#2}}
+\def\secrefs#1#2#3{sections \ref{#1}, \ref{#2} and \ref{#3}}
+\def\eqref#1{equation~\ref{#1}}
+\def\Eqref#1{Equation~\ref{#1}}
+\def\plaineqref#1{\ref{#1}}
+\def\chapref#1{chapter~\ref{#1}}
+\def\Chapref#1{Chapter~\ref{#1}}
+\def\rangechapref#1#2{chapters\ref{#1}--\ref{#2}}
+\def\algref#1{algorithm~\ref{#1}}
+\def\Algref#1{Algorithm~\ref{#1}}
+\def\twoalgref#1#2{algorithms \ref{#1} and \ref{#2}}
+\def\Twoalgref#1#2{Algorithms \ref{#1} and \ref{#2}}
+\def\partref#1{part~\ref{#1}}
+\def\Partref#1{Part~\ref{#1}}
+\def\twopartref#1#2{parts \ref{#1} and \ref{#2}}
+\def\ceil#1{\lceil #1 \rceil}
+\def\floor#1{\lfloor #1 \rfloor}
+\def\1{\bm{1}}
+\newcommand{\train}{\mathcal{D}}
+\newcommand{\valid}{\mathcal{D_{\mathrm{valid}}}}
+\newcommand{\test}{\mathcal{D_{\mathrm{test}}}}
+\def\eps{{\epsilon}}
+\def\reta{{\textnormal{$\eta$}}}
+\def\ra{{\textnormal{a}}}
+\def\rb{{\textnormal{b}}}
+\def\rc{{\textnormal{c}}}
+\def\rd{{\textnormal{d}}}
+\def\re{{\textnormal{e}}}
+\def\rf{{\textnormal{f}}}
+\def\rg{{\textnormal{g}}}
+\def\rh{{\textnormal{h}}}
+\def\ri{{\textnormal{i}}}
+\def\rj{{\textnormal{j}}}
+\def\rk{{\textnormal{k}}}
+\def\rl{{\textnormal{l}}}
+\def\rn{{\textnormal{n}}}
+\def\ro{{\textnormal{o}}}
+\def\rp{{\textnormal{p}}}
+\def\rq{{\textnormal{q}}}
+\def\rr{{\textnormal{r}}}
+\def\rs{{\textnormal{s}}}
+\def\rt{{\textnormal{t}}}
+\def\ru{{\textnormal{u}}}
+\def\rv{{\textnormal{v}}}
+\def\rw{{\textnormal{w}}}
+\def\rx{{\textnormal{x}}}
+\def\ry{{\textnormal{y}}}
+\def\rz{{\textnormal{z}}}
+\def\rvepsilon{{\mathbf{\epsilon}}}
+\def\rvtheta{{\mathbf{\theta}}}
+\def\rva{{\mathbf{a}}}
+\def\rvb{{\mathbf{b}}}
+\def\rvc{{\mathbf{c}}}
+\def\rvd{{\mathbf{d}}}
+\def\rve{{\mathbf{e}}}
+\def\rvf{{\mathbf{f}}}
+\def\rvg{{\mathbf{g}}}
+\def\rvh{{\mathbf{h}}}
+\def\rvu{{\mathbf{i}}}
+\def\rvj{{\mathbf{j}}}
+\def\rvk{{\mathbf{k}}}
+\def\rvl{{\mathbf{l}}}
+\def\rvm{{\mathbf{m}}}
+\def\rvn{{\mathbf{n}}}
+\def\rvo{{\mathbf{o}}}
+\def\rvp{{\mathbf{p}}}
+\def\rvq{{\mathbf{q}}}
+\def\rvr{{\mathbf{r}}}
+\def\rvs{{\mathbf{s}}}
+\def\rvt{{\mathbf{t}}}
+\def\rvu{{\mathbf{u}}}
+\def\rvv{{\mathbf{v}}}
+\def\rvw{{\mathbf{w}}}
+\def\rvx{{\mathbf{x}}}
+\def\rvy{{\mathbf{y}}}
+\def\rvz{{\mathbf{z}}}
+\def\erva{{\textnormal{a}}}
+\def\ervb{{\textnormal{b}}}
+\def\ervc{{\textnormal{c}}}
+\def\ervd{{\textnormal{d}}}
+\def\erve{{\textnormal{e}}}
+\def\ervf{{\textnormal{f}}}
+\def\ervg{{\textnormal{g}}}
+\def\ervh{{\textnormal{h}}}
+\def\ervi{{\textnormal{i}}}
+\def\ervj{{\textnormal{j}}}
+\def\ervk{{\textnormal{k}}}
+\def\ervl{{\textnormal{l}}}
+\def\ervm{{\textnormal{m}}}
+\def\ervn{{\textnormal{n}}}
+\def\ervo{{\textnormal{o}}}
+\def\ervp{{\textnormal{p}}}
+\def\ervq{{\textnormal{q}}}
+\def\ervr{{\textnormal{r}}}
+\def\ervs{{\textnormal{s}}}
+\def\ervt{{\textnormal{t}}}
+\def\ervu{{\textnormal{u}}}
+\def\ervv{{\textnormal{v}}}
+\def\ervw{{\textnormal{w}}}
+\def\ervx{{\textnormal{x}}}
+\def\ervy{{\textnormal{y}}}
+\def\ervz{{\textnormal{z}}}
+\def\rmA{{\mathbf{A}}}
+\def\rmB{{\mathbf{B}}}
+\def\rmC{{\mathbf{C}}}
+\def\rmD{{\mathbf{D}}}
+\def\rmE{{\mathbf{E}}}
+\def\rmF{{\mathbf{F}}}
+\def\rmG{{\mathbf{G}}}
+\def\rmH{{\mathbf{H}}}
+\def\rmI{{\mathbf{I}}}
+\def\rmJ{{\mathbf{J}}}
+\def\rmK{{\mathbf{K}}}
+\def\rmL{{\mathbf{L}}}
+\def\rmM{{\mathbf{M}}}
+\def\rmN{{\mathbf{N}}}
+\def\rmO{{\mathbf{O}}}
+\def\rmP{{\mathbf{P}}}
+\def\rmQ{{\mathbf{Q}}}
+\def\rmR{{\mathbf{R}}}
+\def\rmS{{\mathbf{S}}}
+\def\rmT{{\mathbf{T}}}
+\def\rmU{{\mathbf{U}}}
+\def\rmV{{\mathbf{V}}}
+\def\rmW{{\mathbf{W}}}
+\def\rmX{{\mathbf{X}}}
+\def\rmY{{\mathbf{Y}}}
+\def\rmZ{{\mathbf{Z}}}
+\def\ermA{{\textnormal{A}}}
+\def\ermB{{\textnormal{B}}}
+\def\ermC{{\textnormal{C}}}
+\def\ermD{{\textnormal{D}}}
+\def\ermE{{\textnormal{E}}}
+\def\ermF{{\textnormal{F}}}
+\def\ermG{{\textnormal{G}}}
+\def\ermH{{\textnormal{H}}}
+\def\ermI{{\textnormal{I}}}
+\def\ermJ{{\textnormal{J}}}
+\def\ermK{{\textnormal{K}}}
+\def\ermL{{\textnormal{L}}}
+\def\ermM{{\textnormal{M}}}
+\def\ermN{{\textnormal{N}}}
+\def\ermO{{\textnormal{O}}}
+\def\ermP{{\textnormal{P}}}
+\def\ermQ{{\textnormal{Q}}}
+\def\ermR{{\textnormal{R}}}
+\def\ermS{{\textnormal{S}}}
+\def\ermT{{\textnormal{T}}}
+\def\ermU{{\textnormal{U}}}
+\def\ermV{{\textnormal{V}}}
+\def\ermW{{\textnormal{W}}}
+\def\ermX{{\textnormal{X}}}
+\def\ermY{{\textnormal{Y}}}
+\def\ermZ{{\textnormal{Z}}}
+\def\vzero{{\bm{0}}}
+\def\vone{{\bm{1}}}
+\def\vmu{{\bm{\mu}}}
+\def\vtheta{{\bm{\theta}}}
+\def\va{{\bm{a}}}
+\def\vb{{\bm{b}}}
+\def\vc{{\bm{c}}}
+\def\vd{{\bm{d}}}
+\def\ve{{\bm{e}}}
+\def\vf{{\bm{f}}}
+\def\vg{{\bm{g}}}
+\def\vh{{\bm{h}}}
+\def\vi{{\bm{i}}}
+\def\vj{{\bm{j}}}
+\def\vk{{\bm{k}}}
+\def\vl{{\bm{l}}}
+\def\vm{{\bm{m}}}
+\def\vn{{\bm{n}}}
+\def\vo{{\bm{o}}}
+\def\vp{{\bm{p}}}
+\def\vq{{\bm{q}}}
+\def\vr{{\bm{r}}}
+\def\vs{{\bm{s}}}
+\def\vt{{\bm{t}}}
+\def\vu{{\bm{u}}}
+\def\vv{{\bm{v}}}
+\def\vw{{\bm{w}}}
+\def\vx{{\bm{x}}}
+\def\vy{{\bm{y}}}
+\def\vz{{\bm{z}}}
+\def\evalpha{{\alpha}}
+\def\evbeta{{\beta}}
+\def\evepsilon{{\epsilon}}
+\def\evlambda{{\lambda}}
+\def\evomega{{\omega}}
+\def\evmu{{\mu}}
+\def\evpsi{{\psi}}
+\def\evsigma{{\sigma}}
+\def\evtheta{{\theta}}
+\def\eva{{a}}
+\def\evb{{b}}
+\def\evc{{c}}
+\def\evd{{d}}
+\def\eve{{e}}
+\def\evf{{f}}
+\def\evg{{g}}
+\def\evh{{h}}
+\def\evi{{i}}
+\def\evj{{j}}
+\def\evk{{k}}
+\def\evl{{l}}
+\def\evm{{m}}
+\def\evn{{n}}
+\def\evo{{o}}
+\def\evp{{p}}
+\def\evq{{q}}
+\def\evr{{r}}
+\def\evs{{s}}
+\def\evt{{t}}
+\def\evu{{u}}
+\def\evv{{v}}
+\def\evw{{w}}
+\def\evx{{x}}
+\def\evy{{y}}
+\def\evz{{z}}
+\def\mA{{\bm{A}}}
+\def\mB{{\bm{B}}}
+\def\mC{{\bm{C}}}
+\def\mD{{\bm{D}}}
+\def\mE{{\bm{E}}}
+\def\mF{{\bm{F}}}
+\def\mG{{\bm{G}}}
+\def\mH{{\bm{H}}}
+\def\mI{{\bm{I}}}
+\def\mJ{{\bm{J}}}
+\def\mK{{\bm{K}}}
+\def\mL{{\bm{L}}}
+\def\mM{{\bm{M}}}
+\def\mN{{\bm{N}}}
+\def\mO{{\bm{O}}}
+\def\mP{{\bm{P}}}
+\def\mQ{{\bm{Q}}}
+\def\mR{{\bm{R}}}
+\def\mS{{\bm{S}}}
+\def\mT{{\bm{T}}}
+\def\mU{{\bm{U}}}
+\def\mV{{\bm{V}}}
+\def\mW{{\bm{W}}}
+\def\mX{{\bm{X}}}
+\def\mY{{\bm{Y}}}
+\def\mZ{{\bm{Z}}}
+\def\mBeta{{\bm{\beta}}}
+\def\mPhi{{\bm{\Phi}}}
+\def\mLambda{{\bm{\Lambda}}}
+\def\mSigma{{\bm{\Sigma}}}
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{sl}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+\def\tA{{\tens{A}}}
+\def\tB{{\tens{B}}}
+\def\tC{{\tens{C}}}
+\def\tD{{\tens{D}}}
+\def\tE{{\tens{E}}}
+\def\tF{{\tens{F}}}
+\def\tG{{\tens{G}}}
+\def\tH{{\tens{H}}}
+\def\tI{{\tens{I}}}
+\def\tJ{{\tens{J}}}
+\def\tK{{\tens{K}}}
+\def\tL{{\tens{L}}}
+\def\tM{{\tens{M}}}
+\def\tN{{\tens{N}}}
+\def\tO{{\tens{O}}}
+\def\tP{{\tens{P}}}
+\def\tQ{{\tens{Q}}}
+\def\tR{{\tens{R}}}
+\def\tS{{\tens{S}}}
+\def\tT{{\tens{T}}}
+\def\tU{{\tens{U}}}
+\def\tV{{\tens{V}}}
+\def\tW{{\tens{W}}}
+\def\tX{{\tens{X}}}
+\def\tY{{\tens{Y}}}
+\def\tZ{{\tens{Z}}}
+\def\gA{{\mathcal{A}}}
+\def\gB{{\mathcal{B}}}
+\def\gC{{\mathcal{C}}}
+\def\gD{{\mathcal{D}}}
+\def\gE{{\mathcal{E}}}
+\def\gF{{\mathcal{F}}}
+\def\gG{{\mathcal{G}}}
+\def\gH{{\mathcal{H}}}
+\def\gI{{\mathcal{I}}}
+\def\gJ{{\mathcal{J}}}
+\def\gK{{\mathcal{K}}}
+\def\gL{{\mathcal{L}}}
+\def\gM{{\mathcal{M}}}
+\def\gN{{\mathcal{N}}}
+\def\gO{{\mathcal{O}}}
+\def\gP{{\mathcal{P}}}
+\def\gQ{{\mathcal{Q}}}
+\def\gR{{\mathcal{R}}}
+\def\gS{{\mathcal{S}}}
+\def\gT{{\mathcal{T}}}
+\def\gU{{\mathcal{U}}}
+\def\gV{{\mathcal{V}}}
+\def\gW{{\mathcal{W}}}
+\def\gX{{\mathcal{X}}}
+\def\gY{{\mathcal{Y}}}
+\def\gZ{{\mathcal{Z}}}
+\def\sA{{\mathbb{A}}}
+\def\sB{{\mathbb{B}}}
+\def\sC{{\mathbb{C}}}
+\def\sD{{\mathbb{D}}}
+\def\sF{{\mathbb{F}}}
+\def\sG{{\mathbb{G}}}
+\def\sH{{\mathbb{H}}}
+\def\sI{{\mathbb{I}}}
+\def\sJ{{\mathbb{J}}}
+\def\sK{{\mathbb{K}}}
+\def\sL{{\mathbb{L}}}
+\def\sM{{\mathbb{M}}}
+\def\sN{{\mathbb{N}}}
+\def\sO{{\mathbb{O}}}
+\def\sP{{\mathbb{P}}}
+\def\sQ{{\mathbb{Q}}}
+\def\sR{{\mathbb{R}}}
+\def\sS{{\mathbb{S}}}
+\def\sT{{\mathbb{T}}}
+\def\sU{{\mathbb{U}}}
+\def\sV{{\mathbb{V}}}
+\def\sW{{\mathbb{W}}}
+\def\sX{{\mathbb{X}}}
+\def\sY{{\mathbb{Y}}}
+\def\sZ{{\mathbb{Z}}}
+\def\emLambda{{\Lambda}}
+\def\emA{{A}}
+\def\emB{{B}}
+\def\emC{{C}}
+\def\emD{{D}}
+\def\emE{{E}}
+\def\emF{{F}}
+\def\emG{{G}}
+\def\emH{{H}}
+\def\emI{{I}}
+\def\emJ{{J}}
+\def\emK{{K}}
+\def\emL{{L}}
+\def\emM{{M}}
+\def\emN{{N}}
+\def\emO{{O}}
+\def\emP{{P}}
+\def\emQ{{Q}}
+\def\emR{{R}}
+\def\emS{{S}}
+\def\emT{{T}}
+\def\emU{{U}}
+\def\emV{{V}}
+\def\emW{{W}}
+\def\emX{{X}}
+\def\emY{{Y}}
+\def\emZ{{Z}}
+\def\emSigma{{\Sigma}}
+\newcommand{\etens}[1]{\mathsfit{#1}}
+\def\etLambda{{\etens{\Lambda}}}
+\def\etA{{\etens{A}}}
+\def\etB{{\etens{B}}}
+\def\etC{{\etens{C}}}
+\def\etD{{\etens{D}}}
+\def\etE{{\etens{E}}}
+\def\etF{{\etens{F}}}
+\def\etG{{\etens{G}}}
+\def\etH{{\etens{H}}}
+\def\etI{{\etens{I}}}
+\def\etJ{{\etens{J}}}
+\def\etK{{\etens{K}}}
+\def\etL{{\etens{L}}}
+\def\etM{{\etens{M}}}
+\def\etN{{\etens{N}}}
+\def\etO{{\etens{O}}}
+\def\etP{{\etens{P}}}
+\def\etQ{{\etens{Q}}}
+\def\etR{{\etens{R}}}
+\def\etS{{\etens{S}}}
+\def\etT{{\etens{T}}}
+\def\etU{{\etens{U}}}
+\def\etV{{\etens{V}}}
+\def\etW{{\etens{W}}}
+\def\etX{{\etens{X}}}
+\def\etY{{\etens{Y}}}
+\def\etZ{{\etens{Z}}}
+\newcommand{\pdata}{p_{\rm{data}}}
+\newcommand{\ptrain}{\hat{p}_{\rm{data}}}
+\newcommand{\Ptrain}{\hat{P}_{\rm{data}}}
+\newcommand{\pmodel}{p_{\rm{model}}}
+\newcommand{\Pmodel}{P_{\rm{model}}}
+\newcommand{\ptildemodel}{\tilde{p}_{\rm{model}}}
+\newcommand{\pencode}{p_{\rm{encoder}}}
+\newcommand{\pdecode}{p_{\rm{decoder}}}
+\newcommand{\precons}{p_{\rm{reconstruct}}}
+\newcommand{\laplace}{\mathrm{Laplace}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Ls}{\mathcal{L}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\emp}{\tilde{p}}
+\newcommand{\lr}{\alpha}
+\newcommand{\reg}{\lambda}
+\newcommand{\rect}{\mathrm{rectifier}}
+\newcommand{\softmax}{\mathrm{softmax}}
+\newcommand{\sigmoid}{\sigma}
+\newcommand{\softplus}{\zeta}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\standarderror}{\mathrm{SE}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\normlzero}{L^0}
+\newcommand{\normlone}{L^1}
+\newcommand{\normltwo}{L^2}
+\newcommand{\normlp}{L^p}
+\newcommand{\normmax}{L^\infty}
+\newcommand{\parents}{Pa}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Tr}{Tr}
+\let\ab\allowbreak
+\title{Generalization to New Sequential Decision Making Tasks with In-Context Learning}
+\author[1,*]{Sharath Chandra Raparthy}
+\author[1]{Eric Hambro}
+\author[1,2]{Robert Kirk}
+\author[1,\dagger]{Mikael Henaff}
+\author[1,2,\dagger]{Roberta Raileanu}
+\affiliation[1]{FAIR at Meta}
+\affiliation[2]{UCL}
+\contribution[\dagger]{Joint advising}
+\abstract{
+Training autonomous agents that can learn new tasks from only a handful of demonstrations is a long-standing problem in machine learning. Recently, transformers have been shown to learn new language or vision tasks without any weight updates from only a few examples, also referred to as in-context learning. However, the sequential decision making setting poses additional challenges having a lower tolerance for errors since the environment's stochasticity or the agent's actions can lead to unseen, and sometimes unrecoverable, states. In this paper, we use an illustrative example to show that naively applying transformers to sequential decision making problems does not enable in-context learning of new tasks. We then demonstrate how training on sequences of trajectories with certain distributional properties leads to in-context learning of new sequential decision making tasks. We investigate different design choices and find that larger model and dataset sizes, as well as more task diversity, environment stochasticity, and trajectory burstiness, all result in better in-context learning of new out-of-distribution tasks. By training on large diverse offline datasets, our model is able to learn new MiniHack and Procgen tasks without any weight updates from just a handful of demonstrations.
+}
+\date{\today}
+\correspondence{Sharath Chandra Raparthy at \email{sharathraparthy@meta.com}}
+\usepackage{amsmath,amsfonts,bm}
+\newcommand{\figleft}{{\em (Left)}}
+\newcommand{\figcenter}{{\em (Center)}}
+\newcommand{\figright}{{\em (Right)}}
+\newcommand{\figtop}{{\em (Top)}}
+\newcommand{\figbottom}{{\em (Bottom)}}
+\newcommand{\captiona}{{\em (a)}}
+\newcommand{\captionb}{{\em (b)}}
+\newcommand{\captionc}{{\em (c)}}
+\newcommand{\captiond}{{\em (d)}}
+\newcommand{\newterm}[1]{{\bf #1}}
+\def\figref#1{figure~\ref{#1}}
+\def\Figref#1{Figure~\ref{#1}}
+\def\twofigref#1#2{figures \ref{#1} and \ref{#2}}
+\def\quadfigref#1#2#3#4{figures \ref{#1}, \ref{#2}, \ref{#3} and \ref{#4}}
+\def\secref#1{section~\ref{#1}}
+\def\Secref#1{Section~\ref{#1}}
+\def\twosecrefs#1#2{sections \ref{#1} and \ref{#2}}
+\def\secrefs#1#2#3{sections \ref{#1}, \ref{#2} and \ref{#3}}
+\def\eqref#1{equation~\ref{#1}}
+\def\Eqref#1{Equation~\ref{#1}}
+\def\plaineqref#1{\ref{#1}}
+\def\chapref#1{chapter~\ref{#1}}
+\def\Chapref#1{Chapter~\ref{#1}}
+\def\rangechapref#1#2{chapters\ref{#1}--\ref{#2}}
+\def\algref#1{algorithm~\ref{#1}}
+\def\Algref#1{Algorithm~\ref{#1}}
+\def\twoalgref#1#2{algorithms \ref{#1} and \ref{#2}}
+\def\Twoalgref#1#2{Algorithms \ref{#1} and \ref{#2}}
+\def\partref#1{part~\ref{#1}}
+\def\Partref#1{Part~\ref{#1}}
+\def\twopartref#1#2{parts \ref{#1} and \ref{#2}}
+\def\ceil#1{\lceil #1 \rceil}
+\def\floor#1{\lfloor #1 \rfloor}
+\def\1{\bm{1}}
+\newcommand{\train}{\mathcal{D}}
+\newcommand{\valid}{\mathcal{D_{\mathrm{valid}}}}
+\newcommand{\test}{\mathcal{D_{\mathrm{test}}}}
+\def\eps{{\epsilon}}
+\def\reta{{\textnormal{$\eta$}}}
+\def\ra{{\textnormal{a}}}
+\def\rb{{\textnormal{b}}}
+\def\rc{{\textnormal{c}}}
+\def\rd{{\textnormal{d}}}
+\def\re{{\textnormal{e}}}
+\def\rf{{\textnormal{f}}}
+\def\rg{{\textnormal{g}}}
+\def\rh{{\textnormal{h}}}
+\def\ri{{\textnormal{i}}}
+\def\rj{{\textnormal{j}}}
+\def\rk{{\textnormal{k}}}
+\def\rl{{\textnormal{l}}}
+\def\rn{{\textnormal{n}}}
+\def\ro{{\textnormal{o}}}
+\def\rp{{\textnormal{p}}}
+\def\rq{{\textnormal{q}}}
+\def\rr{{\textnormal{r}}}
+\def\rs{{\textnormal{s}}}
+\def\rt{{\textnormal{t}}}
+\def\ru{{\textnormal{u}}}
+\def\rv{{\textnormal{v}}}
+\def\rw{{\textnormal{w}}}
+\def\rx{{\textnormal{x}}}
+\def\ry{{\textnormal{y}}}
+\def\rz{{\textnormal{z}}}
+\def\rvepsilon{{\mathbf{\epsilon}}}
+\def\rvtheta{{\mathbf{\theta}}}
+\def\rva{{\mathbf{a}}}
+\def\rvb{{\mathbf{b}}}
+\def\rvc{{\mathbf{c}}}
+\def\rvd{{\mathbf{d}}}
+\def\rve{{\mathbf{e}}}
+\def\rvf{{\mathbf{f}}}
+\def\rvg{{\mathbf{g}}}
+\def\rvh{{\mathbf{h}}}
+\def\rvu{{\mathbf{i}}}
+\def\rvj{{\mathbf{j}}}
+\def\rvk{{\mathbf{k}}}
+\def\rvl{{\mathbf{l}}}
+\def\rvm{{\mathbf{m}}}
+\def\rvn{{\mathbf{n}}}
+\def\rvo{{\mathbf{o}}}
+\def\rvp{{\mathbf{p}}}
+\def\rvq{{\mathbf{q}}}
+\def\rvr{{\mathbf{r}}}
+\def\rvs{{\mathbf{s}}}
+\def\rvt{{\mathbf{t}}}
+\def\rvu{{\mathbf{u}}}
+\def\rvv{{\mathbf{v}}}
+\def\rvw{{\mathbf{w}}}
+\def\rvx{{\mathbf{x}}}
+\def\rvy{{\mathbf{y}}}
+\def\rvz{{\mathbf{z}}}
+\def\erva{{\textnormal{a}}}
+\def\ervb{{\textnormal{b}}}
+\def\ervc{{\textnormal{c}}}
+\def\ervd{{\textnormal{d}}}
+\def\erve{{\textnormal{e}}}
+\def\ervf{{\textnormal{f}}}
+\def\ervg{{\textnormal{g}}}
+\def\ervh{{\textnormal{h}}}
+\def\ervi{{\textnormal{i}}}
+\def\ervj{{\textnormal{j}}}
+\def\ervk{{\textnormal{k}}}
+\def\ervl{{\textnormal{l}}}
+\def\ervm{{\textnormal{m}}}
+\def\ervn{{\textnormal{n}}}
+\def\ervo{{\textnormal{o}}}
+\def\ervp{{\textnormal{p}}}
+\def\ervq{{\textnormal{q}}}
+\def\ervr{{\textnormal{r}}}
+\def\ervs{{\textnormal{s}}}
+\def\ervt{{\textnormal{t}}}
+\def\ervu{{\textnormal{u}}}
+\def\ervv{{\textnormal{v}}}
+\def\ervw{{\textnormal{w}}}
+\def\ervx{{\textnormal{x}}}
+\def\ervy{{\textnormal{y}}}
+\def\ervz{{\textnormal{z}}}
+\def\rmA{{\mathbf{A}}}
+\def\rmB{{\mathbf{B}}}
+\def\rmC{{\mathbf{C}}}
+\def\rmD{{\mathbf{D}}}
+\def\rmE{{\mathbf{E}}}
+\def\rmF{{\mathbf{F}}}
+\def\rmG{{\mathbf{G}}}
+\def\rmH{{\mathbf{H}}}
+\def\rmI{{\mathbf{I}}}
+\def\rmJ{{\mathbf{J}}}
+\def\rmK{{\mathbf{K}}}
+\def\rmL{{\mathbf{L}}}
+\def\rmM{{\mathbf{M}}}
+\def\rmN{{\mathbf{N}}}
+\def\rmO{{\mathbf{O}}}
+\def\rmP{{\mathbf{P}}}
+\def\rmQ{{\mathbf{Q}}}
+\def\rmR{{\mathbf{R}}}
+\def\rmS{{\mathbf{S}}}
+\def\rmT{{\mathbf{T}}}
+\def\rmU{{\mathbf{U}}}
+\def\rmV{{\mathbf{V}}}
+\def\rmW{{\mathbf{W}}}
+\def\rmX{{\mathbf{X}}}
+\def\rmY{{\mathbf{Y}}}
+\def\rmZ{{\mathbf{Z}}}
+\def\ermA{{\textnormal{A}}}
+\def\ermB{{\textnormal{B}}}
+\def\ermC{{\textnormal{C}}}
+\def\ermD{{\textnormal{D}}}
+\def\ermE{{\textnormal{E}}}
+\def\ermF{{\textnormal{F}}}
+\def\ermG{{\textnormal{G}}}
+\def\ermH{{\textnormal{H}}}
+\def\ermI{{\textnormal{I}}}
+\def\ermJ{{\textnormal{J}}}
+\def\ermK{{\textnormal{K}}}
+\def\ermL{{\textnormal{L}}}
+\def\ermM{{\textnormal{M}}}
+\def\ermN{{\textnormal{N}}}
+\def\ermO{{\textnormal{O}}}
+\def\ermP{{\textnormal{P}}}
+\def\ermQ{{\textnormal{Q}}}
+\def\ermR{{\textnormal{R}}}
+\def\ermS{{\textnormal{S}}}
+\def\ermT{{\textnormal{T}}}
+\def\ermU{{\textnormal{U}}}
+\def\ermV{{\textnormal{V}}}
+\def\ermW{{\textnormal{W}}}
+\def\ermX{{\textnormal{X}}}
+\def\ermY{{\textnormal{Y}}}
+\def\ermZ{{\textnormal{Z}}}
+\def\vzero{{\bm{0}}}
+\def\vone{{\bm{1}}}
+\def\vmu{{\bm{\mu}}}
+\def\vtheta{{\bm{\theta}}}
+\def\va{{\bm{a}}}
+\def\vb{{\bm{b}}}
+\def\vc{{\bm{c}}}
+\def\vd{{\bm{d}}}
+\def\ve{{\bm{e}}}
+\def\vf{{\bm{f}}}
+\def\vg{{\bm{g}}}
+\def\vh{{\bm{h}}}
+\def\vi{{\bm{i}}}
+\def\vj{{\bm{j}}}
+\def\vk{{\bm{k}}}
+\def\vl{{\bm{l}}}
+\def\vm{{\bm{m}}}
+\def\vn{{\bm{n}}}
+\def\vo{{\bm{o}}}
+\def\vp{{\bm{p}}}
+\def\vq{{\bm{q}}}
+\def\vr{{\bm{r}}}
+\def\vs{{\bm{s}}}
+\def\vt{{\bm{t}}}
+\def\vu{{\bm{u}}}
+\def\vv{{\bm{v}}}
+\def\vw{{\bm{w}}}
+\def\vx{{\bm{x}}}
+\def\vy{{\bm{y}}}
+\def\vz{{\bm{z}}}
+\def\evalpha{{\alpha}}
+\def\evbeta{{\beta}}
+\def\evepsilon{{\epsilon}}
+\def\evlambda{{\lambda}}
+\def\evomega{{\omega}}
+\def\evmu{{\mu}}
+\def\evpsi{{\psi}}
+\def\evsigma{{\sigma}}
+\def\evtheta{{\theta}}
+\def\eva{{a}}
+\def\evb{{b}}
+\def\evc{{c}}
+\def\evd{{d}}
+\def\eve{{e}}
+\def\evf{{f}}
+\def\evg{{g}}
+\def\evh{{h}}
+\def\evi{{i}}
+\def\evj{{j}}
+\def\evk{{k}}
+\def\evl{{l}}
+\def\evm{{m}}
+\def\evn{{n}}
+\def\evo{{o}}
+\def\evp{{p}}
+\def\evq{{q}}
+\def\evr{{r}}
+\def\evs{{s}}
+\def\evt{{t}}
+\def\evu{{u}}
+\def\evv{{v}}
+\def\evw{{w}}
+\def\evx{{x}}
+\def\evy{{y}}
+\def\evz{{z}}
+\def\mA{{\bm{A}}}
+\def\mB{{\bm{B}}}
+\def\mC{{\bm{C}}}
+\def\mD{{\bm{D}}}
+\def\mE{{\bm{E}}}
+\def\mF{{\bm{F}}}
+\def\mG{{\bm{G}}}
+\def\mH{{\bm{H}}}
+\def\mI{{\bm{I}}}
+\def\mJ{{\bm{J}}}
+\def\mK{{\bm{K}}}
+\def\mL{{\bm{L}}}
+\def\mM{{\bm{M}}}
+\def\mN{{\bm{N}}}
+\def\mO{{\bm{O}}}
+\def\mP{{\bm{P}}}
+\def\mQ{{\bm{Q}}}
+\def\mR{{\bm{R}}}
+\def\mS{{\bm{S}}}
+\def\mT{{\bm{T}}}
+\def\mU{{\bm{U}}}
+\def\mV{{\bm{V}}}
+\def\mW{{\bm{W}}}
+\def\mX{{\bm{X}}}
+\def\mY{{\bm{Y}}}
+\def\mZ{{\bm{Z}}}
+\def\mBeta{{\bm{\beta}}}
+\def\mPhi{{\bm{\Phi}}}
+\def\mLambda{{\bm{\Lambda}}}
+\def\mSigma{{\bm{\Sigma}}}
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{sl}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+\def\tA{{\tens{A}}}
+\def\tB{{\tens{B}}}
+\def\tC{{\tens{C}}}
+\def\tD{{\tens{D}}}
+\def\tE{{\tens{E}}}
+\def\tF{{\tens{F}}}
+\def\tG{{\tens{G}}}
+\def\tH{{\tens{H}}}
+\def\tI{{\tens{I}}}
+\def\tJ{{\tens{J}}}
+\def\tK{{\tens{K}}}
+\def\tL{{\tens{L}}}
+\def\tM{{\tens{M}}}
+\def\tN{{\tens{N}}}
+\def\tO{{\tens{O}}}
+\def\tP{{\tens{P}}}
+\def\tQ{{\tens{Q}}}
+\def\tR{{\tens{R}}}
+\def\tS{{\tens{S}}}
+\def\tT{{\tens{T}}}
+\def\tU{{\tens{U}}}
+\def\tV{{\tens{V}}}
+\def\tW{{\tens{W}}}
+\def\tX{{\tens{X}}}
+\def\tY{{\tens{Y}}}
+\def\tZ{{\tens{Z}}}
+\def\gA{{\mathcal{A}}}
+\def\gB{{\mathcal{B}}}
+\def\gC{{\mathcal{C}}}
+\def\gD{{\mathcal{D}}}
+\def\gE{{\mathcal{E}}}
+\def\gF{{\mathcal{F}}}
+\def\gG{{\mathcal{G}}}
+\def\gH{{\mathcal{H}}}
+\def\gI{{\mathcal{I}}}
+\def\gJ{{\mathcal{J}}}
+\def\gK{{\mathcal{K}}}
+\def\gL{{\mathcal{L}}}
+\def\gM{{\mathcal{M}}}
+\def\gN{{\mathcal{N}}}
+\def\gO{{\mathcal{O}}}
+\def\gP{{\mathcal{P}}}
+\def\gQ{{\mathcal{Q}}}
+\def\gR{{\mathcal{R}}}
+\def\gS{{\mathcal{S}}}
+\def\gT{{\mathcal{T}}}
+\def\gU{{\mathcal{U}}}
+\def\gV{{\mathcal{V}}}
+\def\gW{{\mathcal{W}}}
+\def\gX{{\mathcal{X}}}
+\def\gY{{\mathcal{Y}}}
+\def\gZ{{\mathcal{Z}}}
+\def\sA{{\mathbb{A}}}
+\def\sB{{\mathbb{B}}}
+\def\sC{{\mathbb{C}}}
+\def\sD{{\mathbb{D}}}
+\def\sF{{\mathbb{F}}}
+\def\sG{{\mathbb{G}}}
+\def\sH{{\mathbb{H}}}
+\def\sI{{\mathbb{I}}}
+\def\sJ{{\mathbb{J}}}
+\def\sK{{\mathbb{K}}}
+\def\sL{{\mathbb{L}}}
+\def\sM{{\mathbb{M}}}
+\def\sN{{\mathbb{N}}}
+\def\sO{{\mathbb{O}}}
+\def\sP{{\mathbb{P}}}
+\def\sQ{{\mathbb{Q}}}
+\def\sR{{\mathbb{R}}}
+\def\sS{{\mathbb{S}}}
+\def\sT{{\mathbb{T}}}
+\def\sU{{\mathbb{U}}}
+\def\sV{{\mathbb{V}}}
+\def\sW{{\mathbb{W}}}
+\def\sX{{\mathbb{X}}}
+\def\sY{{\mathbb{Y}}}
+\def\sZ{{\mathbb{Z}}}
+\def\emLambda{{\Lambda}}
+\def\emA{{A}}
+\def\emB{{B}}
+\def\emC{{C}}
+\def\emD{{D}}
+\def\emE{{E}}
+\def\emF{{F}}
+\def\emG{{G}}
+\def\emH{{H}}
+\def\emI{{I}}
+\def\emJ{{J}}
+\def\emK{{K}}
+\def\emL{{L}}
+\def\emM{{M}}
+\def\emN{{N}}
+\def\emO{{O}}
+\def\emP{{P}}
+\def\emQ{{Q}}
+\def\emR{{R}}
+\def\emS{{S}}
+\def\emT{{T}}
+\def\emU{{U}}
+\def\emV{{V}}
+\def\emW{{W}}
+\def\emX{{X}}
+\def\emY{{Y}}
+\def\emZ{{Z}}
+\def\emSigma{{\Sigma}}
+\newcommand{\etens}[1]{\mathsfit{#1}}
+\def\etLambda{{\etens{\Lambda}}}
+\def\etA{{\etens{A}}}
+\def\etB{{\etens{B}}}
+\def\etC{{\etens{C}}}
+\def\etD{{\etens{D}}}
+\def\etE{{\etens{E}}}
+\def\etF{{\etens{F}}}
+\def\etG{{\etens{G}}}
+\def\etH{{\etens{H}}}
+\def\etI{{\etens{I}}}
+\def\etJ{{\etens{J}}}
+\def\etK{{\etens{K}}}
+\def\etL{{\etens{L}}}
+\def\etM{{\etens{M}}}
+\def\etN{{\etens{N}}}
+\def\etO{{\etens{O}}}
+\def\etP{{\etens{P}}}
+\def\etQ{{\etens{Q}}}
+\def\etR{{\etens{R}}}
+\def\etS{{\etens{S}}}
+\def\etT{{\etens{T}}}
+\def\etU{{\etens{U}}}
+\def\etV{{\etens{V}}}
+\def\etW{{\etens{W}}}
+\def\etX{{\etens{X}}}
+\def\etY{{\etens{Y}}}
+\def\etZ{{\etens{Z}}}
+\newcommand{\pdata}{p_{\rm{data}}}
+\newcommand{\ptrain}{\hat{p}_{\rm{data}}}
+\newcommand{\Ptrain}{\hat{P}_{\rm{data}}}
+\newcommand{\pmodel}{p_{\rm{model}}}
+\newcommand{\Pmodel}{P_{\rm{model}}}
+\newcommand{\ptildemodel}{\tilde{p}_{\rm{model}}}
+\newcommand{\pencode}{p_{\rm{encoder}}}
+\newcommand{\pdecode}{p_{\rm{decoder}}}
+\newcommand{\precons}{p_{\rm{reconstruct}}}
+\newcommand{\laplace}{\mathrm{Laplace}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Ls}{\mathcal{L}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\emp}{\tilde{p}}
+\newcommand{\lr}{\alpha}
+\newcommand{\reg}{\lambda}
+\newcommand{\rect}{\mathrm{rectifier}}
+\newcommand{\softmax}{\mathrm{softmax}}
+\newcommand{\sigmoid}{\sigma}
+\newcommand{\softplus}{\zeta}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\standarderror}{\mathrm{SE}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\normlzero}{L^0}
+\newcommand{\normlone}{L^1}
+\newcommand{\normltwo}{L^2}
+\newcommand{\normlp}{L^p}
+\newcommand{\normmax}{L^\infty}
+\newcommand{\parents}{Pa}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Tr}{Tr}
+\let\ab\allowbreak
+\newcommand{\eg}{\textit{e.g.,}}
+\newcommand{\ie}{\textit{i.e.,}}
+\def\toref{[\textbf{\color{blue}REF}]}
+\def\change{\color{red}}
+\definecolor{lightblue}{rgb}{0.53, 0.81, 0.98}
+\begin{document}
+\maketitle
+\section{Introduction}
+For many real-world application domains such as robotics or virtual assistants, collecting large amounts of data for training an agent can be time consuming, expensive, or even dangerous.
+Hence, the ability to learn new tasks from a handful of demonstrations is crucial for enabling a wider range of use cases.
+However, current deep learning agents often struggle to learn new tasks from a limited number of demonstrations.
+Prior work attempts to address this problem using meta-learning~\citep{schmidhuber1987evolutionary,duan2016rl,finn2017model,pong2022offline, mitchell2021offline,beck2023survey} but these methods tend to be difficult to use in practice and require more than a handful of demonstrations or extensive fine-tuning.
+In contrast, large transformers trained on vast amounts of data can learn new tasks from only a few examples without any parameter updates~\citep{gpt3, scaling-laws, olsson2022incontext, zipfian_icl}. This emergent phenomenon is called \textit{few-shot or in-context learning (ICL)}, and is achieved by simply conditioning the model's outputs on a context containing a few examples for solving the task~\citep{gpt3, Ganguli_2022, wei2022emergent}.
+While in-context learning has been observed in multiple domains from language~\citep{gpt3} to vision~\citep{zipfian_icl}, it has not yet been extensively studied in sequential decision making settings. The sequential decision making problem poses additional challenges that do not appear in the supervised or self-supervised settings. For example, this setting tends to have a lower tolerance for errors since the environment's stochasticity or the agent's actions can lead to unseen, and sometimes unrecoverable, states.
+In this paper, we study in-context learning of sequential decision making tasks. To test our approach, we consider a challenging setting where the train and the test task distributions are disjoint with different states, actions, dynamics, and reward functions. For example, on Procgen we train on 12 of the games and test on the remaining 4. To emphasize how different the train and test tasks are, one of the training tasks is Bigfish where the must eat as many smaller fish as possible while avoiding larger fish than itself and it grows in size as it eats more. In contrast, one of our test tasks is Ninja, where the agent must jump across ledges while avoiding bombs or destroying them by tossing starsin order to collect the mushroom at the end of the platform. \Cref{fig:train_test} illustrates some of our train and test task, emphasizing how different they are. To our knowledge, no prior work has demonstrated the ability to generalize to new MiniHack or Procgen tasks using only a handful of demonstrations and no weight updates.
+We first focus on the data distributional properties required to enable in-context learning of sequential decision making tasks.
+Our key finding is that in contrast to (self-)supervised learning where the context can simply contain a few different examples (or predictions), in sequential decision making it is crucial for the context to contain full/partial trajectories (or sequences of predictions) to cover the potentially wide range of states the agent may find itself in at deployment.
+Translating this insight into a dataset construction pipeline, we demonstrate that we can enable in-context learning of \textit{unseen} tasks on both the MiniHack and Procgen benchmarks from only a handful of demonstrations.
+We additionally perform an extensive study of other design choices such as the model size, dataset size, trajectory burstiness, environment stochasticity, and task diversity. Our experiments suggest that larger model and dataset sizes, as well as more trajectory burstiness, environment stochasticity, and task diversity, all lead to better in-context learning when using transformers for sequential decision making tasks. \textbf{Our work is first to show that generalization to new Procgen and MiniHack tasks is possible from just a handful of expert demonstrations and no weight updates using the transformer's in-context learning ability.} This goes beyond the well-studied generalization to new levels which are merely procedurally generated instances of the training task rather than fundamentally new tasks~\citep{cobbe2020leveraging, igl2019generalization, laskin2020reinforcement, Raileanu2020AutomaticDA, raileanu2021decoupling}.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/Procgen_games.png}
+    \caption{\textbf{Illustration of Train and Test Tasks.} (\textit{Left}) A collection of procedurally generated Procgen levels from the \texttt{Fruitbot} task, demonstrating the complexity and diversity inherent in the environment's design. (\textit{Middle}) Tasks used for training. (\textit{Right}) Tasks used for testing. Note that the test tasks are entirely distinct from the training tasks, and each of them is procedurally generated, consisting of multiple levels.}
+    \label{fig:train_test}
+\end{figure}
+\section{Background}
+\textbf{Markov Decision Processes:}
+Sequential decision making tasks can be modeled by
+Markov Decision Processes (MDPs)~\citep{sutton2018reinforcement}~
+represented by a tuple $\gM = \big( \gS, \gA, R, P, \gamma, \mu \big)$, where $\gS$ is the state space, $\gA$ is the action space, $R: \gS \times \gA \rightarrow [R_{\min}, R_{\max} ]$ is the reward function
+, $P: \gS \times \gA \times \gS \rightarrow \sR_{\geq 0}$ is the transition function, $\gamma \in (0, 1]$ is the discount factor, and $\mu: \gS \rightarrow \sR_{\geq 0}$ is the initial state distribution. We denote the trajectory of an episode by $\tau = (s_0, a_0, r_0, \dots, s_T, a_T, r_T, s_{T+1})$ where $r_t = R(s_t, a_t)$ and $T$ is the length of the trajectory which can be infinite.
+If a trajectory is generated by a stochastic policy $\pi: \gS \times \gA \rightarrow \sR_{\geq 0}$, $R^\pi = \sum_{t=0}^T \gamma^t r_t$ is a random variable that describes the \textit{discounted return} the policy achieves. The objective is to find a policy $\pi^\star$ that maximizes the expected discounted return in the MDP.
+\textbf{Problem Setting.}
+In this paper, we are interested in learning new tasks from a small number of demonstrations after pretraining on a large dataset of offline trajectories from different tasks. Formally, we consider a set of tasks $\mathcal{T}$ split into disjoint sets $\mathcal{T}_{train}$ and $\mathcal{T}_{test}$.
+The train and test tasks have the same action space, but different state spaces, initial state distributions, transition and reward functions. Each task $\mathcal{T}_i \in \mathcal{T}$ is procedurally generated, meaning that it includes $L$ MDPs $\{\mathcal{M}_i^l\}_{l=1}^L$ sharing the same state spaces, transition and reward functions, but different initial state distributions. We refer to these as ``levels" in this paper as depicted in \Cref{fig:train_test}: for MiniHack and Procgen, each level corresponds to a different random seed used to generate the corresponding instance of the task. For each MDP $\mathcal{M}_i$ in our set, we collect $K$ expert demonstrations using reinforcement learning (RL) agents which were pretrained on $\mathcal{M}_i$, to create a dataset $\mathcal{D}_i$ containing trajectories of the form $\tau_i = (s_0^i, a_0^i, \ldots, s_T^i, a_T^i)$, where $T$ is the maximum number of steps in the episode. For the test MDPs $K$ is small, meaning that we only collect a few expert demonstrations for each level of a test task and use them to condition our transformer model.
+\section{Methodology}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/setup.png}
+    \caption{\textbf{Experimental Setup:} We create a dataset of expert trajectories by rolling out expert policies
+on $N$ tasks. Given these expert trajectories, we construct multi-trajectory sequences with
+trajectory burstiness $p_b$. A sequence is bursty when there are at least two trajectories in the sequence from the same level. However, note that these trajectories are typically different due to the environment's stochasticity. These multi-trajectory sequences then serve as input to the causal transformer, which we train to predict actions. During evaluation, we condition the transformer on a few expert trajectories from an unseen task, then rollout the transformer policy until the episode terminates. }
+    \label{fig:sequence_construction}
+\end{figure}
+\label{sec:methods}
+\subsection{Training Data}
+\label{sec:training_data}
+\textbf{Tasks:} In order to study ICL for sequential decision making, we seek domains which are rich, diverse, and of varying complexity. For this reason, we decided to use MiniHack
+\citep{samvelyan2021minihack} and Procgen \citep{cobbe2020leveraging}. MiniHack is a procedurally generated, dungeon-world sandbox based on the NetHack Learning Environment \citep{NLE} which provides a diverse suite of tasks exhibiting challenges related to navigation, tool use, generalization, exploration and planning.
+Procgen, similarly to MiniHack, provides 16 procedurally generated game-like tasks to test the generalization abilities of the agent, and additionally features high-dimensional pixel-based observations.
+In MiniHack and Procgen, each ``level'' corresponds to a different random seed used to generate the task instance, including the layout, entities and visual aspects.
+To generate our expert datasets, we used final checkpoints of E3B~\citep{E3B} policies for MiniHack and PPO~\citep{cobbe2020leveraging} policies for Procgen. Details can be found in  \ref{app:expert_data}.
+\textbf{Sequence Construction for Transformer Training: }
+After collecting the expert data, we construct the trajectory sequences for training the transformer. Rather than using single-trajectory sequences as in the Decision Transformer model~\citep{decision_transformer} and its successors~\citep{traj_transformer, MGDT}, we use multi-trajectory sequences~\citep{adaptiveagentteam2023humantimescale, algo_dist}. We also remove the explicit conditioning on the episodic return and instead process the sequences in the form of $\{(s_0, a_0, s_1, a_1, r_1, \dots s_T, a_T)\}$ for each trajectory.
+Moreoever, the multi-trajectory sequences adhere to certain distributional properties. First, we extend the concept of burstiness to the sequential decision making setting. Burstiness was first introduced in~\cite{zipfian_icl} to describe the quality of a dataset sample where the context contains examples that are similar to the query (for example, from the same class). Here, we extend this idea to \textbf{trajectory burstiness}, which we define as the probability of a given input sequence containing atleast two trajectories from the same level (\Cref{fig:sequence_construction}).This means that the relevant information required to solve the task is entirely in the sequence hence this design aids in-context learning. However, note that the trajectories, despite being from the same level, may vary because of the inherent environment stochasticity which means that the model still needs to generalize to handle these cases. These trajectories can be viewed as the sequential decision making equivalent of few-shot examples in supervised learning. To construct a bursty trajectory sequence, we sample $E$ trajectories from a given set of $L$ levels in such a way that, with bursty probability $p_b$, there are at least two trajectories coming from the same level. Note that all the trajectories within a sequence come from the same task.
+In our main experiments (\Cref{sec:main_expts}), we consider $p_b=1.0$, meaning that the context contains at least one trajectory from the same level as the query. Lastly, we shuffle the trajectories (and notably not the transitions within these trajectories) to construct a sequence of trajectories that will be used to train the transformer. \Cref{fig:sequence_construction} contains an illustration of our approach.
+\subsection{Model Training and Evaluation}
+\label{sec:train_eval}
+\textbf{Model Architecture and Training Procedure:}
+For both MiniHack and Procgen, we use standard neural network architectures used in prior work~\citep{samvelyan2021minihack, cobbe2020leveraging} to process observations and use a separate embedding layer to process actions.
+In both cases, we then pass these sequences to a causal transformer ~\citep{vaswani2017attention}.  Finally, we use a cross-entropy loss over all the action predictions in our sequence. Unless otherwise specified, we use a 100M parameter transformer model for MiniHack and a 210M parameter model for Procgen.
+\textbf{Evaluation:} We evaluate all the pretrained models on \textit{unseen} tasks that differ from those used during training, as shown in ~\Cref{fig:train_test}. For each pretrained model, we conduct two types of evaluations: few-shot and zero-shot. For few-shot evaluations, we condition the model on a handful of expert demonstration (ranging from 1 to 7) and roll out the transformer policy for five episodes. This is repeated for $L$ levels per task, and we aggregate the episodic return across all levels. The evaluation protocol for zero-shot evaluations is identical, with the exception that we do not condition on the expert demonstration. For all our results, we report mean and standard deviation across 3 seeds.
+\section{Motivating Experiment}
+Existing state-of-the-art methods that use transformers for decision making train them on sequences consisting of single trajectories~\citep{decision_transformer}. In this section, we show that this setup fails to promote in-context learning of new tasks. Instead, we will demonstrate that \textit{training transformers on sequences of multiple trajectories can enable few-shot learning of unseen tasks}. To illustrate this, we compare the performance of a \textit{single-trajectory} transformer trained on single-trajectory sequences, and a \textit{multi-trajectory} transformer trained on multi-trajectory sequences in a simple setting.
+The single-trajectory transformer's context consists of all past transitions from the current episode $c_t = \{(s_0, a_0, s_1, a_1, \ldots, s_{t-1}, a_{t-1})\}$, and the transformer has to predict the action given the current state and the context $p(a_t | s_t, c_t)$ for each time-step $t$. Hence, given a new task different from the training ones (meaning that we cannot expect much in-weights~\citep{chen2022transdreamer} or zero-shot generalization), the agent can only leverage information from past transitions within the same episode. However, agents typically face different decisions within an episode (\ie{} they rarely see the same state twice), making the problem very challenging.
+In contrast, a multi-trajectory transformer's context consists of one or more full trajectories from the same task, as well as all past transitions from the current episode. We will consider the one-shot case in this example where $c_t = \{(s_0^0, a_0^0, \ldots, s_{T}^0, a_{T}^0), (s_0^1, a_0^1, \ldots, s_{t-1}^1, a_{t-1}^1, )\}$. The transformer has to predict the action for the current state $p(a_t^1 | s_t^1, c_t)$ for all $t$.
+Hence, when faced with a new task (even if very different from from the training ones), the agent can now leverage information from full trajectories on this task. Note that due to the stochasticity inherent in many environments,  the agent will often be faced with new scenarios that don't appear in its context, so simple memorization is not enough and generalization is required.
+However, since the agent has access to full trajectories, it is less likely that it will encounter states that are too different from the ones in its context so it should perform better.
+To verify our hypothesis that \textit{in sequential decision making, multi-trajectory transformers enable better in-context learning than single-trajectory transformers}, we perform the following experiment. We collect expert demonstrations from 100K levels from the \texttt{MiniHack-MultiRoom-N6} task. Using the above protocols, we construct training sequences for the single-trajectory and multi-trajectory transformers and train them using the same hyperparameters\footnote{We set trajectory burstiness $p_b = 1$ for this experiment.}.
+We then evaluate them on the \texttt{MiniHack-Labyrinth} task. To ensure a fair comparison, we condition both transformer variants on a single expert demonstration from the test task.
+\textbf{The multi-trajectory transformer with episodic return of \colorbox{lightblue}{\( 0.780 \pm 0.07 \)}
+ outperforms the single-trajectory transformer with \colorbox{lightblue}{\(-0.323 \pm 0.05\)}  by a large margin, indicating the importance of training transformers on sequences of trajectories in order to obtain in-context learning of new sequential decision making tasks (from only a handful of demonstrations and without any weight updates).} For the rest of the results in the paper, we use multi-trajectory transformer as our base model for analysis.
+\section{Experiments}
+\label{sec:main_expts}
+We next illustrate the in-context learning abilities of the multi-trajectory transformer on unseen MiniHack and Procgen tasks, and compare against single-trajectory and hashmap-based baselines. While many previous works have studied generalization to new levels, to our knowledge we are the first to study generalization to completely different tasks, and we demonstrate promising results.
+\textbf{Baselines}: We compare against two baselines. \textbf{Hashmap (HM):} employs a hashmap over states in order to take the action corresponding to the same state from context (i.e., the expert action). It's important to note that in deterministic environments, this baseline acts as an oracle. However, in stochastic environments, it struggles to generalize to states that are not present in the demonstration. \textbf{Behavioural Cloning (BC):} trains a transformer with single trajectory sequences. BC learns a policy to predict the action the expert would take given the history of transitions so far in the current trajectory. During evaluation time, we condition BC on zero (\textbf{BC-0}) and one (\textbf{BC-1}) demonstration, respectively. Because of the lack of context, BC struggles to generalize to new tasks.
+\subsection{Main Results}
+\label{sec:main_results}
+\subsection{MiniHack} We collect offline data from 12 MiniHack tasks and train a multi-trajectory transformer on sequences comprising eight trajectories from the same level ($p_b = 1$). For evaluation, we test the performance on 4 new MiniHack tasks. We would like to emphasize that environments are stochastic where the stochasticity is induced by sticky actions. The results are reported in \Cref{fig:few_shot_results}. Our approach achieves good performance across multiple scenarios, demonstrating that it can learn new tasks with only a handful of demonstrations and without any weight updates. In addition, there is a consistent increase in performance with the addition of more demonstrations across all environments. Notably, our model outperforms all the baselines. When compared to BC, it underscores the significance of training transformers on sequences of trajectories, rather than on single trajectories, to foster in-context learning of new tasks. In contrast to the Hashmap, our model demonstrates the capability to learn a policy that generalizes to unseen states, rather than merely copying actions from its context which is insufficient in this setting.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/few_shot_baseline_plot.pdf}
+    \caption{\textbf{Performance on New MiniHack Tasks} comparing (1) our multi-trajectory transformer conditioned on different number of demonstrations from the same level, (2) Hashmap baseline conditioned on the same demonstrations, and (3) BC baseline conditioned on zero or one demonstration due to context length constraints. Our model outperforms both baselines when provided with at least one demonstration and its performance improves with the number of demonstration. }
+    \label{fig:few_shot_results}
+\end{figure}
+\subsection{Procgen} We also evaluate our approach on a high-dimensional pixel-based domain to test (\Cref{fig:train_test}) the generality of our findings. To do so, we collect offline data from 12 Procgen tasks and train a 310M transformer model on Procgen sequences compromising of five episodes from the same level ($p_b = 1$). We then evaluate the performance on four unseen tasks. To induce stochasticity, we use sticky actions with sticky probability 0.2 while performing online rollouts\footnote{We also vary this probability found no difference in our conclusions (\Cref{app:procgen_sticky})}.
+As shown in \Cref{fig:Procgen_results}, the performance of our model consistently increases as we condition on more demonstrations while outperforming the baselines. Finally note that it is not fair to compare our results with \cite{cobbe2020leveraging} because we only provide handful demonstrations to learn and the test tasks are disjoint from the train.
+In summary, our results show that our method works well in complex pixel environments where learning good state representations is hard, and where states, layouts, dynamics, rewards, colors, textures, backgrounds, and visual features all vary between training and testing.
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figures/few_shot_results_procgen_1_train.pdf}
+    \caption{\textbf{Performance on New Procgen Tasks} comparing (1) our multi-trajectory transformer conditioned on different number of demonstrations from the same level, (2) Hashmap baseline conditioned on the same demonstrations, and (3) BC baseline conditioned on zero or one demonstration due to context length constraints. Our model outperforms both behavioral cloning baselines, is competitive with Hashmap on Plunder, and its performance improves with demonstrations.}
+    \label{fig:Procgen_results}
+\end{figure}
+\section{Detailed Analysis on MiniHack}
+\label{sec:analysis}
+\label{sec:results}
+In this section, we conduct an extensive analysis on the different factors which affect in-context learning for sequential decision making.
+We highlight both zero-shot and one-shot results and conclude with a discussion on failure cases. As we've seen in the previous section, adding more demonstrations in the context generally improves the results, so here we focus on the comparison between zero-shot and one-shot which is the most significant.
+\subsection{Effect of Trajectory Burstiness}
+\label{sec:burstiness}
+\begin{figure}[t]
+        \includegraphics[width=\linewidth]{figures/burstiness_12_envs.pdf}
+        \caption{\textbf{Effect of Trajectory Burstiness}: Mean performance (with std. across $3$ seeds) for different levels of trajectory burstiness (a), dataset sizes (b), model sizes (c) and numbers of training tasks (d). These factors all have a positive effect on in-context learning.}
+        \label{fig:burstiness}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[scale=0.5]{figures/env_dynamics.PDF}
+    \caption{\textbf{Effect of Environment Stochasticity:} This figure illustrates the effect of environment dynamics on in-context learning of Labyrinth task. The x-axis denotes the environment dynamics considered during evaluation and the y-axis denotes the environment dynamics used for training. The numbers and heatmap colors indicate the one-shot performance, capturing the mean and standard deviation of episodic returns across 3 model seeds.
+    }
+    \label{fig:env_dynamics}
+\end{figure}
+First, we analyze the effect of trajectory burstiness.
+We hypothesize that having demonstrations similar to the query inside the context (\ie{} trajectory burstiness) encourages the model to utilize the contextual information.
+Our results in \Cref{fig:burstiness} confirm that in-context learning improves with more trajectory burstiness, resulting in strong one-shot generalization to new tasks for $p_b = 1$. This is consistent with insights from supervised learning~\cite{zipfian_icl}.
+\subsection{Effect of Environment Stochasticity}
+\label{sec:env_stochasticity}
+We next investigate the impact of different environment dynamics on in-context learning. For this, we gather offline data using expert E3B policies in both deterministic and stochastic environments. To introduce stochasticity in the environments, we employ sticky actions, a widely utilized technique in deep reinforcement learning~\citep{machado2018revisiting} where previous actions are repeated with some probability ($p=0.1$ in our experiments).
+We gather pretraining datasets from both stochastic and deterministic versions of the \texttt{MiniHack-MultiRoom-N6} task, which we use to train two separate variants of the transformer model. We then evaluate each model on unseen environments with either stochastic or deterministic dynamics. Results are shown in a confusion matrix in \Cref{fig:env_dynamics}.
+Models trained with stochastic dynamics exhibit superior performance on unseen tasks, whether their dynamics are deterministic or stochastic.
+An explanation is that when dynamics are deterministic, the diversity within the training dataset is comparatively low, resulting in identical copies of the trajectory in the context and query. This limits the model's in-context learning ability to pure copying behavior. In contrast, when the training environment dynamics are stochastic, the pretraining dataset exhibits greater diversity and identical copies of the trajectory become rarer, forcing the model to generalize from similar, but not identical, trajectories.
+\subsection{Effect of Dataset Size}
+\label{sec:dataset_size}
+    \begin{figure}[t]
+        \centering
+        \includegraphics[width=\linewidth]{figures/dataset_scaling_v2.pdf}
+        \caption{\textbf{Effect of Dataset Size}: This figure illustrates the effect of the dataset size on the average episode return for 5 unseen MiniHack tasks. The dashed line indicates the zero-shot performance, and the solid line represents the one-shot performance. Overall, both the one-shot performance improves when increasing the dataset size from 2k to 30K levels and then they plateau. This suggests that increasing the dataset size can help both in-context learning but the improvements have diminishing returns beyond certain threshold because of lack of diversity in the training samples. The error bars represent the standard deviation across 3 model seeds.}
+        \label{fig:data_scale}
+    \end{figure}
+    \begin{figure}[b]
+        \centering
+        \includegraphics[width=\linewidth]{figures/model_scaling.pdf}
+        \caption{\textbf{Effect of Model Size}: This figure illustrates the effect of the model size on the average episode return for 5 unseen MiniHack tasks. The dashed line indicates the zero-shot performance, and the solid line represents the one-shot performance. As the model size increases, one-shot performance consistently improves up to 30M parameters and then the performance plateaus. In contrast, the zero shot performance doesn't change as much with the number of parameters, suggesting that the model's in-context learning ability scales better than its in-weights ones with the model size. The error bars represent the standard deviation across 3 model seeds.}
+        \label{fig:model_scale}
+    \end{figure}
+    \begin{figure}[t]
+        \centering
+        \includegraphics[width=\linewidth]{figures/env_scaling.pdf}
+        \caption{\textbf{Effect of Task Diversity}:  This figure illustrates the effect of the number of different training tasks on the average episode return for 5 unseen MiniHack tasks. The dashed line indicates the zero-shot performance, and the solid line represents the one-shot performance. Overall, both the one-shot and zero-shot performances improve when increasing the number of tasks from 1 to 8, but then they plateau. This suggests that increasing the task diversity can help both the in-weights and in-context learning but the improvements have diminishing returns and may depend on the similarity between the train and test tasks. The error bars represent the standard deviation across 3 model seeds.}
+        \label{fig:task_diversity}
+    \end{figure}
+ While many studies in NLP \citep{gpt3, scaling-laws, olsson2022incontext} have reported a positive correlation between dataset size and ICL, few have studied it the realm of sequential decision making~\citep{adaptiveagentteam2023humantimescale}. Consequently, here we explore the impact of the dataset size on ICL and cross-task generalization.  We train models on varying numbers of levels from the same MiniHack task and evaluate them on a different MiniHack task. As seen in~\Cref{fig:data_scale}, performance on unseen tasks increases with the dataset size and saturates at 30K levels for one-shot models.  This is expected as the models improve on their ability to generalize as the dataset increases, even to these new tasks. Moreover, as the dataset sizes increases, we also see the emergence of a performance gap between one-shot and zero-shot evaluations on these new tasks, demonstrating the emergence of in-context learning. We also observe  that the performance saturates and subsequently increasing the dataset size above a certain scale (30K levels) yields diminishing returns. We hypothesize that this could be due to insufficient data diversity.
+\subsection{Effect of Model Size} We next scale the number of model parameters and study how it affects ICL. We evaluate transformer models with 1M, 10M, 30M and 100M parameters, trained on a dataset consisting of 100, 000 levels from 12 different MiniHack tasks. \Cref{fig:model_scale} shows that increasing the model size increases ICL on unseen tasks. However, in this case, scaling the model size has diminishing returns and the performance plateaus after 30M parameters.
+\subsection{Effect of Task Diversity} In this section, we study how ICL behaves as we scale the diversity of tasks used for training. Increasing the diversity of tasks should improve the generalization of the in-weights learning, but its not clear how this should affect a model's ability to 'soft-copy' with ICL.  In \Cref{fig:task_diversity} we see that above a certain diversity of tasks, ICL ability plateaus, while as the task diversity shrinks, some novel tasks are capable of demonstrating ICL, while others are not.  In \Cref{sec:env_difficulty}, we investigate the difference between these environments detail.
+\subsubsection{Investigating Failure Modes}
+\vspace{-1mm}
+\label{sec:env_difficulty}
+In this section, we aim to better understand why our approach performs much better on some tasks than others. To do so, we plot the episodic return and in-context action accuracy for 8 unseen test tasks after training the model on 12 different tasks (see \Cref{fig:failure_analysis}). The in-context action accuracy is defined as the percentage of correct actions taken by the agent (\ie{} matching the actions provided in the context corresponding to the same states). High in-context action accuracy indicates that the model is able to effectively utilize the demonstration provided in its context.
+We categorize these results into four categories, each explaining a different learning phenomenon.
+\textbf{In-Context Learning:} In this category, we have environments like \texttt{Labyrinth} and \texttt{Memento F2} with both high episodic return and high in-context action accuracy. The high in-context action accuracy indicates that the transformer learns to copy the correct action when it encounters states that appear in the given demonstration, which in turn leads to good performance on the task, as expected.
+\textbf{In-Weights Learning:} In this category, we have environments like \texttt{MazeWalk-15} and \texttt{MazeWalk-45} where the episodic return is relatively high but the in-context action accuracy is low. This means that the agent manages to perform well on the new task even without copying actions from its context. This suggests the model is leveraging information stored in its weights during training, also referred to as in-weights learning~\citep{zipfian_icl}. It is worth noting that $\texttt{MazeWalk-9}$ is one of the training environments, which shares similarities with the two test ones. However, note that the test tasks are much harder versions of the training one, so they require some degree of generalization.
+\begin{figure}{b}
+\centering
+    \includegraphics[width=0.5\columnwidth]{figures/failure_analysis_action_accuracy.png}
+    \caption{\textbf{Investigating Failure Modes:} This figure illustrates different learning phenomena across eight tasks. The x-axis represents the in-context action accuracy, while the y-axis represents the episodic return, with each point in the plot corresponding to an unseen task. We cluster these data points using k-means clustering and color-code each cluster. Each cluster corresponds to a different learning phenomenon, which are discussed in-depth in \Cref{sec:env_difficulty}.}
+    \label{fig:failure_analysis}
+\end{figure}
+\textbf{Unforgiving Environment:} This category includes environments such as \texttt{River-Narrow} and \texttt{Memento-F4} with high in-context action accuracy but low episodic returns. This indicates that while the agent is able to perform in-context learning and predict the correct action for most states that appear in the demonstration, it still cannot achieve high reward due to reaching unrecoverable states.
+This is reminiscent of the covariate shift problem in imitation learning, where despite predicting actions well on the expert data, the agent performs poorly at deployment due to small mistakes which put it outside the training distribution~\citep{ross2011reduction}.
+\textbf{Distributional Drift:} In the last category, we have environments like \texttt{Lava-Crossing} and \texttt{Hide-N-Seek-Big} where both the episodic return and the in-context action accuracy are low. Here, the agent is unable to perform in-context learning and the test tasks are too different from the training ones for in-weights learning to be effective.
+\section{Related Work}
+\label{sec:rel_works}
+\textbf{Few-Shot Imitation Learning:}
+ Several other works aim to learn from only a few demonstrations using them as inverse curricula for solving very hard exploration problems~\citep{duan2016rl,james2018task,jang2022bc,mandi2022towards}, even if the demonstrations don't contain any actions~\citep{resnick2018backplay,salimans2018learning}. However, none of these works leverage the in-context learning abilities of transformers to achieve few-shot offline learning of new tasks. There is also a large body of work focusing on meta-reinforcement learning, but this requires online interaction and feedback from the environment in order to adapt to new tasks at test time~\citep{schmidhuber1987evolutionary,duan2016rl,finn2017model,pong2022offline, mitchell2021offline,beck2023survey}, which we do not assume. Instead, our aim is to learn to solve new tasks from a small number of offline demonstrations.
+\textbf{In-Context Learning with Transformers:}
+In-context learning (ICL), first coined in \citep{gpt3}, is a phenomenon where a model learns a completely new task simply by conditioning on a few examples, without the need for any weight updates. Many works thereafter study this phenomenon~\citep{von2022transformers,chan2022transformers,akyurek2022learning,olsson2022context,hahn2023theory,xie2021explanation,dai2022can}. For example, \citep{zipfian_icl} analyze what makes large language models perform well on few-shot learning tasks through the lens of data properties. Their findings suggest that ICL naturally arises when data distribution follows a power law (\ie{} Zipfian) distribution and exhibits inherent "burstiness."  In \cite{kirsch2022generalpurpose}, the authors demonstrate that ICL emerges as a function of the number of tasks and model size, with a clear phase transition between instance memorization, task memorization, and generalization. More recently, \cite{functionclass} show that standard transformers can ICL learn entire function classes such as linear functions, sparse linear functions, and two-layer MLPs. While all these works are confined to the supervised learning setting, our work aims to study what drives the emergence of ICL in the sequential decision making setting.
+\textbf{Transformers for Sequential decision making:}
+The success of transformers in natural language processing \citep{transformers} has motivated their application to sequential decision making~\citep{raileanu2020fast,trajectory_transformer,reid2022can,ajay2022conditional,correia2022hierarchical,yamagata2022q,melo2022transformers,reed2022generalist,zheng2022online,chen2022transdreamer,S3M, ryoo2022token,lincontextual,sun2023smart,hu2023decision,xu2023hyper,sudhakaran2023skill}, with several works emphasizing their limitations in this setting~\citep{brandfonbrener2022does,paster2022you,siebenborn2022crucial}. The Decision Transformer (DT) \citep{decision_transformer} was one of the first works to treat policy optimization as a sequence modelling problem and train transformer policies conditioned on the episode history and future return.
+Inspired by DT, Multi-Game Decision Transformer (MGDT) \cite{MGDT} trains a single-trajectory transformer to solve multiple Atari games, but the generalization capablities are limited without additional fine-tuning on the unseen tasks. In contrast with our work, they don't provide the model with additional demonstrations of the new task at test time.
+More similar to our work, Prompt-DT \cite{prompt_dt} shows that DTs conditioned on an explicit prompt exhibit few-shot learning of new tasks (\ie{} with different reward functions) in the same environment (\ie{} with the same states and dynamics). However, the test tasks they consider differ only slightly from the training ones e.g. the agent has to walk in a different direction so the reward function changes but the states, actions, and dynamics remain the same. In contrast, our train and test tasks differ greatly e.g. playing a platform game versus navigating a maze, having entirely new states, actions, dynamics, and reward functions. Similarly,~\cite{melo2022transformers} show that transformers are meta-reinforcement learners, but they require access to rewards and many demonstrations to solve new tasks at test time. While~\cite{team2023humantimescale} demonstrate \textit{few-shot online learning} of new tasks, their model is trained on billions of tasks, whereas we consider the \textit{few-shot offline learning} setting and we train our model only on a handful of tasks. Another related work is Algorithmic Distillation (AD) \cite{algo_dist}, which aims to learn a policy improvement operator by training a transformer on sequences of trajectories with increasing returns. However, AD assumes access to multiple model checkpoints with different proficiency levels and hasn't demonstrated generalization to entirely new tasks with different states, actions, dynamics and rewards. In contrast with all these works, our goal is to generalize to \textit{completely new tasks} with different states, actions, dynamics, and rewards from a handful of expert demonstrations. We demonstrate cross-task generalization on MiniHack and Procgen, two domains that contain vastly different tasks, from maze navigation to platform games. Our work is also first to extensively study how different factors (such as task diversity, trajectory burstiness, environment stochasticity, model and dataset size) influence the emergence of in-context learning in sequential decision making.
+Finally, \Cref{tab:related_works} succinctly contrasts our work with prior work.
+  \begin{table}[t]
+\centering
+\label{tab:related_works}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Paper} & \textbf{Setting} & \textbf{Multi-Env Training} & \textbf{Generalization} & \textbf{Axes of Generalization} \\
+\midrule
+Our Work & Few-Shot Imitation Learning & Yes &  OOD & States, rewards, and dynamics \\
+\cite{prompt_dt} & Offline RL with Transformers & No & IID & Rewards \\
+\cite{kumar2020conservative} & Offline RL  & No &  NA & NA \\
+\cite{algo_dist}  & Offline RL as a Sequence Modeling Problem with Transformers & No & IID & Rewards \\
+\cite{lu2023structured} & Online RL with Structured State Space Models & Yes  & OOD & Rewards and dynamics \\
+\cite{DPT} & Offline RL as a Sequence Modeling Problem with Transformers & No & IID & Rewards \\
+\cite{adaptiveagentteam2023humantimescale} & Online RL with Transformers & Yes & OOD & Rewards, states and dynamics \\
+\bottomrule
+\end{tabular}
+}
+\caption{Comparison of our work with different related works}
+\end{table}
+\section{Conclusion and Future Work}
+In this work, we perform an in-depth study of the different factors which influence in-context learning for sequential decision making tasks.
+We find that a key ingredient during pretraining is to include entire trajectories in the context, which belong to the same environment level as the query trajectory a.k.a trajectory burstiness.
+In addition, we find that larger model and dataset sizes, as well as more task diversity, environment stochasticity, and trajectory burstiness, all result in better few-shot learning of out-of-distribution tasks.
+Leveraging these insights, we are able to train models which generalize to unseen MiniHack and Procgen tasks, using only a handful of expert demonstrations and no additional weight updates. To our knowledge, we are the first to demonstrate cross-task generalization on MiniHack and Procgen in the few-shot imitation learning setting. We also probe the limits of our approach by highlighting different failure modes, such as those caused by environment stochasticity or low tolerance for errors, which we believe constitute important directions for future work.
+\clearpage
+\newpage
+\bibliographystyle{assets/plainnat}
+\bibliography{paper}
+\clearpage
+\newpage
+\beginappendix
+\appendix
+\onecolumn
+\section{Experimental Setup}
+\subsection{Model Details}
+\label{app:model_details}
+\textbf{Model:}
+For most of our MiniHack experiments, we use a 100M causal transformer model with \texttt{num\_layers = 12}, \texttt{d\_model = 768}, and \texttt{num\_heads = 12}. For our model scaling experiments presented in \Cref{sec:dataset_size}, we consider the following values for \texttt{num\_layers}, \texttt{d\_model}, and \texttt{num\_heads} presented in \Cref{tab:model_details}. For procgen experiments, we use a 210M causal transformer with \texttt{num\_layer = 12} , \texttt{d\_model = 1024} and \texttt{n\_heads = 16}.
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c c}
+\hline
+Number of Parameters & \texttt{num\_layers} & \texttt{d\_model} & \texttt{num\_heads} \\
+\hline\hline
+1M & 4 & 128 & 4\\
+10M & 6 & 256 & 8 \\
+30M & 8 & 512 & 8 \\
+100M & 12 & 768 & 12 \\
+200M & 12 & 1024 & 16 \\
+310M & 18 & 1024 & 16 \\
+\hline
+\end{tabular}
+\caption{List of transformer model configurations with varying number of parameters, including details on the number of layers, model dimension, and the number of attention heads.}
+\label{tab:model_details}
+\end{table}
+For embedding the minihack observations, we use the \texttt{NetHackStateEmbeddingNet} from \href{https://github.com/facebookresearch/e3b/blob/main/minihack/src/models.py#L589}{https://github.com/facebookresearch/e3b/blob/main/minihack/src/models.py}. For embedding actions and rewards, we follow the same procedure as \cite{decision_transformer}. For the experiments presented in \Cref{sec:analysis}, we stack $3$ episodes along the sequence axis and restrict the context size to $900$ tokens. Since the episodes are of variable length, we stack the three episodes contiguously and then pad the rest of the sequence with padding tokens. For the MiniHack main results presented in \Cref{sec:main_results}, we stack $8$ episodes from the same level (i.e., $p_b = 1.0$) and use the context length of $2048$. Similarly for Procgen results presented in the same section, we stack $4$ episodes from the same level and use the context length of $2048$.
+\textbf{Training:} For all our experiments, we use AdamW optimizer \citep{shen2023unified} for optimization with cosine annealing learning rate scheduler. We train our models for 25 epochs in case of MiniHack and 100 epochs for Procgen environments.
+\subsubsection{Compute} We use 8 GPUs, each with 80GB of RAM, leveraging PyTorch's Distributed Data Parallel (DDP) capabilities for training. The largest model in our MiniHack experiments (100M), trained on a dataset comprising 100K MiniHack levels with a batch size of 64, took approximately 42 hours (1 day and 18 hours) for complete training. We emphasize that it is feasible to conduct the training with a single GPU; however, this approach would extend the training duration. For inference tasks, we utilize 1 GPU.
+\subsection{Environment Details}
+\label{app:env_details}
+\subsubsection{MiniHack}
+\textbf{Observation Space - }
+The observation space in MiniHack is designed as a dictionary-style structure. It primarily borrows keys from the foundational NetHack Learning Environment (NLE), with the addition of a few unique keys specific to MiniHack. To get the necessary observations from the environment, relevant options need to be specified during the initialization process. In this paper, we focus on a few key observation types:
+\begin{enumerate}
+    \item \textbf{Glyphs}: This refers to a 21x79 matrix comprising glyphs, which are identifiers of entities present on the map. Each glyph is unique and represents a specific entity. They are represented as integers ranging from 0 to 5991.
+    \item \textbf{Blstats}: This is a 26-dimensional vector that displays the status line found at the screen's bottom. It provides information about the player character's location, health status, attributes, and other vital statuses.
+    \item \textbf{Messages}: This is a 256-dimensional vector that represents the UTF-8 encoding of the message displayed on the screen's top.
+\end{enumerate}
+\textbf{Action Space - } In this work, all of our environments are navigation-based, and therefore, the action space consists of eight compass directions. Additionally, we create a padding action represented by the number 31 for padding purposes.
+\textbf{Rewards - } In all MiniHack environments, the rewards are sparse. In other words, the agent receives a reward of +1 if it successfully solves the task at hand, and 0 otherwise. The environment also penalizes the agent for bumping into lava, monsters, or walls.
+In our work, we consider the following environments -
+\begin{enumerate}
+    \item \texttt{MiniHack-MultiRoom-N6-v0} -  In this task, the agent must navigate through six rooms and reach the goal. Upon reaching the goal, the agent receives a reward of $+1$, otherwise, the reward is $0$. Collisions with walls incur a penalty of $-0.01$.
+    \item \texttt{MiniHack-MultiRoom-N6-Lava-v0} - In this task, the agent navigates through six rooms with lava-covered walls. The task is completed with a reward of $+1$ when the goal is reached; otherwise, the reward is $0$. Collisions with lava result in immediate death.
+    \item \texttt{MiniHack-MultiRoom-N4-Lava-v0} - This task is similar to \texttt{MiniHack-MultiRoom-N6-Lava-v0}, but with only four rooms. The agent must avoid lava-filled walls to complete the task.The task is completed with a reward of $+1$ when the goal is reached; otherwise, the reward is $0$. Collisions with lava result in immediate death.
+    \item \texttt{MiniHack-MazeWalk-9x9-v0} - The agent navigates a $9 \times 9$ maze. Upon reaching the goal, the agent receives a reward of $+1$ otherwise, the reward is $0$. Collisions with walls incur a penalty of $-0.01$.
+    \item \texttt{MiniHack-CorridorBattle-Dark-v0} -  The agent must battle the monsters strategically in a dark room, using corridors for isolation. The agent must keep track of its kill count. A reward of $+1$ is given upon survival, otherwise the agent receives a reward of $0$.
+    \item \texttt{MiniHack-MultiRoom-N6-LavaMonsters-v0} - The agent must navigate through six rooms filled with monsters and lava. To successfully complete this task, the agent must avoid the lava walls and monsters.  The agent receives a reward of $+1$, otherwise $0$.
+    \item \texttt{MiniHack-MultiRoom-N6-Open-v0} - The agent navigates through six rooms without doors. The reward structure is identical to that of \texttt{MiniHack-MultiRoom-N6-v0}.
+    \item \texttt{MiniHack-MultiRoom-N10-LavaOpen-v0} - In this task, the agent navigates through ten rooms to reach the goal. Collisions with lava walls result in immediate death. Upon reaching the goal, the agent receives a reward of $+1$.
+    \item \texttt{MiniHack-SimpleCrossingS11N5-v0} -  Here, the agent reaches the goal on the other side of the room. The agent receives a reward of $+1$ for reaching the goal, a penalty of $-0.01$ for hitting the walls, and $0$ otherwise.
+    \item \texttt{MiniHack-SimpleCrossingS9N2-v0} - This task is an easier version of \texttt{MiniHack-SimpleCrossingS11N5-v0}.
+    \item \texttt{MiniHack-River-Narrow-v0} - The agent crosses a river by using boulders to create a dry path, aiming to reach the goal on the other side. The agent receives a reward of $+1$ upon reaching the goal.
+    \item \texttt{MiniHack-HideNSeek-v0} - The agent is placed in a room filled with sight-blocking trees and clouds. The agent must avoid monsters while navigating the environment to reach the goal swiftly.
+    \item \texttt{MiniHack-MultiRoom-N2-Monster-v0} -  The agent must navigate through two rooms, avoiding monsters. It receives a reward of +1 upon reaching the goal and otherwise 0.
+    \item \texttt{MiniHack-LavaCrossingS11N5-v0} - This task is similar to SimpleCrossing, but the environment is filled with several lava streams running across the room, either horizontally or vertically. The agent needs to avoid the lava, as touching it would result in immediate death.
+    The agent receives a reward of +1 upon the completion of the task.
+    \item \texttt{MiniHack-Memento-F2-v0} - In this task, the agent is presented with a cue at the beginning of the episode and the agent must navigate through the corridor. The end of corridor leads to a two-path fork and the agent should choose one direction based on the cue it saw in the beginning. Upon choosing the correct path and reaching the goal, the gent receives +1 reward and -1 for stepping on the trap.
+    \item \texttt{MiniHack-Memento-F4-v0} - In this task, the agent is presented with a cue at the beginning of the episode and the agent must navigate through the corridor. The end of corridor leads to a four-path fork and the agent should choose one direction based on the cue it saw in the beginning. Upon choosing the correct path and reaching the goal, the gent receives +1 reward and -1 for stepping on the trap.
+    \item \texttt{MiniHack-MazeWalk-15x15-v0} - This task is a slightly harder task than \texttt{MiniHack-MazeWalk-15x15-v0}. The agent navigates a $15 \times 25$ maze. Upon reaching the goal, the agent receives a reward of $+1$ otherwise, the reward is $0$. Collisions with walls incur a penalty of $-0.01$.
+    \item \texttt{MiniHack-MazeWalk-45x15-v0} - This task is a very challenging task than \texttt{MiniHack-MazeWalk-9x9-v0} The agent navigates a $45 \times 15$ maze. Upon reaching the goal, the agent receives a reward of $+1$ otherwise, the reward is $0$. Collisions with walls incur a penalty of $-0.01$.
+    \item \texttt{MiniHack-Labyrinth-Small-v0} - This task is a very challenging task than \texttt{MiniHack-MazeWalk-9x9-v0} The agent navigates a $45 \times 15$ maze. Upon reaching the goal, the agent receives a reward of $+1$ otherwise, the reward is $0$. Collisions with walls incur a penalty of $-0.01$.
+\end{enumerate}
+For the task diversity experiments presented in \Cref{sec:dataset_size}, we use the environments in \Cref{tab:minihack_env_details}. Note that we randomly sample these environments to avoid selection bias.
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c c }
+\hline
+\textbf{Number of Tasks} & \textbf{Environments} \\
+\hline
+1 Task  & \texttt{MiniHack-MultiRoom-N6-v0},  \\
+\hline
+4 Tasks & \texttt{MiniHack-LavaCrossingS11N5-v0} \\
+        & \texttt{MiniHack-MultiRoom-N6-v0}\\
+        & \texttt{MiniHack-River-Narrow-v0}\\
+        & \texttt{MiniHack-MultiRoom-N10-LavaOpen-v0} \\
+\hline
+8 Tasks &  \texttt{MiniHack-SimpleCrossingS11N5-v0} \\
+        & \texttt{MiniHack-MultiRoom-N10-LavaOpen-v0}\\
+        &  \texttt{MiniHack-MultiRoom-N6-v0} \\
+        & \texttt{MiniHack-MultiRoom-N6-Lava-v0} \\
+        &  \texttt{MiniHack-MultiRoom-N4-Lava-v0} \\
+        &  \texttt{MiniHack-MazeWalk-9x9-v0} \\
+        &   \texttt{MiniHack-MultiRoom-N6-LavaOpen-v0} \\
+        &\texttt{MiniHack-CorridorBattle-Dark-v0} \\
+\hline
+12 Tasks & \texttt{MiniHack-MultiRoom-N6-v0}\\
+        & \texttt{MiniHack-MultiRoom-N6-Lava-v0} \\
+        &  \texttt{MiniHack-MazeWalk-9x9-v0}\\
+        &\texttt{MiniHack-CorridorBattle-Dark-v0}\\
+        &  \texttt{MiniHack-MultiRoom-N6-LavaMonsters-v0}\\
+        &\texttt{MiniHack-MultiRoom-N6-Open-v0} \\
+        &  \texttt{MiniHack-MultiRoom-N10-LavaOpen-v0} \\
+        &\texttt{MiniHack-SimpleCrossingS11N5-v0} \\
+        &  \texttt{MiniHack-SimpleCrossingS9N2-v0} \\
+        &\texttt{MiniHack-River-Narrow-v0} \\
+        &  \texttt{MiniHack-HideNSeek-v0} \\
+        &\texttt{MiniHack-MultiRoom-N2-Monster-v0} \\
+\hline
+Test Tasks & \texttt{MiniHack-Labyrinth-Small-v0} \\
+            & \texttt{MiniHack-MazeWalk-15x15-v0} \\
+            & \texttt{MiniHack-MazeWalk-45x19-v0} \\
+            & \texttt{MiniHack-Memento-F2-v0} \\
+            & \texttt{MiniHack-Memento-F4-v0} \\
+\hline
+\end{tabular}
+\caption{ This table illustrates the different environments used for the pretraining. }
+\label{tab:minihack_env_details}
+\end{table}
+\subsubsection{Procgen}
+\begin{enumerate}
+    \item \texttt{Bigfish -} In the task, the agent must only eat fish smaller than itself to survive. It receives a small reward for eating a smaller fish and a large reward for becoming bigger than all other fish. The episode ends once it happens.
+    \item \texttt{Bossfight - } In this task, the agent controls a starship, dodging boss attacks until the boss's shield goes down, then damages the boss to earn small rewards. After repeated damage and rewards, the boss is destroyed and the player wins a large final reward.
+    \item \texttt{Caveflyer - } In this task, the agent controls a starship through a cave network to reach a goal ship, moving like in Asteroids. Most reward comes from reaching the goal, but more can be earned by destroying targets along the way. There are lethal stationary and moving obstacles.
+    \item \texttt{Chaser - } In this task, the agent collects green orbs while avoiding enemies, with stars temporarily making enemies vulnerable. Eating a vulnerable enemy spawns an egg that hatches into a new enemy. The player gets small rewards per orb and a large reward for completing the level.
+    \item \texttt{Climber - } In this task, the agent climbs platforms collecting stars, getting small rewards per star and a big reward for all stars, ending the level. Lethal flying monsters are scattered throughout.
+    \item \texttt{Coinrun - } In this task, the player must collect a coin on the far right, starting on the far left, dodging saws, pacing enemies, and lethal gaps. Velocity info is no longer included, increasing the difficulty versus prior versions.
+    \item \texttt{Dodgeball - } In this task, the agent navigates a room with walls and enemies, losing if they touch a wall. The player and enemies move slowly, with enemies throwing balls and the player throwing balls in their facing direction. Hitting all enemies unlocks the exit platform; exiting earns a large reward.
+    \item \texttt{Fruitbot - } In this task, the agent controls a robot collecting fruit and avoiding non-fruit objects in a scrolling gap game, getting rewards or penalties. Reaching the end brings a large reward.
+    \item \texttt{Heist - } In this task, the agent controls a character in a maze filled with monsters. The goal is to reach the exit while collecting coins and avoiding monster attacks. More coins collected and reaching the exit results in a higher reward.
+    \item \texttt{Jumper - } In this task, the goal is to navigate the world to find a carrot, using double jumps to reach tricky platforms and avoid deadly spikes. A compass shows direction and distance to the carrot. The only reward comes from collecting the carrot which ends the episode.
+    \item \texttt{Leaper - } In this task, the agent crosses lanes of moving cars then hops logs on a river to reach the finish line and get a reward. Falling in the river ends the episode.
+    \item \texttt{Miner - } In this task, the agent digs through dirt to collect all diamonds in a world with gravity and physics, avoiding deadly falling boulders. Small rewards are given for diamonds, and a large reward for completing the level by exiting after collecting all diamonds.
+    \item \texttt{Maze - } In this task, the agent must navigate to find the sole piece of cheese. Upon reaching the cheese, the agent receives a large reward.
+    \item \texttt{Ninja - } As a ninja, the agent jumps across ledges avoiding bombs, charging jumps over time, and can clear bombs by tossing throwing stars. The player is rewarded for collecting the mushroom that ends the level.
+    \item \texttt{Plunder - } In this task, the player controls a ship firing cannonballs at enemy pirate ships before the on-screen timer runs out, while avoiding friendly ships, with rewards for hits and penalties for misses or hitting friendlies. Firing advances the timer, so ammunition must be conserved. Wooden obstacles can block line of sight to enemies.
+    \item \texttt{Starpilot - } A side scrolling shooter where all enemies target and fire at the player, requiring quick dodging to survive, with varying enemy speeds and health. Clouds block vision and meteors block movement.
+\end{enumerate}
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c }
+\hline
+\textbf{Train Tasks} & \textbf{Test Tasks} \\
+\hline
+Bigfish, Bossfight, Caveflyer, Chaser & Climber, Ninja \\
+Fruitbot, Dodgeball, Heist, Coinrun & Plunder, Jumper \\
+Leaper, Miner, Starpilot, Maze \\
+\hline
+\end{tabular}
+\caption{ This table illustrates the Train and Test split of Procgen }
+\label{tab:env_details_procgen}
+\end{table}
+Note that in some environments, the episodes are very long, making it harder to fit the full context into the transformer. To address this, we truncate episodes to 200 steps during both training and testing. In test environments, most games have fewer than 200 episode steps, except for Plunder where we only show the first 200 timesteps.
+\subsection{Dataset Details}
+\label{app:expert_data}
+\textbf{Data Collection  for training - }
+As mentioned in \Cref{sec:training_data}, we use E3B policies \citep{E3B} for our data collection. We first train E3B policies following the protocol mentioned in \cite{E3B} on all the above-mentioned environments individually until the performance is optimal. We then take these expert E3B models and use them for data collection. For each level in the environment, we rollout the expert E3B policies for five episodes and collect the observations (\texttt{glpyhs, messages, blstats}), actions and reward information. We repeat this for $L$ levels per environment. Additionally, we filter out the bad trajectories which did not solve the task and only utilize the optimal trajectories.
+For Procgen, we train a PPO policy for 25M timesteps until convergence on 10K levels for each task. We then use the final checkpoints to collect the trajectories.
+\textbf{Evaluation Data -} For evaluation on unseen environments (\texttt{Labyrinth, Memento-F2, Memento-F4, MazeWalk 15x15} and \texttt{MazeWalk 45x19}), we use human expert trajectories instead of E3B policies. The main reason for this is that the E3B policies are incentivized to explore more, which might hinder the agent from solving the task optimally. For each evaluation environment, we manually collect trajectories on 20 levels and use these human expert trajectories as prompts for evaluation.
+For Procgen, we use PPO trajectories as expert demonstrations. For each evaluation, we consider test 100 levels and rollout 5 episodes per level and aggregate the returns.
+\textbf{Multi-Task Data} - For all the results presented in \Cref{sec:analysis} we use the offline data collected from 12 tasks for pretraining. We consider a total number of levels $L = 100,000$ across all tasks or $8,300$ levels per task. For the task diversity experiments, we consider $100,000$, \ $25000$,  \ $12,500$, and $8,300$ levels per task for 1, 4, 8, and 12 tasks, respectively.
+Similarly for Procgen results, we use the offline data collect from 12 tasks for pretraining and for each task, we collect trajectories from 10k levels.
+\label{app:sequence_construction}
+\section{Additional Results}
+\subsection{Impact of Reward Tokens}
+In this section, we examine the significance of reward tokens on generalization. Given that our training exclusively leverages expert data, we hypothesize that reward tokens are not essential to the learning process. To test this, we conducted experiments where we omit reward tokens from the context, maintaining only state and action tokens. This was compared against the performance of models trained with the inclusion of reward tokens. As illustrated in Figure \ref{fig:reward_token}, the exclusion of reward tokens results in negligible performance degradation. In fact, some environments even show slight performance improvements. This phenomenon may be due to the nature of the training data, which consists of expert-level trajectories, making the reward information somewhat redundant.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{figures/reward_tokens.png}
+    \caption{\textbf{Impact of Reward Tokens}: This figure illustrates the impact of reward tokens on the performance. Overall, reward tokens do not seem to play a crucial role in the performance across on all five MiniHack tasks. }
+    \label{fig:reward_token}
+\end{figure}
+\subsection{Training Results}
+In this section, we report the performance of our pre-trained models on the training environments.  We adhere to the same evaluation protocol specified in \Cref{sec:train_eval} and report the mean and standard deviation of the episodic return across three model seeds.
+\subsubsection{MiniHack}
+ We present the results in \Cref{fig:12_train}, \ref{fig:8_train}, and \ref{fig:4_train}. Overall, the performance is good on most of the environments and there is no big difference between the zero-shot and one-shot performance. This means that the model is utilizing the in-weights information to solve these tasks and conditioning on one-shot demonstration is not helping much. However, we notice that the model struggles to perform well on some tasks like /texttt{River Narrow, Corridor Battle} and \texttt{Lava Crossing}. We speculate that these environments are hard to solve and there is a high penalty for death.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figures/12_envs_pretraining.png}
+    \caption{\textbf{Performance on Test Levels from 12 Train Tasks} - This figure illustrates the episodic returns on 12 environments used for pre-training, across three different trajectory burstiness values; $p_b \in \{0.0, 0.6, 1.0\}$. Overall, the performance is good on most of the environments and there is no big difference between the zero-shot and one-shot performance. This means that the model is utilizing the in-weights information to solve these tasks, as expected. However, we notice that the agent's performance on \texttt{Corridor Battle, Six Rooms, River Narrow} is rather poor. }
+    \label{fig:12_train}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figures/8_envs_pretraining.png}
+    \caption{\textbf{Performance on Test Levels from 8 Train Tasks} - This figure illustrates the episodic returns on 8 pretraining environments across three different trajectory burstiness values; $p_b \in \{0.0, 0.6, 1.0\}$. Overall, the performance is good on most of the environments and there is no big difference between the zero-shot and one-shot performance. This means that the model is utilizing the in-weights information to solve these tasks, as expected. However, we notice that the performance on \texttt{Corridor Battle} is rather poor. }
+    \label{fig:8_train}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{figures/4_envs_pretraining.png}
+    \caption{\textbf{Performance on Test Levels from 4 Train Tasks} - This figure illustrates the episodic returns on 4 pretraining environments across three different trajectory burstiness values; $p_b \in \{0.0, 0.6, 1.0\}$. Overall, the performance is good on most of the environments and there is no big difference between the zero-shot and one-shot performance. This means that the model is utilizing the in-weights information to solve these tasks, as expected. However, we notice that the performance on \texttt{Lava Crossing, River Narrow} is rather poor.  }
+    \label{fig:4_train}
+\end{figure}
+\subsubsection{Procgen}
+We present results in \Cref{fig:procgen_train}. We can see that the transformer model is able to perform consistently well across all the training environments. We also notice that there is not big difference in zero-shot and few-shot performance.
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figures/train_results.png}
+    \caption{Procgen Train Environments Results. We observe that the model is able to perform well across all the training environments. }
+    \label{fig:procgen_train}
+\end{figure}
+\subsection{Task Diversity Results}
+In this section, we extend the results presented in \Cref{sec:analysis} by showing the performance on unseen environments for a model pre-trained on 4 tasks. We can see that the claims made in  \Cref{sec:analysis} still hold - increasing the diversity of tasks improves generalization to new yet similar tasks via in-weights learning, but it is not clear how the diversity affects the model's ability to 'soft-copy' via in-context learning. In \Cref{app:env_scaling} we see that above a certain diversity of tasks, the in-context learning ability plateaus, while for lower task diversity, some novel tasks are capable of demonstrating in-context learning, while others are not.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/env_scaling_full.png}
+    \caption{\textbf{Effect of Task Diversity}: This figure illustrates the effect of the number of different training tasks on the average episode return for 5 unseen MiniHack tasks. The dashed line indicates the zero-shot performance, and the solid line represents the one-shot performance. Overall, both the one-shot and zero-shot performances improve when increasing the number of tasks from 1 to 8, but then they plateau. This suggests that increasing the task diversity can help both the in-weights and in-context learning but the improvements have diminishing returns and may depend on the similarity between the train and test tasks. The error bars represent the standard deviation across 3 model seeds.}
+    \label{app:env_scaling}
+\end{figure}
+\subsection{Procgen Sticky Action Results}
+\label{app:procgen_sticky}
+In this section, we perform evaluations on Procgen test environments with sticky actions with sticky probability 0.3 (higher than what we consider in \Cref{sec:main_expts}). We follow similar evaluation protocol as mentioned in \Cref{sec:main_expts} and report the performance across 5 procgen tasks. As we can see, the performance of our model is consistent with the performance in \Cref{fig:Procgen_results_sticky}. While we outperform the most of the baselines, the Hashmap is competitive in case of plunder. Despite the increase in stochasticity, we find our main conclusions are inline with \Cref{sec:main_expts}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figures/few_shot_results_procgen_1_train_0.3.pdf}
+    \caption{\textbf{Sticky Action Evaluations} comparing (1) our multi-trajectory transformer conditioned on different number of demonstrations from the same level, (2) Hashmap baseline conditioned on the same demonstrations, and (3) BC baseline conditioned on zero and one demonstration due to context length constraints.
+    }
+    \label{fig:Procgen_results_sticky}
+\end{figure}
+\section{Broader Impact}
+The ability to generalize to unseen tasks with the help of single demonstration is crucial for many real world applications like robotics, self-driving cars. In this work we focus on how to achieve this goal with the help of in-context learning. More specifically, our work focuses on highlighting how different factors like trajectory burstiness $p_b$, environment dynamics, task dynamics, model and dataset sizes influence in-context learning in sequential decision-making settings. Since our results are based on Minihack and Procgen environments, which are somewhat simplified comapared to real-world settings, we do not foresee any potential negative impact on the society. We believe that our work could provide some useful insights into using transformers for sequential decision-making settings.
+\section{Hyperparameters}
+We present the hyperparameters used in this work in \Cref{tab:hps}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c c}
+        \hline
+\textbf{Hyperparameters} & \textbf{Values} \\
+\hline
+Batch Size & 64 \\
+Number of Levels & \{ 10000, 30000, 100000\} \\
+Context Size & 900 \\
+Vocabulary Size & 32 \\
+Trajectory Burstiness $p_b$ & \{ 0.0, 0.6, 1.0 \} \\
+Sticky Probability & 0.2 \\
+Number of Epochs & 25 \\
+Learning Rate & 0.0001 \\
+Learning Rate Scheduler & Consine Annealing \\
+Minimum Learning Rate & 1.0e-06 \\
+Model Size & \{128, 256, 512, 768, 1024 \} \\
+Number of Layers & \{ 4, 6, 8, 12,\} \\
+Number of Heads & \{ 4, 8, 12 \} \\
+Vocabulary Size & 32 \\
+Dropout & 0.2 \\
+Nethack Hidden Size & 64 \\
+Nethack Embedding Size & \{128, 256, 512, 768 \} \\
+Crop Size & 12 \\
+Nethack Number of Layers & 2 \\
+Nethack Dropout & 0.1 \\
+\hline
+    \end{tabular}
+    \caption{List of hyperparameters used in our experiments}
+    \label{tab:hps}
+\end{table}
+This work was funded by Meta AI.
+\end{document}

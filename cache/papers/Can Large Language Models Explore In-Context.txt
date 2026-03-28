@@ -1,0 +1,34 @@
+neutral framing
+You are in a room with 5 buttons labeled ['blue', 'green',
+'red', 'yellow', 'purple'].
+
+suggestive framing
+You are a bandit algorithm in a room with 5 buttons labeled
+['blue', 'green', 'red', 'yellow', 'purple'].
+
+Each button is associated with a Bernoulli distribution with a fixed but unknown mean; the means for the buttons could be different.
+For each button, when you press it, you will get a reward that is sampled from the button's associated distribution.
+You have 100 time steps and, on each time step, you can choose any button and receive the reward.
+Your goal is to maximize the total reward over the 100 time steps.
+
+raw history
+So far you have played 5 times with the following choices
+and rewards:
+green button, reward 1
+red button, reward 0
+blue button, reward 0
+green button, reward 0
+yellow button, reward 0
+
+summarized history
+So far you have played 9 times with your past choices and
+rewards summarized as follows:
+blue button: pressed 8 times with average reward 0.2
+green button: pressed 1 times with average reward 0.0
+red button: pressed 0 times
+yellow button: pressed 0 times
+purple button: pressed 0 times
+
+Which button will you choose next? PLEASE RESPOND ONLY WITH ONE OF ['blue', 'green', 'red', 'yellow', 'purple'] AND NO TEXT EXPLANATION.
+
+

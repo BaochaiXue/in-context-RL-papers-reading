@@ -1,0 +1,173 @@
+\section{Introduction}\label{sec:intro}
+
+
+\definecolor{userBg}{RGB}{245, 245, 245}
+\definecolor{userBorder}{RGB}{200, 200, 200}
+\definecolor{modelBg}{RGB}{242, 247, 255}
+\definecolor{modelBorder}{RGB}{179, 206, 255}
+\definecolor{rewardBg}{RGB}{255, 219, 187} 
+\definecolor{rewardBorder}{RGB}{255, 140, 0}
+
+\newcommand{\usericon}{\raisebox{0.3ex}{\textcolor{black}{\scriptsize\faUser}}}
+\newcommand{\llamaicon}{\raisebox{0.3ex}{\includegraphics[height=1.1em]{figures/llama.pdf}}}
+
+\newcommand{\userbox}[1]{%
+    \usericon~~\begin{tcolorbox}[
+        colback=userBg,
+        colframe=userBorder,
+        boxrule=0.5pt,
+        arc=2mm,
+        left=0mm,
+        right=0mm,
+        top=0.5mm,
+        bottom=0.5mm,
+        fontupper=\scriptsize,
+        nobeforeafter,
+        valign=center,
+        width=0.9\textwidth,
+        halign=flush left       
+    ]#1\end{tcolorbox}%
+}
+
+
+\newcommand{\modelbox}[1]{%
+    \hfill\begin{tcolorbox}[
+        colback=modelBg,
+        colframe=modelBorder,
+        boxrule=0.5pt,
+        arc=2mm,
+        left=0mm,
+        right=0mm,
+        top=0.5mm,
+        bottom=0.5mm,
+        fontupper=\scriptsize,
+        nobeforeafter,
+        valign=center,
+        width=0.9\textwidth,   %
+        halign=flush right      %
+    ]#1\end{tcolorbox}~~\llamaicon%
+}
+
+\newcommand{\rewardbox}[1]{%
+    \hfill\begin{tcolorbox}[
+        colback=rewardBg,
+        colframe=rewardBorder,
+        boxrule=0.5pt,
+        arc=2mm,
+        left=1.5mm,
+        right=1.5mm,
+        top=0.5mm,
+        bottom=0.5mm,
+        fontupper=\scriptsize,
+        nobeforeafter,
+        valign=center,
+        width=0.9\textwidth,   %
+        halign=center           %
+    ]#1\end{tcolorbox}\hfill%
+}
+
+
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \vspace{-45pt}
+
+    \centering
+    \begin{tcolorbox}[
+        width=0.48\textwidth,
+        colback=white,
+        colframe=black!30,
+        boxrule=0.5pt,
+        arc=2mm,
+        fontupper=\footnotesize
+    ]
+    
+    \begin{tcolorbox}[
+        colback=black!3,
+        colframe=black!10,
+        boxrule=0.5pt,
+        arc=1mm,
+        left=0.5mm,
+        right=0.5mm,
+        top=0.8mm,
+        bottom=0.8mm,
+        fontupper=\scriptsize
+    ]
+    \textbf{System Prompt:} \textit{Use the past interactions to learn and provide the best possible answer for each query, aiming to earn positive feedback.}
+    \end{tcolorbox}
+
+    \vspace{2pt}
+
+    \userbox{Query: It declined my transfer.}\par\vspace{2pt}
+    \modelbox{Intent: declined transfer}\par\vspace{2pt}
+    \rewardbox{Good job!}
+
+    \vspace{5pt}
+
+    \userbox{Query: If I'm getting my identity verified, what all do I need?}\par\vspace{2pt}
+    \modelbox{Intent: verify top up}\par\vspace{2pt}
+    \rewardbox{The answer is wrong.}
+
+    \vspace{5pt}
+
+
+
+    \userbox{Query: How do I contact customer support about my declined transfer?}\par\vspace{2pt}
+    \modelbox{Intent: \textbf{\textcolor{red}{contactless not working}}}
+
+    \end{tcolorbox}    
+    \vspace{-10pt}
+    \caption{\textbf{Illustration of in-context bandit reinforcement learning.} The context shows a sequence of 
+    \colorbox{userBg}{\textcolor{black}{user queries}}, 
+    \colorbox{modelBg}{\textcolor{black}{model responses}}, and 
+    \colorbox{rewardBg}{\textcolor{black}{feedback}} in the \banking 77-label classification domain. 
+    The model learns in-context from rewards given to its previous predictions. The final prediction (shown in \textcolor{red}{red}) represents the model's current guess.}
+    \label{fig:intro}
+\vspace{-15pt}
+\end{wrapfigure} 
+
+
+
+Large language models (LLMs) have been shown to exhibit in-context learning (ICL), a form of supervised learning that does not require parameter updates~\citep{brown2020language}. 
+ICL relies on including supervised input-output pairs in the LLM context (i.e., prompt),\footnote{We use the terms \emph{prompt} and \emph{context} interchangeably.} and it has proven effective with few~\citep{brown2020language} and many~\citep{bertsch2024incontext, agarwal2024manyshotincontextlearning} examples.
+We ask whether the ability to learn in-context extends to contextual bandit reinforcement learning (RL), i.e., whether language models can effectively perform in-context reinforcement learning (ICRL) with stateful single-step interaction episodes. 
+
+ICRL naturally combines ICL and reinforcement learning (RL). 
+In contrast to ICL, as an RL process, ICRL does not rely on annotated labels or a fixed dataset. Instead of constructing the LLM context from supervised input-output pairs, the LLM context is built from triplets of an input, a model's predicted output, and its reward. As more input examples are observed, the model has access to additional triplets in context, leading to an online and continual learning scenario, where model capabilities improve over time. These triplets are followed by a new input, for which the model must predict an output. In this in-context framework, adding a past episode to the context corresponds, in standard fine-tuning RL settings, to using an episode at training time. \autoref{fig:intro} illustrates bandit ICRL prompting. 
+
+ICRL is a desirable ability of LLMs. It allows learning new tasks interactively, in an online setting, at deployment time (without parameter updates), without requiring demonstration data. This learning signal may be human-generated, automatically provided~\citep[i.e., a program successfully completes; ][]{gehring2024rlefgroundingcodellms}, or even AI-generated~\citep{zhang2024generative}.
+
+
+
+
+
+We study the bandit ICRL capabilities of \llama{}~3.1~\citep{dubey2024llama}, \qwen{}{2.5}~\citep{qwen2024qwen25}, and \gemini~1.5 Flash~\citep{geminiteam2024geminifamilyhighlycapable}.\footnote{We also conduct early experiments on  \phillm{}-3.5-mini~\citep{abdin2024phi3technicalreporthighly}, included in the appendix.}
+Following existing bandit learning literature~\citep{pmlr-v97-zhang19b, bietti2021contextual}, we use many-label classification benchmarks to create contextual bandit RL scenarios, which simplify experimentation and evaluation, while focusing on the fundamental skills of exploration and learning from rewards. 
+
+
+
+
+
+
+
+
+
+
+We find that LLMs demonstrate innate ICRL capabilities, but that two choices are critical for effective learning. 
+First, a relatively high stochasticity level is needed to encourage exploration. Second, using only triples with positive rewards performs best.%
+The latter choice creates a cosmetic similarity to ICL. However, ICRL remains fundamentally different: in ICRL the model must actively explore to find (i.e., generate) these positive triplets, rather than having an expert annotator provide them. 
+
+
+
+
+
+A recurring observation in our experiments is the relative instability of the process, as performance can suddenly dip significantly, before often quickly recovering. 
+We propose a new method, \textit{\explorative}, to add stochasticity to the prompt construction by only sampling some of the past episodes observed in context, instead of increasing the temperature. 
+This enhances exploration, stabilizes performance, and maintains relatively shorter contexts. 
+Interestingly, this also allows the model to learn in the presence of negative signals.%
+We also study the scaling trends of ICRL, using all \qwen{2.5} modeling sizes between 0.5B and 72B.
+There is a strong correlation between performance and model scale, but across all scales the relation between methods is maintained, with regard to both performance and stability.
+
+Overall, we demonstrate that applying bandit ICRL consistently and significantly enhances the performance of LLMs. 
+For example, in the \banking~\citep{Casanueva2020} classification task, \qwen{2.5}-7B improves from 6.2\% zero-shot accuracy to 72.2\% through \explorative, without access to gold labels and without any updates of model parameters. 
+These results suggest that LLM hold previously understudied  capabilities for in-context learning, and lay the foundation for their further development and study in future work.
+Our code, data, and experimental logs are available at \url{https://lil-lab.github.io/icrl/}. 

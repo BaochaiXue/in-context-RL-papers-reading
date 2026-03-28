@@ -1,0 +1,395 @@
+% %Miscellaneous Packages
+% \usepackage{paralist}
+\usepackage{times}
+% % \usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsthm}
+% % \usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{natbib}
+
+% \usepackage{subfig}
+% \usepackage{subfigure}
+
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{microtype}
+\usepackage{wallpaper}
+\usepackage{lipsum}
+
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+% \usepackage{todonotes}
+% \usepackage{easy-todo}
+
+% \usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\usepackage{imakeidx}
+\hypersetup{
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdfnewwindow=true,
+  colorlinks,
+  linktocpage=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+\urlstyle{same}
+
+\usepackage{multirow}
+
+
+
+\usepackage{fixme}
+\fxsetup{
+    status=draft,
+    mode=multiuser,
+    layout=inline,
+    theme=color
+}
+\FXRegisterAuthor{sm}{asm}{\color{red}SM}
+\FXRegisterAuthor{js}{ajs}{\color{magenta}JS}
+\FXRegisterAuthor{rn}{rdn}{\color{blue}R}
+\FXRegisterAuthor{qx}{aqx}{\color{cyan}QX}
+
+\definecolor{fxnote}{rgb}{0.8000,0.0000,0.0000}
+
+\usepackage{colonequals}
+\usepackage{nicefrac}
+
+
+
+% Algorithm Environment Definition
+
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+% \usepackage[noend]{algpseudocode}
+\usepackage{booktabs}
+
+
+
+
+% For figures
+\usepackage{xcolor}
+\usepackage{xspace}
+% \usepackage{subfig}
+% \usepackage{subfigure}
+\usepackage{makecell}
+%\usepackage[capitalize]{cleveref}
+\usepackage{wrapfig}
+\usepackage{varwidth}
+
+
+
+
+
+%Algorithm Definitions
+\newcommand{\cb}{\textcolor{green!60!black}{CB{}\xspace}}
+\newcommand{\onp}{\textcolor{green!60!black}{Onpolicy{}\xspace}}
+\newcommand{\cbvar}{\textcolor{green!60!black}{CB-Var{}\xspace}}
+\newcommand{\mcucb}{\textcolor{green!60!black}{MCUCB{}\xspace}}
+\newcommand{\rev}{\textcolor{green!60!black}{ReVar{}\xspace\xspace}}
+
+\newcommand{\dpt}{\textcolor{green!60!black}{DPT}}
+\newcommand{\dptg}{\textcolor{green!60!black}{DPT-greedy}}
+\newcommand{\pred}{\textcolor{green!60!black}{PreDeToR}}
+\newcommand{\predt}{\textcolor{green!60!black}{PreDeToR-$\tau$}}
+\newcommand{\ad}{\textcolor{green!60!black}{AD}}
+
+\newcommand{\mlin}{\textcolor{green!60!black}{MLinGreedy}}
+
+\newcommand{\gt}{\textcolor{green!60!black}{-$\tau$}}
+
+\newcommand{\unif}{\textcolor{green!60!black}{Uniform}}
+\newcommand{\ts}{\textcolor{green!60!black}{Thomp}}
+\newcommand{\ucb}{\textcolor{green!60!black}{UCB}}
+\newcommand{\linucb}{\textcolor{green!60!black}{LinUCB}}
+\newcommand{\estr}{\textcolor{green!60!black}{LowOFUL}}
+\newcommand{\estro}{\textcolor{green!60!black}{LowOFUL (oracle)}}
+\newcommand{\bayes}{\textcolor{green!60!black}{BayesPred}}
+\newcommand{\linucbt}{\textcolor{green!60!black}{LinUCB-$\tau$}}
+
+\newcommand{\ora}{\textcolor{green!60!black}{Oracle{}\xspace\xspace}}
+
+\newcommand{\ao}{\textcolor{green!60!black}{A-Optimal{}\xspace\xspace}}
+\newcommand{\go}{\textcolor{green!60!black}{G-Optimal{}\xspace\xspace}}
+
+
+
+
+
+
+%Theory Environment Definitions
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{corollary}{Corollary}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{assumption}{Assumption}
+
+% \newtheorem{lemma}{Lemma}
+
+
+\theoremstyle{definition}
+% \newtheorem{definition}{Definition}
+\newtheorem{fact}{Fact}
+\newtheorem{discussion}{Discussion}
+\newtheorem{example}{Example}
+% \newtheorem{remark}{Remark}
+
+\theoremstyle{plain}
+\newtheorem{innercustomtheorem}{Theorem}
+\newenvironment{customtheorem}[1]
+  {\renewcommand\theinnercustomtheorem{#1}\innercustomtheorem}
+  {\endinnercustomtheorem}
+
+
+\newtheorem{innercustomlemma}{Lemma}
+\newenvironment{customlemma}[1]
+  {\renewcommand\theinnercustomlemma{#1}\innercustomlemma}
+  {\endinnercustomlemma}
+  
+\newtheorem{innercustomproposition}{Proposition}
+\newenvironment{customproposition}[1]
+  {\renewcommand\theinnercustomproposition{#1}\innercustomproposition}
+  {\endinnercustomproposition}
+  
+\newtheorem{innercustomcorollary}{Corollary}
+\newenvironment{customcorollary}[1]
+  {\renewcommand\theinnercustomcorollary{#1}\innercustomcorollary}
+  {\endinnercustomcorollary}
+  
+\theoremstyle{definition}
+\newtheorem{innercustomproof}{Proof}
+\newenvironment{customproof}[1]
+  {\renewcommand\theinnercustomproof{#1}\innercustomproof}
+  {\endinnercustomproof}
+
+
+
+
+
+%Math Environment Definitions
+
+\newcommand{\env}{\mathcal{E}^{\text{w}}_1}
+\DeclareMathOperator{\Vr}{Var}
+
+\newcommand{\cT}{\mathcal{T}}
+
+\newcommand{\wU}{\widehat{\mathbf{U}}}
+\newcommand{\wV}{\widehat{\mathbf{V}}}
+
+\newcommand{\Dpr}{\mathcal{D}_{\text{pre}}}
+\newcommand{\Dtr}{\mathcal{D}_{\text{train}}}
+\newcommand{\Dts}{\mathcal{D}_{\text{test}}}
+\newcommand{\Mpr}{M_{\text{pre}}}
+\newcommand{\Mtr}{M_{\text{train}}}
+\newcommand{\Mts}{M_{\text{test}}}
+\newcommand{\cTp}{\mathcal{T}_{\text{pre}}}
+\newcommand{\cTs}{\mathcal{T}_{\text{test}}}
+
+\newcommand{\Htr}{\mathcal{H}_{\text{train}}}
+
+\renewcommand{\wr}{\widehat{r}}
+\newcommand{\Anc}{\mathcal{A}^{\text{inv}}}
+
+
+\newcommand{\bK}{\mathbf{K}}
+\newcommand{\rx}{\overline{\mathbf{x}}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\tR}{\widetilde{\mathcal{R}}}
+\newcommand{\wq}{\widehat{q}}
+\newcommand{\ws}{\widehat{d}}
+\newcommand{\Tr}{\mathbf{Tr}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bP}{\mathbf{P}}
+% \newcommand{\det}{\mathbf{det}}
+\newcommand{\adj}{\mathbf{adj}}
+\newcommand{\wv}{\widehat{v}}
+\newcommand{\tX}{\widetilde{\mathbf{X}}}
+\newcommand{\wP}{\widehat{P}}
+% \newcommand{\wV}{\widehat{V}}
+\newcommand{\wmu}{\widehat{\mu}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\bias}{\mathrm{bias}}
+\newcommand{\wsigma}{\widehat{\sigma}}
+\newcommand{\usigma}{\widehat{\sigma^u}}
+
+% \newcommand{\bU}{\overline{U}}
+\newcommand{\tg}{\widetilde{g}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\tb}{\widetilde{\mathbf{b}}}
+\newcommand{\ob}{\overline{\mathbf{b}}}
+\newcommand{\ub}{\underline{\mathbf{b}}}
+\newcommand{\ug}{\underline{g}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\oA}{\overline{\mathbf{A}}}
+\newcommand{\wA}{\widehat{\mathbf{A}}}
+\newcommand{\woA}{\widehat{\overline{\mathbf{A}}}}
+\newcommand{\bbA}{\mathbf{\overline{A}}}
+\newcommand{\uA}{\underline{\mathbf{A}}}
+\newcommand{\blambda}{\mathbf{\lambda}}
+
+\newcommand{\bL}{\overline{\mathcal{L}}}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Alt}{\bm{Alt}}
+
+
+\newcommand{\tabl}[2]{\begin{tabular}{#1} #2 \end{tabular}}
+\newcommand{\ith}[2][th]{$#2^{\text{#1}}$}
+\newcommand{\ttheta}{\widetilde{\btheta}}
+\newcommand{\bTheta}{\mathbf{\Theta}}
+\newcommand{\wTheta}{\widehat{\mathbf{\Theta}}}
+\newcommand{\tTheta}{\widetilde{\bTheta}}
+\newcommand{\wtheta}{\widehat{\btheta}}
+\newcommand{\tz}{\widetilde{\mathbf{z}}}
+
+\newcommand{\bZ}{\mathbf{Z}}
+
+\newcommand{\uV}{\underline{\mathbf{V}}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\tP}{\widetilde{P}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\oV}{\overline{\mathbf{V}}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\tv}{\widetilde{\mathbf{x}}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\whd}{\widehat{d}}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\tx}{\widetilde{\mathbf{x}}}
+% \newcommand{\wb}{\widehat{\mathbf{b}}}
+\newcommand{\wlambda}{\widehat{\mathbf{\lambda}}}
+\newcommand{\rob}[1]{{\color{purple}{RN: #1}}}
+
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bpi}{\mathbf{\pi}}
+
+%\def \bx{\boldsymbol{x}}
+\def \btheta{\boldsymbol{\theta}}
+
+\newcommand{\tr}{^\mathsf{\scriptscriptstyle T}}
+\newcommand{\indic}[1]{\mathbb{I}\{#1\}}
+
+\def\argmax{\mathop{\rm arg\,max}}
+\def\argmin{\mathop{\rm arg\,min}}
+\def\Var{{\bf Var}}
+
+%\DeclareMathOperator*{\argmin}{arg\,min}
+%\DeclareMathOperator*{\argmax}{arg\,max}
+
+\def\V{{\mathcal{V}}}
+\def \1{\mathds{1}}
+\def \hyp{\underset{H_k}{\overset{H_j}{\gtrless}}}
+
+\newcommand{\alg}{\mathrm{Alg}}
+
+\newcommand{\U}{\mathcal{U}}
+
+\newcommand{\T}{\mathrm{TF}}
+\newcommand{\rT}{\mathrm{TF^{\mathbf{r}}}}
+
+\newcommand{\Ev}{\mathcal{E}}
+\newcommand{\wb}{\widehat{\mathbf{b}}}
+\newcommand{\od}{\overline{d}}
+\newcommand{\td}{\widetilde{d}}
+\newcommand{\wbd}{\widehat{d}}
+\newcommand{\ud}{\widetilde{d}^u}
+\newcommand{\wB}{\widehat{B}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\woB}{\widehat{\overline{B}}}
+\newcommand{\oB}{\overline{B}}
+\newcommand{\bSigma}{\mathbf{\Sigma}}
+\newcommand{\oSigma}{\overline{\mathbf{\Sigma}}}
+\newcommand{\wSigma}{\widehat{\mathbf{\Sigma}}}
+\newcommand{\bbSigma}{\mathbf{\overline{\Sigma}}}
+
+\newcommand{\cd}{\mathcal{C}}
+\newcommand{\pt}{\mathrm{pt}}
+\newcommand{\st}{\mathcal{T}}
+
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\SG}{\mathcal{SG}}
+\newcommand{\SE}{\mathcal{SE}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Bt}{\text{Beta}}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\hV}{\widehat{V}}
+\newcommand{\supr}{\textit{sup}}
+\newcommand{\Pb}{\mathbb{P}}
+
+% \newcommand{\defn}{\stackrel{\triangle}{=}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\M}{\mathbf{M}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\tL}{\widetilde{\mathcal{L}}}
+% \renewcommand{\M}{\mathcal{M}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\wX}{\widehat{\mathcal{X}}}
+\newcommand{\of}{\overline{f}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\Hs}{\mathcal{H}}
+\newcommand{\Hyb}{\bm{\mathcal{H}}}
+\newcommand{\Pw}{\mathcal{P}}
+% \newcommand{\T}{\mathcal{T}}
+\newcommand{\KL}{\mathrm{KL}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Z}{\mathcal{Z}}
+%\newcommand{\I}{\mathbf{I}}
+%\newcommand{\D}{\mathcal{D}}
+% \newcommand{\I}{\mathcal{I}}
+\renewcommand{\H}{\mathcal{H}}
+% \newcommand{\keywords}[1]{{\bf Keywords: } #1\par}
+% 
+% 
+% \def\thanks#1{
+%     \protected@xdef\@thanks{\@thanks
+%         \protect\footnotetext[\the\c@footnote]{#1}}%
+% }
+
+\newcommand{\fn}{\hat{F_n}(x)}
+\newcommand{\wfn}{w^+(1-{\hat F_n}^+(x))}
+\newcommand{\intinfinity}{\int_0^{+\infty}}
+\definecolor{bleu2}{RGB}{28,50,114} % bleu S
+\newcommand{\wfnn}{w^{-}(1-{\hat F_n}^-(x))}
+
+\newcommand{\holder}{H\"{o}lder }
+\newcommand{\onenminus}{_{i=1}^{n-1}}
+\newcommand{\nalpha}{n^{(1-\alpha)} }
+\newcommand{\ncalpha} {\left \lceil{\nalpha} \right \rceil }
+
+\xdefinecolor{darkgreen}{rgb}{0,0.35,0}
+
+\newcommand\blfootnote[1]{
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}
+  \endgroup
+}

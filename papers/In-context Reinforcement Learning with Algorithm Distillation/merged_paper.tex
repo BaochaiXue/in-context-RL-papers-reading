@@ -1,0 +1,773 @@
+\documentclass{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{color}
+\usepackage{xcolor,colortbl}
+\usepackage{ml-colors}
+\definecolor{ourmethod}{gray}{0.93}
+\definecolor{dmblue}{RGB}{0, 83, 214}
+\newcommand{\bftab}{\fontseries{b}\selectfont}
+\usepackage{glossaries}
+\loadglsentries{glossary}
+\makeglossaries
+\glsdisablehyper
+\setlength{\parindent}{0pt}
+\usepackage{titlesec}
+\titlespacing*{\paragraph}{0pt}{0.5em}{0.5em}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{
+  backgroundcolor=black!10,
+  roundcorner=10pt,
+  skipabove=0.5em,
+  skipbelow=0.5em
+}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata}
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{graphs}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{enumitem}
+\usepackage{alphalph}
+\renewcommand*{\thesubfigure}{
+\alphalph{\value{subfigure}}
+}
+\usepackage{pgffor}
+\usepackage{soul}
+\newtheoremstyle{thm}
+  {2pt}
+  {2pt}
+  {\itshape}
+  {}
+  {\bfseries}
+  {.}
+  {.5em}
+  {}
+\theoremstyle{thm}
+\newtheorem{assumption}{Assumption}
+\usepackage{thmtools}
+\usepackage{thm-restate}
+\declaretheorem[name=Theorem]{thm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\usepackage[colorlinks]{hyperref}
+\colorlet{hypercolor}{dmblue}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=hypercolor,
+  citecolor=hypercolor,
+  filecolor=hypercolor,
+  urlcolor=hypercolor}
+\usepackage{textcomp}
+\usepackage{etoolbox}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{stackengine}
+\usepackage{wrapfig}
+\def\code#1{\texttt{#1}}
+\newcommand{\figref}[1]{Figure~{\ref{#1}}}
+\newcommand{\eqnref}[1]{Eqn.~({\ref{#1}})}
+\newcommand{\acrlongemph}[1]{\emph{\acrlong{#1}}}
+\newcommand{\acrfullemph}[1]{\acrlongemph{#1}~(\acrshort{#1})}
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\data}{\ensuremath{\mathcal{D}}}
+\newcommand{\bmodel}{\ensuremath{\beta}}
+\newcommand{\algo}{\ensuremath{P}}
+\newcommand{\note}[1]{{\color{mlgreen} \texttt{\# #1}}}
+\newcommand{\thought}[1]{{\color{mlyellow} \texttt{\# #1}}}
+\newcommand{\todo}[1]{{\color{mlred} \texttt{\# #1}}}
+\newcommand{\angelos}[1]{{\color{mlblue} \texttt{AF: #1}}}
+\newcommand{\misha}[1]{{\color{mlred} \texttt{ML: #1}}}
+\newcommand{\vlad}[1]{{\color{mlgreen} \texttt{VM: #1}}}
+\newcommand{\satinder}[1]{{\color{mlorange} \texttt{SS: #1}}}
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\newcommand{\dummyfig}[1]{
+  \centering
+  \fbox{
+    \begin{minipage}[c][0.2\textheight][c]{0.8\textwidth}
+      \centering{#1}
+    \end{minipage}
+  }
+}
+\newcommand{\alert}[1]{\textbf{}}
+\newcommand{\BEAS}{\begin{eqnarray*}}
+\newcommand{\EEAS}{\end{eqnarray*}}
+\newcommand{\BEA}{\begin{eqnarray}}
+\newcommand{\EEA}{\end{eqnarray}}
+\newcommand{\BEQ}{\begin{equation}}
+\newcommand{\EEQ}{\end{equation}}
+\newcommand{\BIT}{\begin{itemize}}
+\newcommand{\EIT}{\end{itemize}}
+\newcommand{\BNUM}{\begin{enumerate}}
+\newcommand{\ENUM}{\end{enumerate}}
+\newcommand{\BEL}[1]{\begin{equation}\label{#1}}
+\newcommand{\EEL}{\end{equation}}
+\newcommand{\fullname}{Algorithm Distillation }
+\newcommand{\fullnamenospace}{Algorithm Distillation}
+\newcommand{\namedef}{Algorithm Distillation (AD) }
+\newcommand{\name}{AD }
+\newcommand{\namedefnospace}{Algorithm Distillation (AD)}
+\newcommand{\namenospace}{AD}
+\newcommand{\mdp}{\mathcal{M}}
+\newcommand{\state}{s}
+\newcommand{\obs}{\mathbf{o}}
+\newcommand{\latent}{\mathbf{z}}
+\newcommand{\task}{\mathbf{w}}
+\newcommand{\skill}{z}
+\newcommand{\nextstate}{s'}
+\newcommand{\transition}{p}
+\newcommand{\transitionmat}{P}
+\newcommand{\transitionspace}{\mathcal{P}}
+\newcommand{\action}{a}
+\newcommand{\timestep}{t}
+\newcommand{\horizon}{H}
+\newcommand{\obsspace}{\mathcal{O}}
+\newcommand{\obsdensity}{\Omega}
+\newcommand{\statespace}{\mathcal{S}}
+\newcommand{\actionspace}{\mathcal{A}}
+\newcommand{\initialstate}{\mu_0}
+\newcommand{\policy}{\pi}
+\newcommand{\policyspace}{\Pi}
+\newcommand{\uncertainset}{P}
+\newcommand{\rewardfunc}{r}
+\newcommand{\reward}{r}
+\newcommand{\rewmodel}{\widehat{\reward}_\psi}
+\newcommand{\discount}{\gamma}
+\newcommand{\model}{\hat{p}}
+\newcommand{\taskdistribution}{\rho}
+\newcommand{\modelloss}{J_{\hat{p}}}
+\newcommand{\return}{\mathcal{R}}
+\newcommand{\BA}{\begin{array}}
+\newcommand{\EA}{\end{array}}
+\newcommand{\cf}{{\it cf.}}
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\ie}{{\it i.e.}}
+\newcommand{\etc}{{\it etc.}}
+\newcommand{\ones}{\mathbf 1}
+\newcommand{\reals}{{\mbox{\bf R}}}
+\newcommand{\integers}{{\mbox{\bf Z}}}
+\newcommand{\eqbydef}{\mathrel{\stackrel{\Delta}{=}}}
+\newcommand{\complex}{{\mbox{\bf C}}}
+\newcommand{\symm}{{\mbox{\bf S}}}
+\newcommand{\Span}{\mbox{\textrm{span}}}
+\newcommand{\Range}{\mbox{\textrm{range}}}
+\newcommand{\nullspace}{{\mathcal N}}
+\newcommand{\range}{{\mathcal R}}
+\newcommand{\Nullspace}{\mbox{\textrm{nullspace}}}
+\newcommand{\Rank}{\mathop{\bf Rank}}
+\newcommand{\Card}{\mathop{\bf Card}}
+\newcommand{\Tr}{\mathop{\bf Tr}}
+\newcommand{\lambdamax}{{\lambda_{\rm max}}}
+\newcommand{\lambdamin}{\lambda_{\rm min}}
+\newcommand{\Expect}{\mathop{\bf E{}}}
+\newcommand{\Prob}{\mathop{\bf Prob}}
+\newcommand{\erf}{\mathop{\bf erf}}
+\newcommand{\Co}{{\mathop {\bf Co}}}
+\newcommand{\co}{{\mathop {\bf Co}}}
+\newcommand{\Var}{\mathop{\bf var{}}}
+\newcommand{\dist}{\mathop{\bf dist{}}}
+\newcommand{\Ltwo}{{\bf L}_2}
+\newcommand{\approxleq}{\mathrel{\smash{\makebox[0pt][l]{\raisebox{-3.4pt}{\small$\sim$}}}{\raisebox{1.1pt}{$<$}}}}
+\newcommand{\argmin}{\mathop{\rm argmin}}
+\newcommand{\epi}{\mathop{\bf epi}}
+\newcommand{\var}{\mathop{\bf var}}
+\newcommand{\vol}{\mathop{\bf vol}}
+\newcommand{\Vol}{\mathop{\bf vol}}
+\newcommand{\dom}{\mathop{\bf dom}}
+\newcommand{\aff}{\mathop{\bf aff}}
+\newcommand{\cl}{\mathop{\bf cl}}
+\newcommand{\Angle}{\mathop{\bf angle}}
+\newcommand{\intr}{\mathop{\bf int}}
+\newcommand{\relint}{\mathop{\bf rel int}}
+\newcommand{\bd}{\mathop{\bf bd}}
+\newcommand{\dsp}{\displaystyle}
+\newcommand{\foequal}{\simeq}
+\newcommand{\VOL}{{\mbox{\bf vol}}}
+\newcommand{\argmax}{\mathop{\rm argmax}}
+\newcommand{\xopt}{x^{\rm opt}}
+\newcommand{\Xb}{{\mbox{\bf X}}}
+\newcommand{\xst}{x^\star}
+\newcommand{\varphist}{\varphi^\star}
+\newcommand{\lambdast}{\lambda^\star}
+\newcommand{\Zst}{Z^\star}
+\newcommand{\fstar}{f^\star}
+\newcommand{\xstar}{x^\star}
+\newcommand{\xc}{x^\star}
+\newcommand{\lambdac}{\lambda^\star}
+\newcommand{\lambdaopt}{\lambda^{\rm opt}}
+\newcommand{\geqK}{\mathrel{\succeq_K}}
+\newcommand{\gK}{\mathrel{\succ_K}}
+\newcommand{\leqK}{\mathrel{\preceq_K}}
+\newcommand{\lK}{\mathrel{\prec_K}}
+\newcommand{\geqKst}{\mathrel{\succeq_{K^*}}}
+\newcommand{\gKst}{\mathrel{\succ_{K^*}}}
+\newcommand{\leqKst}{\mathrel{\preceq_{K^*}}}
+\newcommand{\lKst}{\mathrel{\prec_{K^*}}}
+\newcommand{\geqL}{\mathrel{\succeq_L}}
+\newcommand{\gL}{\mathrel{\succ_L}}
+\newcommand{\leqL}{\mathrel{\preceq_L}}
+\newcommand{\lL}{\mathrel{\prec_L}}
+\newcommand{\geqLst}{\mathrel{\succeq_{L^*}}}
+\newcommand{\gLst}{\mathrel{\succ_{L^*}}}
+\newcommand{\leqLst}{\mathrel{\preceq_{L^*}}}
+\newcommand{\lLst}{\mathrel{\prec_{L^*}}}
+\DeclareMathOperator*{\expec}{\mathbb{E}}
+\def\delequal{\mathrel{\ensurestackMath{\stackon[1pt]{=}{\scriptscriptstyle\Delta}}}}
+\usepackage{iclr2023,times}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\title{In-context Reinforcement Learning \\ with Algorithm Distillation}
+\author{Michael Laskin\thanks{ Equal contribution. Corresponding authors: \texttt{mlaskin, luyuwang, vminh@deepmind.com}.} \And Luyu Wang{$^*$} \And Junhyuk Oh \And Emilio Parisotto \And Stephen Spencer \And Richie Steigerwald \And DJ Strouse \And Steven  Hansen \And Angelos Filos \And Ethan Brooks \And Maxime Gazeau \\  \\ DeepMind \And Himanshu Sahni
+\And Satinder Singh \And  Volodymyr Mnih \\
+}
+\iclrfinalcopy
+\begin{document}
+\maketitle
+\begin{abstract}
+We propose \namedefnospace, a method for distilling reinforcement learning (RL) algorithms into neural networks by modeling their training histories with a causal sequence model. \fullname treats learning to reinforcement learn as an across-episode sequential prediction problem. A dataset of learning histories is generated by a source RL algorithm, and then a causal transformer is trained by autoregressively predicting actions given their preceding learning histories as context. Unlike sequential policy prediction architectures that distill post-learning or expert sequences, \name is able to improve its policy entirely in-context without updating its network parameters. We demonstrate that \name can reinforcement learn in-context in a variety of environments with sparse rewards, combinatorial task structure, and pixel-based observations, and find that \name learns a more data-efficient RL algorithm than the one that generated the source data.
+\end{abstract}
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/images/main_fig_v5.pdf}
+      \caption{\small \namedef has two steps -- (i) a dataset of learning histories is collected from individual single-task RL algorithms solving different tasks; (ii) a causal transformer predicts actions from these histories using across-episodic contexts. Since the RL policy improves throughout the learning histories, by predicting actions accurately \name learns to output an improved policy relative to the one seen in its context. \name models state-action-reward tokens, and does not  condition on returns. \looseness=-1}
+  \label{fig:main}
+\end{figure*}
+\section{Introduction}
+\label{sec:Introduction}
+Transformers have emerged as powerful neural network architectures for sequence modeling \citep{vaswani2017attention}. A striking property of pre-trained transformers is their ability to adapt to downstream tasks through prompt conditioning or in-context learning.
+After pre-training on large offline datasets, large transformers have been shown to generalize to downstream tasks in text completion~\citep{brown2020gpt3}, language understanding~\citep{devlin2018bert}, and image generation~\citep{yu2022parti}.
+Recent work demonstrated that transformers can also learn policies from offline data by treating offline Reinforcement Learning (RL) as a sequential prediction problem. While~\citet{chen2021dt} showed that transformers can learn single-task policies from offline RL data via imitation learning, subsequent work showed that transformers can also extract multi-task policies in both same-domain~\citep{lee2022mgdt} and cross-domain settings~\citep{reed2022gato}. These works suggest a promising paradigm for extracting generalist multi-task policies – first collect a large and diverse dataset of environment interactions, then extract a policy from the data via sequential modeling. We refer to the family of approaches that learns policies from offline RL data via imitation learning as Offline Policy Distillation, or simply Policy Distillation\footnote{What we refer to as Policy Distillation is similar to~\citet{rusu16pd} but the policy is distilled from offline data, not a teacher network.} (PD).
+Despite its simplicity and scalability, a substantial drawback of PD is that the resulting policy does not improve incrementally from additional interaction with the environment. For instance, the Multi-Game Decision Transformer~\citep[MGDT,][]{lee2022mgdt} learns a return-conditioned policy that plays many Atari games while Gato~\citep{reed2022gato} learns a policy that  solves tasks across diverse environments by inferring tasks through context, but neither method can improve its policy in-context through trial and error. MGDT adapts the transformer to new tasks by finetuning the model weights while Gato requires prompting with an expert demonstration to adapt to a new task. In short, Policy Distillation methods learn policies but not Reinforcement Learning algorithms.
+We hypothesize that the reason Policy Distillation does not improve through trial an error is that it trains on data that does not show learning progress. Current methods either learn policies from data that contains no learning ({\it e.g.} by distilling fixed expert policies) or data with learning ({\it e.g.} the replay buffer of an RL agent) but with a context size that is too small to capture policy improvement.
+Our key observation is that the sequential nature of learning within RL algorithm training could, in principle, make it possible to model the process of reinforcement learning itself as a causal sequence prediction problem.
+Specifically, if a transformer’s context is long enough to include policy improvement due to learning updates it should be able to represent not only a fixed policy but a policy improvement operator by attending to states, actions and rewards from previous episodes.
+This opens the possibility that any RL algorithm can be distilled into a sufficiently powerful sequence model such as a transformer via imitation learning, converting it into an in-context RL algorithm.
+We present \namedefnospace, a method that learns an in-context policy improvement operator by optimizing a causal sequence prediction loss on the learning histories of an RL algorithm.
+\name has two components. First, a large multi-task dataset is generated by saving the training histories of an RL algorithm on many individual tasks. Next, a transformer models actions causally using the preceding learning history as its context. Since the policy improves throughout the course of training of the source RL algorithm, \name is forced to learn the improvement operator in order to accurately model the actions at any given point in the training history. Crucially, the transformer context size must be sufficiently large (\ie \, across-episodic) to capture improvement in the training data. The full method is shown in Fig.~\ref{fig:main}.
+We show that by imitating gradient-based RL algorithms using a causal transformer with sufficiently large contexts, \name can reinforcement learn new tasks entirely in-context. We evaluate \name across a number of partially observed environments that require exploration, including the pixel-based Watermaze~\citep{morris1981watermaze} from DMLab~\citep{beattie2016dmlab}. We show that AD is capable of in-context exploration, temporal credit assignment, and generalization. We also show that AD learns a more data-efficient algorithm than the one that generated the source data for transformer training.
+To the best of our knowledge, AD is the first method to demonstrate in-context reinforcement learning via sequential modeling of offline data with an imitation loss.
+\section{Background}
+\label{sec:background}
+{\bf Partially Observable Markov Decision Processes:} A Markov Decision Process (MDP) consists of states $\state \in \mathcal S$, actions $\action \in \mathcal A$, rewards $r \in \mathcal R$, a discount factor $\gamma$, and a transition probability function $p(s_{t+1}|s_t,a_t)$, where $t$ is an integer denoting the timestep and $(\mathcal S, \mathcal A)$ are state and action spaces. In environments described by an MDP, at each timestep $t$ the agent observes the state $s_t$, selects an action $a_t \sim \pi(\cdot | s_t)$ from its policy, and then observes the next state $s_{t+1} \sim p(\cdot|s_t, a_t)$ sampled from the transition dynamics of the environment. In this work, we operate in the Partially Observable Markov Decision Process (POMDP) setting where instead of states $s \in \mathcal S$ the agent receives observations $o \in \mathcal O$ that only have partial information about the true state of the environment.
+Full state information may be incomplete due to missing information about the goal in the environment, which the agent must instead infer through rewards with memory, or because the observations are pixel-based, or both.
+\looseness=-1
+{\bf Online and Offline Reinforcement Learning:} Reinforcement Learning algorithms aim to maximize the return, defined as the cumulative sum of rewards $\sum_t \gamma^t r_t$, throughout an agent's lifetime or episode of training. RL algorithms broadly fall into two categories: on-policy algorithms~\citep{williams92reinforce} where the agent directly maximizes a Monte-Carlo estimate of the total returns or off-policy~\citep{mnih2013dqn, mnih2015human} where an agent learns and maximizes a value function that approximates the total future return. Most RL algorithms maximize returns through trial-and-error by directly interacting with the environment. However, offline RL~\citep{levine2020offline} has recently emerged as an alternate and often complementary paradigm for RL where an agent aims to extract return maximizing policies from offline data gathered by another agent. The offline dataset consists of $(s, a, r)$ tuples which are often used to train an off-policy agent, though other algorithms for extracting return maximizing policies from offline data are also possible.
+\looseness=-1
+{\bf Self-Attention and Transformers}
+The self-attention~\citep{vaswani2017attention} operation begins by projecting input data $X$ with three separate matrices onto $D$-dimensional vectors called queries $Q$, keys $K$, and values $V$. These vectors are then passed through the attention function:
+\begin{equation}
+    \text{Attention}(Q,K,V) = \text{softmax} (Q K^T / \sqrt{D}) V.
+\end{equation}
+The $QK^T$ term computes an inner product between two projections of the input data $X$. The inner product is then normalized and projected back to a $D$-dimensional vector with the scaling term $V$. Transformers~\citep{vaswani2017attention, devlin2018bert, brown2020gpt3} utilize self-attention as a core part of the architecture to process sequential data such as text sequences. Transformers are usually pre-trained with a self-supervised objective that predicts tokens within the sequential data. Common prediction tasks include predicting randomly masked out tokens~\citep{devlin2018bert} or applying a causal mask and predicting the next token~\citep{radford2018improving}.
+{\bf Offline Policy Distillation:} We refer to the family of methods that treat offline Reinforcement Learning as a sequential prediction problem as Offline Policy Distillation, or Policy Distillation (PD) for brevity. Rather than learning a value function from offline data, PD extracts policies by predicting actions in the offline data (\ie\, behavior cloning) with a sequence model and either return conditioning~\citep{chen2021dt, lee2022mgdt} or filtering out suboptimal data~\citep{reed2022gato}. Initially proposed to learn single-task policies~\citep{chen2021dt, janner2021tto}, PD was recently extended to learn multi-task policies from diverse offline data~\citep{lee2022mgdt, reed2022gato}.
+{\bf In-Context Learning:} In-context learning refers to the ability to infer tasks from context. For example, large language models like GPT-3~\citep{brown2020gpt3} or Gopher~\citep{rae2012gopher} can be directed at solving tasks such as text completion, code generation, and text summarization by specifying the task through language as a prompt. This ability to infer the task from prompt is often called in-context learning. We use the terms `in-weights learning' and `in-context learning' from prior work on sequence models~\citep{brown2020gpt3,chan2022data} to distinguish between gradient-based learning with parameter updates and gradient-free learning from context, respectively.
+\section{Method}
+\label{sec:method}
+ Over the course of its lifetime a capable \acrfull{rl} agent will exhibit complex behaviours, such as exploration, temporal credit assignment, and planning. Our key insight is that an agent's actions, regardless of the environment it inhabits, its internal structure, and implementation, can be viewed as a function of its past experience, which we refer to as its \emph{history}. Formally, we write:
+\looseness=-1
+\begin{align}
+  \mathcal{H} \ni h_{t} \defeq \left( o_{0}, a_{0}, r_{0}, \ldots, o_{t-1}, a_{t-1}, r_{t-1}, o_{t}, a_{t}, r_{t} \right) = \left( o_{\leq t}, r_{\leq t}, a_{\leq t}  \right)
+\end{align}
+and we refer to a \emph{long}\footnote{
+  Long enough to span learning updates, \eg~across episodes.
+  }
+history-conditioned policy as an \emph{algorithm}:
+\begin{align}
+  \algo: \mathcal{H}  \cup \mathcal{O} \rightarrow \Delta(\mathcal{A}),
+\label{eq:algo-signature}
+\end{align}
+where $\Delta(\mathcal{A})$ denotes the space of probability distributions over the action space $\mathcal{A}$.
+\eqnref{eq:algo-signature}~suggests that, similar to a policy, an algorithm can be unrolled in an environment to generate sequences of observations, rewards, and actions.
+For brevity, we denote the algorithm as $\algo$ and environment (\ie~task) as $\mathcal{M}$, such that the history of learning for any given task $\mathcal{M}$ is generated by the algorithm $\algo_{\mathcal{M}}$.
+\begin{align}
+  \left( O_{0}, A_{0}, R_{0}, \ldots, O_{T}, A_{T}, R_{T} \right) \sim \algo_{\mathcal{M}}.
+\end{align}
+Here, we're denoting random variables with uppercase Latin letters, \eg~$O$, $A$, $R$, and their values with lowercase Latin letters, \eg~$o$, $a$, $r$.
+By viewing algorithms as long history-conditioned policies, we hypothesize that any algorithm that generated a set of learning histories can be distilled into a neural network by performing behavioral cloning over actions.
+Next, we present a method that, provided agents' lifetimes, learns a sequence model with behavioral cloning to map long histories to distributions over actions.
+\subsection{Algorithm Distillation}
+\label{subsec:algorithm-distillation}
+Suppose the agents' lifetimes, which we also call {\it learning histories}, are generated by the source algorithm $\algo^{\text{source}}$ for many individual tasks $\{ \mathcal{M}_{n} \}_{n=1}^{N}$, producing the dataset $\mathcal{D}$:
+\looseness=-1
+\begin{align}
+  \mathcal{D} \defeq \left\{ \left( o_{0}^{(n)}, a_{0}^{(n)}, r_{0}^{(n)}, \ldots, o_{T}^{(n)}, a_{T}^{(n)}, r_{T}^{(n)} \right) \sim \algo_{\mathcal{M}_{n}}^{\text{source}} \right\}_{n=1}^{N}.
+  \label{eq:data}
+\end{align}
+Then we distill the source algorithm's behaviour into a sequence model that maps long histories to probabilities over actions with a negative log likelihood (NLL) loss and refer to this process as \emph{algorithm distillation} (AD).
+In this work, we consider neural network models $\algo_{\theta}$ with parameters $\theta$ which we train by minimizing the following loss function:
+\looseness=-1
+\begin{align}
+   \mathcal L(\theta) \defeq  -\sum_{n=1}^{N} \sum_{t=1}^{T-1} \log \algo_{\theta}(A=a_{t}^{(n)} \vert h_{t-1}^{(n)}, o_t^{(n)}).
+\label{eq:thetastar}
+\end{align}
+Intuitively, a sequence model with \emph{fixed} parameters that is trained with AD should amortise the source RL algorithm $\algo^{\text{source}}$ and by doing so exhibit similarly complex behaviours, such as exploration and temporal credit assignment. Since the RL policy improves throughout the learning history of the source algorithm, accurate action prediction requires the sequence model to not only infer the current policy from the preceding context but also infer the improved policy, therefore distilling the policy improvement operator.
+\begin{algorithm}[h]
+\caption{\texttt{Algorithm Distillation}} \label{alg:ad_full}
+\begin{algorithmic}[1]
+\footnotesize
+\Require Train $\{ \mathcal M^{\text{train}} \}$ and test $\{ \mathcal M^{\text{test}} \}$ tasks, observations $o \in \mathcal O$, actions $a \in \mathcal A$, and rewards $r \in \mathcal R$.
+\Require Network parameters $\phi_i$ for $i=1,\dots, N$ source RL algorithms.
+\Require Network parameters $\theta$ for a causal transformer $\algo_{\theta}$ that predicts actions.
+\Require An empty buffer to store data $\mathcal D$.
+\For{$i = 1\dots N$} \Comment{Part 1: Dataset Generation}
+\State Sample a task $\mathcal{M}^{\text{train}}_i$ randomly from the train task distribution.
+\State Train the source RL algorithm $\phi_i$ until it converges to the optimal policy.
+\State Save the learning history $h^{(i)}_{T} = \left( o_{0}, a_{0}, r_{0}, \ldots, o_{T}, a_{T}, r_{T} \right)_i$ to the dataset $\mathcal D \leftarrow \mathcal D \cup h^{(i)}_T $.
+\EndFor
+\
+\While{$P_\theta$ not converged} \Comment{Part 2: Algorithm Distillation}
+\State Randomly sample a multi-episodic subsequence $\bar h^{(i)}_j = \left( o_{j}, a_{j}, r_{j}, \ldots, o_{j+c}, a_{j+c}, r_{j+c} \right)_i$ of length $c$.
+\State  Autoregressively predict the actions with $\algo_\theta$ and compute the NLL loss in Eq.~\ref{eq:thetastar}.
+\State Backpropagate to update the transformer parameters.
+\EndWhile
+\For{$k = 1\dots M_{\text{seeds}}$}  \Comment{Part 3: Autoregressive Evaluation}
+\State Sample a task $\mathcal{M}^{\text{test}}_k$ randomly from the test task distribution. Initialize empty context queue $C$.
+\State Unroll the transformer $P_\theta (\cdot | C)$ in the environment  storing sequential transitions (\ie\, histories) in $C$.
+\State Measure the return accumulated by the agent for each episode of evaluation.
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+\subsection{Practical Implementation}
+\label{subsec:practical-implementation}
+In practice, we implement \name as a two-step procedure. First, a dataset of learning histories is collected by running an individual gradient-based RL algorithm on many different tasks. Next, a sequence model with multi-episodic context is trained to predict actions from the histories. We describe these two steps below and detail the full practical implementation in Algorithm~\ref{alg:ad_full}.
+\noindent {\bf Dataset Generation:} A dataset of learning histories is collected by training $N$ individual single-task gradient-based RL algorithms. To prevent overfitting to any specific task during sequence model training, a task $\mathcal{M}$ is sampled randomly from a task distribution for each RL run. The data generation step is RL algorithm agnostic - any RL algorithm can be distilled. We show results distilling UCB exploration~\citep{lai86ucb}, an on-policy actor-critic~\citep{mnih16a3c}, and an off-policy DQN~\citep{mnih2013dqn}, in both distributed and single-stream settings. We denote the dataset of learning histories as $\mathcal D$ in Eq.~\ref{eq:data}.
+\noindent {\bf Training the Sequence Model:} Once a dataset of learning histories $\mathcal D $ is collected, a sequential prediction model is trained to predict actions given the preceding histories. We utilize the GPT~\citep{radford2018improving} causal transformer model for sequential action prediction, but \name is compatible with any sequence model including RNNs~\citep{williams1989learning}. For instance, we show in Appendix~\ref{app:transformer_vs_lstm} that \name can also be achieved with an LSTM~\citep{schm97lstm}, though less effectively than \name with causal transformers. Since causal transformer training and inference are quadratic in the sequence length, we sample across-episodic subsequences $\bar h_j = \left( o_{j}, r_{j}, a_{j} \ldots, o_{j+c}, r_{j+c}, a_{j+c} \right)$ of length $c<T$ from $\mathcal D$ rather than training full histories.
+\section{Experimental Setup}
+\label{sec:experimental-setup}
+\subsection{Environments}
+\label{subsec:experimental-setup:environments}
+\begin{wrapfigure}{r}{0.33\textwidth}
+   \centering
+    \includegraphics[width=0.27\textwidth]{assets/images/watermaze_env.png}
+  \caption{\small Agent view from the DMLab Watermaze environment. The task is to find a hidden platform that elevates once found.
+  }
+ \vspace{-3mm}
+\end{wrapfigure}
+To investigate the in-context RL capabilities of \name and the baselines (see next section), we focus on environments that cannot be solved through zero-shot generalization after pre-training. Specifically, we require that each environment supports many tasks, that the tasks cannot be inferred easily from the observation, and that episodes are short enough to feasibly train across-episodic causal transformers - for more details regarding environments see Appendix~\ref{app:envs}. We list the evaluation environments below:
+ \\[2mm]
+ {\bf Adversarial Bandit:} a multi-armed bandit with $10$ arms and $100$ trials similar to the environment considered in RL$^2$~\citep{duan2016rl2}. However, during evaluation the reward is out of distribution. Reward is more likely distributed under odd arms $95\%$ of the time during training. At evaluation, the opposite happens - reward appears more often under even arms $95\%$ of the time.
+{\bf Dark Room:} a 2D discrete POMDP where an agent spawns in a room and must find a goal location. The agent only knows its own $(x, y)$ coordinates but does not know the goal location and must infer it from the reward. The room size is $9\times9$, the possible actions are one step left, right, up, down, and no-op, the episode length is $20$, and the agent resets at the center of the map. We test two environment variants -- Dark Room where the agent receives $r=1$ every time the goal is reached and Dark Room Hard, a hard exploration variant with a $17\times17$ size and sparse reward ($r=1$ exactly once for reaching the goal). When not $r=1$, then $r=0$.
+{\bf Dark Key-to-Door:} similar to Dark Room but this environment requires an agent to first find an invisible key upon which it receives a reward of $r=1$ once and then open an invisible door upon which it receives a reward of $r=1$ once again. Otherwise, the reward is $r=0$. The room size is $9\times 9$ making the task space combinatorial with $81^2=6561$ possible tasks. This environment is similar to the one considered in~\citet{chen2021dt} except the key and door are invisible and the reward is semi-sparse ($r=1$ for both key and the door). The agent is randomly reset. The episode length is $50$ steps.
+\looseness=-1
+{\bf DMLab Watermaze:} a partially observable 3D visual DMLab environment based on the classic Morris Watermaze~\citep{morris1981watermaze}. The task is to navigate the water maze to find a randomly spawned trap-door. The maze walls have color patterns that can be used to remember the goal location. Observations are pixel images of size $72\times96\times3$. There are 8 possible actions in total, including going forward, backward, left, or right, rotating left or right, and rotating left or right while going forward. The episode length is 50, and the agent resets at the center of the map. Similar to Dark Room, the agent cannot see the location of the goal from the observations and must infer it through the reward of $r=1$ if reached and $r=0$ otherwise; however, the goal space is continuous and therefore there are an infinite number of goals.
+\subsection{Baselines}
+\label{subsec:experimental-setup:baselines}
+    The main aim of this work is to investigate to what extent \name reinforcement learns in-context relative to prior related work. \name is mostly closely related to Policy Distillation, where a policy is learned with a sequential model from offline interaction data. In-context online meta-RL is also related though not directly comparable to \namenospace, since \name is an in-context \emph{offline} meta-RL method. Still, we consider both types of baselines to better contextualize our work. For a more detailed discussion of these baseline choices we refer the reader to Appendix~\ref{app:baselines}. Our baselines include:
+{\it Expert Distillation (ED):}  this baseline is exactly the same as \name but the source data consists of expert trajectories only, rather than learning histories. ED is most similar to Gato~\citep{reed2022gato} except ED models state-action-reward sequences like \namenospace, while Gato models state-action sequences.
+{\it Source Algorithm:}  we compare \name to the  gradient-based source RL algorithm that generates the training data for distillation. We include running the source algorithm from scratch as a baseline to compare the data-efficiency of in-context RL to the in-weights source algorithm.
+{\it $\text{RL}^2$~\citep{duan2016rl2}:}  an online meta-RL algorithm where exploration and fast in-context adaptation are learned jointly by maximizing a multi-episodic value function. $\text{RL}^2$ is not directly comparable to \name for similar reasons to why online and offline RL algorithms are not directly comparable -- $\text{RL}^2$ gets to interact with the environment during training while \name does not. We use $\text{RL}^2$ asymptotic performance as an approximate upper bound for \namenospace.
+\begin{figure}[t]
+\centering
+\includegraphics[width=1.0\textwidth]{assets/images/bandit.png}
+\caption{\small {\it Adversarial Bandit (Section~\ref{sec:exps}):} \namenospace, $\text{RL}^2$, and ED evaluated on a $10$-arm bandit with $100$ trials. The source data for \name comes from learning histories from UCB~\citep{lai86ucb}. During training, the reward is distributed under odd arms $95\%$ of the time and under even arms $95\%$ of the time during evaluation. Both \name and $\text{RL}^2$ can in-context learn in-distribution tasks, but \name generalizes better out of distribution. Running $\text{RL}^2$ with a transformer generally doesn't offer an advantage over the original LSTM variant. ED performs poorly both in and out of distribution relative to \name and $\text{RL}^2$. Scores are normalized relative to UCB.}
+\label{fig:bandit}
+\end{figure}
+\subsection{Evaluation}
+After pre-training, the \name transformer $\algo_\theta$ can reinforcement learn in-context. Evaluation is exactly the same as with an in-weights RL algorithm except the learning happens entirely in-context without updating the transformer network parameters. Given an MDP (or POMDP), the transformer interacts with the environment and populates its own context (\ie \ without demonstrations), where the context is a queue containing the last $c$ transitions. The transformer's performance is then evaluated in terms of its ability to maximize return. For all evaluation runs, we average results across 5 training seeds with 20 evaluation seeds each for a total of 100 seeds. A task $\mathcal M$ is sampled uniformly from the test task distribution and fixed for each evaluation seed. The aggregate statistics reported reflect multi-task performance. We evaluate for 1000 and 160 episodes for the Dark and Watermaze environments respectively and plot performance as a function of total environment steps at test-time.
+\section{Experiments}
+\label{sec:exps}
+\begin{figure}[t]
+\centering
+\begin{subfigure}{0.20\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/9x9_1g_dense_main.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.20\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/dark_room_hard_main.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.20\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/dark_key_door_main.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.216\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/watermaze_main_160_epi.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.14\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/legend_main.pdf}
+\end{subfigure}
+\caption{\small {\it Main results:} we evaluate \namenospace, $\text{RL}^2$, ED, and the source algorithm on environments that require memory and exploration. In these environments, an agent must reach a goal location that can only be inferred through a binary reward. \name is consistently able to in-context reinforcement learn across all environments and is  more data-efficient than the A3C (``Dark'' environments)~\citep{mnih16a3c} or DQN (Watermaze)~\citep{mnih2013dqn} source algorithm it distilled. We report the mean return $\pm$ 1 standard deviation over 5 training seeds with 20 test seeds each. }
+\label{fig:main_exps}
+\vspace{-4mm}
+\end{figure}
+The main research question of this work is whether an in-weights RL algorithm can be amortized into an in-context one via \fullnamenospace.
+The in-context RL algorithm should behave in a similar way as the in-weights one and exhibit exploration, credit assignment, and generalization capabilities. We begin our analysis in a clean and simple experimental setting where all three properties are required to solve the task - the Adversarial Bandit described in Sec.~\ref{sec:experimental-setup}.
+To generate the source data, we sample a set of training tasks $\{ \mathcal M_j\}_{j=1}^N$, run the Upper Confidence Bound algorithm~\citep{lai86ucb}, and save its learning histories. We then train a transformer to predict actions as described in Alg.~\ref{alg:ad_full}. We evaluate \namenospace, ED, and $\text{RL}^2$ and normalize their scores relative to UCB and a random policy ${(r - r_{rand.})}/{ (r_{UCB} - r_{rand.})}$. The results are shown in Fig.~\ref{fig:bandit}. We find that both \name and RL$^2$ can reliably in-context learn tasks sampled from the training distribution while ED cannot, though ED does do better than random guessing when evaluated in-distribution. However, \name can also in-context learn to solve out of distribution tasks whereas the other methods cannot. This experiment shows that \name can explore the bandit arms, can assign credit by exploiting an arm once reached, and can generalize well out of distribution nearly as well as UCB. We now move beyond the bandit setting and investigate similar research questions in more challenging RL environments and present our results as answers to a series of research questions.
+\vspace{-2mm}
+\paragraph{Does Algorithm Distillation exhibit in-context reinforcement learning?}
+To answer this question, we first generate source data for \fullnamenospace.
+In the Dark Room and Dark Key-to-Door environments we collect $2000$ learning histories with an Asynchronous Advantage Actor-Critic (A3C)~\citep{mnih16a3c} with $100$ actors, while in DMLab Watermaze we collect $4000$ learning histories with a distributed DQN with 16 parallel actors (see Appendix~\ref{app:source} for asymptotic learning curves of the source algorithm and Appendix~\ref{app:rl_hypers} for hyperparameters). Shown in Fig.~\ref{fig:main_exps}, \name in-context reinforcement learns in all of the environments. In contrast, ED fails to explore and learn in-context in most settings. We use RL$^2$ trained for 1 billion environment steps as a proxy for the upper bound of performance for a meta-RL method. Despite learning to reinforcement learn from offline data, \name matches asymptotic RL$^2$ on the Dark environments and approaches it (within $13\%$) on Watermaze.
+\noindent{\it Credit-assignment:} In Dark Room, the agent receives $r=1$ each time it visits the goal location. Even though \name is trained to condition only on single timestep reward and not episodic return tokens, it is still able to maximize the reward, which suggests that \name has learned to do credit assignment.
+\noindent{\it Exploration:} Dark Room (Hard) tests the agents exploration capability. Since the reward is sparse ($r=1$ exactly once), most of the learning history has reward values of $r=0$. Nevertheless, \name infers the goal from previous episodes in its context which means it has learned to explore and exploit.
+\noindent{\it Generalization:} Dark Key-to-Door tests in-distribution generalization with a combinatorial task space. While the environment has a total of $\sim6.5$k tasks, less than $2$k were seen during training. During evaluation, \name both generalizes and achieves near-optimal performance on mostly unseen tasks.
+\begin{figure}[h]
+\centering
+  \hspace*{\fill}
+\begin{subfigure}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/ad_partial_demos.pdf}
+    \label{fig:ad_demo}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/ed_partial_demos.pdf}
+    \label{fig:ed_demo}
+\end{subfigure}
+  \hspace*{\fill}
+\caption{\small {\it AD and ED conditioned on partial demonstrations:} We compare the performance of \name and ED when prompted with a demonstration from the source algorithm's training history on Dark Room (semi-dense). While ED slightly improves and then maintains performance from the input policy, \name is able to improve it in-context until the policy is optimal or nearly optimal. }
+\label{fig:ad_ed_cond}
+\vspace{-4mm}
+\end{figure}
+\vspace{-2mm}
+\paragraph{Can \fullname learn from pixel-based observations?}
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{assets/images/source_algo_comparison.pdf}
+  \end{center}
+  \caption{\small {\it Single-stream \fullnamenospace:} \name trained on the learning history from an A3C agent with only one actor ({\it i.e.} single-stream). By training on subsampled learning histories (see Sec.~\ref{sec:exps}), \name learns are more data-efficient in-context RL algorithm.}
+  \vspace{5mm}
+  \label{fig:single_stream_ad}
+\end{wrapfigure}
+DMLab Watermaze is a pixel-based environment that is larger than the Dark environments with tasks sampled from a continuous uniform distribution. The environment is partially observable in two ways - the goal is invisible until the agent has reached it and the first-person view limits the agent's field of vision. Shown in Fig.~\ref{fig:main_exps}, \name maximizes the episodic return with in-context RL while ED does not learn.
+\vspace{-4mm}
+\begin{wrapfigure}{r}{0.4\textwidth}
+ \vspace{-2mm}
+  \begin{center}
+    \includegraphics[width=0.39\textwidth]{assets/images/context_size_2g.pdf}
+  \end{center}
+  \caption{\small {\it Context size:} \name in Dark Key-to-Door with different context sizes. In-context RL only emerges once the context size is large enough and across-episodic.}
+  \label{fig:context_size}
+\end{wrapfigure}
+\paragraph{Can AD learn a more data-efficient RL algorithm than the one that produced the source data?} In Fig.~\ref{fig:main_exps}, \name is significantly more data-efficient than the source algorithm. This gain is a byproduct of distilling a multi-stream algorithm into a single-stream one. The source algorithms (A3C and DQN) are distributed, which means they run many actors in parallel to achieve good performance.\footnote{Indeed, current state-of-the-art RL algorithms such as MuZero~\citep{sch19muzero} and Muesli~\citep{hessel21muesli} rely on distributed actors.}  A distributed RL algorithm may not be very data-efficient in aggregate but each individual actor can be data-efficient. Since the learning history for each actor is saved separately, \name achieves similar performance to the multi-stream distributed RL algorithm, but is more data-efficient as a single-stream method.
+These data-efficiency gains are also evident for distilling single-stream algorithms.
+In Fig~\ref{fig:single_stream_ad} we show that by subsampling every $k$-th episode (where $k=10$) from a single stream A3C learning history, \name can still learn a more data-efficient in-context RL algorithm (for more detail, see Appendix~\ref{app:single_stream}). Therefore, \name can be more data-efficient than both a multi and single-stream source RL algorithm.
+While \name is more data-efficient, the source algorithm achieves slightly higher asymptotic performance (see Appendix~\ref{app:source}). However, the source algorithm produces many single-task agents with a unique set of weights $\phi_n$ per task $\mathcal M_n$, while \name produces a single generalist agent with weights $\theta$ that are fixed across all tasks.
+\vspace{-2mm}
+\paragraph{Is it possible to accelerate AD by prompting it with demonstrations?}
+Although \name can reinforcement learn without relying on demonstrations, it has the added benefit that, unlike the source algorithm, it can be conditioned on or prompted with external data.
+To answer the research question, we sample policies from the hold-out test-set data along different points of the source algorithm history - from a near-random policy to a near-expert policy. We then pre-fill the context for both \name and ED with this policy data, and run both methods in the environment in Dark Room  and plot the results in Fig.~\ref{fig:ad_ed_cond}.
+While ED maintains the performance of the input policy, \name improves every policy in-context until it is near-optimal. Importantly, the more optimal the input policy the faster \name improves it until it is optimal.
+\vspace{-2mm}
+\paragraph{What context size is required for in-context RL to emerge?}
+We've hypothesized that \name requires sufficiently long (\ie \ across-episodic) contexts to in-context reinforcement learn. We test this hypothesis by training several \name variants with different context sizes on the Dark Room environment. We plot the learning curves of these different variants in Fig.~\ref{fig:context_size} and find that multi-episodic contexts of 2-4 episodes are necessary to learn a near-optimal in-context RL algorithm. Initial signs of in-context RL begin to emerge when the context size is roughly the length of an episode. The reason for this is likely that the context is large enough to retrain across-episodic information -- \eg, at the start of a new episode, the context will be filled with transitions from most of the previous episode.
+\looseness=-1
+\section{Related Work}
+\label{sec:related-work}
+{\bf Offline Policy Distillation:} Most closely related to our work are the recent advances in learning policies from offline environment interaction data with transformers, which we have been referring to as Policy Distillation (PD). Initial PD architectures such as Decision Transformer~\citep{chen2021dt} and Trajectory Transformer~\citep{janner2021tto} showed that transformers can learn single-task policies from offline data. Subsequently the Multi-Game Decision Transformer (MGDT)~\citep{lee2022mgdt} and Gato~\citep{reed2022gato} showed that PD architectures can also learn multi-task same domain and cross-domain policies, respectively. Importantly, these prior methods use contexts substantially smaller than an episode length, which is likely the reason in-context RL was not observed in these works. Instead, they rely on alternate ways to adapt to new tasks - MGDT finetunes the model parameters while Gato gets prompted with expert demonstrations to adapt to downstream tasks. \name adapts in-context without finetuning and does not rely on demonstrations.
+Finally, a number of recent works have explored more generalized PD architectures~\citep{furuta2022gdt}, prompt conditioning~\citep{xu2022pdt}, and online gradient-based RL~\citep{zheng2022odt}.
+\looseness=-1
+{\bf Meta Reinforcement Learning:} \name falls into the category of methods that learn to reinforcement learn, also known as meta-RL. Specifically, \name is an in-context offline meta-RL method. This general idea of learning the policy improvement process has a long history in reinforcement learning, but has been limited to meta-learning hyper-parameters until recently~\citep{ishii2002control}. In-context deep meta-RL methods introduced by~\citet{wang2016metarl} and~\citet{duan2016rl2} are usually trained in the online setting by maximizing multi-episodic value functions with memory-based architectures through environment interactions. Another common approach to online meta-RL includes optimization-based methods that find good network parameter initializations for meta-RL~\citep{hochreiter2001learning, finn17maml, nichol2018reptile} and adapt by taking additional gradient steps. Like other in-context meta-RL approaches, \name is gradient-free - it adapts to downstream tasks without updating its network parameters. Recent works have proposed learning to reinforcement learn from offline datasets, or offline meta-RL, using Bayesian RL~\citep{dorfman21omrl} and optimization-based meta-RL~\citep{mitchell21macaw}. Given the difficulty of offline meta-RL, \citet{pong2022offline} proposed a hybrid offline-online strategy for meta-RL.
+{\bf In-Context Learning with Transformers:} In this work, we make the distinction between in-context learning and incremental or in-context learning. In-context learning involves learning from a provided prompt or demonstration while incremental in-context learning involves learning from one's own behavior through trial and error.
+While many recent works have demonstrated the former, it is much less common to see methods that exhibit the latter. Arguably, the most impressive demonstrations of in-context learning to date have been shown in the text completion setting~\citep{radford2018improving, chen2020igpt, brown2020gpt3} through prompt conditioning. Similar methodology was recently extended to show powerful composability properties in text-conditioned image generation~\citep{yu2022parti}. Recent work showed that transformers can also learn simple algorithm classes, such as linear regression, in-context in a small-scale setting~\citep{garg2022incontext}. Like prior in-context learning methods,~\citet{garg2022incontext} required initializing the transformer prompt with expert examples. While the aforementioned approaches were examples of in-context learning, a recent work~\citep{chen2022optformer} demonstrated incremental in-context learning for hyperparameter optimization by treating hyperparameter optimization as a sequential prediction problem with a score function.
+\section{Conclusion}
+We have demonstrated that \fullname can distill an in-weights RL algorithm into an in-context RL algorithm by modeling RL learning histories with a causal transformer and that \name can learn more data-efficient algorithms than those that generated the source data. The main limitation of \name is that most RL environments of interest have long episodes and modeling multi-episodic context requires more powerful long-horizon sequential models than the ones considered in this work. We believe this is a promising direction for future research and hope that \name inspires further investigation into in-context reinforcement learning from the research community.
+\bibliography{main}
+\bibliographystyle{iclr2023}
+\appendix
+\newpage
+\section{Environment Considerations}
+\label{app:envs}
+In this work, we consider environments where zero-shot generalization is difficult, so the agent must learn through trial and error. We also want environments where overfitting to any particular task is difficult to ensure our method is general. A final practical consideration is that we consider environments wher across-episodic histories can be feasibly modeled with a causal transformer. Given these considerations, our evaluation environments need to satisfy three criteria:
+\begin{enumerate}
+\item {\it Supports many tasks:} The environments must be multi-task to ensure that our agent and the baselines do not overfit to any single task and instead is able to in-context reinforcement learn across many tasks within a given domain.
+\item {\it Task must be hard to infer:} To ensure that the downstream tasks are hard to generalize to in zero-shot, we use environments that require exploration. Namely, we require environments where either the task can only be inferred from the reward and not the observation, or tasks that are partially observable.
+\item {\it Supports multi-episodic contexts:} Lastly, we impose a practical constraint - the environment episodes must be short enough such that a normal GPT-like transformer can fit multiple episodes in its context. Since this work introduces \name as a method, we wish to investigate it in the cleanest possible setting using a canonical architecture. We leave investigating \name with more complex architectures that scale to longer sequences for future work.
+\end{enumerate}
+Prior related works~\citep{chen2021dt, lee2022mgdt, janner2021tto, reed2022gato} evaluated on Atari, OpenAI gym, and as well as other environments. However, Atari and OpenAI gym don't satisfy at least one of the above criteria. Atari and OpenAI gym episodes are often long and can contain thousands or more transitions per episode, so it's technically challenging to populate a causal transformer's context with across-episode histories. Indeed, the prior related works only considered within-episode context lengths. Additionally, it is often easy to infer the task from either the observation or the dense reward alone in both Atari and OpenAI gym, which reduces the need for exploration. For these reasons, we evaluate in environments that satisfy all three criteria instead.
+\section{Closely Related Prior Methods}
+\label{app:baselines}
+In our main results we use Expert Distillation (ED) as a baseline. Here, we discuss how the most closely related methods differ from \name and why ED is sufficient to support the paper's claims.
+\noindent{\it Expert Distillation (ED):} ED is most similar to Gato~\citep{reed2022gato}, which models expert sequences from a converged RL policy using a causal transformer. ED also trains a causal transformer to predict actions using expert policy data. There are two key differences between ED and Gato. First, unlike Gato which utilizes small (relative to an episode length) within-episode contexts, ED is trained on the same across-episode contexts as \namenospace, so the architectures used by ED and \name are the same. The benefits of \name cannot therefore be attributed to across-episode contexts alone but also learning progress in the offline data used to train \namenospace. Second, ED models state-action-reward sequences while Gato models only state-action sequences. The main difference between ED and \name is that \name is trained on full multi-task learning histories rather than expert policy data.
+\noindent {\it Decision Transformer (DT)~\citep{chen2021dt} and Multi-Game Decision Transformer~\citep{lee2022mgdt}:} DTs learn return-conditioned policies from single-task offline data collected by an RL agent. While the training data itself (an RL agent's replay buffer) contains learning, the context sizes used in DT are too small to capture any learning progress or identify the task using across-episode information. For instance, the Atari experiments use a context of length $30-50$ tokens, or $10-17$ transitions. Atari games can have hundreds or thousands of transitions in a single episode, which means these contexts capture mostly within-episode information. Additionally, very little learning progress happens in the underlying replay buffer data within that many transitions.
+Another difference between DT and \name / ED is that DT learns a return-conditioned model whereas \name / ED are both reward-conditioned. In our setting return-conditioning alone cannot yield an optimal policy since the agent does not know the task until after it explores the environment and can identify it using across-episode contexts. Since (i) DT uses small within-episodic contexts and (ii) return-conditioning would not help in the environments considered, this baseline is similar to ED with a small within-episode context which is strictly weaker than the long across-episode context variant of ED we consider.
+\noindent {\it Trajectory Transformer (TTO)~\citep{janner2021tto}:} Like \namenospace, TTO also models state-action-reward tokens but in addition to predicting actions it also learns a world model by predicting states and rewards. To maximize return, TTO then uses beam search to select high-reward actions. However, in our setting, TTO will run into the same problem as DT. To model rewards accurately it will need longer across-episodic contexts since one environment supports many tasks. Similar to DT, MGDT, and Gato, TTO uses smaller within-episode contexts. For this reason, TTO will fare no better than DT, MGDT, or ED in the settings we consider. We also note that in contrast to TTO, \name is model-free. In \namenospace, actions are sampled from the transformer history-conditioned predictions and return maximization emerges from modeling the learning histories of an RL algorithm.
+To summarize, \name differs from prior methods mainly because its context is across-episodic and hence large enough to capture learning progress and task information. \name could further be augmented by learning world models like TTO or conditioning on returns like DT, but these investigations would be well suited for future work since they are tangential to the main research question addressed in this work -- whether in-context RL can emerge by imitating the learning histories of an RL algorithm with long across-episodic contexts.
+\name is also closely related to prior work in in-context meta-RL. While both \name and in-context meta-RL model across-episodic histories with memory-based architectures, prior in-context meta-RL algorithms, such as RL2~\citep{duan2016rl2} are trained online and rely on learning multi-episodic value functions with TD learning while \name is trained offline and uses a supervised imitation learning objective.
+\section{Expert Distillation Main Results}
+We elaborate further on the main results in Fig.~\ref{fig:main_exps} and provide intuition regarding the behaviors of the ED baseline.  In Dark Room, Dark Room (Hard), and Watermaze, ED performance is either flat or it degrades. The reason for this is that ED only saw expert trajectories during training, but during evaluation it needs to first explore (\ie \, perform non-expert behavior) to identify the task. This required behavior is out-of-distribution for ED and for this reason it does not reinforcement learning in-context. In Dark Key-to-Door the agent is reset randomly at the beginning of each episode, whereas in all of the environments the agent's starting position is fixed. Due to random resets, the ED agent is sometimes reset by the first goal in Dark Key-to-Door which allows it to occasionally identify the first goal of the task, which is why it shows slight improvement.
+\section{Model Size}
+ We investigate how transformer capacity affects performance in Fig.~\ref{fig:analysis}. While in-context RL emerges across all model sizes investigated, we find that increasing the model depth, the model width in terms of embedding dimension, and (to a lesser extent) the number of attention heads improves performance on Dark Key-to-Door.
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{assets/images/model_size_ablation.pdf}
+  \end{center}
+  \caption{\small {\it Model size investigations:} We investigate how increasing model capacity affects \namenospace. While in-context RL with \name emerges regardless of the model capacity, increasing the model depth and width helps improve \name until it achieves near-optimal performance. \looseness=-1}
+\label{fig:analysis}
+\end{figure}
+\newpage
+\section{Source Algorithm Training Runs}
+\label{app:source}
+\begin{figure}[h]
+\centering
+\begin{subfigure}{0.23\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/9x9_1g_dense_source.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.23\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/17x17_1g_sparse_source.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.23\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/9x9_2g_sparse_source.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{assets/images/watermaze_source.pdf}
+\end{subfigure}
+\caption{\small Asymptotic performance of the A3C~\citep{mnih16a3c} and a Q-$\lambda$ variant of the DQN~\citep{mnih2013dqn} RL algorithms used to produce learning histories for the Dark and Watermaze environments. These curves show the learning histories \name is trained on. The source algorithms plotted in Fig.~\ref{fig:main_exps} are the same as in these plots. \looseness=-1}
+\label{fig:source}
+\end{figure}
+\section{Label Smoothing Ablation}
+For the harder exploration task of Dark Room (Hard), we found that adding label smoothing regularization~\citep{szegedy2016inception,muller19labelsmoothing} improved the in-context learning ability of \name. In Figure~\ref{fig:label_smoothing_ablation} we ablate the benefit of using label smoothing for 3 different $\alpha$ values as well as with it turned off. Each curve in the figure denotes average performance over 5 training seeds. We can see that adding label smoothing up to a point improves the in-context learning ability of~\fullnamenospace, with performance continually increasing with the number of evaluation episodes.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.55\textwidth]{assets/images/label_smoothing_ablation.pdf}
+\caption{\name trained with different amounts of label smoothing on Dark Room (Hard).\small}
+\label{fig:label_smoothing_ablation}
+\end{figure}
+\section{RL$^2$ network architecture: Transformer vs LSTM}
+We compared using a transformer as the architecture for RL$^2$ instead of an LSTM. In Figure~\ref{fig:rl2_architecture_ablation}, we ran both transformer and LSTM RL$^2$ agents over the Dark Room environment. The curves shown are the best from a sweep over learning rate and unroll length hyperparameters. The transformer architecture is 4-layers with a model size of 256 and pre-norm layer normalization placement. While both agents reached a similar level of final performance, all RL$^2$ transformer models trained tended to be more unstable with the average return not as consistent as with an LSTM architecture. Given the poor performance of the transformer-based RL$^2$ on the simpler Dark Room setting, our other experimental settings used the LSTM.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{assets/images/rl2_lstm_vs_transformer.pdf}
+\caption{Comparison of LSTM and Transformer architecture for RL$^2$ agent on Dark Room. Each curve is averaged over 5 training seeds with the shaded area representing the standard error.}
+\label{fig:rl2_architecture_ablation}
+\end{figure}
+\newpage
+\section{Number of Training Tasks in Source Data}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{assets/images/training_tasks_ablation_curves.pdf}
+\caption{Algorithm distillation trained on different numbers of training tasks on Dark Key-to-Door evaluated on a fixed set of test tasks for 300 episodes of evaluation.}
+\label{fig:ad_training_tasks}
+\end{figure}
+One interesting question is how many tasks \name needs to be trained on to learn an algorithm that generalizes to held out tasks. We trained \name on different numbers of Dark Key-to-Door training tasks and evaluated the resulting models on the same set of test tasks. Figure~\ref{fig:ad_training_tasks} shows the in-context learning plots for the resulting \name models on the set of test tasks. As a reminder, there are $81^2=6561$ unique Dark Key-to-Door tasks. Models trained on 1, 9 or 18 training tasks did not show any in-context learning on test tasks. While models trained on 37, 75 and 151 tasks did not achieve good performance overall, they did exhibit some in-context learning over the course of 300 episodes. The best models were trained on 1212 and 2424 tasks which corresponds to roughly $18\%$ and $37\%$ of the total number of tasks in the Dark Key-to-Door domain.
+\section{Single-Stream \fullname}
+\label{app:single_stream}
+We provide more details around the experimental setup for the single-stream result shown in Fig.~\ref{fig:single_stream_ad}.
+We showed in Fig.~\ref{fig:main_exps} that when \name is trained on data from a subset of the actors of a distributed source RL algorithm, the resulting model is more data efficient than the source algorithm. Here we confirm that \name can produce a faster algorithm than the one it was trained on in the single-stream setting. For this experiment we trained A3C on 2048 Dark Key-to-Door tasks for 2000 episodes each. We then trained \name on the resulting data while subsampling the learning histories by a factor of 10. More concretely, we took every 10th episode from each of the learning history, which resulted in a 200 episode compressed learning trajectory for each task. Figure~\ref{fig:single_stream_ad} compares the resulting \name model evaluated on a set of test tasks to the performance of the source algorithm on these tasks. The model learned by \name learns much faster than the source algorithm confirming that \fullname can turn a slow gradient-based algorithm into a much more data efficient in-context learning algorithm.
+\section{Random mask}
+\label{app:random_masking}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{assets/images/9x9_1g_mask.pdf}
+\caption{Downstream performance of Algorithm Distillation with different values of random masking during training in 9x9 1 goal gridworld.}
+\label{fig:9x9_1g_random_mask}
+\end{figure}
+During training, input tokens were randomly masked to avoid overfitting to training data. This plot shows the downstreams results on a 9x9 Dark Key-to-Door domain with different values of this random masking. Values of $0.3-0.5$ perform the best with the value of $0.3$ chosen for all experiments.
+\section{AD network architecture: Transformer vs LSTM}
+\label{app:transformer_vs_lstm}
+Here we consider the importance of the Transformer architecture to the success of algorithm distillation (AD) by comparing to AD based off of an LSTM \citep{schm97lstm}. Specifically, the LSTM receives the concatenated embeddings of $\left(o_i, a_i, r_i\right)$ triplets up to the most recent time step $t-1$. The output of the LSTM is then concatenated with the current observation $o_t$ embedding and both are then fed through a multi-layer perceptron (MLP) policy torso to produce a distribution over the present action $a_t$. The LSTM hidden size (512), MLP depth (2), and MLP width (256) were swept and tuned by grid search based on downstream reward attainment.
+Comparing Transformer AD and LSTM AD on the Dark Key-to-Door task, we find that both agents are capable of in-context learning, demonstrating that the success of AD is not tied to the underlying network architecture. However, we also find that the Transformer variant consistently outperforms the LSTM variant, which is why all other experiments in this paper employ the Transformer variant. This finding is consistent with the recent wider success of Transformer-based architectures over recurrent neural network (RNN)-based architectures in sequence prediction tasks.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.45\textwidth]{assets/images/9x9_2g_transformer_vs_lstm.pdf}
+\caption{Comparison between algorithm distillation with a Transformer and LSTM architecture on Dark Key-to-Door. Mean $\pm$ 1 standard deviation over 5 training seeds and 20 evaluation seeds. 300 episodes corresponds to 15k environment steps.}
+\label{fig:9x9_2g_transformer_vs_lstm}
+\end{figure}
+\newpage
+\section{\fullname Hyperparameters}
+\label{app:ad_hypers}
+\begin{table}[h!]
+    \centering
+    \scalebox{0.9}{
+    \begin{tabular}{lcccc}
+        \toprule
+        Hyperparameter & Dark Room & Dark Room (Hard) & Dark Key-to-Door & Watermaze \\
+        \midrule
+        Embedding Dim. &  \multicolumn{4}{c}{64} \\
+        Number of Layers & \multicolumn{4}{c}{4} \\
+        Number of Heads & \multicolumn{4}{c}{4} \\
+        Feedforward Dim. & \multicolumn{4}{c}{2048} \\
+        Position Encodings & \multicolumn{4}{c}{Absolute} \\
+        Layer Norm Placement & \multicolumn{4}{c}{Post Norm} \\
+        Dropout Rate & \multicolumn{4}{c}{0.1} \\
+        Attention Dropout Rate & 0.5 & 0 & 0.5 & 0.5 \\
+        Sequence Mask Prob & 0.3 & 0.5 & 0.3 & 0.3 \\
+        Label Smoothing $\alpha$  & 0 & 0.2 & 0 & 0 \\
+        \bottomrule
+    \end{tabular}}
+    \caption{\fullname Architecture Hyperparameters.\small}
+    \label{tab:arch_hypers}
+    \small
+\end{table}
+\begin{table}[h]
+    \centering
+    \scalebox{0.9}{
+    \begin{tabular}{lcc}
+        \toprule
+         Hyperparameter & Value \\ \midrule
+         Batch Size & 128 \\
+         Optimizer & Adam \\
+         $\beta_1$ & 0.9 \\
+         $\beta_2$ & 0.99 \\
+         Gradient Clip Norm Threshold & 1 \\ \midrule
+         Learning Rate Schedule & Cosine Decay \\
+         Initial Value & 2e-6 \\
+         Peak Value & 3e-4 \\
+         \bottomrule
+    \end{tabular}}
+    \caption{\fullname Optimization Hyperparameters.\small}
+    \label{tab:opt_hypers}
+    \small
+\end{table}
+\begin{table}[h]
+    \centering
+    \scalebox{0.9}{
+    \begin{tabular}{lcc}
+        \toprule
+         Layer & Hyperparameter & Value \\ \midrule
+         \it{Conv Block} & \\
+         \multirow{3}{4em}{Conv} &  Channel & 128 \\
+          &  Kernel & 5 \\
+          &  Stride & 2 \\
+         \multirow{2}{5em}{BatchNorm} & Decay Rate & 0.999 \\
+         & eps & 1e-5 \\
+         Activation & - & ReLU \\
+         \multirow{2}{7em}{Max Pooling} & Kernel & 2 \\
+         & Stride & 2 \\
+         Dropout & Rate & 0.2 \\ \midrule
+         \it{Network} & \\
+         Conv Blocks & - & 3 \\
+         Final Linear Layer & Units & 256 \\
+         \bottomrule
+    \end{tabular}}
+    \caption{Watermaze Image Encoder Hyperparameters.\small}
+    \label{tab:watermaze_enc_hypers}
+    \small
+\end{table}
+\newpage
+\section{Source RL Algorithm Hyperparameters}
+\label{app:rl_hypers}
+\subsection{Dark Environments}
+\begin{table}[h]
+    \centering
+    \scalebox{0.9}{
+    \begin{tabular}{lcc}
+        \toprule
+         Hyperparameter & Value \\ \midrule
+         Batch Size (Num. Actors) & 100 \\
+         $\lambda$ & 0.95 \\
+         Agent Discount & 0.99 \\
+         Entropy Bonus Weight & 0.01 \\
+         MLP Layers & 3 \\
+         MLP Hidden Dim & 128 \\
+         Optimizer & Adam \\
+         $\beta_1$ & 0.9 \\
+         $\beta_2$ & 0.999 \\
+         $\epsilon$ & 1e-6 \\
+         Learning Rate & 1e-4 \\
+         \bottomrule
+    \end{tabular}}
+    \caption{Source A3C Algorithm Hyperparameters for Dark Environments.\small}
+    \label{tab:watermaze_source_algo}
+    \small
+\end{table}
+\subsection{ DMLab Watermaze}
+\begin{table}[h]
+    \centering
+    \scalebox{0.9}{
+    \begin{tabular}{lcc}
+        \toprule
+         Hyperparameter & Value \\ \midrule
+         Batch Size & 8 \\
+         Rollout Length & 40 \\
+         Rollout Overlap & 31 \\
+         Number of Actors & 16 \\
+         Reply Buffer Capacity & 1e5 \\
+         Offline Data Fraction & 0.7 \\
+         $\lambda$ & 0.75 \\
+         $\epsilon$ & 0.01 \\
+         Agent Discount & 0.9 \\
+         Target Update Period & 50 \\ \midrule
+         ResNet Channels & [32, 64, 64] \\
+         ResNet Kernels & [3, 3, 3] \\
+         ResNet Strides & [1, 1, 1] \\
+         Pool Kernels & [3, 3, 3] \\
+         Pool Strides & [2, 2, 2] \\ \midrule
+         Optimizer & Adam \\
+         $\beta_1$ & 0.9 \\
+         $\beta_2$ & 0.999 \\
+         $\epsilon$ & 1e-6 \\
+         Gradient Clip Norm Threshold & 10 \\
+         Learning Rate & 1e-4 \\
+         \bottomrule
+    \end{tabular}}
+    \caption{Source DQN(Q-$\lambda$) Algorithm Hyperparameters for Watermaze.\small}
+    \label{tab:watermaze_source_algo}
+    \small
+\end{table}
+\newpage
+\section{RL$^2$ Hyperparameters}
+\label{app:rl2_hypers}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lc}
+    \toprule
+    Hyperparameter & Value \\ \midrule
+    RL Algorithm & A3C \\
+    Learning Rate & 3e-4 \\
+    Batch Size & 256 \\
+    Unroll Length & 20 \\
+    LSTM Hidden Dim. & 256 \\
+    LSTM Number of Layers & 2 \\
+    Episodes Per Trial & 10 \\
+    \bottomrule
+    \end{tabular}
+    \caption{RL$^2$ Hyperparameters used in ``Dark'' Environments.\small}
+    \small
+\end{table}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lc}
+    \toprule
+    Hyperparameter & Value \\ \midrule
+    RL Algorithm & DQN(Q-$\lambda$) \\
+    Learning Rate & 1e-4 \\
+    Batch Size & 96 \\
+    Unroll Length & 40 \\
+    LSTM Hidden Dim. & 256 \\
+    LSTM Number of Layers & 1 \\
+    Episodes Per Trial & 30 \\
+    \bottomrule
+    \end{tabular}
+    \caption{RL$^2$ Hyperparameters used in the Watermaze Environment.\small}
+    \small
+\end{table}
+\newpage
+\section{Attention Maps}
+\begin{figure}[h]
+\centering
+  \centering
+  \includegraphics[width=1.0\textwidth]{assets/images/attention_4.pdf}
+  \caption{Attention maps for \name from five separate seeds. White and gray colors correspond to low and high attention. Red and blue colors indicate that those transitions correspond to an episode restart and a positive reward token, respectively. The left column plots attention for an AD transformer after 200 time-steps of evaluation (when the context is initially filled). The right column plots attention after 1900 steps (38 episodes) of evaluation. Each episode has a length of 50 steps. From these patterns, it is evident that \name attends to tokens across several episodes to predict its next action.}
+  \label{fig:sub1}
+\label{fig:test}
+\end{figure}
+\end{document}

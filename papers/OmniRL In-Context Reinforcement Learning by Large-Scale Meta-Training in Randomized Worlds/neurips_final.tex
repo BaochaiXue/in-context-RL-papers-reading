@@ -1,0 +1,1640 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+\PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2025
+
+
+% ready for submission
+%\usepackage{tmlr}
+
+% Preprint
+%\usepackage{arxiv}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2025}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+\usepackage[final]{neurips_2025}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2025}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{mdframed}
+\usepackage{multirow}
+\usepackage{makecell}  
+\usepackage{titlesec}
+
+%algorithms
+\usepackage{algorithm}  %
+\usepackage{algorithmic}%
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % for professional tables
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{authblk}
+\usepackage{floatflt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{enumitem}
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+\newcommand{\TODO}[2]{\textcolor{red}{\\ \textbf{#1 - ToDo}: \\#2\\}}
+\newcommand{\TCP}[1]{\textcolor{blue}{$\triangleright$ #1}}
+\renewcommand{\cite}[1]{\citep{#1}}
+
+\begin{document}
+
+\title{Towards Large-Scale In-Context Reinforcement Learning by Meta-Training in Randomized Worlds}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+\author[1,2]{*\dag Fan Wang}
+\author[2]{*Pengtao Shao}
+\author[2]{Yiming Zhang}
+\author[2]{Bo Yu}
+\author[2]{\dag Shaoshan Liu}
+\author[2]{\\Ning Ding}
+\author[1,3]{Yang Cao}
+\author[1,3]{Yu Kang}
+\author[4]{Haifeng Wang}
+
+\affil[1]{University of Science and Technology of China, Heifei, China}
+\affil[2]{Shenzhen Institute of Artificial Intelligence and Robotics for Society, Shenzhen, China}
+\affil[3]{Anhui Province Key Laboratory of Intelligent Low-Carbon Information Technology and Equipment}
+\affil[4]{Baidu Inc, Beijing, China}
+
+\maketitle
+
+\def\thefootnote{*}\footnotetext{Equal Contribution}
+\def\thefootnote{\dag}\footnotetext{Corresponding to: fanwang.px@gmail.com, shaoshanliu@cuhk.edu.cn}
+\def\thefootnote{$\clubsuit$}\footnotetext{\url{https://github.com/FutureAGI/Xenoverse/tree/main/xenoverse/anymdp}}
+\def\thefootnote{$\spadesuit$}\footnotetext{\url{https://github.com/airs-cuhk/airsoul/tree/main/projects/OmniRL}}
+
+
+
+\begin{abstract}
+In-Context Reinforcement Learning (ICRL) enables agents to learn automatically and on-the-fly from their interactive experiences. However, a major challenge in scaling up ICRL is the lack of scalable task collections. To address this, we propose the procedurally generated tabular Markov Decision Processes, named AnyMDP$^\clubsuit$. Through a carefully designed randomization process, AnyMDP is capable of generating high-quality tasks on a large scale while maintaining relatively low structural biases.
+To facilitate efficient meta-training at scale, we further introduce decoupled policy distillation and induce prior information in the ICRL framework$^\spadesuit$.
+Our results demonstrate that, with a sufficiently large scale of AnyMDP tasks, the proposed model can generalize to tasks that were not considered in the training set through versatile in-context learning paradigms.
+The scalable task set provided by AnyMDP also enables a more thorough empirical investigation of the relationship between data distribution and ICRL performance. We further show that the generalization of ICRL potentially comes at the cost of increased task diversity and longer adaptation periods. This finding carries critical implications for scaling robust ICRL capabilities, highlighting the necessity of diverse and extensive task design, and prioritizing asymptotic performance over few-shot adaptation.
+\end{abstract}
+
+\section{Introduction}
+% Proficiency of ICL, Limitations - One-Shot, Can not continually improve with experience
+In-Context Learning (ICL)~\cite{brown2020language} has emerged as a pivotal paradigm for large pre-trained models~\cite{radford2021learning,driess2023palm,touvron2023llama,achiam2023gpt}, enabling adaptation to novel tasks without parameter adjustments. Unlike gradient-based in-weight learning (IWL), which modifies parameter weights through optimization, ICL facilitates skill acquisition through natural interaction. This is achieved by unifying versatile learning paradigms by sequence of interactions in the context, including supervised learning~\cite{santoro2016meta,garg2022can}, imitation learning~\cite{reed2022generalist,fucontext,vosyliusfew}, and reinforcement learning~\cite{wang2016learning,duan2016rl,laskin2022context}, etc. By leveraging those contexts, ICL eliminates reliance on manually engineered objective functions and the labor-intensive optimization infrastructure required by traditional IWL frameworks, providing versatile, self-directed manners of learning. ICL further aligns with black-box meta-learning principles~\cite{koch2015siamese,wang2016learning} where task-agnostic adaptation occurs through computation and memorization rather than explicit parameter tuning. It can be regarded as a unifying framework that bridges the gap between conventional meta-learning approaches and contemporary large-scale language model capabilities.
+
+% Explain the limitations of ICRL: Scalalibility Issue
+The historical conception of ICL has been predominantly associated with supervised few-shot learning paradigms. Recently, the frameworks for learning from dynamic experiences have achieved growing success, where the contextual information can encompass observations, actions, feedback, and reasoning. Among these emerging paradigms, In-Context Reinforcement Learning (ICRL) stands out as a critical approach. Unlike traditional ICL, which arises from self-supervised pre-training, ICRL typically requires explicit training via reinforcement learning (RL) algorithms~\cite{duan2016rl}, introducing substantially higher computational complexity and training costs for large-scale applications. While recent supervised learning approaches have shown promise in enhancing ICRL efficiency~\cite{laskin2022context,zisman2023emergence,lee2024supervised}, current implementations remain constrained by limited context lengths (typically <1K tokens) and narrow task scales (often <1K distinct tasks). These limitations significantly restrict ICRL's capacity for broad task generalization, highlighting an urgent need for scalable architectures that can reconcile contextual flexibility with computational efficiency.
+
+% Explain the limitations of Benchmarks
+Additionally, existing benchmarks for ICRL predominantly fall into two categories: 1) oversimplified environments like multi-armed bandit tasks, or 2) procedurally generated seed tasks such as maze navigation~\cite{wang2022evolving, nikulin2023xland, morad2023popgym} or arcade-style games~\cite{cobbe2020leveraging}. While the former lacks practical relevance due to their constrained problem spaces, the latter suffers from superficial parameter randomization - diversifying only peripheral elements like visual textures or sub-objectives while preserving core environmental biases (e.g., fixed transition dynamics and reward functions). This design paradigm confines ICRL agents to narrow problem distributions, yielding systems that demonstrate limited generalization scope. Consequently, scaling task complexity beyond a few hundred variants encounters diminishing returns, as models inherit fundamental limitations from their training environments' structural biases.
+
+% Contribution: 1. propose large-scale, low structural-bias dataset; 2. introducing step-wise supervision and large; 3. Investigating the impact of data distribution on ICRL, emphasize the importance of ICL over zero-shot, few-shot adaption.
+To advance the scalability and generalization capabilities of ICRL, this work presents two interrelated contributions: a novel benchmarking task set and a scalable ICRL framework. First, we introduce AnyMDP, a scalable task generation environment where Markov Decision Processes (MDPs) are systematically designed with fully randomized transition dynamics and reward functions. To balance environmental richness with learner challenge, we propose the procedural generation process remarked with banded transition matrices. This design minimizes structural biases while preserving problem complexity, creating a benchmark that demands genuine contextual adaptation rather than exploiting environmental regularities. Second, we propose Decoupled Policy Distillation (DPD) to enhance ICRL training efficiency. By disentangling reference policy from behavior policy, and inducing prior knowledge into the context, we achieve unprecedented training scales and ICRL versatility. Our implementation, OmniRL, was trained exclusively on AnyMDP tasks using context sequences of up to 512K steps per sequence and 6 billion steps overall. Empirical validation demonstrates OmniRL's capability of many-shot generalization to entirely novel tasks, confirming our models generalization scope and versatile learning ability. 
+
+Moreover, leveraging the scalable AnyMDP task set, we conduct ablations that reveal critical insights into ICRL’s dependence on \emph{task diversity} and \emph{long-context modeling}.
+First, the boundary between IWL and ICL is fundamentally determined by training-task coverage: sufficiently diverse distributions (at least 10K unique tasks in our case) elicit emergent task learning capabilities, whereas limited coverage reduces systems to task recognition regimes.
+Second, long-context modeling proves indispensable for interpreting complex task specifications and achieving broad generalization.
+These findings establish a new paradigm for ICRL research in which scalable benchmarks and context-aware training jointly yield systems that approach human-like adaptability in dynamic decision-making domains.
+
+\section{Related Work}
+\subsection{Emergence of In-Context Learning}
+Meta-learning, also known as learning to learn~\citep{thrun1998learning,finn2017model,duan2016rl}, pertains to a category of approaches that prioritize the acquisition of generalizable adaptation skills across a spectrum of tasks. 
+Large models pre-trained on massive, uncurated datasets naturally give rise to In-Context Learning (ICL), a phenomenon analogous to model-based meta-learning \citep{brown2020language, reed2022generalist, chen2021meta, coda2023meta, raparthy2024generalization, edelman2024evolution, liu2024llms}.
+Investigations reveal that ICL ability is tightly linked to pre-training data distribution, with factors spanning burstiness and intra-sequence correlation~\citep{chan2022data,zhao2024analysing,raparthy2024generalization} to overall diversity~\citep{raventos2023pretraining}.
+Complementary analyses show that computation-based ICL can emulate a rich spectrum of learning behaviors, including gradient descent~\citep{chan2022transformers,von2023transformers,xieexplanation}, Bayesian inference~\citep{xieexplanation}, and broader learning paradigms~\citep{laskin2022context}. 
+Those findings suggest its potential as a general-purpose learning machine~\citep{kirsch2022general,kirsch2023towards,wang2024benchmarking,wang2025putting} rather than a mere mechanism for instruction following or few-shot adaptation.
+Building on the recent progress in ICL and the principles of meta-learning, we adopt the term meta-training to denote the training procedure that explicitly equips the model with the capacity to learn in context, thereby distinguishing it from pre-training, which yields only zero-shot skills and incentivizes ICL as an incidental by-product of exposure to uncurated data.
+
+\subsection{In-Context Reinforcement Learning}
+In-context reinforcement learning (ICRL) encompasses algorithms that dynamically adapt to decision-making tasks by synthesizing self-generated trajectories and incorporating external feedback in the context~\citep{duan2016rl,laskin2022context}. Unlike one-off ICL adaptation, ICRL stresses continual policy improvement driven by accumulated experience, echoing the ``third system'' forged through ongoing interaction and experience accumulation, as articulated by Barabasi et al.~\cite{barabasi2025three}.
+ICRL typically employs recurrent ~\cite{duan2016rl,wang2017learning} and attention-based~\cite{laskin2022context,mishra2018simple} neural structures that are capable of encoding the interactive histories in the \emph{inner loop}. The meta-training process that searches the parameters for learning functionality is called \emph{outer loop}. 
+Common choices for the outer-loop optimizer for ICRL include reinforcement learning~\citep{duan2016rl, grigsbyamago, mishra2018simple}, evolutionary strategies~\citep{najarro2020meta, wang2022evolving}, and supervised learning~\citep{laskin2022context, lee2024supervised}. 
+While supervised learning generally achieves higher sample efficiency compared to RL and evolutionary strategies, it often suffers from the bottleneck of distribution shift~\cite{azar2017minimax, xu2020error}.Additionally, the absence of an oracle policy can become a critical bottleneck for supervised learning; consequently, alternatives replace the expert with an RL coach for data synthesis~\citep{reed2022generalist,zhang2021end}.
+A further obstacle to ICRL research is the lack of large-scale task suites, which hampers the emergence of ICRL in real-world decision-making problems and motivates the creation of procedurally generated tasks at scale.
+
+
+\subsection{Procedurally Generated Tasks}
+Commonly employed procedural-generation techniques include randomizing a subset of domain parameters to create variant tasks by randomizing the rewards or targets while keeping the transitions fixed~\citep{laskin2022context, lee2024supervised, mishra2018simple, finn2017model, yu2020meta, alegre2022mo}, randomizing the dynamics while keeping the targets unchanged~\citep{najarro2020meta,wang2022evolving,cobbe2020leveraging, pedersen2021evolving, akyurek2024context, nikulin2023xland}, and randomizing the observations and labels without altering the underlying transitions and rewards~\citep{kirsch2022general,morad2023popgym,sinii2024context}.
+These techniques is frequently applied to enhance the robustness of decision and policy model for sim-to-real transfer~\citep{peng2018sim, team2022learning, akkaya2019solving}, namely domain randomization (DR).
+Although DR creates a class of tasks with a certain variety, it is restricted by the original task setting and basically forms a close and finite task set.
+Recently, generating open-ended tasks with enhanced diversity has emerged as a focal point in research, with a significant emphasis on game-based frameworks \citep{team2021open, team2022learning, wang2024benchmarking, nikulin2024xland, team2021open, team2022learning, bauer2023human}. Such approaches are increasingly recognized as vital inductive biases for fostering adaptability. While procedurally generated discrete Markov Decision Processes (MDPs) provide a promising avenue for minimizing structural bias, owing to their configuration via a constrained set of hyperparameters, naive sampling of these MDPs often results in a concentration of trivial tasks, which lack meaningful complexity~\citep{archibald1995generation, bhatnagar2009natural}. In this work, we address this limitation by strategically incorporating critical features during the procedural generation of discrete MDPs.
+
+
+\section{AnyMDP: Procedural Generation of High-Quality MDP Tasks}\label{sec:anymdp}
+\subsection{Problem Setting and Definitions}
+We denote a task of Markov Decision Processes (MDPs) with $\tau =\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \mathcal{S}_0, \mathcal{S}_E,T_E,\gamma \rangle$ where $\mathcal{S}$ denotes the state space, $\mathcal{A}$ the action space, $\mathcal{P}:\mathcal{S}\times\mathcal{A}\rightarrow\mathcal{S}$ the state-transition probability distribution, $\mathcal{R}:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\rightarrow\mathbb{R}$ the reward function, $\mathcal{S}_0$ the set of initial states, and $\mathcal{S}_E$ the set of terminal states, $T_E$ the maximum steps in an episode, and $\gamma$ the discount factor. We consider only fully visible discrete MDPs with $\mathcal{S}=\{1,...n_s\}$, $\mathcal{A}=\{1,...n_a\}$, denoted by $\tau$. We define average state transition $\hat{\mathcal{P}}_{\mathfrak{r}}(s'|s) = \mathbb{E}_{a \sim \pi^{\mathfrak{r}}(a|s)|}$, which is the transition under uniform policy $\mathfrak{r}: a \sim \pi^{\mathfrak{r}}(a|s) = \frac{1}{|\mathcal{A}|}$.
+For absorbing states $s \in \mathcal{S}_E$, the transition was connected back to $\mathcal{S}_0$.
+We then formally define the \emph{AnyMDP} task collection $\mathcal{T}(n_s,n_a,\eta,\epsilon,\kappa, b_{-},b_{+})$ as MDPs satisfying the following conditions:
+\begin{itemize}
+\item \emph{Ergodic}: average state transition $\hat{\mathcal{P}}_{\mathfrak{r}}$ has unique positive stationary distribution.
+\item \emph{Banded Transition Matrix}:  there exists a ranking of states: $s_1,...,s_{n_s}$, such that: $\hat{\mathcal{P}}_{\mathfrak{r}}$ satisfies the following condition:
+\begin{align}
+    \hat{\mathcal{P}}_\mathfrak{r}(s_j|s_i) &\equiv 0 \text{, } \forall j<i-b_{-} \text{, or } j>i-b_{+} \nonumber\\
+    \sum_{j<i} \hat{\mathcal{P}}_\mathfrak{r}(s_j|s_i) &> \eta \text{, if } i>b_{-}, \sum_{j>i} \hat{\mathcal{P}}_\mathfrak{r}(s_j|s_i) > \epsilon \text{, if } i<n_s-1 \label{eq:banded_transition}
+\end{align}
+\item \emph{Ascending Value Function}: given the aforementioned ranking of states, the value function $V^*$ under the optimal policy satisfies the following condition: 
+\begin{align}
+    V^*(s_{n_s}) > \max_{s\in\mathcal{S}_0}V^*(s) + \kappa \label{eq:ascending}
+\end{align}
+\end{itemize}
+
+Notice that $\mathcal{T}(n_s=1, n_a)$ represents the widely used multi-armed bandits benchmark for ICRL~\citep{duan2016rl,lee2024supervised,mishra2018simple}. As the number of states $n_s$ increases, tasks demand progressively more sophisticated reasoning over delayed rewards and complex state spaces. This transition evolves the problem from a simple multi-armed bandit framework to a full reinforcement learning paradigm, where long-term planning and environmental interaction become critical. Furthermore, since the ground truth dynamics $\mathcal{P}$ and reward function $\mathcal{R}$ are known within the simulation environment, this setup enables straightforward computation of the oracle solution through value iteration~\citep{bellman1958dynamic}. 
+
+\subsection{Motivations of AnyMDP}
+
+AnyMDP is motivated by the following visions: (1) Existing procedurally generated MDP benchmarks like PROCON~\citep{archibald1995generation} and Garnet~\citep{bhatnagar2009natural} overlook terminal states ($\mathcal{S}_E$) which is a critical feature of real-world environments where agents enter terminal states (e.g., task completion or failure). Therefore, AnyMDP allows terminal states to match many real tasks.
+(2) Through banded transition matrix and ascending value function, AnyMDP has high-valued states that are exponentially less possible to reach by random exploration. In real-world tasks, especially long-horizon ones, the probability of reaching the goal by naïve random choices decays exponentially with task length. Consequently, solely relying on random exploration can be extremely inefficient in solving those tasks; instead, a continuous exploration–exploitation trade-off is required to approach the optimum gradually. Inspired by this necessity, we impose on the Markov Decision Process the constraint that \emph{states with higher values are reached with lower probability}, thereby guiding the learner toward systematic, intelligent exploration rather than mere random search.
+
+By defining the stationary distribution $p_{\mathfrak{r}}$ with $p_{\mathfrak{r}} P_{\mathfrak{r}} = p_{\mathfrak{r}}$, the upper and lower bound of the chances of arriving at any states is ensured by the following theorem:
+\begin{theorem}
+Given the condition of \cref{eq:banded_transition}, for $j > b$, where $b=\max(b_{-}, b_0) + b_{+}$, there exists a value $0 < \delta < 1/(b_{+}+1)$. If $\eta > 1-\delta$,the sampling algorithm ensures that the transition $\hat{\mathcal{P}}_{\mathfrak{r}}$ has a unique positive stationary distribution (Ergodic). Specifically, for the state $s_j$, the $p_\mathfrak{r}(s_j)$ satisfies the following bounds:
+\begin{center}
+$C_1\epsilon^{j-b}< p_\mathfrak{r}(s_j) < C_2(1-\delta)^{j-b}$,
+\end{center}
+where $C_1$ and $C_2$ are positive constants.
+\label{theory:mc}
+\end{theorem}
+
+\cref{theory:mc} guarantees that the probability of staying at $s_j$ by random choice of actions decreases at least exponentially with respect to $j$, while also being bounded above by another exponentially decaying, yet non-negligible, probability to ensure ergodicity. Using a banded transition matrix, we further equip the MDP with a \emph{Composite Reward} (CR) that decomposes reward generation into independent components, ensuring an ascending value function while preserving low structural bias when sampling. We have relegated the proof of \cref{theory:mc} and the details of the sampling procedures to the \cref{sec:add_anymdp} for brevity.
+
+\subsection{Comparison with Other Procedural MDPs and Empirical Validation}
+
+\begin{figure*}[htbp]
+\vskip 0.2in
+\begin{center}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_ablation_16.pdf}
+    \label{fig:eval_task_ablation_add_sub1}
+\end{subfigure}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_ablation_64.pdf}
+    \label{fig:eval_task_ablation_add_sub3}
+\end{subfigure}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_ablation_16.pdf}
+    \label{fig:eval_task_ablation_add_sub5}
+\end{subfigure}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_ablation_64.pdf}
+    \label{fig:eval_task_ablation_add_sub7}
+\end{subfigure}
+\vspace{-10pt}
+\caption{An ablation study comparing AnyMDP tasks with Garnet MDP and AnyMDP without composite reward demonstrates that the procedural generation algorithm of AnyMDP produces tasks of higher learning difficulty.}
+\label{fig:eval_task_ablation_add}
+\end{center}
+\vskip -0.2in
+\end{figure*}
+
+
+\begin{figure*}[htbp]
+\vskip 0.2in
+\begin{center}
+\begin{subfigure}[b]{0.48\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/vis_sd_16_5_all.pdf}
+    \label{fig:vis_sd_16_5}
+\end{subfigure}
+\quad
+\begin{subfigure}[b]{0.48\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/vis_sd_64_5_all.pdf}
+    \label{fig:vis_sd_64_5}
+\end{subfigure}
+\vspace{-10pt}
+\caption{Comparison of the stationary distributions (SDs) of the oracle policy and the uniform random policy across four classes of environments: AnyMDP - $\tau(16/64,5)$, and Garnet MDP-$(16/64,5,2/4)$ demonstrates that AnyMDP exhibits uniquely exponentially-decaying SDs. The results are averaged over 64 randomly sampled tasks, with the SDs for each task re-ranked in descending order.}
+\label{fig:vis_sd}
+\end{center}
+\vskip -0.2in
+\end{figure*}
+
+The proposed sampler guarantees high-quality MDPs in three aspects: ergodicity, low structural bias, and high learning difficulty.
+To empirically verify the high learning difficulty and to validate \cref{theory:mc}, we run two groups of experiments.
+Figure~\ref{fig:eval_task_ablation_add} compares the performance of two well-known discrete MDP learning methods: Tabular Q-Learning~\cite{sutton1998reinforcement} with Upper Confidence Bound (TQL-UCB)~\cite{jin2018q} and Proximal Policy Optimization (PPO)~\cite{schulman2017proximal}, on tasks sampled from AnyMDP and Garnet MDP~\cite{bhatnagar2009natural}. Garnet uses parameters $n_s, n_a, b, \sigma, \tau$ to shape generated MDPs. Here, we set $\sigma=0.1, \tau=0, b=\{2,4\}$, and keeps $n_s$ and $n_a$ equal to AnyMDP for comparison. To isolate the impact of composite reward (CR)~\cref{eq:composite_rewards} sampling, we also include a baseline without the composite reward sampling technique (AnyMDP w/o CR).
+The results show that AnyMDP tasks pose greater challenges for both RL methods. Figure~\ref{fig:vis_sd} further illustrates the stationary distribution (SD) of states by tasks sampled from AnyMDP and Garnet MDPs. It demonstrates exponential decay in SD of AnyMDP, empirically validating Theorem~\ref{theory:mc}, while Garnet MDPs exhibit flatter SDs, especially under the random policy.
+
+\section{The Scalable ICRL Framework of OmniRL} \label{sec:OmniRL}
+
+\begin{figure}[htbp]
+\begin{center}
+\centerline{\includegraphics[width=0.95\textwidth]{img/Data_Synthesis.pdf}}
+\caption{Comparison of the learning pipelines and data formulation of different ICRL methods (AD, AD$^{\varepsilon}$,DPT) and Decoupled Policy Distillation (DPD).}
+\label{fig:data_synthesis}
+\end{center}
+\vspace{-0.2in}
+\end{figure}
+
+\textbf{Decoupled Policy Distillation (DPD)}: Meta-training for ICRL using RL or Evolution Strategies faces significant costs, including cumbersome infrastructure requirements and high computational costs. Recent advances in supervised learning-based meta-training methods—such as Algorithm Distillation (AD)~\citep{laskin2022context}, AD$^\varepsilon$~\citep{zisman2023emergence}, and Decision Pre-Training Transformers (DPT)~\citep{lee2024supervised}—have shown promise for scalable ICRL meta-training. However, a critical challenge arises during inference: contextual trajectories are generated by the model itself, creating an unavoidable gap between training-time and inference-time trajectories. This discrepancy can lead to catastrophic failures during deployment. While leveraging diverse behavior trajectories has been shown to mitigate this issue~\citep{lee2024supervised}, it introduces a new challenge of maintaining training efficiency.
+To address these limitations, we propose Decoupled Policy Distillation (DPD), a framework inspired by DPT and data aggregation techniques for imitation learning~\citep{ross2010efficient, ross2011reduction}. Our approach hinges on two decoupled policies: The \emph{behavior policy} refers to the policy executed to generate trajectories during training. The \emph{reference policy} refers to the target policy to be imitated, which remains decoupled from direct execution. Decoupling the behavior and reference policies enables the introduction of diversity into the behavior policy, thereby reducing the discrepancy between training and inference trajectories while maintaining the optimality of the reference policy, as shown in \cref{fig:data_synthesis}. Unlike DPT, which imitates only one-step action conditioned on a trajectory, our step-wise supervision framework is inherently designed to align with high-efficiency chunk-wise training pipelines for sequence models such as Transformers~\citep{vaswani2017attention} and their optimized variants~\citep{li2023transformers, zhanggated}, producing $T$ times training efficiency ($T$ is the sequence length).
+
+\textbf{Prior knowledge augmented ICRL}: For SS, which employs diverse policies for trajectory generation, prior knowledge becomes crucial for interpreting actions derived from heterogeneous policies~\citep{chen2021decision}. This motivates the incorporation of prior knowledge, specifically metadata indicating the policy used to generate each action. In this work, we implement a diverse set of behavior policies $\Pi=\{\pi^{(b)}\}$, with $(b)$ denoting the behavior policies. $\pi^{(b)}$ comprises seven distinct types, including myopic greedy, oracle, Q-learning, and model-based reinforcement learning, denoted by a marker $tag(\pi)\in\{0,...,6\}$. To handle unseen or unclassified policies, we reserve an additional identifier ``Unk'' with $m=7$. The trajectory is denoted by $h_{T}(\tau,\pi)=[(s_1, g_1, a_1, r_1), ..., (s_t, g_{T}, a_{T}, r_{T})]$, where $s_t \in \mathcal{S}$, $a_t \in \mathcal{A}, a_t \sim \pi^{(b)}(s_t)$, $r_t \sim \mathcal{R}(s_t,a_t, s_{t+1})$, and $g_t=g(a_t)=tag(\pi^{(b)})$ denotes the prior knowledge for action.
+
+\textbf{Chunwise Training}: We use $\pi^*$ to denote the reference policy, which is the oracle policy with $\gamma>0.99$. It is then used to label a list of the reference actions step-by-step as $l_T(\tau)=[a^{*}_1, a^{*}_2,..., a^{*}_T]$ with $a^{*}_t \sim p^{*}_t = \pi^*(s_t)$. Notice that for most of the time $a_t \neq a^*_t$. 
+We first collect the training and validation datasets by:
+\begin{align}
+\mathcal{D}(\mathcal{T})=\{<h_T(\tau,\pi),l_T(\tau)>| \tau \sim \mathcal{T}, \pi \sim \Pi \}
+\end{align}
+
+Scaling ICL to handle complex tasks necessitates the efficient modeling of extensive contexts, which in turn demands substantial computational resources and large-capacity hardware memories. To further break down the limitation in context length, we break a long sequence $h_T$ into K segments $[1,T_1], [T_1+1,T_2],...,[T_{K-1}+1,T_K]$. The forward pass is calculated recurrently across the segments, and the backward calculation is performed within each segment. The gradient for the memory states of the linear attention layer $\phi_t$ is blocked across the segments. Thus the sequence is encoded in the following chunkwise manner:
+\begin{align}
+p^{\theta}_{T_k+1}, ..., p^{\theta}_{T_{k+1}},\phi_{k+1}=Causal_{\theta}(SG(\phi_{k}),s_{T_k+1}, ...,s_{T_k+2},...,...,s_{T_{k+1}})
+\label{eq:chunkwise_forward}
+\end{align}
+with $SG$ representing stopping gradient. In the meta-training process, the gradients are calculated within each segment and accumulated in cache first. They are applied to the parameters only at the end of the trajectory. The final target is as follows:
+\begin{align}
+Minimize:\mathcal{L} &\propto -\sum_{h_T,l_T \in \mathcal{D}}\sum_{t} w_tlogp^{\theta}_t(a^*_t) \label{eq:target_function}
+\end{align}
+The complete architecture of the model and its training pipeline are depicted in \cref{fig:gla_modelarch}. We utilize a causal sequence model (where the prediction at each position relies solely on information from preceding positions) to encode the input sequence and forecast the action at the position aligned with the state inputs. In this paper, we mainly employ linear attention layers including gated slot attention (GSA)~\citep{zhanggated} layers, mamba-2~\citep{gu2023mamba}, and RWKV-7~\citep{peng2025rwkv} as the causal sequence models.
+
+\begin{figure*}[htbp]
+\begin{center}
+\centerline{\includegraphics[width=0.75\textwidth]{img/ModelArch.pdf}}
+\caption{OmniRL model structure and training losses.}
+\label{fig:gla_modelarch}
+\vspace{-0.25in}
+\end{center}
+\end{figure*}
+
+\section{Experiments} \label{sec:experiments}
+
+\subsection{Demonstration of Generalization and Scalability}
+\begin{table}[t]
+\caption{Comparison of best average episodic performance within 10,000 episodes for each learner. The episode performances are normalized to a scale of $0\%$ (uniform random policy) to $100\%$ (oracle policy). The minimum steps and episodes required to achieve within at least $99\%$ of the best episodic performances are also listed. The hyper-parameters for Q-Learning and PPO are optimized under the evaluated task or task set. Results for AnyMDP and Garnet Tasks are averaged over $64$ tasks, results for Gymnasium tasks are averaged over $3$ independent runs for each task. Gymnasium, DarkRoom, and Bandits tasks are entirely absent from OmniRL’s training regimen.}
+\label{tab:overall_res}
+\vskip 0.1in
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Environments} & \multicolumn{4}{c}{\textbf{Performances / AVG. \emph{Steps} cost / AVG. \emph{Episodes} cost}} \\
+\cmidrule{2-5}
+ & \textbf{TQL-UCB} & \textbf{PPO} & \makecell{\textbf{OmniRL}\\(AnyMDP)} & \makecell{\textbf{OmniRL}\\(GarnetMDP)} \\
+\midrule
+$\mathcal{T}_{tst}(1,5)$ (Bandits) & $92.1\%/100/100$ & $95.6\%/1.2K/1.2K$ & $82.5\%/103/103$ & $46.6\%/33/33$\\
+$\mathcal{T}_{tst}(16,5)$ & $92.0\%/297K/4.7K$ & $90.6\%/476K/9.7K$ & $95.3\%/2.0K/29$ & $47.8\%/1.6K/24$\\
+$\mathcal{T}_{tst}(32,5)$ & $84.7\%/616K/5.6K$ & $72.2\%/618K/9.7K$ & $90.3\%/6.5K/47$ & $42.0\%/5.0K/44$\\
+$\mathcal{T}_{tst}(64,5)$ & $83.7\%/1.1M/5.1K$ & $58.3\%/1.1M/9.4K$ & $91.3\%/7.7K/25$ & $47.1\%/6.6K/24$\\
+$\mathcal{T}_{tst}(128,5)$ & $73.2\%/1.8M/6.9K$ & $49.0\%/1.3M/8.6K$ & $80.2\%/36.3K/100$ & $32.3\%/9.0K/31$\\
+\midrule
+Garnet$(16,5,2)$ & $98.8\%/241K/2.1K$ & $97.1\%/57K/0.5K$ & $85.9\%/8.2K/71$ & $99.0\%/10.8K/95$\\
+Garnet$(64,5,2)$ & $98.7\%/614K/1.7K$ & $98.1\%/96K/0.26K$ & $80.4\%/8.0K/19$ & $87.3\%/7.4K/23$\\
+\midrule
+CliffWalking & $100\%/3.1K/35$ & $95.9\%/99.3K/2.7K$ & $100\%/3.0K/65$ & $63\%/29K/300$\\
+FrozenLake (non-slippery) & $95.3\%/23.6K/3.7K$ & $96.8\%/18.2K/2.1K$ & $99.8\%/0.3K/35$ & $75.1\%/4.0K/250$\\
+FrozenLake (slippery) & $96\%/208K/10.0K$ & $95.6\%/73.6K/4.7K$ & $ 79.5\%/7.7K/245$ & $31.3\%/11.8K/800$\\
+Discrete-Pendulum (g=1) & $ 94.9\%/22K/110$ & $99.3\%/198K/990$ & $90.5\%/8K/40$ & $0.0\%/ - / -$\\
+Discrete-Pendulum (g=5) & $99.7\%/426K/2.13K$ & $99.8\%/132K/660$ & $91.8\%/34K/170$ & $0.0\%/ - / -$\\
+Discrete-Pendulum (g=9.8) & $90.2\%/2.0M/10.0K$ & $98.3\%/186K/930$  & $73.4\%/33K/165$ & $0.0\%/ - / -$\\
+Switch2 (Multi-Agent)\cite{magym} & $98\%/3.8K/110$ & -- & $80.4\%/2.8K/100$ & -- \\
+\midrule
+Darkroom (6x6) & $98.1\%/6.2K/481$ & $97.6\%/10.6K/560$ & $95.2\%/845/40$ & $90.5\%/21.3K/440$\\ 
+Darkroom (8x8) & $96.8\%/24.5K/2.0K$ & $96.7\%/15.9K/930$ & $93.8\%/1.5K/40$ & $88.9\%/30.4K/480$ \\
+Darkroom (10x10) & $89\%/31.1K/1.7K$ & $92.3\%/15.7K/570$& $91.7\%/2.8K/100$ & $75.6\%/20.8K/280$ \\ 
+\bottomrule
+\end{tabular}
+}
+\vskip -0.1in
+\end{table}
+
+\begin{figure*}[htbp]
+%\vspace{-5pt}
+\begin{center}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_anymdp_vs.pdf}
+    \label{fig:eval_task_complexity_sub1}
+\end{subfigure}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_anymdp_vs.pdf}
+    \label{fig:eval_task_complexity_sub2}
+\end{subfigure}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/Online-RL_Evaluation-rwkv7.pdf}
+    \label{fig:eval_task_complexity_sub3}
+\end{subfigure}
+\begin{subfigure}[b]{0.242\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/validation_gsa_t16_t128.pdf}
+    \label{fig:eval_task_complexity_sub4}
+\end{subfigure}
+\vskip -0.1in
+\caption{Left: Normalized episodic return of TQL-UCB, PPO and OmniRL on 64 AnyMDP evaluation tasks (mean $\pm95\%$ CI). Hyper-parameters of PPO and TQL-UCB were separately tuned by grid-search inside every task family to maximize final-episode performance. Right: Per-step validation loss of OmniRL on a held-out static dataset, mirroring the online-RL trend.}
+\label{fig:eval_task_complexity}
+\end{center}
+\vskip -0.15in
+\end{figure*}
+
+We first validate the representational capability of AnyMDP tasks as universal MDPs. To this end, we collect a dataset $\mathcal{D}_{tra}(\mathcal{T}(n_s,n_a))$ comprising $512K$ sequences for training, where  $n_s\in[16, 128], n_a=5$. The length of each sequence T is $12K$, resulting in a total of $6B$ time steps. For testing, we independently sample tasks $\mathcal{T}_{tst}$ with $n_s\in\{1, 16, 32, 64, 128\}$, ensuring each $n_s$ group contains 256 tasks. 
+
+The meta-training process is primarily conducted using 8 Nvidia Tesla A800 GPUs. We use a batch size of $5$ per GPU, divided into segments (chunks) of 2K steps each. We optimize using the AdamW algorithm with a learning rate that decays from a peak value of $2\times10^{-4}$. The average time cost per iteration is $8$ seconds for trajectories with $T=12K$, and this cost increases linearly with sequence length. For more details please check~\cref{sec:training_settings}. For the causal sequence model, we evaluate four architectures: RWKV-7~\cite{peng2025rwkv}, Gated Delta-Net (GDN)~\cite{yang2025gated}, Gated Self-Attention (GSA)~\cite{zhanggated}, Mamba2~\cite{dao2024transformers}. 
+The test results are largely consistent with the conclusions reported in language processing (RWKV-7 $\approx$ GDN $>$  GSA $>$ Mamba2, with details in \cref{sec:add_res_arch}), demonstrating the capability of AnyMDP to serve as a benchmark for long-term sequence modeling. Therefore, we select RWKV-7 for subsequent experiments.
+
+Without any further parameter tuning, we evaluate our model, namely \emph{OmniRL}, on both unseen AnyMDP tasks in \cref{fig:eval_task_complexity}, Gymnasium tasks, and DarkRoom~\cite{laskin2022context} in \cref{fig:gym}, and those performances are shown in \cref{tab:overall_res}. Notably, unlike previous ICRL works, our training set does not include any instances of DarkRoom. In our experiments, the selected tasks are constrained to environments with observation spaces of dimension $n_s \leq 128$ and action spaces of dimension $n_a \leq 5$. For environments with continuous observation spaces, such as \emph{Pendulum}-v1, we manually discretize the observation space into 60 discrete classes using a grid-based discretization method. To adapt OmniRL that is trained with $n_a=5$ to environments with less actions ($n_a<5$), we reassign unused actions to valid ones. 
+This further demonstrates the compatibility of OmniRL across environments with varying action space dimensions. We also found that proper reward shaping is important for OmniRL to work, as shown in  \cref{fig:reward_shaping}; the details can be found at \cref{sec:evaluation_detail}.
+
+In \cref{tab:overall_res}, we compare the normalized performance, episode cost, and step costs of OmniRL, classical Tabular Q-learning (TQL) \cite{sutton1998reinforcement} with upper confidence bound (UCB)~\cite{jin2018q} (TQL-UCB for short), and Proximal Policy Optimization (PPO) \citep{schulman2017proximal}. OmniRL, meta-trained solely on AnyMDP, adapts effectively to most unseen tasks, confirming AnyMDP’s representational power; by contrast, OmniRL trained on Garnet MDPs excels only on Garnet MDPs. The results also demonstrates OmniRL's superior sample efficiency, which aligns with prior ICRL findings. Notably, despite being trained solely on single-agent tasks, OmniRL adapts to multi-agent tasks like Switch2 by configuring observation spaces, enabling emergent inter-agent cooperation without explicit multi-agent interaction during training and thus decoupling cooperative behavior emergence from centralized mechanisms. Furthermore, in line with expectations, solving AnyMDP tasks becomes more difficult with increased state($n_s$) or action($n_a$) space size, with PPO proving more sensitive to action space extension and TQL-UCB more vulnerable to state space growth, as illustrated in \cref{fig:eval_task_complexity_add}.
+
+
+\subsection{OmniRL Performs Both Offline and Online Learning Better}\label{sec:results_base}
+For the ablation study and comparison with the other methods including AD, AD$^\epsilon$, and DPT, we collect a smaller dataset with $|\mathcal{D}_{small}|$ comprising $128K$ sequences for training, where $n_s=16, n_a=5, T=8K$, with a total of $1B$ time steps. \cref{fig:online_anymdp} summarizes the performance of different methods trained on $\mathcal{D}_{Small}$ with identical training iterations. The comparison includes AD, AD$^{\varepsilon}$, DPT, OmniRL, and OmniRL (w/o a priori) where the prior info $g_t$ is removed from the sequence. 
+
+We examine the performance of different methods with different initial contexts: (1) Online-RL: The agent starts with an empty trajectory ($h_{0} = \emptyset$). (2) Offline-RL: The agent starts with an existing context derived from imperfect demonstrations (e.g., disturbed oracle policy) ($h_{0} = h^{\pi}$). (3) Imitation Learning: The agent starts with an existing context derived from oracles($h_{0} = h^{(exp)}$).
+For all three categories, the subsequent interactions are continually added to the context. Therefore, the models differ only in their initial memory or cache. The evaluation assesses the agents' abilities in two key areas: their capacity to exploit existing information and their ability to explore and exploit continually. In the results in \cref{fig:online_anymdp}, OmniRL and OmniRL (w/o a priori) surpass AD, AD$^\varepsilon$, and DPT with large gap, validating the effectiveness of Step-wise Supervision (SS). OmniRL (w/o a priori) lags behind OmniRL with a noticeable gap in all three groups, demonstrating the effectiveness of integrating the prior information. \cref{tab:offline_learning_tab} and \cref{fig:gym_offlinerl} further demonstrate that the offline-learning ability of OmniRL can generalize to Gymnasium environments.
+
+\begin{figure}[!htbp]
+\begin{center}
+\begin{subfigure}[b]{0.29\columnwidth}
+    \centering 
+    \includegraphics[width=1\textwidth]{img/Online_rl_16states.pdf}
+    \label{fig:online_rl_16states}
+\end{subfigure}
+\begin{subfigure}[b]{0.29\columnwidth}
+    \centering 
+    \includegraphics[width=1\textwidth]{img/Offline_rl_16states_2.pdf}
+    \label{fig:offline_rl_16states}
+\end{subfigure}
+\begin{subfigure}[b]{0.29\columnwidth} 
+    \centering
+    \includegraphics[width=1\textwidth]{img/Imitation_learning_16states_2.pdf} 
+    \label{fig:imitation_learning_16states}
+\end{subfigure}
+\begin{subfigure}[b]{0.08\columnwidth} 
+    \centering
+    \includegraphics[width=1\textwidth]{img/16_states_legend.pdf} 
+    \label{fig:legend_16states}
+\end{subfigure}
+\vspace{-20pt}
+\caption{AD, AD$^{\epsilon}$, DPT, and OmniRL on 32 AnyMDP tasks, each tested under three initial contexts tailored for online RL, offline RL, and imitation learning. offline-RL and IL agents are seeded with 100 demonstration episodes before any interaction begins; results highlight the gains from DPD and prior-information integration.}
+\label{fig:online_anymdp}
+\end{center}
+\end{figure}
+
+\begin{table}[t]
+\vspace{-20pt}
+\caption{Offline-RL and IL performance of meta-trained OmniRL versus Conservative Q-Learning (CQL) \cite{kumar2020conservative} on four unseen Gymnasium tasks, using demonstrations from both oracle and random policies as initial contexts. Returns in episodes 0–20 measure offline RL and IL efficacy; returns in episodes 180–200 show the benefit of subsequent online RL.}
+\label{tab:offline_learning_tab} 
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\vspace{-8pt}
+\begin{tabular}{llcc}
+\toprule
+\multirow{2}{*}{\textbf{Environments}} & \multirow{2}{*}{{\scriptsize\textbf{Teacher(Performance)}}} & \multicolumn{2}{c}{\scriptsize \textbf{0$\sim$20/180$\sim$200 Episodes Performance}}\\ 
+\cmidrule{3-4} 
+& & \textbf{CQL} & \textbf{OMNIRL} \\
+\midrule
+\footnotesize{\multirow{2}{*}{FrozenLake (Slippery)}} & Oracle (77.80\%) & 76.61\% / 76.11\% & 70.12\% / 77.27\% \\ 
+ & Random (1.46\%) & 37.79\% / 72.36\% & 54.3\% / 67.38\% \\
+\midrule 
+\footnotesize{\multirow{2}{*}{Cliff}} & Oracle (-13) & -30.8 / -13 & -13 / -13 \\
+ & Random (-109.84) & -560.2 / -16.2 & -91 / -17 \\
+\midrule
+\footnotesize{\multirow{2}{*}{Discrete-Pendulum (g=5)}} & Oracle (-153.81) & -605.89 / -258.22 & -180 / -127 \\
+ & Random (-941.65) & -1062.40 / -184.29 & -646 / -208 \\
+\midrule
+\footnotesize{\multirow{2}{*}{DarkRoom (10X10)}} & Oracle (0.22) & 0.23 / 0.22 & 0.22 / 0.21 \\
+ & Random (-15.07) & -4.05 / 0.21 & 0.09 / 0.19 \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in 
+\end{table}
+
+\subsection{Emergence of General-Purpose ICRL by Increasing Task Number}
+
+We validate task diversity's critical role in ICRL via independent meta-training across four datasets, each $\mathcal{D}(\mathcal{T}_{tra}(16,5))$ containing $128K$ sequences but differing in task numbers ($|\mathcal{T}_{tra}| \in \{100, 1K, 10K, 128K\}$).
+Note that different trajectories can be generated from a single task, arising from the diverse behavior policies and random sampling in both decision and transition.
+We examine how the validation losses $\mathcal{L}_t$ on both seen and unseen tasks change with the number of meta-training iterations (outer-loop steps) and steps in context $t$ (inner-loop steps) simultaneously; the results are shown in \cref{fig:task_ablation}. We remark the following observations:
+
+\textbf{Task scale and diversity are crucial to the generalization of ICRL}.
+The previous investigation on ICL \cite{raparthy2024generalization,chan2022data} emphasizes the importance of ``burstiness''.
+Our results demonstrate for the first time that even when using ``bursty'' sequences alone, both the number of tasks and their overall diversity remain critically important. Specifically, in groups with $|\mathcal{T}_{\text{train}}|\le10K$, over-training leads to a transiency of ICL~\cite{singh2024transient} in unseen tasks but a continued improvement in seen tasks. These findings confirm and extend the discovery of the ``task identification'' phase mentioned in \citet{kirsch2022general, pan2023context}.
+Drawing on the theories of ICL and IWL in \citet{chantoward}, a possible explanation is that IWL dominates performance, with the model memorizing tasks and ICL selecting the correct one, leading to fast seen-task adaptation but poor unseen generalization. 
+As the number of tasks increases continuously, the model becomes more dependent on ICL since memorizing task-specific information becomes less feasible. This is characterized by the improved generalization to unseen tasks and longer adaptation periods in both seen and unseen tasks, as shown in \cref{fig:task_ablation}.
+
+\textbf{Long-context adaptation is a tax to pay for generalization scope}. Our results highlight a key insight on ICRL evaluation. Most previous ICRL works assess performance based on the average results over a fixed, short context span. However, our findings indicate that more generalized in-context learners may actually perform worse in zero-shot and even few-shot evaluations, particularly when there is significant overlap between the training and evaluation sets, i.e., when evaluation sets are closer to seen tasks.
+Therefore, we argue that it is more critical to focus on the \emph{asymptotic performance} of a learner. This can be effectively evaluated by examining the performance at the final steps or episodes of a sufficiently long context, rather than short-term metrics.
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}{0.49\columnwidth}
+    \centering 
+    \includegraphics[width=1.0\textwidth]{img/convergence_seen_ns16.pdf}
+    \vspace{-22pt}
+    \caption{Seen Tasks} 
+    \label{fig:task_ablation_sub1}
+    \vspace{10pt}
+\end{subfigure}
+\begin{subfigure}{0.49\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/convergence_unseen_ns16.pdf} 
+    \vspace{-22pt}
+    \caption{Unseen Tasks}
+    \label{fig:task_ablation_sub2}
+    \vspace{10pt}
+\end{subfigure}
+% tables explain
+\begin{tabular}{c|c|cccc}
+\hline
+\multirow{2}{*}{\makecell{\textbf{Validation}\\\textbf{set}}} & \multirow{2}{*}{\textbf{Metrics}} & \multicolumn{4}{c}{$|\mathcal{T}_{tra}|$} \\
+\cline{3-6}
+ &  & $100$ & $1K$ & $10K$ & $128K$ \\
+\hline
+\multirow{2}{*}{\makecell{\textbf{Seen} \\ \textbf{tasks}}} & $\max(d_t)$ &  $>81.0\%$ & $>65.4\%$ & $\ge 86.6\%$ & $\ge 84.5\%$ \\
+&  $\min(t)$ s.t. $d_t\ge80\%$ & 0.88K & - & 2.4K & 5.2K \\
+\hline
+\multirow{3}{*}{\makecell{\textbf{Uneen} \\ \textbf{tasks}}} & $\max(d_t)$ & $17.9\%$ & $38.0\%$ & $84.4\%$ & $\ge 84.8\%$ \\
+& $\min(t)$ s.t. $d_t\ge80\%$ & - & - & 3.9K & 5.1K \\
+\cline{2-6}
+& $\max(d_t)$ achieved at iteration & $2K$ & $14K$ & $72K$ & $\ge 80K$ \\
+\hline
+\end{tabular}
+\caption{Position-wise validation losses ($\mathcal{L}_t$, where lower values indicate better performance) and their properties on both seen and unseen tasks across meta-training iterations, varying context lengths, and variant number of tasks $|\mathcal{T}_{tra}|$. Each of the 4 groups of training data had $128K$ sequences, which were generated from $100, 1K, 10K$, and $128K$ tasks, respectively. Each dataset underwent meta-training for up to $80K$ iterations. In the table, the notation ``$>$'' indicates values that could not be fully determined due to training being stopped early when performance on unseen tasks began to deteriorate.
+The normalized gain of ICL is defined as $d_t=1-\mathcal{L}_t/\mathcal{L}_0$, representing the improvement of performance as the context ($t$) increases.
+The table summarizes key findings of this study: as the number of tasks increases, the minimum step cost required to achieve an $80\%$ normalized gain of ICL also increases.
+} 
+\label{fig:task_ablation}
+\vspace{-0.10in}
+\end{figure}
+
+\section{Conclusions and Discussions} \label{sec:conclusion}
+We introduce AnyMDP, a scalable, low-bias task suite for benchmarking In-Context Reinforcement Learning (ICRL), and a companion framework featuring two innovations: Decoupled Policy Distillation and prior-information induction.
+Trained solely on AnyMDP, our model OmniRL outperforms prior methods in generalization, mastering wider task families and supporting more diverse learning paradigms.
+
+\textbf{Broader impact}: Complementing prior studies, our findings highlight that task diversity and long sequence length are key determinants of general-purpose ICRL. Our results also indicate that long context is a necessary cost for generalization, thus advocate shifting evaluation metrics toward asymptotic performance measures. This work further motivates the construction of carefully curated synthetic datasets specifically designed for large-scale meta-training.
+
+\textbf{Limitations and future work}: While procedural Discrete MDPs provide clean benchmarks for ICRL and long-context modeling, their extension to continuous state–action spaces remains bottlenecked. We recognize that a central challenge in this direction is to balance task complexity, task diversity, and data integrity while simultaneously calibrating generalization scope against practical constraints.
+\clearpage
+
+\begin{ack}
+This project is supported by Longgang District Shenzhen's “Ten Action Plan” for supporting innovation projects (Grant LGKCSDPT2024002), Guangdong Provincial Leading Talent Program (Grant No. 2024TX08Z319), and National Natural Science Foundation of China (62033012).
+\end{ack}
+
+\bibliographystyle{unsrtnat}
+\bibliography{arxiv}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section*{NeurIPS Paper Checklist}
+
+%%% BEGIN INSTRUCTIONS %%%
+%The checklist is designed to encourage best practices for responsible machine learning research, addressing issues of reproducibility, transparency, research ethics, and societal impact. Do not remove the checklist: {\bf The papers not including the checklist will be desk rejected.} The checklist should follow the references and follow the (optional) supplemental material.  The checklist does NOT count towards the page limit. 
+
+%Please read the checklist guidelines carefully for information on how to answer these questions. For each question in the checklist:
+%\begin{itemize}
+%    \item You should answer \answerYes{}, \answerNo{}, or \answerNA{}.
+%    \item \answerNA{} means either that the question is Not Applicable for that particular paper or the relevant information is Not Available.
+%    \item Please provide a short (1–2 sentence) justification right after your answer (even for NA). 
+   % \item {\bf The papers not including the checklist will be desk rejected.}
+%\end{itemize}
+
+%{\bf The checklist answers are an integral part of your paper submission.} They are visible to the reviewers, area chairs, senior area chairs, and ethics reviewers. You will be asked to also include it (after eventual revisions) with the final version of your paper, and its final version will be published with the paper.
+
+%The reviewers of your paper will be asked to use the checklist as one of the factors in their evaluation. While "\answerYes{}" is generally preferable to "\answerNo{}", it is perfectly acceptable to answer "\answerNo{}" provided a proper justification is given (e.g., "error bars are not reported because it would be too computationally expensive" or "we were unable to find the license for the dataset we used"). In general, answering "\answerNo{}" or "\answerNA{}" is not grounds for rejection. While the questions are phrased in a binary way, we acknowledge that the true answer is often more nuanced, so please just use your best judgment and write a justification to elaborate. All supporting evidence can appear either in the main paper or the supplemental material, provided in appendix. If you answer \answerYes{} to a question, in the justification please point to the section(s) where related material for the question can be found.
+
+%IMPORTANT, please:
+%\begin{itemize}
+%    \item {\bf Delete this instruction block, but keep the section heading ``NeurIPS Paper Checklist"},
+%    \item  {\bf Keep the checklist subsection headings, questions/answers and guidelines below.}
+%    \item {\bf Do not modify the questions and only use the provided macros for your answers}.
+%\end{itemize} 
+
+%%% END INSTRUCTIONS %%%
+
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: The main contributions of this paper include: (1) a scalable task set; (2) an improved ICRL framework; and (3) in-depth discussions on data distribution and the emergence of ICRL. These contributions are explicitly elaborated in both the abstract and the concluding section of the introduction.
+    \item[] Guidelines: 
+    \begin{itemize}
+        \item The answer NA means that the abstract and introduction do not include the claims made in the paper.
+        \item The abstract and/or introduction should clearly state the claims made, including the contributions made in the paper and important assumptions and limitations. A No or NA answer to this question will not be perceived well by the reviewers. 
+        \item The claims made should match theoretical and experimental results, and reflect how much the results can be expected to generalize to other settings. 
+        \item It is fine to include aspirational goals as motivation as long as it is clear that these goals are not attained by the paper. 
+    \end{itemize}
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: In \cref{sec:conclusion}.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper has no limitation while the answer No means that the paper has limitations, but those are not discussed in the paper. 
+        \item The authors are encouraged to create a separate "Limitations" section in their paper.
+        \item The paper should point out any strong assumptions and how robust the results are to violations of these assumptions (e.g., independence assumptions, noiseless settings, model well-specification, asymptotic approximations only holding locally). The authors should reflect on how these assumptions might be violated in practice and what the implications would be.
+        \item The authors should reflect on the scope of the claims made, e.g., if the approach was only tested on a few datasets or with a few runs. In general, empirical results often depend on implicit assumptions, which should be articulated.
+        \item The authors should reflect on the factors that influence the performance of the approach. For example, a facial recognition algorithm may perform poorly when image resolution is low or images are taken in low lighting. Or a speech-to-text system might not be used reliably to provide closed captions for online lectures because it fails to handle technical jargon.
+        \item The authors should discuss the computational efficiency of the proposed algorithms and how they scale with dataset size.
+        \item If applicable, the authors should discuss possible limitations of their approach to address problems of privacy and fairness.
+        \item While the authors might fear that complete honesty about limitations might be used by reviewers as grounds for rejection, a worse outcome might be that reviewers discover limitations that aren't acknowledged in the paper. The authors should use their best judgment and recognize that individual actions in favor of transparency play an important role in developing norms that preserve the integrity of the community. Reviewers will be specifically instructed to not penalize honesty concerning limitations.
+    \end{itemize}
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: The paper mainly provide empirical validations. Slight theoretical results and proofs are provided in \cref{sec:anymdp}
+    \item[] Guidelines: 
+    \begin{itemize}
+        \item The answer NA means that the paper does not include theoretical results. 
+        \item All the theorems, formulas, and proofs in the paper should be numbered and cross-referenced.
+        \item All assumptions should be clearly stated or referenced in the statement of any theorems.
+        \item The proofs can either appear in the main paper or the supplemental material, but if they appear in the supplemental material, the authors are encouraged to provide a short proof sketch to provide intuition. 
+        \item Inversely, any informal proof provided in the core of the paper should be complemented by formal proofs provided in appendix or supplemental material.
+        \item Theorems and Lemmas that the proof relies upon should be properly referenced. 
+    \end{itemize}
+
+    \item {\bf Experimental result reproducibility}
+    \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: We provide all the information needed for the emprical results in \cref{sec:experiments} and appendices.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not include experiments.
+        \item If the paper includes experiments, a No answer to this question will not be perceived well by the reviewers: Making the paper reproducible is important, regardless of whether the code and data are provided or not.
+        \item If the contribution is a dataset and/or model, the authors should describe the steps taken to make their results reproducible or verifiable. 
+        \item Depending on the contribution, reproducibility can be accomplished in various ways. For example, if the contribution is a novel architecture, describing the architecture fully might suffice, or if the contribution is a specific model and empirical evaluation, it may be necessary to either make it possible for others to replicate the model with the same dataset, or provide access to the model. In general. releasing code and data is often one good way to accomplish this, but reproducibility can also be provided via detailed instructions for how to replicate the results, access to a hosted model (e.g., in the case of a large language model), releasing of a model checkpoint, or other means that are appropriate to the research performed.
+        \item While NeurIPS does not require releasing code, the conference does require all submissions to provide some reasonable avenue for reproducibility, which may depend on the nature of the contribution. For example
+        \begin{enumerate}
+            \item If the contribution is primarily a new algorithm, the paper should make it clear how to reproduce that algorithm.
+            \item If the contribution is primarily a new model architecture, the paper should describe the architecture clearly and fully.
+            \item If the contribution is a new model (e.g., a large language model), then there should either be a way to access this model for reproducing the results or a way to reproduce the model (e.g., with an open-source dataset or instructions for how to construct the dataset).
+            \item We recognize that reproducibility may be tricky in some cases, in which case authors are welcome to describe the particular way they provide for reproducibility. In the case of closed-source models, it may be that access to the model is limited in some way (e.g., to registered users), but it should be possible for other researchers to have some path to reproducing or verifying the results.
+        \end{enumerate}
+    \end{itemize}
+
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: We attach the codes and data necessary to reproduce the results.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that paper does not include experiments requiring code.
+        \item Please see the NeurIPS code and data submission guidelines (\url{https://nips.cc/public/guides/CodeSubmissionPolicy}) for more details.
+        \item While we encourage the release of code and data, we understand that this might not be possible, so “No” is an acceptable answer. Papers cannot be rejected simply for not including code, unless this is central to the contribution (e.g., for a new open-source benchmark).
+        \item The instructions should contain the exact command and environment needed to run to reproduce the results. See the NeurIPS code and data submission guidelines (\url{https://nips.cc/public/guides/CodeSubmissionPolicy}) for more details.
+        \item The authors should provide instructions on data access and preparation, including how to access the raw data, preprocessed data, intermediate data, and generated data, etc.
+        \item The authors should provide scripts to reproduce all experimental results for the new proposed method and baselines. If only a subset of experiments are reproducible, they should state which ones are omitted from the script and why.
+        \item At submission time, to preserve anonymity, the authors should release anonymized versions (if applicable).
+        \item Providing as much information as possible in supplemental material (appended to the paper) is recommended, but including URLs to data and code is permitted.
+    \end{itemize}
+
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer, etc.) necessary to understand the results?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: In \cref{sec:experiments} and appendices.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not include experiments.
+        \item The experimental setting should be presented in the core of the paper to a level of detail that is necessary to appreciate the results and make sense of them.
+        \item The full details can be provided either with the code, in appendix, or as supplemental material.
+    \end{itemize}
+
+\item {\bf Experiment statistical significance}
+    \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: We report most results with error bars. For results that are too computationally costly and less noisy, we do not.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not include experiments.
+        \item The authors should answer "Yes" if the results are accompanied by error bars, confidence intervals, or statistical significance tests, at least for the experiments that support the main claims of the paper.
+        \item The factors of variability that the error bars are capturing should be clearly stated (for example, train/test split, initialization, random drawing of some parameter, or overall run with given experimental conditions).
+        \item The method for calculating the error bars should be explained (closed form formula, call to a library function, bootstrap, etc.)
+        \item The assumptions made should be given (e.g., Normally distributed errors).
+        \item It should be clear whether the error bar is the standard deviation or the standard error of the mean.
+        \item It is OK to report 1-sigma error bars, but one should state it. The authors should preferably report a 2-sigma error bar than state that they have a 96\% CI, if the hypothesis of Normality of errors is not verified.
+        \item For asymmetric distributions, the authors should be careful not to show in tables or figures symmetric error bars that would yield results that are out of range (e.g. negative error rates).
+        \item If error bars are reported in tables or plots, The authors should explain in the text how they were calculated and reference the corresponding figures or tables in the text.
+    \end{itemize}
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification:  In \cref{sec:experiments} and appendices.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not include experiments.
+        \item The paper should indicate the type of compute workers CPU or GPU, internal cluster, or cloud provider, including relevant memory and storage.
+        \item The paper should provide the amount of compute required for each of the individual experimental runs as well as estimate the total compute. 
+        \item The paper should disclose whether the full research project required more compute than the experiments reported in the paper (e.g., preliminary or failed experiments that didn't make it into the paper). 
+    \end{itemize}
+    
+\item {\bf Code of ethics}
+    \item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics \url{https://neurips.cc/public/EthicsGuidelines}?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: The research poses no risk at violating NeurIPS Code of Ethics.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the authors have not reviewed the NeurIPS Code of Ethics.
+        \item If the authors answer No, they should explain the special circumstances that require a deviation from the Code of Ethics.
+        \item The authors should make sure to preserve anonymity (e.g., if there is a special consideration due to laws or regulations in their jurisdiction).
+    \end{itemize}
+
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+    \item[] Answer: \answerNA{}. % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: There is no societal impact related to the codes, data, and model at the current stage.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that there is no societal impact of the work performed.
+        \item If the authors answer NA or No, they should explain why their work has no societal impact or why the paper does not address societal impact.
+        \item Examples of negative societal impacts include potential malicious or unintended uses (e.g., disinformation, generating fake profiles, surveillance), fairness considerations (e.g., deployment of technologies that could make decisions that unfairly impact specific groups), privacy considerations, and security considerations.
+        \item The conference expects that many papers will be foundational research and not tied to particular applications, let alone deployments. However, if there is a direct path to any negative applications, the authors should point it out. For example, it is legitimate to point out that an improvement in the quality of generative models could be used to generate deepfakes for disinformation. On the other hand, it is not needed to point out that a generic algorithm for optimizing neural networks could enable people to train models that generate Deepfakes faster.
+        \item The authors should consider possible harms that could arise when the technology is being used as intended and functioning correctly, harms that could arise when the technology is being used as intended but gives incorrect results, and harms following from (intentional or unintentional) misuse of the technology.
+        \item If there are negative societal impacts, the authors could also discuss possible mitigation strategies (e.g., gated release of models, providing defenses in addition to attacks, mechanisms for monitoring misuse, mechanisms to monitor how a system learns from feedback over time, improving the efficiency and accessibility of ML).
+    \end{itemize}
+    
+\item {\bf Safeguards}
+    \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse (e.g., pretrained language models, image generators, or scraped datasets)?
+    \item[] Answer: \answerNA{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: The paper includes synthetic data only that poses no risks.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper poses no such risks.
+        \item Released models that have a high risk for misuse or dual-use should be released with necessary safeguards to allow for controlled use of the model, for example by requiring that users adhere to usage guidelines or restrictions to access the model or implementing safety filters. 
+        \item Datasets that have been scraped from the Internet could pose safety risks. The authors should describe how they avoided releasing unsafe images.
+        \item We recognize that providing effective safeguards is challenging, and many papers do not require this, but we encourage authors to take this into account and make a best faith effort.
+    \end{itemize}
+
+\item {\bf Licenses for existing assets}
+    \item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: The code and assets used in this study are either originally created by us or sourced from open-source repositories and properly referenced.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not use existing assets.
+        \item The authors should cite the original paper that produced the code package or dataset.
+        \item The authors should state which version of the asset is used and, if possible, include a URL.
+        \item The name of the license (e.g., CC-BY 4.0) should be included for each asset.
+        \item For scraped data from a particular source (e.g., website), the copyright and terms of service of that source should be provided.
+        \item If assets are released, the license, copyright information, and terms of use in the package should be provided. For popular datasets, \url{paperswithcode.com/datasets} has curated licenses for some datasets. Their licensing guide can help determine the license of a dataset.
+        \item For existing datasets that are re-packaged, both the original license and the license of the derived asset (if it has changed) should be provided.
+        \item If this information is not available online, the authors are encouraged to reach out to the asset's creators.
+    \end{itemize}
+
+\item {\bf New assets}
+    \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: Readme file for the codes and meta-data for datasets are provided.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not release new assets.
+        \item Researchers should communicate the details of the dataset/code/model as part of their submissions via structured templates. This includes details about training, license, limitations, etc. 
+        \item The paper should discuss whether and how consent was obtained from people whose asset is used.
+        \item At submission time, remember to anonymize your assets (if applicable). You can either create an anonymized URL or include an anonymized zip file.
+    \end{itemize}
+
+\item {\bf Crowdsourcing and research with human subjects}
+    \item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)? 
+    \item[] Answer: \answerNA{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: Crowdsourcing or research with human subjects not involved.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not involve crowdsourcing nor research with human subjects.
+        \item Including this information in the supplemental material is fine, but if the main contribution of the paper involves human subjects, then as much detail as possible should be included in the main paper. 
+        \item According to the NeurIPS Code of Ethics, workers involved in data collection, curation, or other labor should be paid at least the minimum wage in the country of the data collector. 
+    \end{itemize}
+
+\item {\bf Institutional review board (IRB) approvals or equivalent for research with human subjects}
+    \item[] Question: Does the paper describe potential risks incurred by study participants, whether such risks were disclosed to the subjects, and whether Institutional Review Board (IRB) approvals (or an equivalent approval/review based on the requirements of your country or institution) were obtained?
+    \item[] Answer: \answerNA{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: Crowdsourcing or research with human subjects not involved.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the paper does not involve crowdsourcing nor research with human subjects.
+        \item Depending on the country in which research is conducted, IRB approval (or equivalent) may be required for any human subjects research. If you obtained IRB approval, you should clearly state this in the paper. 
+        \item We recognize that the procedures for this may vary significantly between institutions and locations, and we expect authors to adhere to the NeurIPS Code of Ethics and the guidelines for their institution. 
+        \item For initial submissions, do not include any information that would break anonymity (if applicable), such as the institution conducting the review.
+    \end{itemize}
+
+\item {\bf Declaration of LLM usage}
+    \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research? Note that if the LLM is used only for writing, editing, or formatting purposes and does not impact the core methodology, scientific rigorousness, or originality of the research, declaration is not required.
+    %this research? 
+    \item[] Answer: \answerYes{} % Replace by \answerYes{}, \answerNo{}, or \answerNA{}.
+    \item[] Justification: \cref{sec:LLM_comparison} uses LLM for comparison and clearly states its usage and sources.
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer NA means that the core method development in this research does not involve LLMs as any important, original, or non-standard components.
+        \item Please refer to our LLM policy (\url{https://neurips.cc/Conferences/2025/LLM}) for what should or should not be described.
+    \end{itemize}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{Notations}
+
+\begin{table}[t]
+\caption{Default simplifications and notations used throughout the paper.}
+\label{table:notation}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{ll}
+\toprule
+ICL & In-Context Learning \\
+IWL & In-Weight Learning \\
+ICRL & In-Context Reinforcement Learning \\
+MC & Markov Chain \\
+MDP & Markov Decision Process \\
+SS & Step-wise Supervision \\
+SD & Stationary Distribution \\
+\midrule
+$\mathcal{S}$  & state or observation space \\
+$\mathcal{S}_0$  & states for reset \\
+$\mathcal{S}_E$ & states triggering termination \\
+$T_E$ & maximum length of an episode \\
+$\mathcal{P}(s,a,s')$ & transition function of $s, a \rightarrow s'$ \\
+$\mathcal{R}(s,a,s')$ & reward function of $s, a \rightarrow s'$ \\
+$\gamma$ & discount factor for rewards \\
+$\mathcal{A}$  & action space \\
+$\Pi$  & a set / collection of policies \\
+$s \in \mathcal{S}$ & state or observation \\
+$a \in \mathcal{A}$ & action \\
+$r \in \mathbb{R}$ & reward or feedback \\
+$g$ & prior information of action \\
+$\pi \in \Pi$ & policy function \\
+$Q^{\pi}(s,a)$ & state-action value function \\
+$V^{\pi}(s,a)$ & state value function, $V^{\pi}(s) = \mathbb{E}_{a~\sim \pi}[Q^{\pi}(s, a)]$ \\
+$\pi^*$ & oracle policy achieving highest expected episodic rewards \\
+$a^* \sim \pi^*$ & action generated by oracle policy \\
+$Q^*, V^*$ & value function with oracle policy \\
+$\tau(n_s, n_a)$ & task with $n_s$ discrete states and $n_a$ discrete actions\\
+$\mathcal{T}(n_s, n_a)$ & a collection of tasks $\tau(n_s, n_a)$ \\
+$\mathcal{D}(\mathcal{T})$ & dataset recorded from execution on $\mathcal{T}$ \\
+$h_t$ & a trajectory $[(s_1, g_1, a_1, r_1), ..., (s_t, g_t, a_t, r_t)]$ \\
+$l_t$ & step-wise supervision labels for trajectory $h_t$ \\
+$p_{\mathfrak{r}}(s)$ & stationary distribution (SD) of MDP with the policy $\pi^{\mathfrak{r}}$ \\
+$\theta$ & parameters of a model, kept unchanged in the inner loop (ICL) \\
+$\phi$ & caches or memories, starts from scratch in the inner loop \\
+$\mathfrak{o}$ & agent with oracle policy $\pi^*$ \\
+$\mathfrak{q}$ & q-learning agent \\
+$\mathfrak{r}$ & agent with random policy \\
+$\mathfrak{m}$ & model-based reinforcement learning agent \\
+$\mathfrak{o}^\varepsilon$ & agent $\mathfrak{o}$ disturbed with a decaying noise $\varepsilon$ \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\section{Additional Information on AnyMDP}\label{sec:add_anymdp}
+
+\subsection{Proof of \cref{theory:mc}}
+
+We began by establishing the upper bound for $p^\mathfrak{r}(s_j)$. Notably, if $\mathcal{S}_E \ne \emptyset$ the upper bound would be further reduced for indices $j>b$, as system termination resets states to indices $j<b_0$, Consequently, it suffices to analyze the case where $\mathcal{S}_E = \emptyset$ as non-empty $\mathcal{S}_E$ only tightens the bound. 
+
+Under the conditions that $\sum_{j<i} \hat{\mathcal{P}}(s_j|s_i) > \eta$ if $i > b_{-}$ and $\forall j > i+b_{+}$, $\hat{\mathcal{P}}(s_j|s_i) = 0$, we construct a \textbf{worst case transition kernel}. This kernel is defined as follows:
+\begin{center}
+$\forall s_i$ with $n_s-b_+>i>b$, $\mathcal{P}_+(s_{i-1}) \equiv \eta$, $\mathcal{P}_+(s_{i+b_{+}}|s_i) \equiv 1-\eta$, $\mathcal{P}_+(\cdot|s_i) \equiv 0$ for other cases.
+\end{center}
+It follows directly from this construction that $p_{\mathfrak{r}}(s_j) < p_+(s_j)$ for $j>b$, as $\mathcal{P}_+$ maximizes transition probabilities to later states under the given constraints.
+
+By the definition of the SD, we have:
+\begin{align}
+    \eta p_{l,i,i-1} +(1-\eta)p_{l,i,i+b_+} = p_{+,i,i}
+    \label{eq:markov_chain_prove}
+\end{align}
+First, we assume that $p_{+,i,i} / p_{+,i,i-1} = 1-\delta$, \cref{eq:markov_chain_prove}. From this assumption, we derive the following:
+\begin{align}
+    p_{+,i,i+b_+} / p_{+,i,i} =\frac{1-\delta-\eta}{(1-\eta)(1-\delta)}
+    \label{eq:markov_chain_prove_2}
+\end{align}
+By applying the conditions $0 < \delta < 1/(b_++1)$ and $\eta > 1.0-\delta$, we can further bound the expression in \cref{eq:markov_chain_prove_2} as follows:
+\begin{align}
+    p_{+,i,i+b_+} / p_{+,i,i} < (1-\delta)^{b_+}.
+    \label{eq:markov_chain_prove_3}
+\end{align}
+\cref{eq:markov_chain_prove_3} proves that $p_{+,s_i,s_j}$ decays at a rate faster than $(1-\delta)$ as $j$ increases. Consequently, the SD $p_{\mathfrak{r}}$ also decays faster than $(1-\delta)$.
+
+To establish \textbf{the lower bound}, we can utilize the constraint $\sum_{j \le i} \hat{\mathcal{P}}_{\mathfrak{r}}(s_{i+1}|s_j) > \epsilon$ and construct a worst-case transition matrix as follows:
+\begin{center}
+$\forall s_i$ with $n_s-1>i>b$, $\mathcal{P}_-(s_{i-b_-}) \equiv 1-\epsilon$, $\mathcal{P}_-(s_{i+1}|s_i) \equiv \epsilon$, $\mathcal{P}_-(\cdot|s_i) \equiv 0$ for other cases. 
+\end{center}
+By analyzing this construction, we can validate that $p_{-,s_i,s_j}$ decays at a rate slower than $\epsilon$ when $j$ increases. Consequently, the SD $p_{\mathfrak{r}}$ also decays slower than $\epsilon$. This completes the proof of \cref{theory:mc}.
+
+\subsection{Details of Procedural Generation} \label{sec:anymdp_task_empirical}
+
+\begin{algorithm}[htbp]
+   \caption{AnyMDP $TaskSampler$}
+   \label{alg:task_sampler}
+   \begin{algorithmic}[1]
+   \STATE {\bfseries Input:} $n_s$, $n_a$ {\bfseries Returns:} $\tau(n_s, n_a)$
+   \STATE Randomly generate an ordered list arranged from low-valued to high-valued states $S=[s_1,s_2,...,s_{n_s}]$ by permute $\mathcal{S}=\{1,...,n_s\}$
+   \STATE Randomly sample states for reset $\mathcal{S}_0 \subset \{s_0, s_1, ...,s_{b_0}\}$
+   \STATE Randomly sample states triggering termination $\mathcal{S}_E \subset \mathcal{S} / \mathcal{S}_0$
+   
+   \TCP{Sample banded state transition matrix under uniform random policy}
+   \FOR{$i \leftarrow 1$ to $n_s$} 
+       \STATE  Randomly sample $\hat{\mathcal{P}_{\mathfrak{r}}}(\cdot|s_i)$, s.t. banded transition constraints (\cref{eq:banded_transition})
+    \ENDFOR
+
+    \TCP{Ensure the state transition has a stationary distribution}
+    \STATE Calculate $\bar{\mathcal{P}}_{\mathfrak{r}}=(\hat{\mathcal{P}}_{\mathfrak{r}})^K$ by considering $\mathcal{S}_0, \mathcal{S}_E$; if $\mathbb{E}_j[\mathbb{V}_i(\bar{\mathcal{P}_{\mathfrak{r}}}[s_j|s_i])]>\varepsilon$, go back to resample $\hat{\mathcal{P}}_{\mathfrak{r}}$. \label{alg:line_ergodicity}
+
+   \TCP{Sample state-action transition with the constraint of the state transition}
+   \FOR{$i \leftarrow 1$ to $n_s$} 
+       \STATE $\forall k\in [1,n_a]$, randomly sample scalars $w_i(a_k) \in [i-b_{-}, i+{b_{+}}]$, $\sigma_k \sim Exp(1)$
+       \STATE Sample state-action transition $\mathcal{P}(s_j|s_i, a_k)$ by applying \cref{eq:sample_sa_trans}
+    \ENDFOR
+
+    \TCP{Sample composite reward function and ensure the value function distribution is as expected}
+    \STATE Randomly sample state-action-dependent rewards $r_{sa} \in \mathbb{R}^{n_s \times n_a}$
+    \STATE Randomly sample state-dependent potential $v_s \in \mathbb{R}^{n_s}$
+    \REPEAT
+       \STATE Randomly sample state-dependent reward function $r_s \in \mathbb{R}^{n_s}$, s.t. $\forall j>i, r_{s}(s_j) \ge r_{s}(s_i)$
+       \STATE Set $\mu_\mathcal{R}(s,a,s')$ by composite rewards (\cref{eq:composite_rewards})
+       \STATE Calculate value function $V^*(s)$ based on $\mathcal{P}, \mathcal{R}, \mathcal{S}_0, \mathcal{S}_E$
+    \UNTIL{Ascending value function condition is satisfied (\cref{eq:ascending})}
+
+    \TCP{Ensure the optimal trajectory is not trivial}
+    \STATE {\bfseries Final validation:} calculate oracle policy steady state distribution ($p_{\mathfrak{o}}$)
+    \STATE \hspace*{1.5cm} if $-\sum_s p_{\mathfrak{o}} \log{p_{\mathfrak{o}}} / \log{n_s} > H_0$ then accept, else resample the task.
+    \end{algorithmic}
+\end{algorithm}
+
+\cref{alg:task_sampler} elaborates on the detailed procedural generation of AnyMDP tasks. 
+
+\textbf{Transition Sampling}. The generation process commences by randomly sampling a ranking of states, denoted as $s_1, ..., s_{n_s}$. The initial state set $\mathcal{S}_0$ are sampled from $\{s_j| j<n_0\}$, while the absorbing state set (including pitfalls and goals) $\mathcal{S}_E$ is randomly sampled. The goals are constrained only to $s_{n_s}$.
+Subsequently, the average transition matrix is sampled, and based on this matrix, it is randomly decomposed into a state-action transition matrix. Notice that the state-action transition is constructed utilizing the average state transition kernel and the weights $w_i(a_k)$, as follows:
+\begin{align}
+    \mathcal{P}(s_j|s_i, a_k) = \hat{\mathcal{P}_{\mathfrak{r}}}(s_j|s_i)\frac{\exp{[-(w_i(a_k)-j)^2 / \sigma_k^2}]}{\sum_l \exp{[-(w_i(a_l)-j)^2 / \sigma_l^2}]} \label{eq:sample_sa_trans}
+\end{align}
+Ergodicity in the average transition of AnyMDP is checked by computing the stationary distribution for all initial states and evaluating the variance among them. In practice, we observed that the majority of sampled transition matrices adhering to banded transition constraints exhibit ergodicity, with non-ergodic scenarios being exceedingly uncommon.
+
+While the theoretical bound in \cref{theory:mc} provides valuable non-triviality guarantees, it remains inherently conservative due to the analytical challenges posed by randomly generated task structures. Empirically, we observe that setting $b_+ \le n_s/4$, $b_- \ge n_s/2$, $\epsilon>1.0e-3$, $\eta>0.5$ is enough to consistently yield high-quality Markov chain formulations.
+
+\textbf{Composite Reward Sampling}. To further enhance the quality of the task, rather than naively sampling the reward function $\mathcal{R}$ from $\mathbb{R}^{n_s\times n_a \times n_s}$, e independently sample the mean reward matrix $\bf{\mu}^R$ and the noises $\Sigma^R$. This ensures that the reward $r(s,a,s') \sim \mathcal{N}(\mu^R_{s,a,s'}, \Sigma^R_{s,a,s'})$. The mean reward matrix $\mu_{R,s,a,s'}$ is sampled from \emph{composite reward functions}, which is defined as follows:
+\begin{align}
+    \mu^R_{s,a,s'} = r^s(s') + r^{sa}(s,a) + v^s(s)-v^s(s') \label{eq:composite_rewards}
+\end{align}
+We first sample the state-dependent reward $r^s$ based on the ranking of states $s_1, ..., s_{n_s}$ and whether each state corresponds to pitfalls or goals. Subsequently, we sample the disturbance reward function $r^{sa}$ and state-value function $v^s$, which can be interpreted as random state-action costs and random reward shaping terms, respectively.
+
+To ensure non-trivial task formulations, we implement a suite of validation checks, including: 1. Ergodicity check on the average transition function;
+2. Ascending value function check to guarantee monotonic improvement;
+3. Minimum threshold check on the normalized entropy  $\mathcal{H}(p_{\mathfrak{o}})$ of the state distribution (SD) under the oracle policy $\mathfrak{o}$.
+If any of these checks fail, we either resample the transition dynamics or readjust the sampling of composite rewards. Details of the sampling process are provided in the Appendices.
+
+\subsection{Additional Properties of AnyMDP} \label{sec:anymdp_visualization}
+
+\begin{figure*}[htbp]
+\vskip 0.2in
+\begin{center}
+\centering 
+\includegraphics[width=0.50\textwidth]{img/AnyMDPEfficiency.pdf}
+\caption{Time consumption of AnyMDP task generation on an a Intel(R) Xeon(R) Platinum 8374C CPU.}
+\label{fig:eval_anymdp_efficiency}
+\end{center}
+\vskip -0.2in
+\end{figure*}
+
+\textbf{Computational Efficiency of Task Sampling}. \cref{fig:eval_anymdp_efficiency} illustrates the computational cost of generating AnyMDP tasks for various state space sizes $n_s\in\{8, 16, 32, 64, 128\}$. Notably, $n_s=8$ exhibits significantly higher computation times. This is primarily due to the frequent resampling required when final validation check fails. It is important to note that the AnyMDP task generation process was executed on single CPU. Given this, the use of readily available parallelization techniques could significantly accelerate task generation.
+
+\begin{figure*}[htbp]
+\vskip 0.2in
+\begin{center}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_anymdp_vs.pdf}
+    \label{fig:eval_task_complexity_add_sub1}
+\end{subfigure}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_anymdp_vs_step.pdf}
+    \label{fig:eval_task_complexity_add_sub2}
+\end{subfigure}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_anymdp_va.pdf}
+    \label{fig:eval_task_complexity_add_sub3}
+\end{subfigure}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_q_anymdp_va_step.pdf}
+    \label{fig:eval_task_complexity_add_sub4}
+\end{subfigure}
+\\
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_anymdp_vs.pdf}
+    \label{fig:eval_task_complexity_add_sub5}
+\end{subfigure}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_anymdp_vs_step.pdf}
+    \label{fig:eval_task_complexity_add_sub6}
+\end{subfigure}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_anymdp_va.pdf}
+    \label{fig:eval_task_complexity_add_sub7}
+\end{subfigure}
+\begin{subfigure}[b]{0.245\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/res_ppo_anymdp_va_step.pdf}
+    \label{fig:eval_task_complexity_add_sub8}
+\end{subfigure}
+\caption{Performance of Tabular Q-Learning and PPO on AnyMDP tasks of variant state space and action spaces, with respect to episodes and steps.}
+\label{fig:eval_task_complexity_add}
+\end{center}
+\vskip -0.2in
+\end{figure*}
+
+\begin{figure*}[htbp]
+\vskip 0.2in
+\begin{center}
+\begin{subfigure}[b]{0.49\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/Online-RL_Evaluation-rwkv7.pdf}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}
+    \centering 
+    \includegraphics[width=0.99\textwidth]{img/Online-RL_Evaluation-rwkv7_steps.pdf}
+\end{subfigure}
+\caption{Performance of OmniRL on AnyMDP tasks of variant state space, with respect to steps.}
+\label{fig:eval_task_complexity_add_omnirl}
+\end{center}
+\vskip -0.2in
+\end{figure*}
+
+\textbf{Relations between solution difficulty and the state–action space}. Figure \ref{fig:eval_task_complexity_add} illustrates the performance of Tabular Q-Learning and Proximal Policy Optimization (PPO) on AnyMDP tasks with varying state space and action space sizes. The results indicate that increasing either the state space size ($n_s$) or the action space size ($n_a$) enhances the complexity of the task, as evidenced by the need for more training steps to achieve convergence. OmniRL's result on AnyMDP tasks with different state spaces also supports this phenomenon, shown in Figure \ref{fig:eval_task_complexity_add_omnirl}. Additionally, an increase in the state space size ($n_s$) leads to a higher number of steps per episode.
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}{0.325\columnwidth}
+    \centering 
+    \includegraphics[width=1.0\textwidth]{img/vis_anymdp_ns16na5.pdf}
+    \caption{$\tau(16,5)$} 
+\end{subfigure}
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/vis_anymdp_ns32na5.pdf} 
+    \caption{$\tau(32,5)$}
+\end{subfigure}
+\begin{subfigure}{0.325\columnwidth}
+    \centering 
+    \includegraphics[width=1.0\textwidth]{img/vis_anymdp_ns64na5.pdf}
+    \caption{$\tau(64,5)$} 
+\end{subfigure}
+\\
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/vis_garnet_ns64na5.pdf} 
+    \caption{Garnet(64,5,2)}
+\end{subfigure}
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/vis_frozenlake_nonslippery.pdf} 
+    \caption{FrozenLake(non-slippery)}
+\end{subfigure}
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/vis_frozenlake_slippery.pdf} 
+    \caption{FrozenLake(Slippery))}
+\end{subfigure}
+\\
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/visualize_pendulum_v1.pdf} 
+    \caption{Discrete-Pendulum (g=9.8)}
+\end{subfigure}
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/vis_darkroom_8x8_7_7.pdf} 
+    \caption{DarkRoom($8\times8,[7,7]$)}
+\end{subfigure}
+\begin{subfigure}{0.325\columnwidth} 
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/vis_darkroom_10x10_9_9.pdf} 
+    \caption{DarkRoom($10\times10,[9,9]$)}
+\end{subfigure}
+\caption{Visualization of three tasks sampled from AnyMDP, with the number of states $n_s$ varying across $\{16, 32, 64\}$, Garnet$(64,5,2)$, and Gymnasium tasks including non-slippery and slippery \emph{FrozenLake} and \emph{Discrete-Pendulum}, and 2 tasks sampled from DarkRoom. States are reordered according to the SD ($p_{\mathfrak{r}}$), ordered from high to low. Gray blocks indicate positive state transition kernels. Red and blue blocks mark pitfalls ($\mathcal{S}^-_E$) and goals ($\mathcal{S}^+_E$), respectively, which trigger episode termination. Green blocks mark $\mathcal{S}_0$. The black line denotes the state value function under the optimal policy $V^*(s)$. Notably, AnyMDP is capable of generating a diverse range of tasks, including those with and without pitfalls and goals. The visualizations demonstrate that tasks generated by AnyMDP can be of comparable quality to those designed by humans. A common principle observed is that higher rewards are often associated with more challenging goals, akin to the concept of ``high-hanging fruit''.}
+\label{fig:anymdp_visualization}
+\end{figure}
+
+\textbf{Visualizing discrete MDPs}. Following the previous analysis, for any discrete Markov Decision Process (MDP), we can rearrange the states such that the SD $p_{\mathfrak{r}}$ decreases monotonically. We then plot the transition kernel $P_{\mathfrak{r}}$ in this rearranged order. In the visualization, we use varying opacity to represent the elements of $P_{\mathfrak{r}}$ and different colors to distinguish the initial states $\mathcal{S}_0$, positively rewarded terminal states (goals) $\mathcal{S}^+_E$, and negatively rewarded terminal states $\mathcal{S}^-_E$. This visualization, shown in \cref{fig:anymdp_visualization}, enables us to analyze both procedurally generated AnyMDP tasks and human-designed Gymnasium tasks. Several interesting observations can be made:
+\begin{itemize}
+    \item \textbf{Higher rewards for higher effort}. Both procedurally generated AnyMDP tasks and human-designed Gymnasium tasks exhibit a negative correlation between the SD $p_{\mathfrak{r}}$ and the value function $V^{*}$. This suggests a common principle: states with lower SD probability tend to have higher value functions, akin to the concept of "high hanging fruit".
+    \item \textbf{Banded transition kernel}. When ordered by decreasing SD probability, the transition kernels of all Markov chains display the characteristics of a banded matrix. This observation further validates the effectiveness of the procedural generation method outlined in \cref{alg:task_sampler}.
+\end{itemize}
+
+\section{Additional Information on Experiment Settings}
+\subsection{Data Synthesis} \label{sec:anymdp_synthesis}
+
+\begin{algorithm}[htbp]
+   \caption{Data Synthesis Pipeline}
+   \label{alg:data_synthesis}
+    \begin{algorithmic}
+       \STATE {\bfseries Input:} $\mathcal{T}$, $N_{sample}$, Collection of behavior policies $\Pi$, reference policy $\pi^{*}$
+       \STATE {\bfseries set:} $\mathcal{D}(\mathcal{T})=\emptyset$
+       \FOR{$[1,N_{sample}]$}
+            \STATE {\bfseries sample:} task $\tau \sim \mathcal{T}$
+            \STATE {\bfseries set:} $t=0, h_0=[], l_0=[]$ 
+            \REPEAT
+                \STATE {\bfseries sample:} behavior policy $\pi^{(b)} \sim \Pi$
+                \STATE {\bfseries reset:} $\tau$ and update $s_t$
+                \REPEAT
+                    \STATE {\bfseries sample:}  $a_t \sim \pi^{(b)}(a|s)$, $g_t=tag(\pi^{(b)})$
+                    \STATE {\bfseries sample:} $a^*_t \sim \pi^*(a|s)$
+                    \STATE {\bfseries execute:} $a_t$ in $\tau$ and obtain $s_{t+1}$, $r_t$
+                    \STATE {\bfseries set:} $h_{t}=h_{t-1}\oplus[s_t, g_t, a_t, r_t], l_{t} = l_{t-1}\oplus a^*_t, t=t+1$
+                \UNTIL{Episode is over}
+            \UNTIL{$t \geq T$}
+            \STATE {\bfseries Set:} $\mathcal{D}(\mathcal{T})=\mathcal{D}(\mathcal{T}) \cup \{h_T, l_T\}$
+       \ENDFOR
+        \STATE {\bfseries Return:} $\mathcal{D}(\mathcal{T})$
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{table}[t]
+\caption{Summarizing the data synthesis strategies of different methods under the Decoupled Policy Distillation (DPD) framework.}
+\label{table:icrl_data_synthesis}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lcr}
+\toprule
+Data Synthesis Pipeline & behavior policies ($\Pi$) & reference policy \\
+\midrule
+AD \cite{laskin2022context}    &  $\mathfrak{q}$ & $\mathfrak{q}$ \\
+AD$^{\epsilon}$ \cite{zisman2023emergence}    & $\mathfrak{o}^{\varepsilon}$ & $\mathfrak{o}^{\varepsilon}$ \\
+DPT \cite{lee2024supervised} & $\mathfrak{o}$, $\mathfrak{q}$, $\mathfrak{r}$ & $\mathfrak{o}$ \\
+Decoupled Policy Distillation (Ours) & $\mathfrak{o}$, $\mathfrak{q}$, $\mathfrak{m}$, $\mathfrak{r}$, $\mathfrak{o}^{\varepsilon}$ & $\mathfrak{o}$ \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+The data synthesis pipeline of OmniRL involves generating diverse trajectories $h$ using a variety of behavior policies and creating step-wise labels $l$ with an oracle policy $ \pi^{\mathfrak{o}} $. This pipeline is detailed in \cref{alg:data_synthesis}. We incorporate at least five distinct types of agents:
+\begin{itemize}
+\item An agent with the oracle policy ($\mathfrak{o}$),
+\item An agent with a randomized policy ($\mathfrak{r}$),
+\item A tabular Q-Learning agent ($\mathfrak{q}$),
+\item A model-based reinforcement learning agent ($\mathfrak{m}$),
+\item An agent with the oracle policy perturbed by a decaying noise $\varepsilon$ ($\mathfrak{o}^\varepsilon$).
+\end{itemize}
+
+With these notations, \cref{table:icrl_data_synthesis} can be used to represent not only the data synthesis pipeline of OmniRL but also the previous imitation meta-training-based ICRL methods, including AD, AD$^\varepsilon$, and DPT, as shown in \cref{table:icrl_data_synthesis}. Notably, the synthesis pipeline of OmniRL is most similar to that of DPT. However, there are key differences: OmniRL employs a more diverse set of behavior policies and incorporates step-wise supervision (SS).
+
+\begin{table}[t]
+\caption{Correpsondance of prompt IDs and the policies it represents.}
+\label{table:icrl_policy_type}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lll}
+\toprule
+ID ($g$) & Agent Type & Description \\
+\midrule
+0   & $\mathfrak{o}(\gamma=0)$ & single-step greedy \\
+1   & $\mathfrak{o}(\gamma=0.5)$ & myopic greedy \\
+2   & $\mathfrak{o}(\gamma=0.93)$ & short-term oracle \\
+3   & $\mathfrak{o}$ & oracle with $\gamma>0.99$ \\
+4   & $\mathfrak{m}$ & model-based reinforcement learner \\
+5   & $\mathfrak{q}$ & tabular Q learner \\
+6   & $\mathfrak{r}$ & randomized policy (including perturbed action in $\mathfrak{o}^{\varepsilon}$) \\
+7   & unk & reserved ID \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+For the prior information $g$, we assign eight different IDs to the actions with $g \in [0, 7]$ which originated from $8$ types of different agents, as shown in \cref{table:icrl_policy_type}.  Specifically, we exclude the actions generated by the seven types of different agents and reserve $g=7$. This reserved ID is used to replace the action ID approximately $15\%$ of the time steps with the data synthesis pipeline of \cref{alg:data_synthesis}.
+
+\begin{figure}[htbp]
+\begin{center}
+\centerline{\includegraphics[width=0.95\textwidth]{img/Terminal_Process.pdf}}
+\caption{A sketch of the tokens used to denote the intervention between two episodes. An extra action token is introduced, which is distinct from the normal actions ($a_{t_k}=|\mathcal{A}|=n_a$).}
+\label{fig:terminal_states}
+\end{center}
+\vspace{-0.1in}
+\end{figure}
+
+\textbf{Addressing terminal states}: The presence of terminal and truncation states necessitates special handling in reinforcement learning. In OmniRL, we avoid explicitly adding a terminal or truncation token to the sequence. Instead, we encode terminal and truncation states by introducing an additional action $a$, which is maintained as distinct from the standard action space $\mathcal{A}$. Additionally, we assign a reward of 0 and set the prior information $p=7$ for these special steps, as depicted in \cref{fig:terminal_states}.
+
+\subsection{Meta-Training Details} \label{sec:training_settings}
+
+
+\textbf{Model structures}: Before injection into causal models, the states ($s_t$) and actions ($a_t$) are encoded using embedding layers with a hidden size of $512$. The rewards ($r_t$) are treated as continuous features encoded by $1\times512$ linear layer. The sequence model has a hidden size of $512$, inner hidden size of $1024$, hidden ratio of $2$, and block number of $18$ for RWKV-7. The model has approximately 43.6M total parameters (42.9M in RWKV-7 blocks), as shown in \cref{tab:architectures_params}. We employ the open-source implementation of \emph{flash-linear-attention}~\footnote{https://github.com/fla-org/flash-linear-attention}.
+
+\begin{table}[htbp]
+    \centering
+    \caption{The parameter settings of the sequence model. Note that for different models, the relationship between head dimension, head number, and hidden size varies. We follow the settings used in \emph{flash-linear-attention}.}
+    \begin{tabular}{lcccc}
+        \toprule
+        & GDN & GSA & Mamba2 & RWKV7 \\
+        \midrule
+        Block nums & 18 & 18 & 18 & 18 \\
+        Hidden size & 512 & 512 & 512 & 512 \\
+        Inner hidden size & $2\times512$ & $2\times512$ & $2\times512$ & $2\times512$ \\
+        Head nums & 8 & 8 & 8 & 8 \\
+        Head dim & 48 & 64 & 128 & 64 \\
+        Parameters & 46.3M & 42.9M & 31.6M & 42.9M \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:architectures_params}
+\end{table}
+
+\begin{algorithm}[htbp]
+   \caption{Meta-Training Process}
+   \label{alg:meta_training}
+    \begin{algorithmic}
+       \STATE {\bfseries Input:} $\mathcal{D}(\mathcal{T}_{tra})$, $\mathcal{D}(\mathcal{T}_{tst})$
+       \FOR{epochs from $1$ to maximum epochs}
+            \FOR{$h_T, l_T \in \mathcal{D}(\mathcal{T}_{tra})$}
+                \STATE {\bfseries set:} segments $K=T/T_{seg}$, gradients $g=\mathbf{0}$, initial memory $\phi_0=0$
+                \FOR{$k \in [0, K)$}
+                    \STATE {\bfseries forward:}  update $\phi_{k-1} \rightarrow \phi_k$ based on \cref{eq:chunkwise_forward}, $\phi_{k-1}$, $h_{T_k:T_{k+1}}$ and $l_{T_k:T_{k+1}}$
+                    \STATE {\bfseries backward:} calculating $g_k = \nabla \sum_{t\in [T_k, T_{k+1}]}w_t\mathcal{L}_t$ by stopping gradient of $\phi_{k-1}$ 
+                    \STATE {\bfseries accumulate gradient:} $g = g + g_k$
+                \ENDFOR
+                \STATE {\bfseries apply gradient:} $g$ to update $\theta$
+            \ENDFOR
+            \STATE {\bfseries validate:} averaging $\mathcal{L}_t$ and $\mathcal{L}$ on $\mathcal{D}(\mathcal{T}_{tst})$
+       \ENDFOR
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{table}[t]
+\caption{Details of the meta-training dataset}
+\label{table:icrl_training_dataset}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lcc}
+\toprule
+DataSet & Description & Time Steps \\
+\midrule
+$\mathcal{D}_{Small}$ & \makecell{$n_s=16, n_a=5$ \\ $|\mathcal{T}_{tra}|=|\mathcal{D}(\mathcal{T}_{tra})| = 128K$, $Sequence Length=8K$} & $1B$ \\
+\midrule
+$\mathcal{D}_{Large}$ & \makecell{$n_s\in[16, 128], n_a=5$ \\ $|\mathcal{T}_{tra}| = |\mathcal{D}(\mathcal{T}_{tra})| = 512K$, $Sequence Length=12K$} & $6B$ \\
+\midrule
+$\mathcal{D}_{Long}$ & \makecell{$n_s\in[16, 128], n_a=5$ \\ $|\mathcal{T}_{tra}| = |\mathcal{D}(\mathcal{T}_{tra})| = 12K$, $Sequence Length=512K$} & $6B$ \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\textbf{Meta-training}: \cref{alg:meta_training} outlines the detailed process of the meta-training procedure. Notably, we perform the backward pass segment-wise and accumulate the gradients. The gradients are not applied until the end of a sequence. We utilize a constant segment length $ T_{k+1} - T_k = 2K $, which results in six backward passes for $ T = 12K $ before applying the gradient. 
+
+\cref{table:icrl_training_dataset} provides an overview of the primary datasets used in this study. For the $\mathcal{D}_{\text{Large}}$ dataset, the state space size $ n_s $ is uniformly sampled from the range $[16, 128]$ to ensure robustness across varying state spaces. To evaluate the extrapolation capability of the model trained on $\mathcal{D}_{\text{Large}}$, we conducted a validation test with a context length of 1 million steps and observed that the loss began to gradually increase beyond $80K$ steps. Building upon this observation, we incorporated a post-training stage for long sequences with a context length of $512K$, the dataset is denoted as $\mathcal{D}_{\text{Long}}$.
+
+\begin{algorithm}[htbp]
+   \caption{Evaluation Process}
+   \label{alg:evaluation_process}
+    \begin{algorithmic}
+       \STATE {\bfseries Input:} $\mathcal{T}_{tst}$, collection of demonstration trajectories $\mathcal{H}_0=\{h_0\}$, 
+       \STATE {\bfseries set:} $S^{eval}=\emptyset$
+       \FOR{$\tau \in \mathcal{T}_{tst}$}
+            \STATE {\bfseries set:} $R_{max}$=average episodic reward of $\mathfrak{o}$, $R_{min}$=average episodic reward of $\mathfrak{r}$
+            \STATE {\bfseries set:}  $\mathcal{S}^{eval}_{\tau}=[]$
+            \REPEAT
+                \STATE {\bfseries retrieving:} $h_0$ from $\mathcal{H}_0$ according to $\tau$
+                \STATE {\bfseries reset:} $\tau$ and obtain $s_1$, $R=0$
+                \REPEAT
+                    \STATE {\bfseries sample:} $a_t \sim p^{\theta}_t$ with \cref{eq:chunkwise_forward}
+                    \STATE {\bfseries execute:} $a_t$ in $\tau$ and obtain $s_{t+1}$, $r_t$
+                    \STATE {\bfseries set:} $h_{t}=h_{t-1} \oplus [s_t, g_t,a_t,r_t] $ with $g_t=$``Unk''
+                    \STATE {\bfseries set:} $R \leftarrow R+r_t, t \leftarrow t+1$
+                \UNTIL{Episode is over}
+                \STATE {\bfseries calculate:} normalized performance $S^{eval}_{\tau} \leftarrow S^{eval}_{\tau} \oplus [\frac{R - R_{min}}{R_{max} - R_{min}}]$
+                \STATE {\bfseries set:} $N_{episodes} \leftarrow N_{episodes} + 1$
+            \UNTIL{$N_{episodes}>N_{max}$}
+            \STATE {\bfseries Record:} $S^{eval} \leftarrow S^{eval} \cup S^{eval}_{\tau}$
+       \ENDFOR
+        \STATE {\bfseries Return:} $S^{eval}$
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \begin{equation}
+            \text{reward} = \begin{cases}
+                1, & \text{if reach goal} \\
+                -1, & \text{if reach hole} \\
+                0, & \text{otherwise}
+            \end{cases} \nonumber
+        \end{equation}
+        \caption{FrozenLake-v1(slippery)}
+        \label{fig:reward_shaping_lake_slippery}
+    \end{subfigure}
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \begin{equation}
+            \text{reward} = \begin{cases}
+                1, & \text{if reach goal} \\
+                -1, & \text{if reach hole} \\
+                -0.05, & \text{otherwise}
+            \end{cases} \nonumber
+        \end{equation}
+        \caption{FrozenLake-v1(not slippery)}
+        \label{fig:reward_shaping_lake_not_slippery}
+    \end{subfigure}
+    
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \begin{equation}
+            \text{reward} = \begin{cases}
+                1, & \text{if reach goal} \\
+                -1, & \text{if reach cliff} \\
+                -0.03, & \text{otherwise}
+            \end{cases} \nonumber
+        \end{equation}
+        \caption{CliffWalking-v0}
+        \label{fig:reward_shaping_cliff}
+    \end{subfigure}
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \begin{equation}
+            \text{reward} = \max\left(\frac{\text{reward}}{30} + 0.1, -0.1\right) \nonumber
+        \end{equation}
+        \caption{Pendulum-v1}
+        \label{fig:reward_pendulum}
+    \end{subfigure}
+
+    \begin{subfigure}{0.45\columnwidth}
+        \begin{equation}
+            \text{agent reward} = \begin{cases}
+                1, & \text{if reach goal} \\
+                0.08, & \text{if distance to goal decrease} \\
+                -0.12, & \text{if distance to goal increase } \\
+                -0.04, & \text{if still } \\
+                0, & \text{if finish} 
+            \end{cases} \nonumber
+        \end{equation}
+        
+        \begin{equation}
+            \text{shared reward} = \sum_{i=1}^{2} \text{agent reward}_i \nonumber
+        \end{equation}
+        \caption{Switch}
+        \label{fig:reward_shaping_switch}
+    \end{subfigure}
+\caption{Reward shaping}
+\label{fig:reward_shaping}
+\end{figure}
+
+\subsection{Evaluation Details} \label{sec:evaluation_detail}
+As shown in \cref{alg:evaluation_process}, since the episode length and baseline average episodic reward vary significantly across different tasks, we normalize the episodic reward using the oracle policy ($\mathfrak{o}$) and the uniform random policy ($\mathfrak{r}$). This normalization represents the percentage of oracle performance achieved. For AnyMDP, the evaluation averages the performances over $64$ variant unseen tasks. For Gymnasium tasks, the evaluation is conducted by averaging the results over $3$ runs on the same task. 
+
+By default, the normalized performance $ S^{\text{eval}} $ is averaged across tasks with identical $ N_{\text{episodes}} $. The deviation is estimated using the $95\%$ confidence interval of the mean.
+
+For Tabular Q-Learning and PPO, we conduct 5 episodes of testing after every 100 episodes of training for each run. We evaluate performance based solely on these test episodes. In contrast, for ICRL, we do not differentiate between training and testing phases.
+
+When performing online inference with OmniRL, we do not employ any additional exploration strategies. Instead, we maintain a softmax sampling temperature of $0.5$. For offline learning, where demonstrations from the teacher are encoded, we use the original prior information $g_t$ without modification. In contrast, for online learning, where actions are generated by the agent itself, we set $g_t=7$ (Unk).
+
+We apply some reward shaping to Gymnasium tasks as shown in \cref{fig:reward_shaping}. OmniRL supports $n_s \leq 128$ and $n_a \leq 5$. For environments with $n_a < 5$, we find directly setting $a=a \mod n_a$ is enough, which also demonstrates the generalizability of OmniRL to variant action spaces. 
+
+\section{Additional Empirical Results}
+
+\subsection{AnyMDP as a long-context benchmark for procedural memory}\label{sec:add_res_arch}
+
+\begin{figure}[htbp]
+\vskip -0.10in
+\begin{subfigure}[b]{0.495\linewidth}
+    \centering 
+    \includegraphics[width=\linewidth]{img/Architectures_training.pdf}
+    \label{fig:architectures_training}
+\end{subfigure}
+\begin{subfigure}[b]{0.495\linewidth}
+    \centering 
+    \includegraphics[width=\linewidth]{img/Architectures_validation.pdf}
+    \label{fig:architectures_eval}
+\end{subfigure}
+\vskip -0.05in
+\caption{Comparison of meta-training dynamics across AnyMDP dataset of $6B$ time steps and step-wise loss (lower is better) on the validation set \(\mathcal{D}(\mathcal{T}_{tst}(n_s\in[16,128],n_a=5))\) for different linear-attention models.}
+\label{fig:architectures}
+\end{figure}
+
+Figure~\cref{fig:architectures} reports the performance of different linear-attention models throughout AnyMDP training and on the held-out AnyMDP evaluation data (\(\mathcal{T}(n_s\in[16,128],n_a=5)\)), including Gated Delta Net (GDN), Gated Slot Attention (GSA), Mamba2, and RWKV-7. Error decreases polynomially with context length up to 20k tokens, yielding an almost straight line when plotted against the logarithm of context length. Consequently, AnyMDP serves as a long-context benchmark for procedural memory, whereas prior benchmarks such as Needle-in-the-Haystack primarily probe episodic memory.
+
+
+\subsection{OmniRL achieves automatic trade-off between exploration and exploitation}\label{sec:add_res_ee}
+
+\begin{figure*}[htbp]
+\vskip 0.2in
+\begin{center}
+    \centering
+    \includegraphics[width=0.50\textwidth]{img/static_evaluation_1.pdf} 
+    \caption{The position-wise entropy when validating RWKV-7 on different datasets.}
+    \label{fig:entropy}
+\end{center}
+\end{figure*}
+
+Previous studies have noted that in-context reinforcement learning (ICRL) can automatically balance exploration and exploitation. This phenomenon has been theoretically linked to posterior sampling. In \cref{fig:entropy}, we illustrate the entropy of the decision-making process as a function of steps within the context. When compared to \cref{fig:eval_task_complexity_sub4}, we observe that the decrease in loss ($\mathcal{L}_t$) is primarily driven by the reduction in the entropy of the policy. Specifically, the agent initially assigns equal probabilities to all actions, reflecting an exploratory phase. As more contextual information accumulates, the agent gradually converges its choices, thereby transitioning towards exploitation. This empirical finding suggests that imitating an optimal policy (oracle) is sufficient to achieve an automatic balance between exploration and exploitation.
+
+\subsection{Additional Evaluation on Gymnasium}
+
+\cref{fig:gym} and \cref{fig:gym_offlinerl} demonstrate OmniRL's online-RL, offline-RL, and imitation learning capabilities toward diverse unseen tasks.
+
+\begin{figure*}[!h]
+\begin{center}
+\includegraphics[width=0.99\textwidth]{img/gym_onlinerl.pdf}
+\vspace{-10pt}
+\caption{Selected online evaluation results for TQL-UCB, PPO, and OmniRL across Gymnasium environments. Notably, despite never having been exposed to these environments during training, OmniRL demonstrates strong adaptability by achieving competitive performance on most tasks with high sample efficiency.}
+\label{fig:gym}
+\end{center}
+\end{figure*}
+
+\begin{figure*}[h]
+\vskip 0.15in
+\begin{center}
+    \includegraphics[width=1\textwidth]{img/gym_offlinerl.pdf}
+\vspace{-20pt}
+\caption{Selected offline evaluation results for OmniRL across Gymnasium environments, demonstrating the model's offline-RL and imitation learning capabilities toward unseen tasks.}
+\label{fig:gym_offlinerl}
+\end{center}
+\vskip 0.15in
+\vspace{-20pt}
+\end{figure*}
+
+\subsection{Memory states in ICRL implicitly encode the task structure}\label{sec:add_res_tsne}
+
+ICRL with linear attention captures all the information required to solve the environment in its memories ($\phi_t$). We perform a comprehensive t-SNE analysis to examine how these memories transform across different tasks during Online-RL evaluation. As shown in \cref{fig:tsne}, the clustering patterns confirm the distinct task distributions of Gym, Darkroom, and AnyMDP. Notably, Darkroom and Gym clusters are predominantly located in the top-left region, while AnyMDP occupies a broader spatial area, reflecting its greater diversity. This spatial differentiation emphasizes AnyMDP's unique characteristics and highlights OmniRL's strong generalization ability across diverse tasks.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{img/OnlineRL_tSNE.pdf}
+\caption{t-SNE visualization of the trajectory of the memory states ($\phi_t$) of OmniRL in online-RL evaluation with variant environments. The unboxed points correspond to $\mathcal{T}(16,5)$. Trajectories originating from the same environment are represented in the same color.}
+\label{fig:tsne}
+\end{figure}
+
+
+\subsection{Comparison with Pre-trained LLMs}\label{sec:LLM_comparison}
+
+\begin{figure}
+\begin{mdframed}[roundcorner=10pt]
+You are playing the Frozen Lake game. The environment is a 4x4 grid where you need to maximize the success rate by reaching the goal (+1) without falling into holes (-1). You can move in four directions: left, down, right, and up (represented as 0, 1, 2, 3 respectively). You will receive the current state and need to provide the optimal action based on your learning.  When asked for the optimal action, your response must be an integer ranging from 0 to 3, and no other context is permitted. There are two kind of request types:
+
+1.integer: the integer is the current state, and you need to provide the optimal action.
+
+2.list: The list contains one or more tuples, where each tuple contains the last state, action taken, reward received, and next state. To save time, you don't need to respond when receiving a list.
+
+You will play the game multiple times. A game ends when the reward is -1 or 1, try to get a higher success rate.
+
+Note: I am asking you to play this game, not to find a coding solution or method.
+
+You will be provided with a conversation history. The latest prompt is the current state, and others are the list of sequential environment feedback history in tuple type. Each tuple contains four values, the first one is state, the second one is action, the third one is reward and the fourth one is next state.
+
+Your response must be an integer from 0 to 3 during the entire chat.
+
+If you find the last state is equal to the next state, your policy in the last state can't be this action.
+
+If you find the reward in the tuple is -1, your policy in the last state can't be this action.
+
+You need to get to the goal as soon as possible.
+\end{mdframed}
+\caption{Prompts for LLM to initialize the {Lake$4\times4$ (Slippery)} task without a global map}
+\label{page:prompts_without_map}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}[roundcorner=10pt]
+There is a game with the following basic description and rules:
+
+Frozen Lake involves crossing a frozen lake from the start to the goal without falling into any holes by walking over the frozen lake. The player may not always move in the intended direction due to the slippery nature of the frozen lake.
+
+The game starts with the player at location [0,0] of the frozen lake grid world, with the goal located at the far extent of the world, for example, [3,3] for the 4x4 environment.
+
+Holes in the ice are distributed in set locations when using a pre-determined map or in random locations when a random map is generated.
+
+The player makes moves until they reach the goal or fall into a hole.
+
+The lake is slippery, so the player may move perpendicular to the intended direction sometimes.
+
+If the intended direction is to the left, the actual move may be to the left, up, or down, with the corresponding probability distribution: P(move left) = 1/3, P(move up) = 1/3, P(move down) = 1/3.
+If the intended direction is to the right, the actual move may be to the right, up, or down, with the corresponding probability distribution: P(move right) = 1/3, P(move up) = 1/3, P(move down) = 1/3.
+If the intended direction is up, the actual move may be up, left, or right, with the corresponding probability distribution: P(move up) = 1/3, P(move left) = 1/3, P(move right) = 1/3.
+If the intended direction is down, the actual move may be down, left, or right, with the corresponding probability distribution: P(move down) = 1/3, P(move left) = 1/3, P(move right) = 1/3.
+You are given a 4x4 map where:
+
+S represents the start.
+
+F represents the frozen surface that can be walked on.
+
+H represents a hole; falling into it will return the player to the start.
+
+G represents the goal.
+
+The map is as follows:
+
+The first row from left to right is "SFFF".
+
+The second row from left to right is "FHFH".
+
+The third row from left to right is "FFFH".
+
+The fourth row from left to right is "HFFG".
+
+Please determine the optimal policy that maximizes the success rate of safely reaching the goal from the start. The optimal policy is the intended direction at each map location, where actions 0, 1, 2, and 3 represent moving left, down, right, and up, respectively.
+
+Note: You are not required to write code to solve this problem; instead, directly provide the optimal policy.
+\end{mdframed}
+\caption{Prompts for LLM to solve Lake$4\times4$ (Slippery) with global map}
+\label{page:prompts_with_map}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}[roundcorner=10pt]
+In this particular environment, you should focus more on strategies to avoid encountering pitfalls rather than concentrating on reaching the goal. A reevaluation of the decision-making process in this context may yield more effective outcomes.
+\end{mdframed}
+\caption{Additional guide (hint) for LLM to solve Lake$4\times4$ (Slippery) with global map}
+\label{page:prompts_hint}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}[roundcorner=10pt]
+The optimal policy for each state (row, column) is as follows, where each cell lists the intended direction (action) that maximizes the probability of reaching the goal:
+
+- **(0,0)**: Down (1)
+- **(0,1)**: Down (1)
+- **(0,2)**: Down (1)
+- **(0,3)**: Up (3)
+- **(1,0)**: Down (1)
+- **(1,2)**: Down (1)
+- **(2,0)**: Right (2)
+- **(2,1)**: Down (1)
+- **(2,2)**: Down (1)
+- **(3,1)**: Right (2)
+- **(3,2)**: Right (2)
+
+**Explanation**:
+- **Top row (0,0 to 0,3)**: Prioritize moving down to avoid the risky rightward path toward holes.
+- **Middle rows (1,0 and 1,2)**: Move down to progress toward safer lower rows.
+- **Lower rows (2,0 to 3,2)**: Navigate rightward toward the goal, avoiding holes. For example, (3,1) and (3,2) move right to reach the goal directly.
+- **(0,3)**: Move up (intended) to bias movement leftward (safer) and avoid falling into the hole at (1,3).
+\end{mdframed}
+\caption{Responses from DeepSeek-R1 for Lake$4\times4$ (Slippery) with global map}
+\label{page:results_ds_w_hint}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}[roundcorner=10pt]
+The optimal policy, revised to prioritize avoiding holes, is as follows:
+
+- **(0,0)**: Down (1)  
+  *Avoids (0,1)'s risks by favoring transitions to (1,0) or (0,1) without direct hole exposure.*
+
+- **(0,1)**: Right (2)  
+  *Moves toward (0,2) or (1,1) (hole). While risky, all actions here have 1/3 hole risk; right progresses toward safer (0,2).*
+
+- **(0,2)**: Right (2)  
+  *Directs to (0,3) instead of down to (1,2), which is high-risk.*
+
+- **(0,3)**: Up (3)  
+  *Biases movement left (to (0,2)) and avoids the hole at (1,3).*
+
+- **(1,0)**: Left (0)  
+  *Avoids 1/3 chance of moving right into (1,1) (hole). Transitions to (0,0) or (2,0) safely.*
+
+- **(1,2)**: Right (2)  
+  *Despite 1/3 hole risk, it allows progress to (2,2) or (0,2). Left (action 0) has equal risk but less progress.*
+
+- **(2,0)**: Up (3)  
+  *Avoids 1/3 chance of moving down into (3,0) (hole). Routes to (1,0) or (2,1).*
+
+- **(2,1)**: Down (1)  
+  *Safely moves to (3,1) (frozen), progressing toward the goal.*
+
+- **(2,2)**: Down (1)  
+  *Reaches (3,2), a safe step toward the goal.*
+
+- **(3,1)**: Right (2)  
+  *Directly progresses to (3,2), then (3,3) (goal).*
+
+- **(3,2)**: Right (2)  
+  *Final step to the goal (3,3).*
+
+\#\#\# Key Adjustments from Original Policy:
+1. **(1,0)**: Changed to **left** (0) to avoid 1/3 chance of falling into (1,1).
+2. **(1,2)**: Changed to **right** (2) instead of down, reducing hole risk from 2/3 to 1/3.
+3. **(2,0)**: Changed to **up** (3) to avoid 1/3 chance of entering (3,0).
+4. **(0,1)**: **Right** (2) minimizes repeated exposure to (1,1) compared to down.
+
+\#\#\# Path Safety Focus:
+- Avoids actions with >1/3 hole probability (e.g., down from (1,2)).
+- Prioritizes paths with lower immediate risk, even if longer (e.g., routing through (2,0) → (2,1) → (3,1) → goal).
+\end{mdframed}
+\caption{Responses from DeepSeek-R1 for Lake$4\times4$ (Slippery) with global map and hint}
+\label{page:results_ds_wo_hint}
+\end{figure}
+
+
+\begin{table}[t]
+\caption{Comparison of the performance (success rate) of LLM and other methods discussed in the paper within the \emph{FrozenLake} environment.
+}
+\label{table:llm_icrl}
+\vskip 0.1in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{l|rr}
+\toprule
+Methods & non-slippery & slippery \\
+\midrule
+Random & $1.6\%$ & $1.3\%$ \\
+LLM w/ state only & $<2\%$ & $<2\%$ \\
+LLM w/ global map & $100\%$ & $5.6\%$ \\
+LLM w/ global map \& hint &  & $17\%$ \\
+OmniRL w/ state only & $100\%$ & $60\%$ \\
+Oracle & $100\%$ & $75\%$ \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\begin{figure}[htbp]
+\begin{center}
+\centerline{\includegraphics[width=0.85\textwidth]{img/LLMDemo.pdf}}
+\caption{Comparison of the solutions of different methods in the \emph{FrozenLake} environment. In the LLM w/ hint condition, we provide additional guidance to the agent, instructing it to prioritize avoiding holes over reaching the goal.}
+\label{fig:llm_frozenlake_demo}
+\end{center}
+\vspace{-0.1in}
+\end{figure}
+
+We also investigate whether a well-pretrained LLM can naturally solve the decision-making tasks investigated in this paper. To circumvent the lack of common sense in AnyMDP tasks, we primarily conducted tests in the \emph{FrozenLake} task with \emph{DeepSeek-R1}\cite{guo2025deepseek} in two modes:
+\begin{enumerate}
+\item Similar to the evaluation of standard ICRL, we do not provide the agent with the map. Instead, we report only the state ID and reward of the agent. The initial prompts used to initiate the evaluation are shown in \cref{page:prompts_without_map}.
+\item We initially provide the global map to the $DeepSeek-R1$ and then commence the interaction. In this mode, the LLM can leverage the global map to make decisions. The prompts are shown in \cref{page:prompts_with_map} and \cref{page:prompts_hint}
+\end{enumerate}
+
+As shown in \cref{table:llm_icrl} and \cref{fig:llm_frozenlake_demo} (results excecuted by following the responses of DeepSeek-R1 (version 2025/03) in \cref{page:results_ds_w_hint} and \cref{page:results_ds_wo_hint}), LLM agents are only able to solve the \emph{FrozenLake (non-slippery)} environment when provided with a global map. Without access to a global map, we conducted extensive interactions between LLM agents and the environment, running up to $500$ episodes ($100,000$ steps). Despite these efforts, the agents failed to solve even the non-slippery variant of the task, achieving scores that were comparable to those of a random policy.
+
+Even with the aid of a global map, the performance of LLM agents on the \emph{FrozenLake (non-slippery)} environment remains notably poor. To improve their performance, we introduced additional hints suggesting that a better solution should prioritize avoiding holes over reaching the goal. However, this intervention only marginally improved the agents' performance, raising it from $5.6\%$ to $17\%$. This level of performance is still significantly lower than that of the Oracle and OmniRL agents.
+
+Notably, increasing the length of the chain of thought can potentially enhance performance when a global map is available, but it has minimal impact on performance when only the current state is considered. The former scenario emphasizes System 2 decision-making, which is characterized by rule-based and analytical thinking. In contrast, the latter scenario highlights the in-context adaptation of System 1 decision-making, which relies on continual external feedback and represents rapid, intuitive decision-making \cite{wason1974dual,kahneman2011thinking}. We argue that future research should place greater emphasis on the latter approach.
+
+\end{document}

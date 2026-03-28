@@ -1,0 +1,202 @@
+
+% \subsection{Follow the Demonstrator}
+
+% In this section, we devise a training procedure that predicts the next action of the demonstrator. In this training procedure, first a history of interactions $\H_m = \{a^m_t, r^m_t\}_{t=1}^n$ is collected by running a demonstrator in some task $\xi_m$. Here we call each task $\xi_m$ as a task indexed by $m\in [M]$. The final dataset is denoted by $\D = \bigcup_{m=1}^M\H_m$. Note that the demonstrator does not take into account the feature information to select an action $a^m_t$. 
+
+% Then we pass this dataset $\D$ to a transformer. Let the total number of actions be $K$. The transformer tries to predict the next action of the demonstrator. To do this we pad a linear layer of dimension $K$ on top of the transformer. This is shown in \Cref{fig:tf-1}. 
+
+% At every iteration, the loss is calculated in the following way: Let the transformer observe reward $r_t$ and $a_t$ at round $t$ and predict the action $\widehat{a}^m_{t+1}$ as the next action for round $t+1$. Let $a^m_{t+1}$ be the true action taken by the demonstrator. Then the loss is 
+% \begin{align*}
+%     \L_t = \operatorname{cross-entropy}(\widehat{a}^m_{t+1}, a^m_{t+1})
+% \end{align*}
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[scale=0.4]{img/Transformer architecture 1.png}
+%     \caption{Training Procedure 1}
+%     \label{fig:tf-1}
+% \end{figure}
+
+We now introduce our main algorithmic contribution, \pred\ (which stands for \textbf{Pre}-trained \textbf{De}cision \textbf{T}ransf\textbf{o}rmer with \textbf{R}eward Estimation). %, which does not require access to the optimal action during training in order to improve upon the demonstrator.
+% We now propose our algorithm \pred\ which does not require access to the optimal action and estimates the reward for each action $a\in\A$. 
+%
+% During training, \pred\ first samples $m\sim\cTp$ and then an in-context dataset $\H_m\sim \Dpr(\cdot|,m)$. It then adds this $\H_m$ to the training dataset $\Htr$, and finally collects $\Mpr$ such training tasks. 
+%
+%
+% The transformer $\rT_{\bTheta}$ is then trained on the training dataset $\Htr$ using the training procedure in \Cref{sec:training}.
+
+\vspace*{-0.8em}
+\subsection{Pre-training Next Reward Prediction}
+% \subsection{Follow Demonstrator and Predict Next Reward}
+\label{sec:training}
+\vspace*{-0.5em}
+The key idea behind \pred\ is to leverage the in-context learning ability of transformers to infer the reward of each arm in a given test task.
+% 
+By training this in-context ability on a set of training tasks, the transformer can implicitly learn structure in the task family and exploit this structure to infer rewards without trying every single arm.
+%
+\textcolor{blue}{Hence \pred\ requires access to all the finite set of arms. Note that the \ad, and \dpt\ only require access to the arms selected by the demonstrator.}
+% 
+In contrast to \dpt\ and \ad\ that output actions directly, \pred\ outputs a scalar value reward prediction for each arm.
+% 
+% Like \dpt\ and \ad\, \pred\ takes the entire history of past actions and rewards in the test task as input (initially empty in the online case).
+% In this section, we first propose a training procedure that differs significantly from other in-context decision-making approaches like \dpt. 
+%
+% In contrast to \dpt\ which requires the optimal action $a_{m ,*}$ (or a greedy approximation), we predict the next reward for each action $a \in \A$ for the task $m$.  
+%
+To this effect, we append a linear layer of dimension $A$ on top of a causal GPT2 model, denoted by $\rT_{\bTheta}(\cdot | \H_m)$, and use a least-squares loss to train the transformer to predict the reward for each action with these outputs. 
+%
+Note that we use $\rT_{\bTheta}(\cdot | \H_m)$ to denote a reward prediction transformer and $\T_{\bTheta}(\cdot | \H_m)$ as the transformer that predicts a distribution over actions (as in \dpt\ and \ad\ ).
+%
+% Then a task $m$ is sampled from $\cTp$. Then we sample a 
+% Recall that the  dataset $\H_m\sim\Dpr(\cdot|m)$ where $m\sim\cTp$. Note that dataset consists of a history of interactions $\H_m = \{I_{m,t}, r_{m,t}\}_{t=1}^n$.
+% which is collected by running a weak demonstrator $\pi^w$. 
+% Here we call each task $\xi_m$ as a task indexed by $m\in [M]$. The final dataset is denoted by $\D = \bigcup_{m=1}^M\H_m$. Note that the demonstrator does not take into account the feature information to select an action $a^m_t$. 
+%
+% We follow a similar procedure as before. The initial dataset $\D$ is collected using the demonstrator. 
+%
+% Then we pass this dataset to the transformer $\rT_{\bTheta}(\cdot | \H_m)$. 
+% 
+At every round $t$ the transformer predicts the \emph{next reward} for each of the actions $a\in \A$ for the task $m$ based on $\H_m^t = \{I_{m,s}, r_{m,s}\}_{s=1}^{t-1}$. This predicted reward is denoted by $\wr_{m,t+1}(a)$ for each $a\in\A$. %, and this is extracted from the last linear layer on top of the transformer. 
+% This is shown in \Cref{fig:tf-2}. 
+
+% The last linear layer 
+
+
+% To do this we pad two linear layers of dimension $K$ on top of the transformer. The first linear layer predicts the next action of the demonstrator and the second linear layer predicts the reward for each of the next actions. This is shown in \Cref{fig:tf-2}. 
+
+\textbf{Loss calculation:} For each training task, $m$, we calculate the loss at each round, $t$, using the transformer's prediction $\hat{r}_{m,t}(I_{m,t})$ and the actual observed reward $r_{m,t}$ that followed action $I_{m,t}$. %in the following way: let the transformer observe the history $\H_m^t$ till round $t$ and predict the next reward $\wr_{m,t}(a)$ for each action $a\in\A$.
+%
+% $r_{m,t+1}$ and action $I_{m,t+1}$ at round $t$ from $\H^{t+2}_m$. 
+% Let $r_{m, t}(I_{m,t})$ be the actual reward of the observed action $I_{m,t}$ in $\H^t_m$.
+%
+% Then the loss at round $t$ is
+We use a least-squares loss function:
+\begin{align}
+    \L_t = \left(\wr_{m,t}(I_{m, t}) -  r_{m,t}\right)^2 \label{eq:loss-transformer}
+    %\operatorname{cross-entropy}(\widehat{a}^m_{t+1}, a^m_{t+1}) + 
+\end{align}
+and hence minimizing this loss will minimize the mean squared-error of the transformer's predictions.
+% where $r_{m,t}$ is the reward observed for action $I_{m, t}$ and MSE is mean-squared error. We call this loss the lookahead loss. 
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[scale=0.4]{img/Transformer architecture Pred reward.pdf}
+%     \caption{Training Procedure}
+%     \label{fig:tf-2}
+% \end{figure}
+The loss is calculated using \eqref{eq:loss-transformer} and is backpropagated to update the model parameter $\bTheta$.
+
+\textbf{Exploratory Demonstrator:} Observe from the loss definition in \eqref{eq:loss-transformer} that it is calculated from the observed true reward and action from the dataset $\H_m$. 
+% 
+In order for the transformer to learn accurate reward predictions during training, we require that the weak demonstrator is sufficiently exploratory such that it collects $\H_m$ such that $\H_m$ contains some reward $r_{m,t}$ for each action $a$. We discuss in detail the impact of the demonstrator on \pred\ (\gt) training in \Cref{sec:data-collection}. 
+
+\vspace*{-0.5em}
+\subsection{Deploying \pred\ }% for the online setting}
+\vspace*{-0.5em}
+At deployment time, \pred\ learns in-context to predict the mean reward of each arm on an unseen task and acts greedily with respect to this prediction.
+% In this section, we present the entire pseudocode of our algorithm and discuss how it is deployed for online setting. 
+%
+% 
+%
+That is, at deployment time, a new task is sampled, $m \sim \cTs$, and the dataset $\H_m^0$ is initialized empty. Then at every round $t$,  
+\pred\ chooses $I_t = \argmax_{a\in\A} \rT_{\bTheta}\left( \wr_{m,t}(a) \mid \H^t_m\right)$ which is the action with the highest predicted reward and $\wr_{m,t}(a)$ is the predicted reward of action $a$. 
+%
+Note that \pred\ is a greedy policy and thus may fail to conduct sufficient exploration. To remedy this potential limitation, we also introduce a soft variant, \predt\, that chooses $I_t \sim \mathrm{softmax}^\tau_a\left(\rT_{\bTheta}\left( \mathbf{\wr}_{m,t}(a) \mid \H^t_m\right)\right)$.
+% where we define the $\mathrm{softmax}^\tau_a$ as $ \mathrm{softmax}^\tau_a(r(a)) = \exp(r(a)/\tau)/\sum_{a'=1}^A \exp(r(a')/\tau)$ which produces a distribution over actions weighted by the temperature parameter $\tau > 0$.
+For both \pred\ and \predt, the observed reward $r_t(I_t)$ is added to the dataset $\H_m$ and then used to predict the reward at the next round $t+1$. The full pseudocode of using \pred\ for online interaction is shown in \Cref{alg:pred}.
+%
+In \Cref{sec:offline}, we discuss how \pred\ (\gt) can be deployed for offline learning. We also highlight that \pred\ needs to forward-pass $|A|$ times to select the best arm during evaluation, and hence suffers from more computational overhead with a large action space, compared to \ad\ or \dpt.
+%
+%%%%%%%%%%%%%%%%%%%%% moved to offline setting in appendix %%%%%%
+% In the offline setting, the \pred\ first samples a task $m\sim\cTs$, then the test dataset $\H_m\sim \Dts(\cdot|m)$. Then \pred\ and \predt\ act similarly to the online setting, but based on the entire offline dataset $\H_m$. 
+% % and acts greedily. That is, at every round $t$, 
+% %
+% The full pseudocode of \pred\ is in \Cref{alg:pred}.
+%
+\begin{algorithm}[!tbh]
+\caption{\textbf{Pre}-trained \textbf{De}cision \textbf{T}ransf\textbf{o}rmer with \textbf{R}eward Estimation (\pred)}
+\label{alg:pred}
+    \begin{algorithmic}[1]
+    \STATE \textbf{Collecting Pretraining Dataset} 
+    \STATE Initialize empty pretraining dataset $\Htr$
+    \FOR{$i$ in $[\Mpr]$ }
+    \STATE Sample task $m \sim \cTp$, in-context dataset $\H_m \sim \Dpr(\cdot | m)$ and add this to $\Htr$.
+    % 
+    \ENDFOR
+    \STATE \textbf{Pretraining model on dataset}
+    \STATE Initialize model $\rT_{\bTheta}$ with parameters $\bTheta$
+    \WHILE{\text{not converged}}
+    \STATE Sample $\H_m$ from $\Htr$ and predict $\wr_{m,t}$ for action $(I_{m,t})$ for all $t \in[n]$
+    \STATE Compute loss in \eqref{eq:loss-transformer} with respect to $r_{m,t}$ and backpropagate to update model parameter $\bTheta$.
+    \ENDWHILE
+    % \STATE \textbf{Offline test-time deployment}
+    % \STATE Sample unknown task $m \sim \cTs$, sample dataset $\H_m \sim \Dts(\cdot | m)$
+    % \STATE Use $\rT_{\bTheta}$ on $m$ at round $t$ to choose 
+    % \begin{align*}
+    %     I_t \begin{cases}
+    %         = \argmax_{a\in\A} \rT_{\bTheta}\left( \wr_{m,t}(a) \mid \H_m\right), & \textbf{\pred} \\
+    %         %%%%%%%%%%%%%%%%%%%%%%%
+    %         \sim \textrm{softmax}^\tau_a \rT_{\bTheta}\left( \wr_{m,t}(a) \mid \H_m\right), & \textbf{\predt}
+    %     \end{cases}
+    % \end{align*}
+    %
+    \STATE \textbf{Online test-time deployment}
+    \STATE Sample unknown task $m \sim \cTs$ and initialize empty $\H_m^{0}=\{\emptyset\}$
+    \FOR{$t=1,2,\ldots,n$}
+    \STATE Use $\rT_{\bTheta}$ on $m$ at round $t$ to choose 
+    \begin{align*}
+        I_t \begin{cases}
+            = \argmax_{a\in\A} \rT_{\bTheta}\left( \wr_{m,t}(a) \mid \H^t_m\right), & \textbf{\pred} \\
+            %%%%%%%%%%%%%%%%%%%%%%%
+            \sim \textrm{softmax}^\tau_a \rT_{\bTheta}\left( \wr_{m,t}(a) \mid \H^t_m\right), & \textbf{\predt}
+        \end{cases}
+    \end{align*}
+    %
+    % $I_t = \argmax_{a\in\A} \rT_{\bTheta}\left( \wr_{m,t}(a) \mid \H^t_m\right)$ and observe $r_t$
+    \STATE Add $\left\{I_t, r_t\right\}$ to $\H_m^t$ to form $\H_m^{t+1}$.
+    \ENDFOR
+    \end{algorithmic}
+\end{algorithm}
+\vspace*{-0.5em}
+
+
+% \subsection{Follow Demonstrator and Predict Next Reward, Best Action}
+
+% In this section, we devise a training procedure that predicts the next action of the demonstrator, the next reward for each of action, and the best action. We follow a similar procedure as before. The initial dataset $\D$ is collected using the demonstrator. 
+
+
+% Then we pass this dataset $\D$ to a transformer. Now the transformer tries to predict the next action of the demonstrator, the next reward, and the best action. To do this we pad three linear layers of dimension $K$ on top of the transformer. The first linear layer predicts the next action of the demonstrator, the second linear layer predicts the reward for each of the next actions, and finally, the third linear layer predicts the best arm. This is shown in \Cref{fig:tf-3}. 
+
+% As opposed to \citet{lee2023supervised} we do not pass the true optimal action $a^{m,*}$ for the task $m$ to calculate the loss now. We calculate the estimated optimal arm $\widehat{a}^{m,*}_{T}$ for the task $m$ at horizon $T$ as the action with the highest sum of reward till $T$. That is $\widehat{a}^{m,*}_{T, \pi_D} = \argmax_{a}\{\sum_{t=1}^T r^m_t(a)\indic{a^m_t = a}\}$ where $\pi_D$ denotes the demonstrator.
+
+
+% At every iteration, the loss is calculated in the following way: Let the transformer observe reward $r^m_t$ and $a^m_t$ at round $t$ and predict the action $\widehat{a}^m_{t+1}$ as the next action for round $t+1$. Let $a^m_{t+1}$ be the true action taken by the demonstrator. Let $\wr^m_{t+1}(\widehat{a}^m_{t+1})$ be the reward of the predicted action. Let $\widehat{a}^{m,*}_{t}$ denote the predicted best arm by the transformer. 
+% %
+% Then the loss is 
+% \begin{align*}
+%     \L_t &= \operatorname{cross-entropy}(\widehat{a}^m_{t+1}, a^m_{t+1}) + \operatorname{MSE}(\wr_{t+1}(\widehat{a}^m_{t+1}), r^m_{t+1}) + \operatorname{cross-entropy}(\widehat{a}^m_{t+1}, a^m_{t+1}) \\
+%     %%%%%
+%     &\qquad + \operatorname{cross-entropy}(\widehat{a}^{m,*}_{t}, \widehat{a}^{m,*}_{T, \pi_D})
+% \end{align*}
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[scale=0.4]{img/Transformer architecture 3.png}
+%     \caption{Training Procedure 3}
+%     \label{fig:tf-3}
+% \end{figure}
+
+
+
+% \begin{figure}[h]
+%   \begin{center}
+%     \begin{tabular}{cc}
+%     \includegraphics[width=0.5\textwidth]{img/Transformer architecture 1.png} &
+%     %%%%%%%%%%
+%     \includegraphics[width=0.5\textwidth]{img/Transformer architecture 2.png} \\
+%     %%%%%%%%%%
+%     \includegraphics[width=0.7\textwidth]{img/Transformer architecture 3.png} 
+%     \end{tabular}
+%     \caption{(Left) Architecture 1 (Middle) Architecture 2 (Right) Architecture 3}
+%     \label{app:fig-expt-1}
+%   \end{center}
+% \end{figure}

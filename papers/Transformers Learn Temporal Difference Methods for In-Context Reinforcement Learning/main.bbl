@@ -1,0 +1,528 @@
+\begin{thebibliography}{}
+
+\bibitem[Ahn et~al., 2024]{ahn2024transformers}
+Ahn, K., Cheng, X., Daneshmand, H., and Sra, S. (2024).
+\newblock Transformers learn to implement preconditioned gradient descent for
+  in-context learning.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Ahn et~al., 2023]{ahn2023linear}
+Ahn, K., Cheng, X., Song, M., Yun, C., Jadbabaie, A., and Sra, S. (2023).
+\newblock Linear attention is (maybe) all you need (to understand transformer
+  optimization).
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Aky{\"u}rek et~al., 2023]{akyurek2023learning}
+Aky{\"u}rek, E., Schuurmans, D., Andreas, J., Ma, T., and Zhou, D. (2023).
+\newblock What learning algorithm is in-context learning? investigations with
+  linear models.
+\newblock In {\em Proceedings of the International Conference on Learning
+  Representations}.
+
+\bibitem[Allen-Zhu and Li, 2023]{allen2023physics}
+Allen-Zhu, Z. and Li, Y. (2023).
+\newblock Physics of language models: Part 1, context-free grammar.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Alvarez~Melis and Jaakkola, 2018]{alvarez2018towards}
+Alvarez~Melis, D. and Jaakkola, T. (2018).
+\newblock Towards robust interpretability with self-explaining neural networks.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Ansel et~al., 2024]{ansel2024pytorch}
+Ansel, J., Yang, E., He, H., Gimelshein, N., Jain, A., Voznesensky, M., Bao,
+  B., Bell, P., Berard, D., Burovski, E., Chauhan, G., Chourdia, A., Constable,
+  W., Desmaison, A., DeVito, Z., Ellison, E., Feng, W., Gong, J., Gschwind, M.,
+  Hirsh, B., Huang, S., Kalambarkar, K., Kirsch, L., Lazos, M., Lezcano, M.,
+  Liang, Y., Liang, J., Lu, Y., Luk, C., Maher, B., Pan, Y., Puhrsch, C., Reso,
+  M., Saroufim, M., Siraichi, M.~Y., Suk, H., Suo, M., Tillet, P., Wang, E.,
+  Wang, X., Wen, W., Zhang, S., Zhao, X., Zhou, K., Zou, R., Mathews, A.,
+  Chanan, G., Wu, P., and Chintala, S. (2024).
+\newblock {PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode
+  Transformation and Graph Compilation}.
+\newblock In {\em Proceedings of the ACM International Conference on
+  Architectural Support for Programming Languages and Operating Systems}.
+
+\bibitem[Baird, 1995]{baird1995residual}
+Baird, L.~C. (1995).
+\newblock Residual algorithms: Reinforcement learning with function
+  approximation.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Bauer et~al., 2023]{bauer2023human}
+Bauer, J., Baumli, K., Behbahani, F., Bhoopchand, A., Bradley-Schmieg, N.,
+  Chang, M., Clay, N., Collister, A., Dasagi, V., Gonzalez, L., et~al. (2023).
+\newblock Human-timescale adaptation in an open-ended task space.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Beattie et~al., 2016]{beattie2016deepmind}
+Beattie, C., Leibo, J.~Z., Teplyashin, D., Ward, T., Wainwright, M.,
+  K{\"u}ttler, H., Lefrancq, A., Green, S., Vald{\'e}s, V., Sadik, A., et~al.
+  (2016).
+\newblock Deepmind lab.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Beck et~al., 2023]{beck2023survey}
+Beck, J., Vuorio, R., Liu, E.~Z., Xiong, Z., Zintgraf, L., Finn, C., and
+  Whiteson, S. (2023).
+\newblock A survey of meta-reinforcement learning.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Bellemare et~al., 2013]{bellemare13arcade}
+Bellemare, M.~G., Naddaf, Y., Veness, J., and Bowling, M. (2013).
+\newblock The arcade learning environment: An evaluation platform for general
+  agents.
+\newblock {\em Journal of Artificial Intelligence Research}.
+
+\bibitem[Bengio et~al., 2017]{bengio2017deep}
+Bengio, Y., Goodfellow, I., and Courville, A. (2017).
+\newblock {\em Deep learning}.
+\newblock MIT press Cambridge, MA, USA.
+
+\bibitem[Bhandari et~al., 2018]{bhandari2018finite}
+Bhandari, J., Russo, D., and Singal, R. (2018).
+\newblock A finite time analysis of temporal difference learning with linear
+  function approximation.
+\newblock In {\em Proceedings of the Conference on Learning Theory}.
+
+\bibitem[Borkar and Meyn, 2000]{borkar2000ode}
+Borkar, V.~S. and Meyn, S.~P. (2000).
+\newblock The ode method for convergence of stochastic approximation and
+  reinforcement learning.
+\newblock {\em SIAM Journal on Control and Optimization}.
+
+\bibitem[Boyan, 1999]{boyan1999least}
+Boyan, J.~A. (1999).
+\newblock Least-squares temporal difference learning.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Brockman et~al., 2016]{brockman2016openai}
+Brockman, G., Cheung, V., Pettersson, L., Schneider, J., Schulman, J., Tang,
+  J., and Zaremba, W. (2016).
+\newblock Open{AI} {G}ym.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Brown et~al., 2020]{brown2020incontext}
+Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.~D., Dhariwal, P.,
+  Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S.,
+  Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler,
+  D., Wu, J., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin, M., Gray,
+  S., Chess, B., Clark, J., Berner, C., McCandlish, S., Radford, A., Sutskever,
+  I., and Amodei, D. (2020).
+\newblock Language models are few-shot learners.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Cai et~al., 2019]{cai2019neural}
+Cai, Q., Yang, Z., Lee, J.~D., and Wang, Z. (2019).
+\newblock Neural temporal-difference and q-learning provably converge to global
+  optima.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Chan et~al., 2022]{chan2022redunet}
+Chan, K. H.~R., Yu, Y., You, C., Qi, H., Wright, J., and Ma, Y. (2022).
+\newblock Redunet: A white-box deep network from the principle of maximizing
+  rate reduction.
+\newblock {\em Journal of Machine Learning Research}.
+
+\bibitem[Choromanski et~al., 2020]{choromanski2020rethinking}
+Choromanski, K., Likhosherstov, V., Dohan, D., Song, X., Gane, A., Sarlos, T.,
+  Hawkins, P., Davis, J., Mohiuddin, A., Kaiser, L., et~al. (2020).
+\newblock Rethinking attention with performers.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Cook et~al., 2024]{cook2024artificial}
+Cook, J., Lu, C., Hughes, E., Leibo, J.~Z., and Foerster, J. (2024).
+\newblock Artificial generational intelligence: Cultural accumulation in
+  reinforcement learning.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Cybenko, 1989]{cybenko1989approximation}
+Cybenko, G. (1989).
+\newblock Approximation by superpositions of a sigmoidal function.
+\newblock {\em Mathematics of Control, Signals and Systems}.
+
+\bibitem[Dai et~al., 2024]{dai2024context}
+Dai, Z., Tomasi, F., and Ghiassian, S. (2024).
+\newblock In-context exploration-exploitation for reinforcement learning.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Duan et~al., 2016]{duan2016rl}
+Duan, Y., Schulman, J., Chen, X., Bartlett, P.~L., Sutskever, I., and Abbeel,
+  P. (2016).
+\newblock Rl2: nforcement learning via slow reinforcement learning.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Elman, 1990]{elman1990finding}
+Elman, J.~L. (1990).
+\newblock Finding structure in time.
+\newblock {\em Cognitive Science}.
+
+\bibitem[Frosst and Hinton, 2017]{frosst2017distilling}
+Frosst, N. and Hinton, G. (2017).
+\newblock Distilling a neural network into a soft decision tree.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Garg et~al., 2022]{garg2022can}
+Garg, S., Tsipras, D., Liang, P.~S., and Valiant, G. (2022).
+\newblock What can transformers learn in-context? a case study of simple
+  function classes.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Garrett, 2021]{garrett2021SciencePlots}
+Garrett, J.~D. (2021).
+\newblock {garrettj403/SciencePlots}.
+
+\bibitem[Gatmiry et~al., 2024]{gatmiry2024can}
+Gatmiry, K., Saunshi, N., Reddi, S.~J., Jegelka, S., and Kumar, S. (2024).
+\newblock Can looped transformers learn to implement multi-step gradient
+  descent for in-context learning?
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Graves et~al., 2014]{graves2014neural}
+Graves, A., Wayne, G., and Danihelka, I. (2014).
+\newblock Neural turing machines.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Grigsby et~al., 2023]{grigsby2023amago}
+Grigsby, J., Fan, L., and Zhu, Y. (2023).
+\newblock Amago: Scalable in-context reinforcement learning for adaptive
+  agents.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Grigsby et~al., 2024]{grigsby2024amago}
+Grigsby, J., Sasek, J., Parajuli, S., Adebi, I.~D., Zhang, A., and Zhu, Y.
+  (2024).
+\newblock Amago-2: Breaking the multi-task barrier in meta-reinforcement
+  learning with transformers.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Harris et~al., 2020]{harris2020numpy}
+Harris, C.~R., Millman, K.~J., van~der Walt, S.~J., Gommers, R., Virtanen, P.,
+  Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N.~J., Kern, R.,
+  Picus, M., Hoyer, S., van Kerkwijk, M.~H., Brett, M., Haldane, A., del
+  R{\'{i}}o, J.~F., Wiebe, M., Peterson, P., G{\'{e}}rard-Marchant, P.,
+  Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., and Oliphant,
+  T.~E. (2020).
+\newblock Array programming with {NumPy}.
+\newblock {\em Nature}.
+
+\bibitem[Hochreiter et~al., 2001]{hochreiter2001meta}
+Hochreiter, S., Younger, A.~S., and Conwell, P.~R. (2001).
+\newblock Learning to learn using gradient descent.
+\newblock In {\em Proceedings of the International Conference on Artificial
+  Neural Networks}.
+
+\bibitem[Hornik et~al., 1989]{hornik1989universal}
+Hornik, K., Stinchcombe, M., and White, H. (1989).
+\newblock Multilayer feedforward networks are universal approximators.
+\newblock {\em Neural Networks}.
+
+\bibitem[Huang et~al., 2024a]{huang2024context}
+Huang, S., Hu, J., Chen, H., Sun, L., and Yang, B. (2024a).
+\newblock In-context decision transformer: Reinforcement learning via
+  hierarchical chain-of-thought.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Huang et~al., 2024b]{huang2024decision}
+Huang, S., Hu, J., Yang, Z., Yang, L., Luo, T., Chen, H., Sun, L., and Yang, B.
+  (2024b).
+\newblock Decision mamba: Reinforcement learning via hybrid selective sequence
+  modeling.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Hunter, 2007]{hunter2007matplotlib}
+Hunter, J.~D. (2007).
+\newblock Matplotlib: A 2d graphics environment.
+\newblock {\em Computing in Science \& Engineering}.
+
+\bibitem[Jastrz{\k{e}}bski et~al., 2017]{jastrzkebski2017residual}
+Jastrz{\k{e}}bski, S., Arpit, D., Ballas, N., Verma, V., Che, T., and Bengio,
+  Y. (2017).
+\newblock Residual connections encourage iterative inference.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Katharopoulos et~al., 2020]{katharopoulos2020transformers}
+Katharopoulos, A., Vyas, A., Pappas, N., and Fleuret, F. (2020).
+\newblock Transformers are rnns: Fast autoregressive transformers with linear
+  attention.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Kingma and Ba, 2015]{kingma2014adam}
+Kingma, D.~P. and Ba, J. (2015).
+\newblock Adam: {A} method for stochastic optimization.
+\newblock In {\em Proceedings of the International Conference on Learning
+  Representations}.
+
+\bibitem[Kirsch et~al., 2022]{kirsch2022symmetry}
+Kirsch, L., Flennerhag, S., Hasselt, H.~v., Friesen, A., Oh, J., and Chen, Y.
+  (2022).
+\newblock Introducing symmetries to black box meta reinforcement learning.
+\newblock In {\em Proceedings of the AAAI Conference on Artificial
+  Intelligence}.
+
+\bibitem[Kirsch et~al., 2023]{kirsch2023towards}
+Kirsch, L., Harrison, J., Freeman, C., Sohl-Dickstein, J., and Schmidhuber, J.
+  (2023).
+\newblock Towards general-purpose in-context learning agents.
+\newblock In {\em NeurIPS Foundation Models for Decision Making Workshop}.
+
+\bibitem[Kirsch et~al., 2019]{kirsch2019improving}
+Kirsch, L., van Steenkiste, S., and Schmidhuber, J. (2019).
+\newblock Improving generalization in meta reinforcement learning using learned
+  objectives.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Krishnamurthy et~al., 2024]{krishnamurthy2024can}
+Krishnamurthy, A., Harris, K., Foster, D.~J., Zhang, C., and Slivkins, A.
+  (2024).
+\newblock Can large language models explore in-context?
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Laskin et~al., 2022]{laskin2022context}
+Laskin, M., Wang, L., Oh, J., Parisotto, E., Spencer, S., Steigerwald, R.,
+  Strouse, D., Hansen, S., Filos, A., Brooks, E., et~al. (2022).
+\newblock In-context reinforcement learning with algorithm distillation.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Lee et~al., 2024]{lee2024supervised}
+Lee, J., Xie, A., Pacchiano, A., Chandak, Y., Finn, C., Nachum, O., and
+  Brunskill, E. (2024).
+\newblock Supervised pretraining can learn in-context reinforcement learning.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Leshno et~al., 1993]{leshno1993multilayer}
+Leshno, M., Lin, V.~Y., Pinkus, A., and Schocken, S. (1993).
+\newblock Multilayer feedforward networks with a nonpolynomial activation
+  function can approximate any function.
+\newblock {\em Neural Networks}.
+
+\bibitem[Lin et~al., 2023]{lin2023transformers}
+Lin, L., Bai, Y., and Mei, S. (2023).
+\newblock Transformers as decision makers: Provable in-context reinforcement
+  learning via supervised pretraining.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Liu et~al., 2025]{liu2024ode}
+Liu, S., Chen, S., and Zhang, S. (2025).
+\newblock The {ODE} method for stochastic approximation and reinforcement
+  learning with markovian noise.
+\newblock {\em Journal of Machine Learning Research}.
+
+\bibitem[Lu et~al., 2022]{lu2022discovered}
+Lu, C., Kuba, J., Letcher, A., Metz, L., Schroeder~de Witt, C., and Foerster,
+  J. (2022).
+\newblock Discovered policy optimisation.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Lu et~al., 2023]{lus42023}
+Lu, C., Schroecker, Y., Gu, A., Parisotto, E., Foerster, J., Singh, S., and
+  Behbahani, F. (2023).
+\newblock Structured state space models for in-context reinforcement learning.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Lu et~al., 2017]{lu2017expressive}
+Lu, Z., Pu, H., Wang, F., Hu, Z., and Wang, L. (2017).
+\newblock The expressive power of neural networks: A view from the width.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Mahankali et~al., 2023]{mahankali2023one}
+Mahankali, A., Hashimoto, T.~B., and Ma, T. (2023).
+\newblock One step of gradient descent is provably the optimal in-context
+  learner with one layer of linear self-attention.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Mnih et~al., 2015]{mnih2015human}
+Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
+  M.~G., Graves, A., Riedmiller, M.~A., Fidjeland, A., Ostrovski, G., Petersen,
+  S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra,
+  D., Legg, S., and Hassabis, D. (2015).
+\newblock Human-level control through deep reinforcement learning.
+\newblock {\em Nature}.
+
+\bibitem[Moeini et~al., 2025]{moeini2025survey}
+Moeini, A., Wang, J., Beck, J., Blaser, E., Whiteson, S., Chandra, R., and
+  Zhang, S. (2025).
+\newblock A survey of in-context reinforcement learning.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[M{\"u}ller et~al., 2022]{muller2022transformers}
+M{\"u}ller, S., Hollmann, N., Arango, S.~P., Grabocka, J., and Hutter, F.
+  (2022).
+\newblock Transformers can do bayesian inference.
+\newblock In {\em Proceedings of the International Conference on Learning
+  Representations}.
+
+\bibitem[Oh et~al., 2020]{oh2020discovering}
+Oh, J., Hessel, M., Czarnecki, W.~M., Xu, Z., van Hasselt, H.~P., Singh, S.,
+  and Silver, D. (2020).
+\newblock Discovering reinforcement learning algorithms.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Park et~al., 2024]{park2024llm}
+Park, C., Liu, X., Ozdaglar, A., and Zhang, K. (2024).
+\newblock Do llm agents have regret? a case study in online learning and games.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Puterman, 2014]{puterman2014markov}
+Puterman, M.~L. (2014).
+\newblock {\em Markov decision processes: discrete stochastic dynamic
+  programming}.
+\newblock John Wiley \& Sons.
+
+\bibitem[Qian et~al., 2024]{qian2024almost}
+Qian, X., Xie, Z., Liu, X., and Zhang, S. (2024).
+\newblock Almost sure convergence rates and concentration of stochastic
+  approximation and reinforcement learning with markovian noise.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Raparthy et~al., 2023]{raparthy2023generalization}
+Raparthy, S.~C., Hambro, E., Kirk, R., Henaff, M., and Raileanu, R. (2023).
+\newblock Generalization to new sequential decision making tasks with
+  in-context learning.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Sander et~al., 2024]{sander2024transformers}
+Sander, M.~E., Giryes, R., Suzuki, T., Blondel, M., and Peyr{\'e}, G. (2024).
+\newblock How do transformers perform in-context autoregressive learning?
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Schlag et~al., 2021]{schlag2021linear}
+Schlag, I., Irie, K., and Schmidhuber, J. (2021).
+\newblock Linear transformers are secretly fast weight programmers.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Shi et~al., 2024]{shi2024cross}
+Shi, L.~X., Jiang, Y., Grigsby, J., Fan, L., and Zhu, Y. (2024).
+\newblock Cross-episodic curriculum for transformer agents.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Siegelmann and Sontag, 1992]{siegelmann1992computational}
+Siegelmann, H.~T. and Sontag, E.~D. (1992).
+\newblock On the computational power of neural nets.
+\newblock In {\em Proceedings of the Annual Workshop on Computational Learning
+  Theory}.
+
+\bibitem[Sinii et~al., 2023]{sinii2023context}
+Sinii, V., Nikulin, A., Kurenkov, V., Zisman, I., and Kolesnikov, S. (2023).
+\newblock In-context reinforcement learning for variable action spaces.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Sutton, 1988]{sutton1988learning}
+Sutton, R.~S. (1988).
+\newblock Learning to predict by the methods of temporal differences.
+\newblock {\em Machine Learning}.
+
+\bibitem[Sutton and Barto, 2018]{sutton2018reinforcement}
+Sutton, R.~S. and Barto, A.~G. (2018).
+\newblock {\em Reinforcement Learning: An Introduction (2nd Edition)}.
+\newblock MIT press.
+
+\bibitem[Tsitsiklis and Roy, 1999]{tsitsiklis1999average}
+Tsitsiklis, J.~N. and Roy, B.~V. (1999).
+\newblock Average cost temporal-difference learning.
+\newblock {\em Automatica}.
+
+\bibitem[Vaswani et~al., 2017]{vaswani2017}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N.,
+  Kaiser, L.~u., and Polosukhin, I. (2017).
+\newblock Attention is all you need.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Von~Oswald et~al., 2023a]{vonoswald2023transformers}
+Von~Oswald, J., Niklasson, E., Randazzo, E., Sacramento, J., Mordvintsev, A.,
+  Zhmoginov, A., and Vladymyrov, M. (2023a).
+\newblock Transformers learn in-context by gradient descent.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Von~Oswald et~al., 2023b]{von2023uncovering}
+Von~Oswald, J., Niklasson, E., Schlegel, M., Kobayashi, S., Zucchet, N.,
+  Scherrer, N., Miller, N., Sandler, M., Vladymyrov, M., Pascanu, R., et~al.
+  (2023b).
+\newblock Uncovering mesa-optimization algorithms in transformers.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Wang et~al., 2016]{wang2016learning}
+Wang, J.~X., Kurth-Nelson, Z., Tirumala, D., Soyer, H., Leibo, J.~Z., Munos,
+  R., Blundell, C., Kumaran, D., and Botvinick, M. (2016).
+\newblock Learning to reinforcement learn.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Wang et~al., 2020]{wang2020linformer}
+Wang, S., Li, B.~Z., Khabsa, M., Fang, H., and Ma, H. (2020).
+\newblock Linformer: Self-attention with linear complexity.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Wang et~al., 2024]{wang2024hierarchical}
+Wang, Z., Wang, H., and Qi, Y. (2024).
+\newblock Hierarchical prompt decision transformer: Improving few-shot policy
+  generalization with global and adaptive.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Wu et~al., 2023]{wu2023many}
+Wu, J., Zou, D., Chen, Z., Braverman, V., Gu, Q., and Bartlett, P.~L. (2023).
+\newblock How many pretraining tasks are needed for in-context learning of
+  linear regression?
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Xu et~al., 2022]{xu2022prompting}
+Xu, M., Shen, Y., Zhang, S., Lu, Y., Zhao, D., Tenenbaum, J., and Gan, C.
+  (2022).
+\newblock Prompting decision transformer for few-shot policy generalization.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Xu et~al., 2024]{xu2024meta}
+Xu, T., Li, Z., and Ren, Q. (2024).
+\newblock Meta-reinforcement learning robust to distributional shift via
+  performing lifelong in-context learning.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Yao and Liu, 2008]{yao2008preconditioned}
+Yao, H. and Liu, Z.-Q. (2008).
+\newblock Preconditioned temporal difference learning.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning}.
+
+\bibitem[Yu et~al., 2023]{yu2023white}
+Yu, Y., Buchanan, S., Pai, D., Chu, T., Wu, Z., Tong, S., Haeffele, B., and Ma,
+  Y. (2023).
+\newblock White-box transformers via sparse rate reduction.
+\newblock In {\em Advances in Neural Information Processing Systems}.
+
+\bibitem[Zhang et~al., 2024]{zhang2024trained}
+Zhang, R., Frei, S., and Bartlett, P.~L. (2024).
+\newblock Trained transformers learn linear models in-context.
+\newblock {\em Journal of Machine Learning Research}.
+
+\bibitem[Zhang et~al., 2020]{zhang2019deep}
+Zhang, S., Boehmer, W., and Whiteson, S. (2020).
+\newblock Deep residual reinforcement learning.
+\newblock In {\em Proceedings of the International Conference on Autonomous
+  Agents and Multiagent Systems}.
+
+\bibitem[Zhao et~al., 2023]{zhao2023transformers}
+Zhao, H., Panigrahi, A., Ge, R., and Arora, S. (2023).
+\newblock Do transformers parse while predicting the masked word?
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Zheng et~al., 2024]{zheng2024mesa}
+Zheng, C., Huang, W., Wang, R., Wu, G., Zhu, J., and Li, C. (2024).
+\newblock On mesa-optimization in autoregressively trained transformers:
+  Emergence and capability.
+\newblock {\em ArXiv Preprint}.
+
+\bibitem[Zisman et~al., 2023]{zisman2023emergence}
+Zisman, I., Kurenkov, V., Nikulin, A., Sinii, V., and Kolesnikov, S. (2023).
+\newblock Emergence of in-context reinforcement learning from noise
+  distillation.
+\newblock {\em ArXiv Preprint}.
+
+\end{thebibliography}
