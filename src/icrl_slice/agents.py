@@ -226,3 +226,79 @@ class CompiledMemoryAgent:
     def drain_revision_events(self) -> List[dict]:
         assert self.memory is not None
         return self.memory.drain_revision_events()
+
+
+@dataclass
+class UncertaintyGatedAgent:
+    """Wraps any belief-producing agent with uncertainty-gated abstention.
+
+    When the selected arm's uncertainty exceeds `abstention_threshold`,
+    the agent falls back to the arm with lowest uncertainty (safest known action).
+    This operationalizes the calibration signals that were previously observational-only.
+    """
+
+    inner: object  # Any agent with act(), update(), snapshot()
+    abstention_threshold: float = 0.25
+    abstention_count: int = 0
+    total_decisions: int = 0
+    _gated: bool = False  # whether last action was gated
+
+    def reset(self, num_arms: int, num_tasks: int = 0) -> None:
+        self.abstention_count = 0
+        self.total_decisions = 0
+        self._gated = False
+        if hasattr(self.inner, 'reset'):
+            if num_tasks > 0 and hasattr(self.inner, 'task_means'):
+                self.inner.reset(num_arms, num_tasks)
+            else:
+                self.inner.reset(num_arms)
+
+    def _arm_uncertainties(self) -> List[float]:
+        """Get per-arm uncertainties from the inner agent."""
+        if hasattr(self.inner, '_arm_uncertainty'):
+            num_arms = len(self.inner.task_means[0])
+            return [self.inner._arm_uncertainty(arm) for arm in range(num_arms)]
+        return []
+
+    def act(self) -> int:
+        self.total_decisions += 1
+        greedy_action = self.inner.act()
+
+        # Check uncertainty of the greedy arm
+        snap = self.inner.snapshot()
+        unc = snap.get("selected_arm_uncertainty")
+
+        if unc is not None and unc > self.abstention_threshold:
+            # Fall back: pick the arm with LOWEST uncertainty (safest known action)
+            arm_uncs = self._arm_uncertainties()
+            if arm_uncs:
+                safest_arm = min(range(len(arm_uncs)), key=lambda a: arm_uncs[a])
+                self.abstention_count += 1
+                self._gated = True
+                return safest_arm
+
+        self._gated = False
+        return greedy_action
+
+    def update(self, action: int, reward: float) -> None:
+        self.inner.update(action, reward)
+
+    def set_step_context(self, **kwargs) -> None:
+        if hasattr(self.inner, 'set_step_context'):
+            self.inner.set_step_context(**kwargs)
+
+    def snapshot(self) -> Dict[str, object]:
+        snap = self.inner.snapshot()
+        snap["gated"] = self._gated
+        snap["abstention_count"] = self.abstention_count
+        snap["abstention_rate"] = (
+            self.abstention_count / self.total_decisions
+            if self.total_decisions > 0
+            else 0.0
+        )
+        return snap
+
+    def drain_revision_events(self) -> List[dict]:
+        if hasattr(self.inner, 'drain_revision_events'):
+            return self.inner.drain_revision_events()
+        return []
