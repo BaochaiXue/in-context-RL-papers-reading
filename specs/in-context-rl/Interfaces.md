@@ -39,12 +39,23 @@ PYTHONPATH=src python3 -m icrl_slice.run --output-dir artifacts/in-context-rl/mi
 - `update(action: int, reward: float) -> None`
 - `snapshot() -> dict`
 
+### `CompiledMemoryAgent`
+
+- `reset(num_arms: int, num_tasks: int) -> None`
+- `set_step_context(episode: int, timestep: int, global_step: int) -> None`
+- `act() -> int`
+- `update(action: int, reward: float) -> None`
+- `snapshot() -> dict`
+- `drain_revision_events() -> list[dict]`
+
 ## Output artifacts
 
 - `summary.json`
 - `per_seed_metrics.json`
 - `transitions.jsonl`
 - `calibration.csv`
+- `memory_contents.jsonl`
+- `revision_events.jsonl`
 - `smoke_check.txt`
 
 ## Intended consumer

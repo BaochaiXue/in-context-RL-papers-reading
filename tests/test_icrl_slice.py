@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.icrl_slice.agents import ExplicitStateAgent, OpaqueHistoryAgent
+from src.icrl_slice.agents import CompiledMemoryAgent, ExplicitStateAgent, OpaqueHistoryAgent
 from src.icrl_slice.env import HiddenTaskBandit, default_task_means
 
 
@@ -41,6 +41,26 @@ class AgentTests(unittest.TestCase):
         agent.update(action, 1.0)
         self.assertGreater(agent.counts[action], 0)
 
+    def test_compiled_memory_agent_emits_memory_fields(self) -> None:
+        means = default_task_means(3, 3)
+        agent = CompiledMemoryAgent(task_means=means)
+        agent.reset(num_arms=3, num_tasks=3)
+        agent.set_step_context(episode=0, timestep=0, global_step=0)
+        agent.update(action=0, reward=0.0)
+        snapshot = agent.snapshot()
+        self.assertIn("compiled_memory", snapshot)
+        self.assertIn("memory_revision_count", snapshot)
+        self.assertIn("memory_event_count", snapshot)
+
+    def test_compiled_memory_agent_records_revision_event(self) -> None:
+        means = default_task_means(3, 3)
+        agent = CompiledMemoryAgent(task_means=means)
+        agent.reset(num_arms=3, num_tasks=3)
+        agent.set_step_context(episode=0, timestep=0, global_step=0)
+        agent.update(action=0, reward=0.0)
+        revisions = agent.drain_revision_events()
+        self.assertTrue(revisions)
+
 
 class EndToEndTests(unittest.TestCase):
     def test_smoke_run_writes_required_artifacts(self) -> None:
@@ -66,6 +86,8 @@ class EndToEndTests(unittest.TestCase):
                 outdir / "per_seed_metrics.json",
                 outdir / "transitions.jsonl",
                 outdir / "calibration.csv",
+                outdir / "memory_contents.jsonl",
+                outdir / "revision_events.jsonl",
                 outdir / "smoke_check.txt",
             ]
             for path in required:
@@ -73,8 +95,10 @@ class EndToEndTests(unittest.TestCase):
             summary = json.loads((outdir / "summary.json").read_text())
             self.assertIn("explicit_state", summary["aggregate"])
             self.assertIn("opaque_history", summary["aggregate"])
+            self.assertIn("compiled_memory", summary["aggregate"])
             self.assertIn("scope", summary)
             self.assertTrue(summary["scope"]["default_config_is_narrowed"])
+            self.assertTrue(summary["scope"]["compiled_memory_is_bounded_proxy"])
 
 
 if __name__ == "__main__":

@@ -1,4 +1,6 @@
 agents_present=True
 metrics_finite=True
 explicit_has_belief_metric=True
-explicit_better_regret=True
+compiled_has_memory=True
+compiled_has_revisions=True
+compiled_better_than_raw_history=False

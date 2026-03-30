@@ -36,8 +36,14 @@
 - Likelihood: medium
 - Mitigation: state explicitly that the current slice logs calibration and uncertainty but does not yet implement abstention or action gating
 
-## R6. Uncertainty is measured but not policy-constraining
+## R7. Uncertainty is measured but not policy-constraining
 
 - Impact: medium
 - Likelihood: high
 - Mitigation: state clearly that calibration is observational in this slice; defer abstention or safe action gating to a later stage
+
+## R8. The compiled-memory gain may reflect environment matching rather than a general mechanism
+
+- Impact: high
+- Likelihood: high
+- Mitigation: state clearly that the slice is a bounded event-driven proxy and compare it against multiple simple baselines rather than a single weak comparator

@@ -1,23 +1,70 @@
 {
   "aggregate": {
+    "compiled_memory": {
+      "average_reward": 0.8509114583333334,
+      "belief_brier_score": 0.03424288222987727,
+      "cumulative_regret": 21.375,
+      "mean_selected_arm_uncertainty": 0.019087487517367805,
+      "memory_event_count": 12.0,
+      "memory_rows": 480.0,
+      "optimal_action_rate": 0.940625,
+      "revision_count": 31.875,
+      "revision_rows": 31.875,
+      "shift_recovery_steps": 6.75
+    },
     "explicit_state": {
       "average_reward": 0.862890625,
       "belief_brier_score": 0.025831978173633568,
       "cumulative_regret": 15.234375,
       "mean_selected_arm_uncertainty": 0.19559069342950627,
+      "memory_event_count": 0.0,
+      "memory_rows": 0.0,
       "optimal_action_rate": 0.9576822916666666,
+      "revision_count": 0.0,
+      "revision_rows": 0.0,
       "shift_recovery_steps": 2.5
+    },
+    "filtered_history": {
+      "average_reward": 0.5216145833333333,
+      "belief_brier_score": null,
+      "cumulative_regret": 180.0,
+      "mean_selected_arm_uncertainty": 0.09569707301100691,
+      "memory_event_count": 0.0,
+      "memory_rows": 0.0,
+      "optimal_action_rate": 0.5,
+      "revision_count": 0.0,
+      "revision_rows": 0.0,
+      "shift_recovery_steps": null
     },
     "opaque_history": {
       "average_reward": 0.8576822916666667,
       "belief_brier_score": null,
       "cumulative_regret": 18.046875,
       "mean_selected_arm_uncertainty": 0.12395634281233785,
+      "memory_event_count": 0.0,
+      "memory_rows": 0.0,
       "optimal_action_rate": 0.9498697916666666,
+      "revision_count": 0.0,
+      "revision_rows": 0.0,
       "shift_recovery_steps": 21.25
+    },
+    "retrieval_proxy": {
+      "average_reward": 0.85234375,
+      "belief_brier_score": null,
+      "cumulative_regret": 20.34375,
+      "mean_selected_arm_uncertainty": 0.3841951598599178,
+      "memory_event_count": 0.0,
+      "memory_rows": 0.0,
+      "optimal_action_rate": 0.9434895833333333,
+      "revision_count": 0.0,
+      "revision_rows": 0.0,
+      "shift_recovery_steps": 9.533333333333333
     }
   },
   "comparison": {
+    "compiled_memory_better_than_filtered_history_on_regret": true,
+    "compiled_memory_better_than_raw_history_on_regret": false,
+    "compiled_memory_better_than_retrieval_proxy_on_regret": false,
     "explicit_state_better_on_regret": true,
     "explicit_state_better_on_reward": true
   },
@@ -29,18 +76,26 @@
     "shift_episode": 12,
     "tasks": 3
   },
+  "limitations": [
+    "compiled_memory is a bounded event-driven proxy, not a universal context compiler",
+    "compiled_memory and explicit_state both know the candidate task family in advance",
+    "uncertainty remains observational only and does not gate actions"
+  ],
   "scope": {
     "baseline_is_simple_history_heuristic": true,
+    "compiled_memory_is_bounded_proxy": true,
     "covers": [
       "aim1_explicit_state",
+      "aim2_bounded_experience_compilation_proxy",
       "aim3_partial_calibration_proxy"
     ],
     "default_config_is_narrowed": true,
     "does_not_cover": [
-      "aim2_experience_compilation",
+      "universal_context_compiler",
       "safe_action_policy",
       "embodied_validation"
     ],
-    "explicit_state_knows_task_family": true
+    "explicit_state_knows_task_family": true,
+    "retrieval_proxy_is_simple": true
   }
 }

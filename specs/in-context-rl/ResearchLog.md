@@ -50,3 +50,34 @@
 - The calibration metric is intentionally simple and should not be over-read beyond this slice.
 - The current build instantiates Aim 1 and a thin Aim 3 proxy; it does not implement Aim 2 `experience compilation`.
 - Uncertainty is currently observational only; it is logged for evaluation purposes, but the slice does not implement abstention or a safer uncertainty-gated action policy.
+
+## 2026-03-28 (Aim 2 bounded slice update)
+
+- Added a bounded `experience compilation` proxy to the hidden-task bandit slice.
+- New components:
+  - `CompiledMemoryAgent`
+  - event extraction
+  - compact revisable memory
+  - revision / invalidation logging
+  - filtering and retrieval proxy baselines
+- New artifacts:
+  - `memory_contents.jsonl`
+  - `revision_events.jsonl`
+- Current claim boundary:
+  - this is a bounded event-driven compiler proxy
+  - it is not a universal context compiler
+  - uncertainty remains observational rather than policy-constraining
+- Current validated default result:
+  - `compiled_memory` cumulative regret: `21.375`
+  - `opaque_history` cumulative regret: `18.046875`
+  - `filtered_history` cumulative regret: `180.0`
+  - `retrieval_proxy` cumulative regret: `20.34375`
+  - `compiled_memory_better_than_filtered_history_on_regret`: `true`
+  - `compiled_memory_better_than_raw_history_on_regret`: `false`
+  - `compiled_memory_better_than_retrieval_proxy_on_regret`: `false`
+  - mean `revision_count`: `31.875`
+- Remaining uncertainty:
+  - the gain may still be partly structural because the environment matches the task family
+  - retrieval is only a light proxy baseline
+  - uncertainty remains observational rather than policy-constraining
+  - the current revision policy is inspectable but still too aggressive to beat all bounded baselines

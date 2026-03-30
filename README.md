@@ -56,7 +56,7 @@ This repository is organized as a literature-to-proposal-to-build workspace.
 
 ## Current implemented slice
 
-The current executable slice is a controlled hidden-task Bernoulli bandit proxy for `in-context-rl`.
+The current executable slice is a controlled hidden-task Bernoulli bandit proxy for `in-context-rl`, now extended with a bounded `experience compilation` mechanism.
 
 Run:
 
@@ -80,13 +80,15 @@ PYTHONPATH=src python3 -m unittest tests.test_icrl_slice
 
 - The current build covers:
   - explicit candidate state
+  - bounded experience compilation
   - controlled task shift
   - calibration-oriented logging
 - The current build does **not** yet cover:
-  - `experience compilation`
-  - revisable memory
+  - universal `experience compilation`
+  - proposal-scale revisable memory
   - abstention or safe action override
   - embodied validation
+  - strong matched-capacity baselines
 
 ## Legacy and generated artifacts
 
@@ -103,3 +105,15 @@ PYTHONPATH=src python3 -m unittest tests.test_icrl_slice
   - `specs/in-context-rl/`
   - `src/icrl_slice/`
   - `artifacts/in-context-rl/min_slice/`
+
+## Current runtime artifacts
+
+The current default run writes:
+
+- `summary.json`
+- `per_seed_metrics.json`
+- `transitions.jsonl`
+- `calibration.csv`
+- `memory_contents.jsonl`
+- `revision_events.jsonl`
+- `smoke_check.txt`

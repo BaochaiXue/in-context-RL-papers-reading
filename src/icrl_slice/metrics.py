@@ -45,6 +45,8 @@ def summarize_agent(transitions: List[dict], num_tasks: int) -> Dict[str, float 
         "belief_brier_score": belief_brier_score(transitions, num_tasks),
         "mean_selected_arm_uncertainty": mean(unc) if unc else None,
         "shift_recovery_steps": shift_recovery_steps(transitions),
+        "revision_count": max([row.get("memory_revision_count", 0) or 0 for row in transitions], default=0),
+        "memory_event_count": max([row.get("memory_event_count", 0) or 0 for row in transitions], default=0),
     }
 
 
@@ -54,4 +56,3 @@ def write_json(path: Path, payload: object) -> None:
 
 def is_finite_metric(value: object) -> bool:
     return value is None or (isinstance(value, (int, float)) and math.isfinite(value))
-
